@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:personal_fitness_tracker/core/const/color_constants.dart';
-import 'package:personal_fitness_tracker/features/signup/presentation/signup_screen.dart';
+import 'package:personal_fitness_tracker/features/auth/presentation/signup_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
