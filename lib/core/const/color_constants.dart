@@ -13,6 +13,7 @@ class ColorConstants {
 
   static const labelColor = Color(0xFF92A3FD);
   static const highlightText = Color(0xFF7F77DD);
+  static const icon = Color(0xFF92A3FD);
 
   static const snackBarColor = Color(0xFF92A3FD);
 }

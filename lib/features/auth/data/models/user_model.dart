@@ -1,21 +1,20 @@
-import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:personal_fitness_tracker/features/auth/domain/entities/user_entities.dart';
 
-class UserModel extends Equatable {
-  final String id;
-  final String email;
-  final String? name;
-
+class UserModel extends UserEntity {
   const UserModel({
-    required this.id,
-    required this.email,
-    this.name,
+    required super.id,
+    required super.email,
+    super.name,
   });
 
+  factory UserModel.fromFirebaseUser(User user, {String? username}) {
+    return UserModel(
+      id: user.uid,
+      email: user.email ?? '',
+      name: username ?? user.displayName,
+    );
+  }
+
   factory UserModel.empty() => const UserModel(id: '', email: '');
-
-  bool get isEmpty => id.isEmpty;
-  bool get isNotEmpty => id.isNotEmpty;
-
-  @override
-  List<Object?> get props => [id, email, name];
 }

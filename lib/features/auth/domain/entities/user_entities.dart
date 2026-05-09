@@ -1,17 +1,15 @@
 import 'package:equatable/equatable.dart';
 
-class UserModel extends Equatable {
+class UserEntity extends Equatable {
   final String id;
   final String email;
   final String? name;
 
-  const UserModel({
+  const UserEntity({
     required this.id,
     required this.email,
     this.name,
   });
-
-  factory UserModel.empty() => const UserModel(id: '', email: '');
 
   bool get isEmpty => id.isEmpty;
   bool get isNotEmpty => id.isNotEmpty;
