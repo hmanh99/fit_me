@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:personal_fitness_tracker/core/const/color_constants.dart';
-import 'package:personal_fitness_tracker/features/onboard/presentation/onboard_screen2.dart';
+import 'package:personal_fitness_tracker/core/router/route_paths.dart';
 
 class OnboardScreen1 extends StatefulWidget {
   const OnboardScreen1({super.key});
@@ -64,11 +65,7 @@ class _OnboardScreen1State extends State<OnboardScreen1> {
           minimumSize: Size(60, 60),
           shape: CircleBorder(),
         ),
-        onPressed: () {
-          Navigator.of(
-            context,
-          ).push(MaterialPageRoute(builder: (context) => OnboardScreen2()));
-        },
+        onPressed: () => context.push(AppRoutePaths.onboardingStep2),
         child: Icon(Icons.navigate_next),
       ),
     );

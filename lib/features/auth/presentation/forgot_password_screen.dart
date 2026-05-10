@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:personal_fitness_tracker/core/const/color_constants.dart';
+import 'package:personal_fitness_tracker/core/router/route_paths.dart';
 import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_event.dart';
 import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_state.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
-  const ForgotPasswordScreen({super.key});
+  const ForgotPasswordScreen({super.key, this.initialEmail});
+
+  final String? initialEmail;
 
   @override
   State<ForgotPasswordScreen> createState() => _ForgotPasswordScreenState();
@@ -15,6 +19,15 @@ class ForgotPasswordScreen extends StatefulWidget {
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _email = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    final initial = widget.initialEmail;
+    if (initial != null && initial.isNotEmpty) {
+      _email.text = initial;
+    }
+  }
 
   @override
   void dispose() {
@@ -44,6 +57,10 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               backgroundColor: Colors.green,
             ),
           );
+          Future<void>.delayed(const Duration(seconds: 10), () {
+            if (!context.mounted) return;
+            context.go(AppRoutePaths.signIn);
+          });
         }
 
         if (state is AuthErrorState) {
@@ -70,7 +87,13 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               ),
               onPressed: isLoading
                   ? null
-                  : () => context.read<AuthBloc>().add(AuthSignInNeededEvent()),
+                  : () {
+                      if (context.canPop()) {
+                        context.pop();
+                      } else {
+                        context.go(AppRoutePaths.signIn);
+                      }
+                    },
             ),
           ),
           body: SafeArea(
@@ -191,11 +214,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   GestureDetector(
                     onTap: isLoading
                         ? null
-                        : () {
-                            context.read<AuthBloc>().add(
-                              AuthSignInNeededEvent(),
-                            );
-                          },
+                        : () => context.go(AppRoutePaths.signIn),
                     child: RichText(
                       text: const TextSpan(
                         style: TextStyle(

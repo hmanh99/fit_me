@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:personal_fitness_tracker/core/const/color_constants.dart';
-import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_bloc.dart';
-import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_event.dart';
-import 'package:personal_fitness_tracker/features/auth/presentation/signup_screen.dart';
+import 'package:personal_fitness_tracker/core/router/route_paths.dart';
 
 class OnboardScreen2 extends StatefulWidget {
   const OnboardScreen2({super.key});
@@ -65,10 +63,7 @@ class _OnboardScreen2State extends State<OnboardScreen2> {
           minimumSize: Size(60, 60),
           shape: CircleBorder(),
       ),
-        onPressed: () {
-          Navigator.of(context).popUntil((route) => route.isFirst);
-          context.read<AuthBloc>().add(const AuthSignUpNeededEvent());
-        },
+        onPressed: () => context.go(AppRoutePaths.signUp),
         child: Icon(Icons.navigate_next),
       ),
     );

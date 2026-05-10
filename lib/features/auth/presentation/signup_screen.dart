@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:personal_fitness_tracker/core/const/color_constants.dart';
+import 'package:personal_fitness_tracker/core/router/route_paths.dart';
 import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_event.dart';
 import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_state.dart';
@@ -38,6 +40,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           _username.clear();
           _email.clear();
           _password.clear();
+          context.go(AppRoutePaths.appHome);
         }
 
         if (state is AuthErrorState) {
@@ -310,11 +313,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   GestureDetector(
                     onTap: isLoading
                         ? null
-                        : () {
-                      context.read<AuthBloc>().add(
-                        const AuthSignInNeededEvent(),
-                      );
-                    },
+                        : () => context.go(AppRoutePaths.signIn),
                     child: RichText(
                       text: const TextSpan(
                         style: TextStyle(

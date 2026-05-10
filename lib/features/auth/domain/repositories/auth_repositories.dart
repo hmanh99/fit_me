@@ -1,6 +1,9 @@
 import 'package:personal_fitness_tracker/features/auth/domain/entities/user_entities.dart';
 
 abstract class AuthRepository {
+  /// User hiện tại (Firebase session), hoặc `null` nếu chưa đăng nhập.
+  UserEntity? get currentUser;
+
   /// Sign in with email and password.
   Future<UserEntity> login({
     required String email,

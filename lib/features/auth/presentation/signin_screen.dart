@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:personal_fitness_tracker/core/const/color_constants.dart';
+import 'package:personal_fitness_tracker/core/router/route_names.dart';
+import 'package:personal_fitness_tracker/core/router/route_paths.dart';
 import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_event.dart';
 import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_state.dart';
 
 class SignInScreen extends StatefulWidget {
-  const SignInScreen({super.key});
+  const SignInScreen({super.key, this.returnTo});
+
+  /// Deep link / redirect sau đăng nhập (query `from` từ auth guard).
+  final String? returnTo;
 
   @override
   State<SignInScreen> createState() => _SignInScreenState();
@@ -41,6 +47,14 @@ class _SignInScreenState extends State<SignInScreen> {
   Widget build(BuildContext context) {
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
+        if (state is AuthSignInState) {
+          final target = widget.returnTo;
+          if (target != null && target.isNotEmpty) {
+            context.go(target);
+          } else {
+            context.go(AppRoutePaths.appHome);
+          }
+        }
         if (state is AuthErrorState) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -161,9 +175,13 @@ class _SignInScreenState extends State<SignInScreen> {
                         GestureDetector(
                           onTap: isLoading
                               ? null
-                              : () => context.read<AuthBloc>().add(
-                            const AuthForgotPasswordNeededEvent(),
-                          ),
+                              : () => context.pushNamed(
+                                    AppRouteNames.forgotPassword,
+                                    queryParameters: {
+                                      if (_email.text.trim().isNotEmpty)
+                                        'email': _email.text.trim(),
+                                    },
+                                  ),
                           child: Text(
                             'Forgot your password?',
                             style: TextStyle(
@@ -228,9 +246,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   GestureDetector(
                     onTap: isLoading
                         ? null
-                        : () => context.read<AuthBloc>().add(
-                      const AuthSignUpNeededEvent(),
-                    ),
+                        : () => context.go(AppRoutePaths.signUp),
                     child: RichText(
                       text: const TextSpan(
                         style: TextStyle(

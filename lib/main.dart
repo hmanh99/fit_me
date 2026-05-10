@@ -1,14 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:personal_fitness_tracker/core/router/app_router.dart';
 import 'package:personal_fitness_tracker/features/auth/data/repositories/auth_repositories_impl.dart';
 import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_event.dart';
 import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_state.dart';
-import 'package:personal_fitness_tracker/features/auth/presentation/forgot_password_screen.dart';
-import 'package:personal_fitness_tracker/features/auth/presentation/signin_screen.dart';
-import 'package:personal_fitness_tracker/features/auth/presentation/signup_screen.dart';
-import 'package:personal_fitness_tracker/features/dashboard/presentation/dashboard_screen.dart';
-import 'package:personal_fitness_tracker/features/onboard/presentation/welcome_screen.dart';
 import 'package:personal_fitness_tracker/firebase_options.dart';
 
 void main() async {
@@ -16,58 +14,51 @@ void main() async {
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  runApp(const MyApp());
+  final authBloc = AuthBloc(authRepository: AuthRepositoryImpl())
+    ..add(const AuthSessionRestoreRequested());
+
+  runApp(MyApp(authBloc: authBloc));
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MyApp extends StatefulWidget {
+  const MyApp({required this.authBloc, super.key});
+
+  final AuthBloc authBloc;
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  late final GoRouter _router = createAppRouter(widget.authBloc);
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => AuthBloc(authRepository: AuthRepositoryImpl()),
-      child: MaterialApp(
-        title: 'Personal Fitness Tracker',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        ),
-        debugShowCheckedModeBanner: false,
-        home: const MyHomePage(),
-      ),
-    );
-  }
-}
-
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocConsumer<AuthBloc, AuthState>(
-      listener: (context, state) {},
-      builder: (context, state) {
-        if (state is AuthInitialState) {
-          return const WelcomeScreen();
-        } else if (state is AuthSignInState || state is AuthSignUpState) {
-          return const DashboardScreen();
-        } else if (state is AuthSignInNeededState) {
-          return const SignInScreen();
-        } else if (state is AuthSignUpNeededState) {
-          return const SignUpScreen();
-        } else if (state is AuthSignOutState) {
-          return const SignInScreen();
-        } else if (state is AuthErrorState) {
-          return const SignInScreen();
-        } else if (state is AuthForgotPasswordNeededState) {
-          return const ForgotPasswordScreen();
-        } else if (state is AuthForgotPasswordSuccessState) {
-          return const SignInScreen();
-        } else {
-          return const Scaffold(
-            body: Center(child: CircularProgressIndicator()),
+    return BlocProvider.value(
+      value: widget.authBloc,
+      child: BlocBuilder<AuthBloc, AuthState>(
+        buildWhen: (prev, next) =>
+            prev is AuthUnknownState || next is AuthUnknownState,
+        builder: (context, state) {
+          return MaterialApp.router(
+            title: 'Personal Fitness Tracker',
+            theme: ThemeData(
+              colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+            ),
+            debugShowCheckedModeBanner: false,
+            routerConfig: _router,
+            builder: (context, child) {
+              if (state is AuthUnknownState) {
+                return const ColoredBox(
+                  color: Colors.white,
+                  child: Center(child: CircularProgressIndicator()),
+                );
+              }
+              return child ?? const SizedBox.shrink();
+            },
           );
-        }
-      },
+        },
+      ),
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:personal_fitness_tracker/core/const/color_constants.dart';
-import 'package:personal_fitness_tracker/features/onboard/presentation/onboard_screen1.dart';
+import 'package:personal_fitness_tracker/core/router/route_paths.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
@@ -69,11 +70,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     borderRadius: BorderRadius.circular(24),
                   ),
                 ),
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => OnboardScreen1()),
-                  );
-                },
+                onPressed: () => context.go(AppRoutePaths.onboardingStep1),
                 child: const Text(
                   'Get Started',
                   style: TextStyle(

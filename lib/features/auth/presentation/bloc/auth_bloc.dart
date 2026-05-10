@@ -8,16 +8,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   AuthBloc({required AuthRepository authRepository})
     : _authRepository = authRepository,
-      super(const AuthInitialState()) {
-    ///handle sign up needed
-    on<AuthSignUpNeededEvent>((event, emit) {
-      emit(const AuthSignUpNeededState());
-    },);
-
-    ///handle sign in needed
-    on<AuthSignInNeededEvent>((event, emit) {
-      emit(const AuthSignInNeededState());
-    },);
+      super(const AuthUnknownState()) {
+    on<AuthSessionRestoreRequested>((event, emit) {
+      final user = _authRepository.currentUser;
+      if (user != null) {
+        emit(AuthSignInState(user: user));
+      } else {
+        emit(const AuthInitialState());
+      }
+    });
 
     ///handle sign up
     on<AuthSignUpEvent>((event, emit) async {
@@ -59,11 +58,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(AuthErrorState(message: e.toString()));
       }
     });
-
-    ///handle forgot pass word needed
-    on<AuthForgotPasswordNeededEvent>((event, emit) {
-      emit(const AuthForgotPasswordNeededState());
-    },);
 
     ///handle forgot password
     on<AuthForgotPasswordEvent>((event, emit) async {

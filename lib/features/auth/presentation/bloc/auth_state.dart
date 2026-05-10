@@ -8,7 +8,17 @@ abstract class AuthState extends Equatable {
   List<Object?> get props => [];
 }
 
-//     Initial                                                                 
+/// Session chưa xác định (đang restore từ Firebase / repository).
+class AuthUnknownState extends AuthState {
+  const AuthUnknownState();
+}
+
+/// User đã đăng nhập (dùng cho redirect / guard).
+abstract class AuthAuthenticatedState extends AuthState {
+  const AuthAuthenticatedState();
+}
+
+//     Initial (guest — ví dụ welcome / onboarding entry)
 
 class AuthInitialState extends AuthState {
   const AuthInitialState();
@@ -20,19 +30,9 @@ class AuthLoadingState extends AuthState {
   const AuthLoadingState();
 }
 
-//     Navigation triggers                                                      
-
-class AuthSignUpNeededState extends AuthState {
-  const AuthSignUpNeededState();
-}
-
-class AuthSignInNeededState extends AuthState {
-  const AuthSignInNeededState();
-}
-
 //     Sign-in / Sign-up success                                                
 
-class AuthSignInState extends AuthState {
+class AuthSignInState extends AuthAuthenticatedState {
   // FIX: changed UserModel → UserEntity (domain states must depend on
   //      domain types only, never on data-layer models).
   final UserEntity user;
@@ -43,7 +43,7 @@ class AuthSignInState extends AuthState {
   List<Object?> get props => [user];
 }
 
-class AuthSignUpState extends AuthState {
+class AuthSignUpState extends AuthAuthenticatedState {
   final UserEntity user; // FIX: same as above
 
   const AuthSignUpState({required this.user});
@@ -53,10 +53,6 @@ class AuthSignUpState extends AuthState {
 }
 
 //     Forgot password                                                          
-
-class AuthForgotPasswordNeededState extends AuthState {
-  const AuthForgotPasswordNeededState();
-}
 
 // FIX: Removed unused AuthForgotPasswordState — it was dead code that could
 //      be confused with AuthForgotPasswordSuccessState by future developers.

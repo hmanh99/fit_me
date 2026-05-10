@@ -11,6 +11,15 @@ class AuthRepositoryImpl implements AuthRepository {
       : _authService = authService ?? AuthService();
 
   @override
+  UserEntity? get currentUser {
+    final user = _authService.user;
+    if (user == null) {
+      return null;
+    }
+    return UserModel.fromFirebaseUser(user);
+  }
+
+  @override
   Future<UserEntity> signUp({
     required String username,
     required String email,

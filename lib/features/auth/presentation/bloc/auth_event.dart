@@ -7,18 +7,10 @@ abstract class AuthEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-//        Navigation events                                                                                                                 
+//        Session                                                                                                                          
 
-class AuthSignUpNeededEvent extends AuthEvent {
-  const AuthSignUpNeededEvent();
-}
-
-class AuthSignInNeededEvent extends AuthEvent {
-  const AuthSignInNeededEvent();
-}
-
-class AuthForgotPasswordNeededEvent extends AuthEvent {
-  const AuthForgotPasswordNeededEvent();
+class AuthSessionRestoreRequested extends AuthEvent {
+  const AuthSessionRestoreRequested();
 }
 
 //        Auth action events                                                                                                               
