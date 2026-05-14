@@ -1,12 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:personal_fitness_tracker/core/error/exceptions.dart';
 
 class AuthService {
-  //change later
-  static final FirebaseAuth auth = FirebaseAuth.instance;
+  AuthService._();
+  static final AuthService _instance = AuthService._();
+  factory AuthService() => _instance;
 
-   User? get user => auth.currentUser;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  User? get user => _auth.currentUser;
 
   Future<User> signUp({
     required String username,
@@ -14,7 +16,7 @@ class AuthService {
     required String password,
   }) async {
     try {
-      UserCredential result = await auth.createUserWithEmailAndPassword(
+      UserCredential result = await _auth.createUserWithEmailAndPassword(
         email: email.trim(),
         password: password.trim(),
       );
@@ -34,7 +36,7 @@ class AuthService {
     required String password,
   }) async {
     try {
-      final UserCredential result = await auth.signInWithEmailAndPassword(
+      final UserCredential result = await _auth.signInWithEmailAndPassword(
         email: email.trim(),
         password: password.trim(),
       );
@@ -52,13 +54,11 @@ class AuthService {
     }
   }
 
-  Future<User?> signInWithGoogle() async {
-
-  }
+  Future<User?> signInWithGoogle() async {}
 
   Future<void> signOut() async {
     try {
-      await auth.signOut();
+      await _auth.signOut();
     } catch (e) {
       throw AuthException(message: e.toString());
     }
@@ -66,7 +66,7 @@ class AuthService {
 
   Future<void> forgotPassword({required String email}) async {
     try {
-      await auth.sendPasswordResetEmail(email: email);
+      await _auth.sendPasswordResetEmail(email: email);
     } on FirebaseAuthException catch (e) {
       throw AuthException(message: e.message ?? 'Failed to send reset email.');
     } catch (e) {

@@ -1,6 +1,6 @@
 /// Canonical URL paths for deep linking & redirects.
+/// Use [GoRouter] for `path`, `context.go`, and check `state.matchedLocation`.
 ///
-/// Dùng cho [GoRouter] `path`, `context.go`, và kiểm tra `state.matchedLocation`.
 abstract final class AppRoutePaths {
   AppRoutePaths._();
 
@@ -15,15 +15,17 @@ abstract final class AppRoutePaths {
   static const signUp = '/auth/sign-up';
   static const forgotPassword = '/auth/forgot-password';
 
-  /// Shell gốc — redirect sang [appHome] nếu user vào đúng `/app`.
+  /// Shell gốc — redirect to [appHome] if user direct correctly to `/app`.
   static const app = '/app';
   static const appHome = '/app/home';
+  static const appProgress = '/app/progress';
   static const appWorkouts = '/app/workouts';
+  static const appMealPlanner = '/app/meal-planner';
   static const appProfile = '/app/profile';
+  static const appProfileSettings = '/app/profile/settings';
+  static const appProfileEdit = '/app/profile/edit';
 
-  /// Ví dụ nested route dưới tab Home (path param + deep link).
-  static String appWorkoutDetail(String workoutId) =>
-      '/app/home/workout/$workoutId';
+
 
   static bool isAuthPath(String location) {
     final path = Uri.parse(location).path;

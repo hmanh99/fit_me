@@ -2,8 +2,8 @@ import 'package:personal_fitness_tracker/core/router/route_paths.dart';
 import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_state.dart';
 
 /// Guard / redirect base on [AuthState] and current [URL].
-///
 /// [GoRouter] call when [refreshListenable] notify change.
+
 String? resolveAuthRedirect({
   required AuthState authState,
   required String location,
@@ -31,6 +31,8 @@ String? resolveAuthRedirect({
       return Uri(
         path: AppRoutePaths.signIn,
         queryParameters: {'from': location},
+
+        /// -> auth/[location]
       ).toString();
     }
     return null;

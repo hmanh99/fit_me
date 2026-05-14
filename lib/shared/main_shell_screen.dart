@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:personal_fitness_tracker/core/const/color_constants.dart';
 
 /// Shell cho [StatefulShellRoute] — mỗi tab có navigator stack riêng.
 class MainShellScreen extends StatelessWidget {
@@ -15,6 +16,7 @@ class MainShellScreen extends StatelessWidget {
     return Scaffold(
       body: navigationShell,
       bottomNavigationBar: NavigationBar(
+        indicatorColor: ColorConstants.buttonColor,
         selectedIndex: navigationShell.currentIndex,
         destinations: const [
           NavigationDestination(
@@ -26,6 +28,11 @@ class MainShellScreen extends StatelessWidget {
             icon: Icon(Icons.fitness_center_outlined),
             selectedIcon: Icon(Icons.fitness_center),
             label: 'Workouts',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.trending_up_outlined),
+            selectedIcon: Icon(Icons.trending_up_outlined),
+            label: 'Progress',
           ),
           NavigationDestination(
             icon: Icon(Icons.person_outline),

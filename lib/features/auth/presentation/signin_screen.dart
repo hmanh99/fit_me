@@ -11,7 +11,7 @@ import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_st
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key, this.returnTo});
 
-  /// Deep link / redirect sau đăng nhập (query `from` từ auth guard).
+  /// Deep link / redirect after sign in(query `from` from auth guard).
   final String? returnTo;
 
   @override

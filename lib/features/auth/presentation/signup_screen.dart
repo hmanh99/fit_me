@@ -8,7 +8,9 @@ import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_ev
 import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_state.dart';
 
 class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({super.key});
+  String? returnTo;
+
+  SignUpScreen({super.key, this.returnTo});
 
   @override
   State<SignUpScreen> createState() => _SignUpScreenState();
@@ -37,10 +39,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is AuthSignUpState) {
+          final target = widget.returnTo;
+          if (target != null && target.isNotEmpty) {
+            context.go(target);
+          } else {
+            context.go(AppRoutePaths.appHome);
+          }
           _username.clear();
           _email.clear();
           _password.clear();
-          context.go(AppRoutePaths.appHome);
         }
 
         if (state is AuthErrorState) {
@@ -64,7 +71,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const SizedBox(height: 24),
                   const Text(
                     'Hey there,',
                     style: TextStyle(
@@ -186,14 +192,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               onChanged: isLoading
                                   ? null
                                   : (val) => setState(
-                                    () => _acceptedTerms = val ?? false,
-                              ),
+                                      () => _acceptedTerms = val ?? false,
+                                    ),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(2),
                               ),
                               activeColor: ColorConstants.buttonColor,
                               materialTapTargetSize:
-                              MaterialTapTargetSize.shrinkWrap,
+                                  MaterialTapTargetSize.shrinkWrap,
                               visualDensity: VisualDensity.compact,
                             ),
                             const SizedBox(width: 8),
@@ -242,44 +248,44 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           onPressed: isLoading
                               ? null
                               : () {
-                            if (_formKey.currentState!.validate()) {
-                              if (!_acceptedTerms) {
-                                ScaffoldMessenger.of(
-                                  context,
-                                ).showSnackBar(
-                                  const SnackBar(
-                                    content: Text(
-                                      'Please accept the Privacy Policy and Terms of Use',
-                                      style: TextStyle(
-                                        color: ColorConstants
-                                            .primaryTextColor,
-                                      ),
-                                    ),
-                                    backgroundColor:
-                                    ColorConstants.snackBarColor,
-                                  ),
-                                );
-                                return;
-                              }
+                                  if (_formKey.currentState!.validate()) {
+                                    if (!_acceptedTerms) {
+                                      ScaffoldMessenger.of(
+                                        context,
+                                      ).showSnackBar(
+                                        const SnackBar(
+                                          content: Text(
+                                            'Please accept the Privacy Policy and Terms of Use',
+                                            style: TextStyle(
+                                              color: ColorConstants
+                                                  .primaryTextColor,
+                                            ),
+                                          ),
+                                          backgroundColor:
+                                              ColorConstants.snackBarColor,
+                                        ),
+                                      );
+                                      return;
+                                    }
 
-                              context.read<AuthBloc>().add(
-                                AuthSignUpEvent(
-                                  username: _username.text.trim(),
-                                  email: _email.text.trim(),
-                                  password: _password.text,
-                                ),
-                              );
-                            }
-                          },
+                                    context.read<AuthBloc>().add(
+                                      AuthSignUpEvent(
+                                        username: _username.text.trim(),
+                                        email: _email.text.trim(),
+                                        password: _password.text,
+                                      ),
+                                    );
+                                  }
+                                },
                           child: isLoading
                               ? const SizedBox(
-                            height: 22,
-                            width: 22,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2.5,
-                              color: ColorConstants.buttonTextColor,
-                            ),
-                          )
+                                  height: 22,
+                                  width: 22,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2.5,
+                                    color: ColorConstants.buttonTextColor,
+                                  ),
+                                )
                               : const Text("Sign up"),
                         ),
                       ],
@@ -344,9 +350,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   Widget _buildSocialButton({required String assetPath}) {
     return GestureDetector(
-      onTap: () {
-
-      },
+      onTap: () {},
       child: Container(
         width: 60,
         height: 60,

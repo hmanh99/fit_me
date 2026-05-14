@@ -8,6 +8,7 @@ import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_bl
 import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_event.dart';
 import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_state.dart';
 import 'package:personal_fitness_tracker/firebase_options.dart';
+import 'package:personal_fitness_tracker/shared/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -49,12 +50,9 @@ class _MyAppState extends State<MyApp> {
             routerConfig: _router,
             builder: (context, child) {
               if (state is AuthUnknownState) {
-                return const ColoredBox(
-                  color: Colors.white,
-                  child: Center(child: CircularProgressIndicator()),
-                );
+                return const SplashScreen();
               }
-              return child ?? const SizedBox.shrink();
+              return child ?? const SplashScreen();
             },
           );
         },
@@ -62,3 +60,4 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
+
