@@ -1,7 +1,7 @@
 class ServerException implements Exception {
   final String message;
 
-  ServerException({this.message = 'A server error occurred.'});
+  ServerException({required this.message});
 
   @override
   String toString() => message;
@@ -10,7 +10,7 @@ class ServerException implements Exception {
 class AuthException implements Exception {
   final String message;
 
-  AuthException({this.message = 'An authentication error occurred.'});
+  AuthException({required this.message});
 
   @override
   String toString() => message;

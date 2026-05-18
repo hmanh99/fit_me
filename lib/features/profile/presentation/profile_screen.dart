@@ -33,10 +33,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     final user = _authService.user;
-    final displayName = user?.displayName?.trim().isNotEmpty == true
-        ? user!.displayName!
-        : 'User';
-    final photoUrl = user?.photoURL;
+
+    final username = user?.userMetadata?['username'] as String?;
+    final displayName =
+    (username?.trim().isNotEmpty == true) ? username! : 'User';
+
+    final photoUrl = user?.userMetadata?['avatar_url'] as String?;
 
     return Scaffold(
       backgroundColor: Colors.white10,
@@ -44,7 +46,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            _ProfileHeader(),
+            const _ProfileHeader(),
             Expanded(
               child: SingleChildScrollView(
                 padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
@@ -66,7 +68,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           _MenuTile(
                             icon: Icons.person_outline_rounded,
                             label: 'Personal Data',
-                            onTap: (){
+                            onTap: () {
                               // go to personal data {weight, height, age}
                             },
                           ),
@@ -96,7 +98,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           onChanged: (v) =>
                               setState(() => _popUpNotifications = v),
                           activeThumbColor: _kAccentPurple,
-                          activeTrackColor: _kAccentPurple.withValues(alpha: 0.35),
+                          activeTrackColor:
+                          _kAccentPurple.withValues(alpha: 0.35),
                           inactiveThumbColor: Colors.grey.shade400,
                           inactiveTrackColor: Colors.grey.shade300,
                         ),
@@ -122,7 +125,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           _MenuTile(
                             icon: Icons.settings_outlined,
                             label: 'Settings',
-                            onTap: () => context.goNamed(AppRouteNames.appProfileSettings),
+                            onTap: () => context
+                                .goNamed(AppRouteNames.appProfileSettings),
                           ),
                         ],
                       ),
@@ -136,8 +140,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
     );
   }
-
-
 
   void _toast(BuildContext context, String label) {
     ScaffoldMessenger.of(context).showSnackBar(
@@ -221,7 +223,7 @@ class _UserSummaryRow extends StatelessWidget {
     );
   }
 }
-// profile
+
 class _Avatar extends StatelessWidget {
   const _Avatar({required this.photoUrl});
 
@@ -244,11 +246,11 @@ class _Avatar extends StatelessWidget {
       child: ClipOval(
         child: photoUrl != null && photoUrl!.isNotEmpty
             ? Image.network(
-                photoUrl!,
-                fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) =>
-                    _placeholderIcon(),
-              )
+          photoUrl!,
+          fit: BoxFit.cover,
+          errorBuilder: (context, error, stackTrace) =>
+              _placeholderIcon(),
+        )
             : _placeholderIcon(),
       ),
     );
@@ -310,7 +312,6 @@ class _EditButton extends StatelessWidget {
   }
 }
 
-//section card: account, notification, others
 class _SectionCard extends StatelessWidget {
   const _SectionCard({
     required this.title,

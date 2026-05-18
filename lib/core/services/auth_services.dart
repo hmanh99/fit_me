@@ -1,14 +1,14 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:personal_fitness_tracker/core/error/exceptions.dart';
+import 'package:supabase_flutter/supabase_flutter.dart' hide AuthException;
 
 class AuthService {
   AuthService._();
   static final AuthService _instance = AuthService._();
   factory AuthService() => _instance;
 
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  SupabaseClient get _client => Supabase.instance.client;
 
-  User? get user => _auth.currentUser;
+  User? get user => _client.auth.currentUser;
 
   Future<User> signUp({
     required String username,
@@ -16,49 +16,54 @@ class AuthService {
     required String password,
   }) async {
     try {
-      UserCredential result = await _auth.createUserWithEmailAndPassword(
+      final AuthResponse response = await _client.auth.signUp(
         email: email.trim(),
         password: password.trim(),
+        data: {'username': username},
       );
-      final User user = result.user!;
-      await user.updateDisplayName(username);
 
-      return user;
-    } on FirebaseAuthException catch (e) {
-      throw AuthException(message: e.message ?? 'Sign-up failed.');
-    } catch (e) {
-      throw AuthException(message: e.toString());
-    }
-  }
-
-  Future<User?> signIn({
-    required String email,
-    required String password,
-  }) async {
-    try {
-      final UserCredential result = await _auth.signInWithEmailAndPassword(
-        email: email.trim(),
-        password: password.trim(),
-      );
-      final User? user = result.user;
-
+      final User? user = response.user;
       if (user == null) {
-        throw AuthException(message: "User not found");
+        throw AuthException(message: 'Sign-up failed: no user returned.');
       }
 
       return user;
-    } on FirebaseAuthException catch (e) {
-      throw AuthException(message: e.message ?? 'Sign-in failed.');
+    } on AuthException {
+      rethrow;
+    } on AuthApiException catch (e) {
+      throw AuthException(message: e.message);
     } catch (e) {
       throw AuthException(message: e.toString());
     }
   }
 
-  Future<User?> signInWithGoogle() async {}
+  Future<User> signIn({required String email, required String password}) async {
+    try {
+      final AuthResponse response = await _client.auth.signInWithPassword(
+        email: email.trim(),
+        password: password.trim(),
+      );
+
+      final User? user = response.user;
+      if (user == null) {
+        throw AuthException(message: 'User not found.');
+      }
+
+      return user;
+    } on AuthException {
+      rethrow;
+    } on AuthApiException catch (e) {
+      throw AuthException(message: e.message);
+    } catch (e) {
+      throw AuthException(message: e.toString());
+    }
+  }
 
   Future<void> signOut() async {
     try {
-      await _auth.signOut();
+      await _client.auth.signOut();
+    } on AuthApiException catch (e) {
+      throw AuthException(message: e.message);
     } catch (e) {
       throw AuthException(message: e.toString());
     }
@@ -66,11 +71,13 @@ class AuthService {
 
   Future<void> forgotPassword({required String email}) async {
     try {
-      await _auth.sendPasswordResetEmail(email: email);
-    } on FirebaseAuthException catch (e) {
-      throw AuthException(message: e.message ?? 'Failed to send reset email.');
+      await _client.auth.resetPasswordForEmail(email.trim());
+    } on AuthApiException catch (e) {
+      throw AuthException(message: e.message);
     } catch (e) {
       throw AuthException(message: e.toString());
     }
   }
+
+  // Future<User?> signInWithGoogle() async {}
 }

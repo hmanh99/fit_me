@@ -4,9 +4,6 @@ import 'package:personal_fitness_tracker/core/router/auth_redirect.dart';
 import 'package:personal_fitness_tracker/core/router/go_router_refresh_stream.dart';
 import 'package:personal_fitness_tracker/core/router/route_names.dart';
 import 'package:personal_fitness_tracker/core/router/route_paths.dart';
-import 'package:personal_fitness_tracker/features/profile/presentation/edit_profile_screen.dart';
-import 'package:personal_fitness_tracker/features/settings/presentation/settings_screen.dart';
-import 'package:personal_fitness_tracker/shared/main_shell_screen.dart';
 import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:personal_fitness_tracker/features/auth/presentation/forgot_password_screen.dart';
 import 'package:personal_fitness_tracker/features/auth/presentation/signin_screen.dart';
@@ -15,13 +12,18 @@ import 'package:personal_fitness_tracker/features/dashboard/presentation/dashboa
 import 'package:personal_fitness_tracker/features/onboard/presentation/onboard_screen1.dart';
 import 'package:personal_fitness_tracker/features/onboard/presentation/onboard_screen2.dart';
 import 'package:personal_fitness_tracker/features/onboard/presentation/welcome_screen.dart';
+import 'package:personal_fitness_tracker/features/profile/presentation/edit_profile_screen.dart';
 import 'package:personal_fitness_tracker/features/profile/presentation/profile_screen.dart';
-import 'package:personal_fitness_tracker/features/workouts/presentation/workouts_screen.dart';
+import 'package:personal_fitness_tracker/features/progress/presentation/progress_screen.dart';
+import 'package:personal_fitness_tracker/features/settings/presentation/settings_screen.dart';
+import 'package:personal_fitness_tracker/features/workouts/presentation/screens/exercise_detail_screen.dart';
+import 'package:personal_fitness_tracker/features/workouts/presentation/screens/workout_detail_screen.dart';
+import 'package:personal_fitness_tracker/features/workouts/presentation/screens/workouts_screen.dart';
+import 'package:personal_fitness_tracker/shared/main_shell_screen.dart';
 
 /// Factory [GoRouter] — tách khỏi [MaterialApp] để test & inject dễ dàng.
 /// [BlocProvider] của [AuthBloc] phải bọc phía trên [MaterialApp.router]
 /// (hoặc truyền bloc vào đây như hiện tại).
-
 
 GoRouter createAppRouter(AuthBloc authBloc) {
   return GoRouter(
@@ -85,12 +87,11 @@ GoRouter createAppRouter(AuthBloc authBloc) {
                 path: AppRoutePaths.appHome,
                 name: AppRouteNames.appHome,
                 builder: (context, state) => const DashboardScreen(),
-                routes: [
-
-                ],
+                routes: [],
               ),
             ],
           ),
+
           ///workouts
           StatefulShellBranch(
             routes: [
@@ -98,9 +99,32 @@ GoRouter createAppRouter(AuthBloc authBloc) {
                 path: AppRoutePaths.appWorkouts,
                 name: AppRouteNames.appWorkouts,
                 builder: (context, state) => const WorkoutsScreen(),
+                routes: [
+                  GoRoute(
+                    path: ':workoutId',
+                    name: AppRouteNames.appWorkoutDetail,
+                    builder: (context, state) {
+                      final workoutId = state.pathParameters['workoutId']!;
+                      return WorkoutDetailScreen();
+                    },
+                    routes: [
+                      GoRoute(
+                        path: 'exercises/:exerciseId',
+                        name: AppRouteNames.appExerciseDetail,
+                        builder: (context, state) {
+                          final workoutId = state.pathParameters['workoutId']!;
+                          final exerciseId =
+                              state.pathParameters['exerciseId']!;
+                          return ExerciseDetailScreen();
+                        },
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ],
           ),
+
           ///progress
           StatefulShellBranch(
             routes: [
@@ -108,11 +132,12 @@ GoRouter createAppRouter(AuthBloc authBloc) {
                 path: AppRoutePaths.appProgress,
                 name: AppRouteNames.appProgress,
                 builder: (context, state) {
-                  return const SettingsScreen();
+                  return const ProgressScreen();
                 },
               ),
             ],
           ),
+
           ///profile
           StatefulShellBranch(
             routes: [
@@ -134,12 +159,13 @@ GoRouter createAppRouter(AuthBloc authBloc) {
                     name: AppRouteNames.appProfileEdit,
                     builder: (context, state) => const EditProfileScreen(),
                   ),
-                ]
+                ],
               ),
             ],
           ),
         ],
       ),
+
       /// default app route redirect
       GoRoute(
         path: AppRoutePaths.app,

@@ -13,10 +13,8 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   UserEntity? get currentUser {
     final user = _authService.user;
-    if (user == null) {
-      return null;
-    }
-    return UserModel.fromFirebaseUser(user);
+    if (user == null) return null;
+    return UserModel.fromSupabaseUser(user);
   }
 
   @override
@@ -31,8 +29,8 @@ class AuthRepositoryImpl implements AuthRepository {
         password: password,
         username: username,
       );
-      return UserModel.fromFirebaseUser(user, username: username);
-    } on AuthException catch (e) {
+      return UserModel.fromSupabaseUser(user, username: username);
+    } on AuthException {
       rethrow;
     } catch (e) {
       throw AuthException(message: 'An unexpected error occurred during sign-up.');
@@ -46,11 +44,8 @@ class AuthRepositoryImpl implements AuthRepository {
   }) async {
     try {
       final user = await _authService.signIn(email: email, password: password);
-      if (user == null) {
-        throw AuthException(message: 'Login failed. Please check your credentials.');
-      }
-      return UserModel.fromFirebaseUser(user);
-    } on AuthException catch (e) {
+      return UserModel.fromSupabaseUser(user);
+    } on AuthException {
       rethrow;
     } catch (e) {
       throw AuthException(message: 'An unexpected error occurred during login.');
@@ -61,7 +56,7 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<void> logout() async {
     try {
       await _authService.signOut();
-    } on AuthException catch (e) {
+    } on AuthException {
       rethrow;
     } catch (e) {
       throw AuthException(message: 'An unexpected error occurred during sign-out.');
@@ -72,25 +67,14 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<void> forgotPassword({required String email}) async {
     try {
       await _authService.forgotPassword(email: email);
-    } on AuthException catch (e) {
+    } on AuthException {
       rethrow;
     } catch (e) {
-      throw AuthException(message: 'An unexpected error occurred while sending reset email.');
+      throw AuthException(
+          message: 'An unexpected error occurred while sending reset email.');
     }
   }
 
-  @override
-  Future<UserEntity> googleLogin() async {
-    try {
-      final user = await _authService.signInWithGoogle();
-      if (user == null) {
-        throw AuthException(message: 'Google Sign-in was cancelled.');
-      }
-      return UserModel.fromFirebaseUser(user);
-    } on AuthException catch (e) {
-      rethrow;
-    } catch (e) {
-      throw AuthException(message: 'An unexpected error occurred during Google Sign-in.');
-    }
-  }
+  // @override
+  // Future<UserEntity> googleLogin() async {}
 }

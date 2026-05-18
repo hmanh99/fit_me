@@ -1,4 +1,3 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -7,13 +6,18 @@ import 'package:personal_fitness_tracker/features/auth/data/repositories/auth_re
 import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_event.dart';
 import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_state.dart';
-import 'package:personal_fitness_tracker/firebase_options.dart';
 import 'package:personal_fitness_tracker/shared/splash_screen.dart';
+import 'package:supabase_flutter/supabase_flutter.dart' hide AuthState;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  ;
 
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await Supabase.initialize(
+    url: 'https://rrwpymefmyqnxeeithst.supabase.co',
+    anonKey:
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJyd3B5bWVmbXlxbnhlZWl0aHN0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkwMjk1NzIsImV4cCI6MjA5NDYwNTU3Mn0.H4rOaxxo-IEgj0jiL_VcUd_jNUqVUX_6w1Ql8nmq-IQ',
+  );
 
   final authBloc = AuthBloc(authRepository: AuthRepositoryImpl())
     ..add(const AuthSessionRestoreRequested());
@@ -35,8 +39,8 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider.value(
-      value: widget.authBloc,
+    return MultiBlocProvider(
+      providers: [BlocProvider.value(value: widget.authBloc)],
       child: BlocBuilder<AuthBloc, AuthState>(
         buildWhen: (prev, next) =>
             prev is AuthUnknownState || next is AuthUnknownState,
@@ -49,9 +53,7 @@ class _MyAppState extends State<MyApp> {
             debugShowCheckedModeBanner: false,
             routerConfig: _router,
             builder: (context, child) {
-              if (state is AuthUnknownState) {
-                return const SplashScreen();
-              }
+              if (state is AuthUnknownState) return const SplashScreen();
               return child ?? const SplashScreen();
             },
           );
@@ -60,4 +62,3 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
-

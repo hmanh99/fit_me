@@ -15,16 +15,20 @@ abstract final class AppRoutePaths {
   static const signUp = '/auth/sign-up';
   static const forgotPassword = '/auth/forgot-password';
 
-  /// Shell gốc — redirect to [appHome] if user direct correctly to `/app`.
+  ///redirect to [appHome] if user direct correctly to `/app`.
   static const app = '/app';
+
   static const appHome = '/app/home';
+
   static const appProgress = '/app/progress';
+
   static const appWorkouts = '/app/workouts';
-  static const appMealPlanner = '/app/meal-planner';
+
   static const appProfile = '/app/profile';
   static const appProfileSettings = '/app/profile/settings';
   static const appProfileEdit = '/app/profile/edit';
 
+  static const appMealPlanner = '/app/meal-planner';
 
 
   static bool isAuthPath(String location) {

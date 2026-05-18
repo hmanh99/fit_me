@@ -12,12 +12,16 @@ abstract final class AppRouteNames {
   static const forgotPassword = 'forgot-password';
 
   static const appHome = 'app-home';
+
   static const appWorkouts = 'app-workouts';
+  static const appWorkoutDetail = 'app-workout-detail';
+  static const appExerciseDetail = 'app-exercise-detail';
+
   static const appProfile = 'app-profile';
   static const appProfileSettings = 'app-profile-settings';
   static const appProfileEdit = 'app-profile-edit';
-  static const appMealPlanner = 'app-meal-planner';
+
   static const appProgress = 'app-progress';
 
-  static const workoutDetail = 'workout-detail';
+  static const appMealPlanner = 'app-meal-planner';
 }

@@ -1,4 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:personal_fitness_tracker/features/auth/domain/entities/user_entities.dart';
 
 class UserModel extends UserEntity {
@@ -8,11 +8,11 @@ class UserModel extends UserEntity {
     super.name,
   });
 
-  factory UserModel.fromFirebaseUser(User user, {String? username}) {
+  factory UserModel.fromSupabaseUser(User user, {String? username}) {
     return UserModel(
-      id: user.uid,
+      id: user.id,
       email: user.email ?? '',
-      name: username ?? user.displayName,
+      name: username ?? user.userMetadata?['username'] as String?,
     );
   }
 

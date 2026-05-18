@@ -28,7 +28,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final username = _authService.user?.displayName ?? "User";
+    final username = (_authService.user?.userMetadata?['username'] as String?) ?? "User";
+
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
