@@ -8,7 +8,7 @@ abstract class AuthState extends Equatable {
   List<Object?> get props => [];
 }
 
-/// Session chưa xác định (đang restore từ Firebase / repository).
+/// Session chưa xác định (đang restore từ Firebase / repositories).
 class AuthUnknownState extends AuthState {
   const AuthUnknownState();
 }

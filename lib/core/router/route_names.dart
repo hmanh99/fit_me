@@ -13,7 +13,7 @@ abstract final class AppRouteNames {
 
   static const appHome = 'app-home';
 
-  static const appWorkouts = 'app-workouts';
+  static const appWorkouts = 'app-workout';
   static const appWorkoutDetail = 'app-workout-detail';
   static const appExerciseDetail = 'app-exercise-detail';
 

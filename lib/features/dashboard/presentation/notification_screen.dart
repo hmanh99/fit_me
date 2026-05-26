@@ -96,7 +96,7 @@ class NotificationScreen extends StatelessWidget {
             Expanded(
               child: ListView.separated(
                 itemCount: notifications.length,
-                separatorBuilder: (_, __) => const Divider(
+                separatorBuilder: (context, index) => const Divider(
                   height: 1,
                   thickness: 0.5,
                   color: Color(0xFFE5E5E5),

@@ -14,7 +14,7 @@ class AuthRepositoryImpl implements AuthRepository {
   UserEntity? get currentUser {
     final user = _authService.user;
     if (user == null) return null;
-    return UserModel.fromSupabaseUser(user);
+    return UserModel.fromJson(user);
   }
 
   @override
@@ -29,7 +29,7 @@ class AuthRepositoryImpl implements AuthRepository {
         password: password,
         username: username,
       );
-      return UserModel.fromSupabaseUser(user, username: username);
+      return UserModel.fromJson(user, username: username);
     } on AuthException {
       rethrow;
     } catch (e) {
@@ -44,7 +44,7 @@ class AuthRepositoryImpl implements AuthRepository {
   }) async {
     try {
       final user = await _authService.signIn(email: email, password: password);
-      return UserModel.fromSupabaseUser(user);
+      return UserModel.fromJson(user);
     } on AuthException {
       rethrow;
     } catch (e) {

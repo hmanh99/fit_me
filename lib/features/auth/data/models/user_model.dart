@@ -8,7 +8,7 @@ class UserModel extends UserEntity {
     super.name,
   });
 
-  factory UserModel.fromSupabaseUser(User user, {String? username}) {
+  factory UserModel.fromJson(User user, {String? username}) {
     return UserModel(
       id: user.id,
       email: user.email ?? '',

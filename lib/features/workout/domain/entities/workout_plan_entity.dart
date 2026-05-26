@@ -1,15 +1,12 @@
 import 'package:equatable/equatable.dart';
-
+import 'package:personal_fitness_tracker/features/workout/domain/entities/plan_exercise_entity.dart';
 
 class WorkoutPlanEntity extends Equatable {
   final int planId;
-  final String? userId;         // NULL → default/system plan
+  final String? userId; // NULL → default/system plan
   final String planName;
-  final String? description;    // nullable
+  final String? description;
   final DateTime createdAt;
-
-  /// Ordered list of exercise slots in this plan.
-  /// Sorted by [PlanExerciseEntity.orderInWorkout] ascending.
   final List<PlanExerciseEntity> planExercises;
 
   const WorkoutPlanEntity({
@@ -58,5 +55,5 @@ class WorkoutPlanEntity extends Equatable {
   @override
   String toString() =>
       'WorkoutPlanEntity(planId: $planId, planName: $planName, '
-          'userId: $userId, exercises: ${planExercises.length})';
+      'userId: $userId, exercises: ${planExercises.length})';
 }

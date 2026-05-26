@@ -6,17 +6,21 @@ import 'package:personal_fitness_tracker/features/auth/data/repositories/auth_re
 import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_event.dart';
 import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_state.dart';
+import 'package:personal_fitness_tracker/features/exercise/data/datasources/exercise_remote_data_source.dart';
+import 'package:personal_fitness_tracker/features/exercise/data/repositories/exercise_repository_impl.dart';
+import 'package:personal_fitness_tracker/features/exercise/presentation/bloc/exercise_bloc.dart';
+import 'package:personal_fitness_tracker/features/workout/data/datasources/workout_remote_data_source.dart';
+import 'package:personal_fitness_tracker/features/workout/data/repositories/workout_repository_impl.dart';
+import 'package:personal_fitness_tracker/features/workout/presentation/bloc/workout_bloc.dart';
 import 'package:personal_fitness_tracker/shared/splash_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' hide AuthState;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  ;
 
   await Supabase.initialize(
     url: 'https://rrwpymefmyqnxeeithst.supabase.co',
-    anonKey:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJyd3B5bWVmbXlxbnhlZWl0aHN0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkwMjk1NzIsImV4cCI6MjA5NDYwNTU3Mn0.H4rOaxxo-IEgj0jiL_VcUd_jNUqVUX_6w1Ql8nmq-IQ',
+    anonKey: 'sb_publishable_mK5OJp-IdJ3q1r1xR9-78w_rb6v1ELz',
   );
 
   final authBloc = AuthBloc(authRepository: AuthRepositoryImpl())
@@ -39,25 +43,55 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [BlocProvider.value(value: widget.authBloc)],
-      child: BlocBuilder<AuthBloc, AuthState>(
-        buildWhen: (prev, next) =>
-            prev is AuthUnknownState || next is AuthUnknownState,
-        builder: (context, state) {
-          return MaterialApp.router(
-            title: 'Personal Fitness Tracker',
-            theme: ThemeData(
-              colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider<WorkoutRepositoryImpl>(
+          create: (context) => WorkoutRepositoryImpl(
+            remoteDataSource: WorkoutRemoteDataSourceImpl(
+              supabaseClient: Supabase.instance.client,
             ),
-            debugShowCheckedModeBanner: false,
-            routerConfig: _router,
-            builder: (context, child) {
-              if (state is AuthUnknownState) return const SplashScreen();
-              return child ?? const SplashScreen();
-            },
-          );
-        },
+          ),
+        ),
+        RepositoryProvider<ExerciseRepositoryImpl>(
+          create: (context) => ExerciseRepositoryImpl(
+            remoteDataSource: ExerciseRemoteDataSourceImpl(
+              supabaseClient: Supabase.instance.client,
+            ),
+          ),
+        ),
+      ],
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider.value(value: widget.authBloc),
+          BlocProvider<WorkoutBloc>(
+            create: (context) => WorkoutBloc(
+              workoutRepository: context.read<WorkoutRepositoryImpl>(),
+            ),
+          ),
+          BlocProvider<ExerciseBloc>(
+            create: (context) => ExerciseBloc(
+              exerciseRepository: context.read<ExerciseRepositoryImpl>(),
+            ),
+          ),
+        ],
+        child: BlocBuilder<AuthBloc, AuthState>(
+          buildWhen: (prev, next) =>
+              prev is AuthUnknownState || next is AuthUnknownState,
+          builder: (context, state) {
+            return MaterialApp.router(
+              title: 'Personal Fitness Tracker',
+              theme: ThemeData(
+                colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+              ),
+              debugShowCheckedModeBanner: false,
+              routerConfig: _router,
+              builder: (context, child) {
+                if (state is AuthUnknownState) return const SplashScreen();
+                return child ?? const SplashScreen();
+              },
+            );
+          },
+        ),
       ),
     );
   }

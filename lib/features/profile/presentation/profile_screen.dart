@@ -6,7 +6,6 @@ import 'package:personal_fitness_tracker/core/router/route_paths.dart';
 import 'package:personal_fitness_tracker/core/services/auth_services.dart';
 
 const Color _kAccentPurple = Color(0xFFC58BF2);
-const Color _kSurfaceGrey = Color(0xFFF7F8FA);
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({
@@ -46,13 +45,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const _ProfileHeader(),
             Expanded(
               child: SingleChildScrollView(
                 padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
+                    const SizedBox(height: 12,),
                     _UserSummaryRow(
                       name: displayName,
                       photoUrl: photoUrl,
@@ -148,29 +147,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 }
 
-class _ProfileHeader extends StatelessWidget {
-  const _ProfileHeader();
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(8, 4, 8, 0),
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          const Text(
-            'Profile',
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.w700,
-              color: ColorConstants.primaryTextColor,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
 
 class _UserSummaryRow extends StatelessWidget {
   const _UserSummaryRow({

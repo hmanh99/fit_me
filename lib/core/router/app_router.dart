@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:personal_fitness_tracker/core/router/auth_redirect.dart';
 import 'package:personal_fitness_tracker/core/router/go_router_refresh_stream.dart';
@@ -9,6 +10,9 @@ import 'package:personal_fitness_tracker/features/auth/presentation/forgot_passw
 import 'package:personal_fitness_tracker/features/auth/presentation/signin_screen.dart';
 import 'package:personal_fitness_tracker/features/auth/presentation/signup_screen.dart';
 import 'package:personal_fitness_tracker/features/dashboard/presentation/dashboard_screen.dart';
+import 'package:personal_fitness_tracker/features/exercise/data/repositories/exercise_repository_impl.dart';
+import 'package:personal_fitness_tracker/features/exercise/presentation/bloc/exercise_bloc.dart';
+import 'package:personal_fitness_tracker/features/exercise/presentation/screens/exercise_detail_screen.dart';
 import 'package:personal_fitness_tracker/features/onboard/presentation/onboard_screen1.dart';
 import 'package:personal_fitness_tracker/features/onboard/presentation/onboard_screen2.dart';
 import 'package:personal_fitness_tracker/features/onboard/presentation/welcome_screen.dart';
@@ -16,9 +20,10 @@ import 'package:personal_fitness_tracker/features/profile/presentation/edit_prof
 import 'package:personal_fitness_tracker/features/profile/presentation/profile_screen.dart';
 import 'package:personal_fitness_tracker/features/progress/presentation/progress_screen.dart';
 import 'package:personal_fitness_tracker/features/settings/presentation/settings_screen.dart';
-import 'package:personal_fitness_tracker/features/workouts/presentation/screens/exercise_detail_screen.dart';
-import 'package:personal_fitness_tracker/features/workouts/presentation/screens/workout_detail_screen.dart';
-import 'package:personal_fitness_tracker/features/workouts/presentation/screens/workouts_screen.dart';
+import 'package:personal_fitness_tracker/features/workout/data/repositories/workout_repository_impl.dart';
+import 'package:personal_fitness_tracker/features/workout/presentation/bloc/workout_bloc.dart';
+import 'package:personal_fitness_tracker/features/workout/presentation/screens/workout_detail_screen.dart';
+import 'package:personal_fitness_tracker/features/workout/presentation/screens/workout_screen.dart';
 import 'package:personal_fitness_tracker/shared/main_shell_screen.dart';
 
 /// Factory [GoRouter] — tách khỏi [MaterialApp] để test & inject dễ dàng.
@@ -98,24 +103,44 @@ GoRouter createAppRouter(AuthBloc authBloc) {
               GoRoute(
                 path: AppRoutePaths.appWorkouts,
                 name: AppRouteNames.appWorkouts,
-                builder: (context, state) => const WorkoutsScreen(),
+                builder: (context, state) => BlocProvider<WorkoutBloc>(
+                  create: (context) => WorkoutBloc(
+                    workoutRepository: context.read<WorkoutRepositoryImpl>(),
+                  ),
+                  child: const WorkoutScreen(),
+                ),
                 routes: [
                   GoRoute(
                     path: ':workoutId',
                     name: AppRouteNames.appWorkoutDetail,
                     builder: (context, state) {
                       final workoutId = state.pathParameters['workoutId']!;
-                      return WorkoutDetailScreen();
+                      return BlocProvider<WorkoutBloc>(
+                        create: (context) => WorkoutBloc(
+                          workoutRepository: context
+                              .read<WorkoutRepositoryImpl>(),
+                        ),
+                        child: WorkoutDetailScreen(
+                          workoutId: int.parse(workoutId),
+                        ),
+                      );
                     },
                     routes: [
                       GoRoute(
                         path: 'exercises/:exerciseId',
                         name: AppRouteNames.appExerciseDetail,
                         builder: (context, state) {
-                          final workoutId = state.pathParameters['workoutId']!;
                           final exerciseId =
                               state.pathParameters['exerciseId']!;
-                          return ExerciseDetailScreen();
+                          return BlocProvider<ExerciseBloc>(
+                            create: (context) => ExerciseBloc(
+                              exerciseRepository: context
+                                  .read<ExerciseRepositoryImpl>(),
+                            ),
+                            child: ExerciseDetailScreen(
+                              exerciseId: int.parse(exerciseId),
+                            ),
+                          );
                         },
                       ),
                     ],

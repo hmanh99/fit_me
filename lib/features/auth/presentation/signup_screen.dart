@@ -8,9 +8,9 @@ import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_ev
 import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_state.dart';
 
 class SignUpScreen extends StatefulWidget {
-  String? returnTo;
+  final String? returnTo;
 
-  SignUpScreen({super.key, this.returnTo});
+  const SignUpScreen({super.key, this.returnTo});
 
   @override
   State<SignUpScreen> createState() => _SignUpScreenState();
