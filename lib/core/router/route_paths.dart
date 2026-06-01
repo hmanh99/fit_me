@@ -20,7 +20,7 @@ abstract final class AppRoutePaths {
 
   static const appHome = '/app/home';
 
-  static const appProgress = '/app/progress';
+  static const appProgress = '/app/schedule';
 
   static const appWorkouts = '/app/workout';
 

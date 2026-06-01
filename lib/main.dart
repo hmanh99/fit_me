@@ -9,6 +9,9 @@ import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_st
 import 'package:personal_fitness_tracker/features/exercise/data/datasources/exercise_remote_data_source.dart';
 import 'package:personal_fitness_tracker/features/exercise/data/repositories/exercise_repository_impl.dart';
 import 'package:personal_fitness_tracker/features/exercise/presentation/bloc/exercise_bloc.dart';
+import 'package:personal_fitness_tracker/features/schedule/data/datasources/schedule_remote_data_source.dart';
+import 'package:personal_fitness_tracker/features/schedule/data/repositories/schedule_repository_impl.dart';
+import 'package:personal_fitness_tracker/features/schedule/presentation/bloc/schedule_bloc.dart';
 import 'package:personal_fitness_tracker/features/workout/data/datasources/workout_remote_data_source.dart';
 import 'package:personal_fitness_tracker/features/workout/data/repositories/workout_repository_impl.dart';
 import 'package:personal_fitness_tracker/features/workout/presentation/bloc/workout_bloc.dart';
@@ -59,6 +62,13 @@ class _MyAppState extends State<MyApp> {
             ),
           ),
         ),
+        RepositoryProvider<ScheduleRepositoryImpl>(
+          create: (context) => ScheduleRepositoryImpl(
+            remoteDataSource: ScheduleRemoteDataSourceImpl(
+              supabaseClient: Supabase.instance.client,
+            ),
+          ),
+        ),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -71,6 +81,11 @@ class _MyAppState extends State<MyApp> {
           BlocProvider<ExerciseBloc>(
             create: (context) => ExerciseBloc(
               exerciseRepository: context.read<ExerciseRepositoryImpl>(),
+            ),
+          ),
+          BlocProvider<ScheduleBloc>(
+            create: (context) => ScheduleBloc(
+              scheduleRepository: context.read<ScheduleRepositoryImpl>(),
             ),
           ),
         ],

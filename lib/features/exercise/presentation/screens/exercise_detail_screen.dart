@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:personal_fitness_tracker/features/exercise/presentation/bloc/exercise_bloc.dart';
 import 'package:personal_fitness_tracker/features/exercise/presentation/bloc/exercise_event.dart';
 import 'package:personal_fitness_tracker/features/exercise/presentation/bloc/exercise_state.dart';
 
 class ExerciseDetailScreen extends StatefulWidget {
   final int exerciseId;
+  final String exerciseName;
 
-  const ExerciseDetailScreen({super.key, required this.exerciseId});
+  const ExerciseDetailScreen({
+    super.key,
+    required this.exerciseId,
+    required this.exerciseName,
+  });
 
   @override
   State<ExerciseDetailScreen> createState() => _ExerciseDetailScreenState();
@@ -25,7 +31,40 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Exercise Details')),
+      appBar: AppBar(
+        leading: Container(
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(100)),
+          child: IconButton(
+            icon: Icon(Icons.arrow_back_ios_new),
+            color: Colors.white,
+            onPressed: () {
+              context.pop();
+            },
+          ),
+        ),
+        title: Row(
+          children: [
+            Text(
+              widget.exerciseName,
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w700,
+                fontSize: 24,
+              ),
+            ),
+          ],
+        ),
+        toolbarHeight: 60,
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Color(0xFF92A3FD), Color(0xFF9DCEFF)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+        ),
+      ),
       body: BlocBuilder<ExerciseBloc, ExerciseState>(
         builder: (context, state) {
           if (state is ExerciseLoading) {
@@ -39,16 +78,11 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    exercise.name,
-                    style: TextStyle(fontWeight: FontWeight.w700, fontSize: 24),
-                  ),
-                  const SizedBox(height: 8),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Padding(
-                        padding: EdgeInsets.only(top: 8.0),
+                        padding: EdgeInsets.only(top: 12.0),
                         child: Text(
                           "Muscles: ",
                           style: TextStyle(
@@ -57,10 +91,10 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
                           ),
                         ),
                       ),
-                      const SizedBox(width: 8),
+                      const SizedBox(width: 12),
                       Expanded(
                         child: Wrap(
-                          spacing: 8.0,
+                          spacing: 12.0,
                           runSpacing: 4.0,
                           children: exercise.muscleGroups
                               .map((m) => Chip(label: Text(m)))
@@ -79,18 +113,18 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
                           fontSize: 16,
                         ),
                       ),
-                      const SizedBox(width: 8),
+                      const SizedBox(width: 12),
                       Chip(label: Text(exercise.difficulty.name)),
                     ],
                   ),
 
                   if (exercise.requiresEquipment) ...[
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 16),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Padding(
-                          padding: EdgeInsets.only(top: 8.0),
+                          padding: EdgeInsets.only(top: 12.0),
                           child: Text(
                             "Equipments: ",
                             style: TextStyle(
@@ -99,10 +133,10 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
                             ),
                           ),
                         ),
-                        const SizedBox(width: 8),
+                        const SizedBox(width: 12),
                         Expanded(
                           child: Wrap(
-                            spacing: 8.0,
+                            spacing: 12.0,
                             runSpacing: 4.0,
                             children: (exercise.equipments ?? [])
                                 .map((e) => Chip(label: Text(e)))

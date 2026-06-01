@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:personal_fitness_tracker/core/router/route_names.dart';
 import 'package:personal_fitness_tracker/features/exercise/presentation/bloc/exercise_bloc.dart';
 import 'package:personal_fitness_tracker/features/exercise/presentation/bloc/exercise_event.dart';
 import 'package:personal_fitness_tracker/features/exercise/presentation/bloc/exercise_state.dart';
@@ -47,7 +49,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                     subtitle: Text(''),
                     trailing: Text(exercise.difficulty.name),
                     onTap: () {
-                      // Navigate to details
+                      //navigate to detail screen
                     },
                   );
                 },

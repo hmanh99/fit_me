@@ -73,7 +73,12 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                     description: plan.description,
                     onTap: () => context.goNamed(
                       AppRouteNames.appWorkoutDetail,
-                      pathParameters: {'workoutId': plan.planId.toString()},
+                      pathParameters: {
+                        'workoutId': plan.planId.toString(),
+                      },
+                      queryParameters: {
+                        'planName': plan.planName,
+                      },
                     ),
                   );
                 },
@@ -121,29 +126,29 @@ class _WorkOutPlanCardState extends State<WorkOutPlanCard> {
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16),
-            gradient: const LinearGradient(
-              colors: [Color(0xFF1542F6), Color(0xFF228EF6)],
+            borderRadius: BorderRadius.circular(24),
+            gradient: LinearGradient(
+              colors: [Color(0xFF92A3FD), Color(0xFF9DCEFF)],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
           ),
           child: Padding(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.all(16),
             child: Row(
               children: [
                 // Icon badge
                 Container(
-                  width: 52,
-                  height: 52,
+                  width: 50,
+                  height: 50,
                   decoration: BoxDecoration(
-                    color: Colors.white.withValues(alpha: 0.25),
-                    borderRadius: BorderRadius.circular(14),
+                    color: Colors.white.withValues(alpha: 0.3),
+                    borderRadius: BorderRadius.circular(48),
                   ),
                   child: const Icon(
                     Icons.fitness_center_rounded,
                     color: Colors.white,
-                    size: 26,
+                    size: 25,
                   ),
                 ),
                 const SizedBox(width: 16),
@@ -157,7 +162,7 @@ class _WorkOutPlanCardState extends State<WorkOutPlanCard> {
                         style: const TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.w700,
-                          fontSize: 16,
+                          fontSize: 24,
                         ),
                       ),
                       if (widget.description != null &&
@@ -177,11 +182,10 @@ class _WorkOutPlanCardState extends State<WorkOutPlanCard> {
                     ],
                   ),
                 ),
-                const SizedBox(width: 8),
-                // Arrow
+
                 Container(
-                  width: 32,
-                  height: 32,
+                  width: 40,
+                  height: 40,
                   decoration: BoxDecoration(
                     color: Colors.white.withValues(alpha: 0.2),
                     shape: BoxShape.circle,
@@ -189,7 +193,7 @@ class _WorkOutPlanCardState extends State<WorkOutPlanCard> {
                   child: const Icon(
                     Icons.arrow_forward_ios_rounded,
                     color: Colors.white,
-                    size: 14,
+                    size: 16,
                   ),
                 ),
               ],

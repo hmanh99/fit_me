@@ -30,9 +30,14 @@ class MainShellScreen extends StatelessWidget {
             label: 'Workouts',
           ),
           NavigationDestination(
-            icon: Icon(Icons.trending_up_outlined),
-            selectedIcon: Icon(Icons.trending_up_outlined),
-            label: 'Progress',
+            icon: Icon(Icons.calendar_month_outlined),
+            selectedIcon: Icon(Icons.calendar_month_outlined),
+            label: 'Calendar',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.set_meal),
+            selectedIcon: Icon(Icons.set_meal_outlined),
+            label: 'Meal',
           ),
           NavigationDestination(
             icon: Icon(Icons.person_outline),
