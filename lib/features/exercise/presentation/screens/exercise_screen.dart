@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
-import 'package:personal_fitness_tracker/core/router/route_names.dart';
+import 'package:personal_fitness_tracker/features/exercise/domain/entities/exercise_entity.dart';
 import 'package:personal_fitness_tracker/features/exercise/presentation/bloc/exercise_bloc.dart';
 import 'package:personal_fitness_tracker/features/exercise/presentation/bloc/exercise_event.dart';
 import 'package:personal_fitness_tracker/features/exercise/presentation/bloc/exercise_state.dart';
+import 'package:personal_fitness_tracker/features/exercise/presentation/widgets/exercise_empty_state.dart';
+import 'package:personal_fitness_tracker/features/exercise/presentation/widgets/exercise_error_state.dart';
+import 'package:personal_fitness_tracker/features/exercise/presentation/widgets/exercise_gradient_app_bar.dart';
+import 'package:personal_fitness_tracker/features/exercise/presentation/widgets/exercise_list_card.dart';
+import 'package:personal_fitness_tracker/features/exercise/presentation/widgets/exercise_loading_skeleton.dart';
+import 'package:personal_fitness_tracker/features/exercise/presentation/widgets/exercise_theme.dart';
 
 class ExerciseScreen extends StatefulWidget {
   const ExerciseScreen({super.key});
@@ -20,43 +25,99 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
     context.read<ExerciseBloc>().add(const ExerciseFetchStarted());
   }
 
+  void _fetchExercises() {
+    context.read<ExerciseBloc>().add(const ExerciseFetchStarted());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Exercises'),
+      backgroundColor: Colors.grey.shade50,
+      appBar: const ExerciseGradientAppBar(
+        title: 'Exercises',
+        centerTitle: true,
       ),
       body: BlocBuilder<ExerciseBloc, ExerciseState>(
         builder: (context, state) {
           if (state is ExerciseLoading) {
-            return const Center(child: CircularProgressIndicator());
+            return const ExerciseLoadingSkeleton();
           } else if (state is ExerciseError) {
-            return Center(child: Text('Error: ${state.message}'));
+            return ExerciseErrorState(
+              errorMessage: state.message,
+              onRetry: _fetchExercises,
+            );
           } else if (state is ExerciseEmpty) {
-            return const Center(child: Text('No exercises found.'));
+            return ExerciseEmptyState(onRefresh: _fetchExercises);
           } else if (state is ExerciseSuccess) {
-            final exercises = state.exercises;
-            return RefreshIndicator(
-              onRefresh: () async {
-                context.read<ExerciseBloc>().add(const ExerciseFetchStarted());
-              },
-              child: ListView.builder(
-                itemCount: exercises.length,
-                itemBuilder: (context, index) {
-                  final exercise = exercises[index];
-                  return ListTile(
-                    title: Text(exercise.name),
-                    subtitle: Text(''),
-                    trailing: Text(exercise.difficulty.name),
-                    onTap: () {
-                      //navigate to detail screen
-                    },
-                  );
-                },
-              ),
+            return _ExerciseListView(
+              exercises: state.exercises,
+              onRefresh: _fetchExercises,
             );
           }
           return const SizedBox.shrink();
+        },
+      ),
+    );
+  }
+}
+
+class _ExerciseListView extends StatelessWidget {
+  final List<ExerciseEntity> exercises;
+  final VoidCallback onRefresh;
+
+  const _ExerciseListView({
+    required this.exercises,
+    required this.onRefresh,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return RefreshIndicator(
+      onRefresh: () async => onRefresh(),
+      color: ExerciseTheme.gradientStart,
+      backgroundColor: Colors.white,
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final horizontalInset = constraints.maxWidth >= 600 ? 24.0 : 0.0;
+
+          return ListView.builder(
+            padding: EdgeInsets.fromLTRB(
+              horizontalInset,
+              12,
+              horizontalInset,
+              ExerciseTheme.listBottomPadding,
+            ),
+            itemCount: exercises.length,
+            itemBuilder: (context, index) {
+              final exercise = exercises[index];
+              return TweenAnimationBuilder<double>(
+                key: ValueKey(exercise.exerciseId),
+                tween: Tween(begin: 0.0, end: 1.0),
+                duration: Duration(milliseconds: 350 + (index * 60)),
+                curve: Curves.easeOutCubic,
+                builder: (context, value, child) {
+                  return Opacity(
+                    opacity: value,
+                    child: Transform.translate(
+                      offset: Offset(0, 24 * (1 - value)),
+                      child: child,
+                    ),
+                  );
+                },
+                child: Center(
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 720),
+                    child: ExerciseListCard(
+                      exercise: exercise,
+                      onTap: () {
+                        //navigate to detail screen
+                      },
+                    ),
+                  ),
+                ),
+              );
+            },
+          );
         },
       ),
     );
