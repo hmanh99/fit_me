@@ -1,0 +1,126 @@
+import 'package:flutter/material.dart';
+import 'package:personal_fitness_tracker/core/const/color_constants.dart';
+
+class WorkoutEmptyState extends StatelessWidget {
+  final VoidCallback? onRefresh;
+  const WorkoutEmptyState({super.key, this.onRefresh});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 32),
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            // Glowing visual badge
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                Container(
+                  width: 130,
+                  height: 130,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF92A3FD).withValues(alpha: 0.05),
+                    shape: BoxShape.circle,
+                  ),
+                ),
+                Container(
+                  width: 100,
+                  height: 100,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF92A3FD).withValues(alpha: 0.1),
+                    shape: BoxShape.circle,
+                  ),
+                ),
+                Container(
+                  width: 70,
+                  height: 70,
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [Color(0xFF92A3FD), Color(0xFF9DCEFF)],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ),
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(
+                    Icons.fitness_center_rounded,
+                    color: Colors.white,
+                    size: 32,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 32),
+            // Text Content
+            const Text(
+              "No Workouts Available",
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w700,
+                color: ColorConstants.primaryTextColor,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 12),
+            const Text(
+              "We couldn't find any workout plans. Try checking back later or tap Refresh to reload.",
+              style: TextStyle(
+                fontSize: 14,
+                color: ColorConstants.secondaryTextColor,
+                height: 1.5,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            if (onRefresh != null) ...[
+              const SizedBox(height: 32),
+              // Refresh Button
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(99),
+                  gradient: const LinearGradient(
+                    colors: [Color(0xFF92A3FD), Color(0xFF9DCEFF)],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: const Color(0xFF92A3FD).withValues(alpha: 0.3),
+                      blurRadius: 10,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: ElevatedButton.icon(
+                  onPressed: onRefresh,
+                  icon: const Icon(Icons.refresh_rounded, color: Colors.white),
+                  label: const Text(
+                    "Refresh Plans",
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                    ),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.transparent,
+                    shadowColor: Colors.transparent,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 24,
+                      vertical: 14,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(99),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+}
