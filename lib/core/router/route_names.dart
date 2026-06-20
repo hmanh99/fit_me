@@ -20,6 +20,7 @@ abstract final class AppRouteNames {
   static const appProfile = 'app-profile';
   static const appProfileSettings = 'app-profile-settings';
   static const appProfileEdit = 'app-profile-edit';
+  static const appProfileDetail = 'app-profile-detail';
 
   static const appProgress = 'app-schedule';
 

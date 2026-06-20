@@ -76,7 +76,7 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
       body: BlocBuilder<WorkoutBloc, WorkoutState>(
         builder: (context, state) {
           if (state is WorkoutLoading) {
-            return const WorkoutLoadingSkeleton(isDetailPage: true);
+            return const WorkoutLoadingSkeleton(isDetailPage: true,);
           } else if (state is WorkoutError) {
             return WorkoutErrorState(
               errorMessage: state.message,
@@ -88,7 +88,11 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
             );
           } else if (state is WorkoutPlanDetailsLoaded) {
             final plan = state.workoutPlan;
-            return SafeArea(
+            return RefreshIndicator(onRefresh: () async {
+              context.read<WorkoutBloc>().add(
+                WorkoutFetchPlanDetailsStarted(planId: widget.workoutId),
+              );
+            }, child: SafeArea(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -106,11 +110,10 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
                   ),
                   Expanded(
                     child: ListView.builder(
-                      padding: const EdgeInsets.only(bottom: 24),
+                      padding: const EdgeInsets.only(bottom: 16),
                       itemCount: plan.planExercises.length,
                       itemBuilder: (context, index) {
                         final planEx = plan.planExercises[index];
-                        // Staggered list entry animation
                         return TweenAnimationBuilder<double>(
                           key: ValueKey(planEx.planExerciseId),
                           tween: Tween(begin: 0.0, end: 1.0),
@@ -133,7 +136,7 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
                                 pathParameters: {
                                   'workoutId': plan.planId.toString().trim(),
                                   'exerciseId':
-                                      planEx.exerciseId.toString().trim(),
+                                  planEx.exerciseId.toString().trim(),
                                 },
                                 queryParameters: {
                                   'exerciseName': planEx.exercise?.name.trim(),
@@ -147,7 +150,7 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
                   ),
                 ],
               ),
-            );
+            ));
           }
           return const SizedBox.shrink();
         },

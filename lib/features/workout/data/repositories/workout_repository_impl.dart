@@ -1,4 +1,4 @@
-import 'package:personal_fitness_tracker/features/workout/data/datasources/workout_remote_data_source.dart';
+import 'package:personal_fitness_tracker/features/workout/data/datasource/workout_remote_data_source.dart';
 import 'package:personal_fitness_tracker/features/workout/domain/entities/workout_plan_entity.dart';
 import 'package:personal_fitness_tracker/features/workout/domain/repositories/workout_repository.dart';
 

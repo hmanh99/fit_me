@@ -51,30 +51,28 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
           ),
         ),
         shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(
-            bottom: Radius.circular(20),
-          ),
+          borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
         ),
       ),
       body: BlocBuilder<WorkoutBloc, WorkoutState>(
         builder: (context, state) {
           if (state is WorkoutLoading) {
-            return const WorkoutLoadingSkeleton();
+            return const WorkoutLoadingSkeleton(isDetailPage: false,);
           } else if (state is WorkoutError) {
             return WorkoutErrorState(
               errorMessage: state.message,
               onRetry: () {
                 context.read<WorkoutBloc>().add(
-                      const WorkoutFetchPlansStarted(),
-                    );
+                  const WorkoutFetchPlansStarted(),
+                );
               },
             );
           } else if (state is WorkoutEmpty) {
             return WorkoutEmptyState(
               onRefresh: () {
                 context.read<WorkoutBloc>().add(
-                      const WorkoutFetchPlansStarted(),
-                    );
+                  const WorkoutFetchPlansStarted(),
+                );
               },
             );
           } else if (state is WorkoutPlansLoaded) {
@@ -82,8 +80,8 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
             return RefreshIndicator(
               onRefresh: () async {
                 context.read<WorkoutBloc>().add(
-                      const WorkoutFetchPlansStarted(),
-                    );
+                  const WorkoutFetchPlansStarted(),
+                );
               },
               color: const Color(0xFF92A3FD),
               backgroundColor: Colors.white,
@@ -111,12 +109,8 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                       plan: plan,
                       onTap: () => context.goNamed(
                         AppRouteNames.appWorkoutDetail,
-                        pathParameters: {
-                          'workoutId': plan.planId.toString(),
-                        },
-                        queryParameters: {
-                          'planName': plan.planName,
-                        },
+                        pathParameters: {'workoutId': plan.planId.toString()},
+                        queryParameters: {'planName': plan.planName},
                       ),
                     ),
                   );

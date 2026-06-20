@@ -16,6 +16,7 @@ class MainShellScreen extends StatelessWidget {
     return Scaffold(
       body: navigationShell,
       bottomNavigationBar: NavigationBar(
+        height: 64,
         indicatorColor: ColorConstants.buttonColor,
         selectedIndex: navigationShell.currentIndex,
         destinations: const [

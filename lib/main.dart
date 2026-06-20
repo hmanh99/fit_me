@@ -6,16 +6,18 @@ import 'package:personal_fitness_tracker/features/auth/data/repositories/auth_re
 import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_event.dart';
 import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_state.dart';
-import 'package:personal_fitness_tracker/features/exercise/data/datasources/exercise_remote_data_source.dart';
+import 'package:personal_fitness_tracker/features/exercise/data/datasource/exercise_remote_data_source.dart';
 import 'package:personal_fitness_tracker/features/exercise/data/repositories/exercise_repository_impl.dart';
 import 'package:personal_fitness_tracker/features/exercise/presentation/bloc/exercise_bloc.dart';
-import 'package:personal_fitness_tracker/features/schedule/data/datasources/schedule_remote_data_source.dart';
+import 'package:personal_fitness_tracker/features/profile/data/datasource/profile_remote_datasource.dart';
+import 'package:personal_fitness_tracker/features/profile/data/repositories/profile_repositories_impl.dart';
+import 'package:personal_fitness_tracker/features/profile/presentation/bloc/profile_bloc.dart';
+import 'package:personal_fitness_tracker/features/schedule/data/datasource/schedule_remote_data_source.dart';
 import 'package:personal_fitness_tracker/features/schedule/data/repositories/schedule_repository_impl.dart';
 import 'package:personal_fitness_tracker/features/schedule/presentation/bloc/schedule_bloc.dart';
-import 'package:personal_fitness_tracker/features/workout/data/datasources/workout_remote_data_source.dart';
+import 'package:personal_fitness_tracker/features/workout/data/datasource/workout_remote_data_source.dart';
 import 'package:personal_fitness_tracker/features/workout/data/repositories/workout_repository_impl.dart';
 import 'package:personal_fitness_tracker/features/workout/presentation/bloc/workout_bloc.dart';
-import 'package:personal_fitness_tracker/shared/splash_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' hide AuthState;
 
 void main() async {
@@ -69,6 +71,13 @@ class _MyAppState extends State<MyApp> {
             ),
           ),
         ),
+        RepositoryProvider<ProfileRepositoriesImpl>(
+          create: (context) => ProfileRepositoriesImpl(
+            remoteDatasource: ProfileRemoteDataSourceImpl(
+              supabaseClient: Supabase.instance.client,
+            ),
+          ),
+        ),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -88,6 +97,11 @@ class _MyAppState extends State<MyApp> {
               scheduleRepository: context.read<ScheduleRepositoryImpl>(),
             ),
           ),
+          BlocProvider<ProfileBloc>(
+            create: (context) => ProfileBloc(
+              repositories: context.read<ProfileRepositoriesImpl>(),
+            ),
+          ),
         ],
         child: BlocBuilder<AuthBloc, AuthState>(
           buildWhen: (prev, next) =>
@@ -101,8 +115,8 @@ class _MyAppState extends State<MyApp> {
               debugShowCheckedModeBanner: false,
               routerConfig: _router,
               builder: (context, child) {
-                if (state is AuthUnknownState) return const SplashScreen();
-                return child ?? const SplashScreen();
+                if (state is AuthUnknownState) return const CircularProgressIndicator();
+                return child ?? const CircularProgressIndicator();
               },
             );
           },

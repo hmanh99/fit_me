@@ -10,6 +10,9 @@ class AuthService {
 
   User? get user => _client.auth.currentUser;
 
+  Stream<User?> get authStateChanges =>
+      _client.auth.onAuthStateChange.map((event) => event.session?.user);
+
   Future<User> signUp({
     required String username,
     required String email,

@@ -71,7 +71,7 @@ class _SignInScreenState extends State<SignInScreen> {
           backgroundColor: ColorConstants.backgroundColor,
           body: SafeArea(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.all(30),
+              padding: const EdgeInsets.all(24),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -96,7 +96,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     key: _formKey,
                     child: Column(
                       children: [
-                        const SizedBox(height: 48),
+                        const SizedBox(height: 24),
                         TextFormField(
                           validator: (value) {
                             if (value == null || value.isEmpty) {
@@ -127,23 +127,6 @@ class _SignInScreenState extends State<SignInScreen> {
                             if (value == null || value.isEmpty) {
                               return 'Password is required';
                             }
-                            if (value.length < 8) {
-                              return 'At least 8 characters';
-                            }
-                            if (!RegExp(r'[A-Z]').hasMatch(value)) {
-                              return 'At least one uppercase letter';
-                            }
-                            if (!RegExp(r'[a-z]').hasMatch(value)) {
-                              return 'At least one lowercase letter';
-                            }
-                            if (!RegExp(r'[0-9]').hasMatch(value)) {
-                              return 'At least one number';
-                            }
-                            if (!RegExp(
-                              r'[!@#\/$%^&*(),.?":{}|<>]',
-                            ).hasMatch(value)) {
-                              return 'At least one special character';
-                            }
                             return null;
                           },
                           controller: _password,
@@ -171,7 +154,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           ),
                         ),
 
-                        const SizedBox(height: 6),
+                        const SizedBox(height: 8),
                         GestureDetector(
                           onTap: isLoading
                               ? null
@@ -194,7 +177,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           ),
                         ),
 
-                        const SizedBox(height: 168),
+                        const SizedBox(height: 128),
 
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(

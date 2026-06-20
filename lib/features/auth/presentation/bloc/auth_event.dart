@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:personal_fitness_tracker/features/auth/domain/entities/user_entities.dart';
 
 abstract class AuthEvent extends Equatable {
   const AuthEvent();
@@ -11,6 +12,15 @@ abstract class AuthEvent extends Equatable {
 
 class AuthSessionRestoreRequested extends AuthEvent {
   const AuthSessionRestoreRequested();
+}
+
+class AuthSessionChanged extends AuthEvent {
+  final UserEntity? user;
+
+  const AuthSessionChanged({required this.user});
+
+  @override
+  List<Object?> get props => [user];
 }
 
 //        Auth action events                                                                                                               

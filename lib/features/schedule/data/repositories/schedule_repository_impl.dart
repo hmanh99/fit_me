@@ -1,4 +1,4 @@
-import 'package:personal_fitness_tracker/features/schedule/data/datasources/schedule_remote_data_source.dart';
+import 'package:personal_fitness_tracker/features/schedule/data/datasource/schedule_remote_data_source.dart';
 import 'package:personal_fitness_tracker/features/schedule/data/model/workout_schedule_model.dart';
 import 'package:personal_fitness_tracker/features/schedule/domain/entities/workout_schedule_entity.dart';
 import 'package:personal_fitness_tracker/features/schedule/domain/repositories/schedule_repository.dart';

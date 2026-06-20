@@ -28,23 +28,23 @@ class ExerciseDetailHeader extends StatelessWidget {
                     Text(
                       exercise.name,
                       style: const TextStyle(
-                        fontSize: 22,
+                        fontSize: 24,
                         fontWeight: FontWeight.bold,
                         color: ColorConstants.primaryTextColor,
                         height: 1.2,
                       ),
                     ),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 12),
                     ExerciseDifficultyBadge(difficulty: exercise.difficulty),
                   ],
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 12),
           Wrap(
-            spacing: 10,
-            runSpacing: 8,
+            spacing: 12,
+            runSpacing: 12,
             children: [
               if (exercise.calories != null)
                 _MetaChip(

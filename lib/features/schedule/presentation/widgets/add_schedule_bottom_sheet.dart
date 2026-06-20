@@ -27,6 +27,7 @@ class AddScheduleBottomSheet extends StatefulWidget {
     return showModalBottomSheet<void>(
       context: context,
       isScrollControlled: true,
+      enableDrag: true,
       backgroundColor: Colors.transparent,
       builder: (_) => BlocProvider.value(
         value: context.read<ScheduleBloc>(),
@@ -99,334 +100,356 @@ class _AddScheduleBottomSheetState extends State<AddScheduleBottomSheet> {
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(16),
-        borderSide: BorderSide(
-          color: theme.colorScheme.primary,
-          width: 1.5,
-        ),
+        borderSide: BorderSide(color: theme.colorScheme.primary, width: 1.5),
       ),
     );
 
-    return Container(
-      margin: EdgeInsets.only(bottom: bottomInset),
-      decoration: BoxDecoration(
-        color: theme.colorScheme.surface,
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(28)),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.15),
-            blurRadius: 20,
-            offset: const Offset(0, -4),
-          ),
-        ],
-      ),
-      child: Theme(
-        data: theme.copyWith(
-          inputDecorationTheme: inputDecorationTheme,
+    return DraggableScrollableSheet(
+      initialChildSize: 0.8,
+      maxChildSize: 1,
+      builder: (context, scrollController) => Container(
+        margin: EdgeInsets.only(bottom: bottomInset),
+        decoration: BoxDecoration(
+          color: theme.colorScheme.surface,
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(28)),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.15),
+              blurRadius: 20,
+              offset: const Offset(0, -4),
+            ),
+          ],
         ),
-        child: SingleChildScrollView(
-          padding: EdgeInsets.only(
-            left: 24,
-            right: 24,
-            top: 16,
-            bottom: 24 + MediaQuery.of(context).padding.bottom,
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              // Handle bar
-              Center(
-                child: Container(
-                  width: 44,
-                  height: 5,
-                  decoration: BoxDecoration(
-                    color: theme.colorScheme.onSurfaceVariant.withValues(
-                      alpha: 0.2,
+        child: Theme(
+          data: theme.copyWith(inputDecorationTheme: inputDecorationTheme),
+          child: SingleChildScrollView(
+            controller: scrollController,
+            padding: EdgeInsets.only(
+              left: 24,
+              right: 24,
+              top: 16,
+              bottom: 24 + MediaQuery.of(context).padding.bottom,
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                // Handle bar
+                Center(
+                  child: Container(
+                    width: 44,
+                    height: 5,
+                    decoration: BoxDecoration(
+                      color: theme.colorScheme.onSurfaceVariant.withValues(
+                        alpha: 0.2,
+                      ),
+                      borderRadius: BorderRadius.circular(2.5),
                     ),
-                    borderRadius: BorderRadius.circular(2.5),
                   ),
                 ),
-              ),
-              const SizedBox(height: 24),
+                const SizedBox(height: 24),
 
-              // Title
-              Text(
-                _isEditing ? 'Edit Schedule' : 'Schedule Workout',
-                style: theme.textTheme.titleLarge?.copyWith(
-                  fontWeight: FontWeight.w800,
-                  fontSize: 22,
-                  letterSpacing: 0.3,
+                // Title
+                Text(
+                  _isEditing ? 'Edit Schedule' : 'Schedule Workout',
+                  style: theme.textTheme.titleLarge?.copyWith(
+                    fontWeight: FontWeight.w800,
+                    fontSize: 22,
+                    letterSpacing: 0.3,
+                  ),
+                  textAlign: TextAlign.center,
                 ),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 24),
+                const SizedBox(height: 24),
 
-              // Workout Plan Selector Label
-              _buildSectionLabel(theme, 'Workout Plan'),
-              const SizedBox(height: 8),
+                // Workout Plan Selector Label
+                _buildSectionLabel(theme, 'Workout Plan'),
+                const SizedBox(height: 8),
 
-              BlocBuilder<WorkoutBloc, WorkoutState>(
-                builder: (context, workoutState) {
-                  if (workoutState is WorkoutLoading) {
-                    return const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 8),
-                      child: LinearProgressIndicator(minHeight: 2),
-                    );
-                  }
+                BlocBuilder<WorkoutBloc, WorkoutState>(
+                  builder: (context, workoutState) {
+                    if (workoutState is WorkoutLoading) {
+                      return const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 8),
+                        child: LinearProgressIndicator(minHeight: 2),
+                      );
+                    }
 
-                  List<WorkoutPlanEntity> plans = [];
-                  if (workoutState is WorkoutPlansLoaded) {
-                    plans = workoutState.workoutPlans;
-                  }
+                    List<WorkoutPlanEntity> plans = [];
+                    if (workoutState is WorkoutPlansLoaded) {
+                      plans = workoutState.workoutPlans;
+                    }
 
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      if (plans.isNotEmpty && !_isCustomPlan)
-                        DropdownButtonFormField<WorkoutPlanEntity>(
-                          initialValue: _selectedPlan,
-                          decoration: const InputDecoration(
-                            hintText: 'Select a workout plan',
-                            prefixIcon: Icon(Icons.fitness_center_rounded, size: 20),
-                          ),
-                          isExpanded: true,
-                          borderRadius: BorderRadius.circular(16),
-                          items: plans.map((plan) {
-                            return DropdownMenuItem(
-                              value: plan,
-                              child: Text(
-                                plan.planName,
-                                overflow: TextOverflow.ellipsis,
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        if (plans.isNotEmpty && !_isCustomPlan)
+                          DropdownButtonFormField<WorkoutPlanEntity>(
+                            initialValue: _selectedPlan,
+                            decoration: const InputDecoration(
+                              hintText: 'Select a workout plan',
+                              prefixIcon: Icon(
+                                Icons.fitness_center_rounded,
+                                size: 20,
                               ),
-                            );
-                          }).toList(),
-                          onChanged: (plan) {
-                            setState(() {
-                              _selectedPlan = plan;
-                              if (plan != null) {
-                                _planNameController.text = plan.planName;
-                              }
-                            });
-                          },
-                        ),
-                      if (_isCustomPlan) ...[
-                        TextField(
-                          controller: _planNameController,
-                          decoration: const InputDecoration(
-                            hintText: 'Enter plan name',
-                            prefixIcon: Icon(
-                              Icons.edit_note_rounded,
-                              size: 22,
                             ),
-                          ),
-                        ),
-                      ],
-                      const SizedBox(height: 10),
-                      Row(
-                        children: [
-                          GestureDetector(
-                            onTap: () =>
-                                setState(() => _isCustomPlan = !_isCustomPlan),
-                            child: AnimatedContainer(
-                              duration: const Duration(milliseconds: 200),
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 12,
-                                vertical: 6,
-                              ),
-                              decoration: BoxDecoration(
-                                color: _isCustomPlan
-                                    ? theme.colorScheme.primary.withValues(alpha: 0.08)
-                                    : theme.colorScheme.onSurface.withValues(alpha: 0.03),
-                                borderRadius: BorderRadius.circular(10),
-                                border: Border.all(
-                                  color: _isCustomPlan
-                                      ? theme.colorScheme.primary.withValues(alpha: 0.2)
-                                      : Colors.transparent,
+                            isExpanded: true,
+                            borderRadius: BorderRadius.circular(16),
+                            items: plans.map((plan) {
+                              return DropdownMenuItem(
+                                value: plan,
+                                child: Text(
+                                  plan.planName,
+                                  overflow: TextOverflow.ellipsis,
                                 ),
-                              ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Icon(
-                                    _isCustomPlan
-                                        ? Icons.check_box_rounded
-                                        : Icons.check_box_outline_blank_rounded,
-                                    size: 18,
-                                    color: _isCustomPlan
-                                        ? theme.colorScheme.primary
-                                        : theme.colorScheme.onSurfaceVariant,
-                                  ),
-                                  const SizedBox(width: 8),
-                                  Text(
-                                    'Custom plan name',
-                                    style: theme.textTheme.bodySmall?.copyWith(
-                                      color: _isCustomPlan
-                                          ? theme.colorScheme.primary
-                                          : theme.colorScheme.onSurfaceVariant,
-                                      fontWeight: _isCustomPlan
-                                          ? FontWeight.w700
-                                          : FontWeight.w500,
-                                    ),
-                                  ),
-                                ],
+                              );
+                            }).toList(),
+                            onChanged: (plan) {
+                              setState(() {
+                                _selectedPlan = plan;
+                                if (plan != null) {
+                                  _planNameController.text = plan.planName;
+                                }
+                              });
+                            },
+                          ),
+                        if (_isCustomPlan) ...[
+                          TextField(
+                            controller: _planNameController,
+                            decoration: const InputDecoration(
+                              hintText: 'Enter plan name',
+                              prefixIcon: Icon(
+                                Icons.edit_note_rounded,
+                                size: 22,
                               ),
                             ),
                           ),
                         ],
-                      ),
-                    ],
-                  );
-                },
-              ),
-              const SizedBox(height: 20),
-
-              // Date Selector Label
-              _buildSectionLabel(theme, 'Schedule Date'),
-              const SizedBox(height: 8),
-
-              InkWell(
-                borderRadius: BorderRadius.circular(16),
-                onTap: _pickDate,
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 14,
-                  ),
-                  decoration: BoxDecoration(
-                    color: theme.colorScheme.surfaceContainerLow,
-                    borderRadius: BorderRadius.circular(16),
-                    border: Border.all(
-                      color: theme.colorScheme.outlineVariant.withValues(alpha: 0.3),
-                    ),
-                  ),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.calendar_today_rounded,
-                        size: 20,
-                        color: theme.colorScheme.primary,
-                      ),
-                      const SizedBox(width: 12),
-                      Text(
-                        DateFormat('EEEE, MMMM dd, yyyy').format(_selectedDate),
-                        style: theme.textTheme.bodyMedium?.copyWith(
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      const Spacer(),
-                      Icon(
-                        Icons.arrow_drop_down_rounded,
-                        color: theme.colorScheme.onSurfaceVariant,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
-
-              // Status Selector Label
-              _buildSectionLabel(theme, 'Status'),
-              const SizedBox(height: 8),
-
-              Row(
-                children: ScheduleStatus.values.map((s) {
-                  final isSelected = _selectedStatus == s;
-                  final color = _statusColor(s);
-                  return Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.only(
-                        right: s != ScheduleStatus.values.last ? 10 : 0,
-                      ),
-                      child: GestureDetector(
-                        onTap: () => setState(() => _selectedStatus = s),
-                        child: AnimatedContainer(
-                          duration: const Duration(milliseconds: 250),
-                          curve: Curves.easeInOut,
-                          padding: const EdgeInsets.symmetric(vertical: 12),
-                          decoration: BoxDecoration(
-                            color: isSelected
-                                ? color.withValues(alpha: 0.08)
-                                : theme.colorScheme.surfaceContainerLow,
-                            borderRadius: BorderRadius.circular(16),
-                            border: Border.all(
-                              color: isSelected ? color : theme.colorScheme.outlineVariant.withValues(alpha: 0.3),
-                              width: isSelected ? 2 : 1,
-                            ),
-                            boxShadow: isSelected
-                                ? [
-                                    BoxShadow(
-                                      color: color.withValues(alpha: 0.12),
-                                      blurRadius: 10,
-                                      offset: const Offset(0, 4),
-                                    )
-                                  ]
-                                : null,
-                          ),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Container(
-                                padding: const EdgeInsets.all(6),
+                        const SizedBox(height: 10),
+                        Row(
+                          children: [
+                            GestureDetector(
+                              onTap: () => setState(
+                                () => _isCustomPlan = !_isCustomPlan,
+                              ),
+                              child: AnimatedContainer(
+                                duration: const Duration(milliseconds: 200),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 12,
+                                  vertical: 6,
+                                ),
                                 decoration: BoxDecoration(
-                                  color: isSelected
-                                      ? color.withValues(alpha: 0.12)
-                                      : Colors.transparent,
-                                  shape: BoxShape.circle,
+                                  color: _isCustomPlan
+                                      ? theme.colorScheme.primary.withValues(
+                                          alpha: 0.08,
+                                        )
+                                      : theme.colorScheme.onSurface.withValues(
+                                          alpha: 0.03,
+                                        ),
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(
+                                    color: _isCustomPlan
+                                        ? theme.colorScheme.primary.withValues(
+                                            alpha: 0.2,
+                                          )
+                                        : Colors.transparent,
+                                  ),
                                 ),
-                                child: Icon(
-                                  _statusIcon(s),
-                                  size: 18,
-                                  color: isSelected
-                                      ? color
-                                      : theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.7),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Icon(
+                                      _isCustomPlan
+                                          ? Icons.check_box_rounded
+                                          : Icons
+                                                .check_box_outline_blank_rounded,
+                                      size: 18,
+                                      color: _isCustomPlan
+                                          ? theme.colorScheme.primary
+                                          : theme.colorScheme.onSurfaceVariant,
+                                    ),
+                                    const SizedBox(width: 8),
+                                    Text(
+                                      'Custom plan name',
+                                      style: theme.textTheme.bodySmall
+                                          ?.copyWith(
+                                            color: _isCustomPlan
+                                                ? theme.colorScheme.primary
+                                                : theme
+                                                      .colorScheme
+                                                      .onSurfaceVariant,
+                                            fontWeight: _isCustomPlan
+                                                ? FontWeight.w700
+                                                : FontWeight.w500,
+                                          ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                              const SizedBox(height: 6),
-                              Text(
-                                s.label,
-                                style: theme.textTheme.labelSmall?.copyWith(
-                                  color: isSelected
-                                      ? color
-                                      : theme.colorScheme.onSurfaceVariant,
-                                  fontWeight: isSelected
-                                      ? FontWeight.w800
-                                      : FontWeight.w600,
-                                  fontSize: 11,
-                                ),
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    );
+                  },
+                ),
+                const SizedBox(height: 20),
+
+                // Date Selector Label
+                _buildSectionLabel(theme, 'Schedule Date'),
+                const SizedBox(height: 8),
+
+                InkWell(
+                  borderRadius: BorderRadius.circular(16),
+                  onTap: _pickDate,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 14,
+                    ),
+                    decoration: BoxDecoration(
+                      color: theme.colorScheme.surfaceContainerLow,
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(
+                        color: theme.colorScheme.outlineVariant.withValues(
+                          alpha: 0.3,
                         ),
                       ),
                     ),
-                  );
-                }).toList(),
-              ),
-              const SizedBox(height: 20),
-
-              // Note Label
-              _buildSectionLabel(theme, 'Note (Optional)'),
-              const SizedBox(height: 8),
-
-              TextField(
-                controller: _noteController,
-                maxLines: 3,
-                decoration: const InputDecoration(
-                  hintText: 'Add workout objectives, details or reminders...',
-                  prefixIcon: Padding(
-                    padding: EdgeInsets.only(bottom: 44),
-                    child: Icon(Icons.note_alt_outlined, size: 20),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.calendar_today_rounded,
+                          size: 20,
+                          color: theme.colorScheme.primary,
+                        ),
+                        const SizedBox(width: 12),
+                        Text(
+                          DateFormat(
+                            'EEEE, MMMM dd, yyyy',
+                          ).format(_selectedDate),
+                          style: theme.textTheme.bodyMedium?.copyWith(
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        const Spacer(),
+                        Icon(
+                          Icons.arrow_drop_down_rounded,
+                          color: theme.colorScheme.onSurfaceVariant,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 32),
+                const SizedBox(height: 20),
 
-              // Save Button
-              _GradientButton(
-                text: _isEditing ? 'Update Schedule' : 'Save Schedule',
-                onPressed: _onSave,
-              ),
-            ],
+                // Status Selector Label
+                _buildSectionLabel(theme, 'Status'),
+                const SizedBox(height: 8),
+
+                Row(
+                  children: ScheduleStatus.values.map((s) {
+                    final isSelected = _selectedStatus == s;
+                    final color = _statusColor(s);
+                    return Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                          right: s != ScheduleStatus.values.last ? 10 : 0,
+                        ),
+                        child: GestureDetector(
+                          onTap: () => setState(() => _selectedStatus = s),
+                          child: AnimatedContainer(
+                            duration: const Duration(milliseconds: 250),
+                            curve: Curves.easeInOut,
+                            padding: const EdgeInsets.symmetric(vertical: 12),
+                            decoration: BoxDecoration(
+                              color: isSelected
+                                  ? color.withValues(alpha: 0.08)
+                                  : theme.colorScheme.surfaceContainerLow,
+                              borderRadius: BorderRadius.circular(16),
+                              border: Border.all(
+                                color: isSelected
+                                    ? color
+                                    : theme.colorScheme.outlineVariant
+                                          .withValues(alpha: 0.3),
+                                width: isSelected ? 2 : 1,
+                              ),
+                              boxShadow: isSelected
+                                  ? [
+                                      BoxShadow(
+                                        color: color.withValues(alpha: 0.12),
+                                        blurRadius: 10,
+                                        offset: const Offset(0, 4),
+                                      ),
+                                    ]
+                                  : null,
+                            ),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.all(6),
+                                  decoration: BoxDecoration(
+                                    color: isSelected
+                                        ? color.withValues(alpha: 0.12)
+                                        : Colors.transparent,
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: Icon(
+                                    _statusIcon(s),
+                                    size: 18,
+                                    color: isSelected
+                                        ? color
+                                        : theme.colorScheme.onSurfaceVariant
+                                              .withValues(alpha: 0.7),
+                                  ),
+                                ),
+                                const SizedBox(height: 6),
+                                Text(
+                                  s.label,
+                                  style: theme.textTheme.labelSmall?.copyWith(
+                                    color: isSelected
+                                        ? color
+                                        : theme.colorScheme.onSurfaceVariant,
+                                    fontWeight: isSelected
+                                        ? FontWeight.w800
+                                        : FontWeight.w600,
+                                    fontSize: 11,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  }).toList(),
+                ),
+                const SizedBox(height: 20),
+
+                // Note Label
+                _buildSectionLabel(theme, 'Note (Optional)'),
+                const SizedBox(height: 8),
+
+                TextField(
+                  controller: _noteController,
+                  maxLines: 3,
+                  decoration: const InputDecoration(
+                    hintText: 'Add workout objectives, details or reminders...',
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(bottom: 44),
+                      child: Icon(Icons.note_alt_outlined, size: 20),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 32),
+
+                // Save Button
+                _GradientButton(
+                  text: _isEditing ? 'Update Schedule' : 'Save Schedule',
+                  onPressed: _onSave,
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -454,9 +477,9 @@ class _AddScheduleBottomSheetState extends State<AddScheduleBottomSheet> {
       builder: (context, child) {
         return Theme(
           data: Theme.of(context).copyWith(
-            colorScheme: Theme.of(context).colorScheme.copyWith(
-                  primary: const Color(0xFF92A3FD),
-                ),
+            colorScheme: Theme.of(
+              context,
+            ).colorScheme.copyWith(primary: const Color(0xFF92A3FD)),
           ),
           child: child!,
         );
@@ -478,7 +501,9 @@ class _AddScheduleBottomSheetState extends State<AddScheduleBottomSheet> {
         SnackBar(
           content: const Text('Please select or enter a plan name'),
           behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
         ),
       );
       return;
@@ -544,21 +569,23 @@ class _GradientButton extends StatefulWidget {
   State<_GradientButton> createState() => _GradientButtonState();
 }
 
-class _GradientButtonState extends State<_GradientButton> with SingleTickerProviderStateMixin {
+class _GradientButtonState extends State<_GradientButton>
+    with SingleTickerProviderStateMixin {
   double _scale = 1.0;
   late AnimationController _animController;
 
   @override
   void initState() {
     super.initState();
-    _animController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 100),
-      lowerBound: 0.0,
-      upperBound: 0.05,
-    )..addListener(() {
-        setState(() {});
-      });
+    _animController =
+        AnimationController(
+          vsync: this,
+          duration: const Duration(milliseconds: 100),
+          lowerBound: 0.0,
+          upperBound: 0.05,
+        )..addListener(() {
+          setState(() {});
+        });
   }
 
   @override
@@ -620,4 +647,3 @@ class _GradientButtonState extends State<_GradientButton> with SingleTickerProvi
     );
   }
 }
-

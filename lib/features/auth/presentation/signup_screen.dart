@@ -67,7 +67,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           backgroundColor: ColorConstants.backgroundColor,
           body: SafeArea(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.all(30),
+              padding: const EdgeInsets.all(24),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -78,7 +78,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       color: ColorConstants.secondaryTextColor,
                     ),
                   ),
-                  const SizedBox(height: 4),
+                  const SizedBox(height: 2),
                   const Text(
                     'Create an Account',
                     style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
@@ -88,7 +88,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     key: _formKey,
                     child: Column(
                       children: [
-                        const SizedBox(height: 48),
+                        const SizedBox(height: 24),
                         TextFormField(
                           validator: (value) {
                             if (value == null || value.isEmpty) {
@@ -234,7 +234,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ],
                         ),
 
-                        const SizedBox(height: 60),
+                        const SizedBox(height: 48),
 
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(

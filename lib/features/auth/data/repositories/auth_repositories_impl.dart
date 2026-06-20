@@ -53,6 +53,14 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
+  Stream<UserEntity?> watchAuthState() {
+    return _authService.authStateChanges.map((user) {
+      if (user == null) return null;
+      return UserModel.fromJson(user);
+    });
+  }
+
+  @override
   Future<void> logout() async {
     try {
       await _authService.signOut();

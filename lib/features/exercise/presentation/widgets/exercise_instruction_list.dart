@@ -73,8 +73,8 @@ class _InstructionStep extends StatelessWidget {
           Column(
             children: [
               Container(
-                width: 28,
-                height: 28,
+                width: 30,
+                height: 30,
                 decoration: const BoxDecoration(
                   gradient: ExerciseTheme.gradient,
                   shape: BoxShape.circle,
@@ -84,7 +84,7 @@ class _InstructionStep extends StatelessWidget {
                   '$stepNumber',
                   style: const TextStyle(
                     color: Colors.white,
-                    fontSize: 12,
+                    fontSize: 13,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -99,16 +99,16 @@ class _InstructionStep extends StatelessWidget {
                 ),
             ],
           ),
-          const SizedBox(width: 14),
+          const SizedBox(width: 16),
           Expanded(
             child: Padding(
               padding: EdgeInsets.only(bottom: showConnector ? 16 : 0),
               child: Text(
                 text,
                 style: TextStyle(
-                  fontSize: 14,
+                  fontSize: 16,
                   color: Colors.grey.shade800,
-                  height: 1.5,
+                  height: 2,
                 ),
               ),
             ),

@@ -23,6 +23,9 @@ abstract class AuthRepository {
   /// Sign out the current user.
   Future<void> logout();
 
+  /// Emits the current user whenever the Supabase auth session changes.
+  Stream<UserEntity?> watchAuthState();
+
   /// Sign in with Google.
   // Future<UserEntity> googleLogin();
 }

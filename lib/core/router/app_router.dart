@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:personal_fitness_tracker/core/router/auth_redirect.dart';
@@ -17,19 +16,16 @@ import 'package:personal_fitness_tracker/features/meal_plan/presentation/meal_pl
 import 'package:personal_fitness_tracker/features/onboard/presentation/onboard_screen1.dart';
 import 'package:personal_fitness_tracker/features/onboard/presentation/onboard_screen2.dart';
 import 'package:personal_fitness_tracker/features/onboard/presentation/welcome_screen.dart';
-import 'package:personal_fitness_tracker/features/profile/presentation/edit_profile_screen.dart';
-import 'package:personal_fitness_tracker/features/profile/presentation/profile_screen.dart';
-import 'package:personal_fitness_tracker/features/schedule/presentation/schedule_screen.dart';
+import 'package:personal_fitness_tracker/features/profile/presentation/screens/edit_profile_screen.dart';
+import 'package:personal_fitness_tracker/features/profile/presentation/screens/profile_detail_screen.dart';
+import 'package:personal_fitness_tracker/features/profile/presentation/screens/profile_screen.dart';
+import 'package:personal_fitness_tracker/features/schedule/presentation/screens/schedule_screen.dart';
 import 'package:personal_fitness_tracker/features/settings/presentation/settings_screen.dart';
 import 'package:personal_fitness_tracker/features/workout/data/repositories/workout_repository_impl.dart';
 import 'package:personal_fitness_tracker/features/workout/presentation/bloc/workout_bloc.dart';
 import 'package:personal_fitness_tracker/features/workout/presentation/screens/workout_detail_screen.dart';
 import 'package:personal_fitness_tracker/features/workout/presentation/screens/workout_screen.dart';
-import 'package:personal_fitness_tracker/shared/main_shell_screen.dart';
-
-/// Factory [GoRouter] — tách khỏi [MaterialApp] để test & inject dễ dàng.
-/// [BlocProvider] của [AuthBloc] phải bọc phía trên [MaterialApp.router]
-/// (hoặc truyền bloc vào đây như hiện tại).
+import 'package:personal_fitness_tracker/shared/widgets/main_shell.dart';
 
 GoRouter createAppRouter(AuthBloc authBloc) {
   return GoRouter(
@@ -200,9 +196,22 @@ GoRouter createAppRouter(AuthBloc authBloc) {
                     builder: (context, state) => const SettingsScreen(),
                   ),
                   GoRoute(
-                    path: 'edit',
-                    name: AppRouteNames.appProfileEdit,
-                    builder: (context, state) => const EditProfileScreen(),
+                    path: ':profileId',
+                    name: AppRouteNames.appProfileDetail,
+                    builder: (context, state) {
+                      final profileId = state.pathParameters['profileId']!;
+                      return ProfileDetailScreen(profileId: profileId);
+                    },
+                    routes: [
+                      GoRoute(
+                        path: 'edit',
+                        name: AppRouteNames.appProfileEdit,
+                        builder: (context, state) {
+                          final profileId = state.pathParameters['profileId']!;
+                          return EditProfileScreen(profileId: profileId);
+                        },
+                      ),
+                    ],
                   ),
                 ],
               ),

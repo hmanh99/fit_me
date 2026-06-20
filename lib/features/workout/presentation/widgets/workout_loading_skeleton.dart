@@ -1,207 +1,336 @@
 import 'package:flutter/material.dart';
+import 'package:personal_fitness_tracker/shared/widgets/skeletons.dart';
 
-class WorkoutLoadingSkeleton extends StatefulWidget {
+class WorkoutLoadingSkeleton extends StatelessWidget {
   final bool isDetailPage;
+
   const WorkoutLoadingSkeleton({super.key, this.isDetailPage = false});
 
   @override
-  State<WorkoutLoadingSkeleton> createState() => _WorkoutLoadingSkeletonState();
-}
-
-class _WorkoutLoadingSkeletonState extends State<WorkoutLoadingSkeleton>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<double> _opacityAnimation;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 1200),
-    )..repeat(reverse: true);
-
-    _opacityAnimation = Tween<double>(begin: 0.35, end: 0.8).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
-    );
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _opacityAnimation,
-      builder: (context, child) {
-        return Opacity(
-          opacity: _opacityAnimation.value,
-          child: ListView.builder(
-            padding: const EdgeInsets.symmetric(vertical: 12),
-            itemCount: 4,
-            itemBuilder: (context, index) {
-              return widget.isDetailPage
-                  ? _buildExerciseSkeleton()
-                  : _buildPlanSkeleton();
-            },
-          ),
-        );
-      },
-    );
+    return isDetailPage ? _buildDetailSkeleton() : _buildPlanSkeleton();
   }
 
   Widget _buildPlanSkeleton() {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.grey.shade100,
-        borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: Colors.grey.shade200, width: 1),
-      ),
-      child: Row(
-        children: [
-          // Icon badge placeholder
-          Container(
-            width: 50,
-            height: 50,
-            decoration: BoxDecoration(
-              color: Colors.grey.shade300,
-              shape: BoxShape.circle,
-            ),
-          ),
-          const SizedBox(width: 16),
-          // Text placeholders
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  width: 140,
-                  height: 18,
-                  decoration: BoxDecoration(
-                    color: Colors.grey.shade300,
-                    borderRadius: BorderRadius.circular(4),
+    return ShimmerLoading(
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Colors.white38,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Row(
+                children: [
+                  AppSkeleton.circle(size: 50),
+                  const SizedBox(width: 16),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          AppSkeleton.line(width: 70),
+                          const SizedBox(width: 8),
+                          AppSkeleton.line(width: 70),
+                        ],
+                      ),
+                      const SizedBox(height: 8,),
+                      AppSkeleton.line(height: 24,width: 200,),
+                      const SizedBox(height: 8,),
+                      AppSkeleton.line(width: 200,),
+                    ],
                   ),
-                ),
-                const SizedBox(height: 8),
-                Container(
-                  width: 220,
-                  height: 12,
-                  decoration: BoxDecoration(
-                    color: Colors.grey.shade300,
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                ),
-                const SizedBox(height: 6),
-                Container(
-                  width: 80,
-                  height: 14,
-                  decoration: BoxDecoration(
-                    color: Colors.grey.shade300,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          const SizedBox(width: 8),
-          // Action button placeholder
-          Container(
-            width: 32,
-            height: 32,
-            decoration: BoxDecoration(
-              color: Colors.grey.shade300,
-              shape: BoxShape.circle,
+            SizedBox(height: 12),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Colors.white38,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Row(
+                children: [
+                  AppSkeleton.circle(size: 50),
+                  const SizedBox(width: 16),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          AppSkeleton.line(width: 70),
+                          const SizedBox(width: 8),
+                          AppSkeleton.line(width: 70),
+                        ],
+                      ),
+                      const SizedBox(height: 8,),
+                      AppSkeleton.line(height: 24,width: 200,),
+                      const SizedBox(height: 8,),
+                      AppSkeleton.line(width: 200,),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+            SizedBox(height: 12),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Colors.white38,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Row(
+                children: [
+                  AppSkeleton.circle(size: 50),
+                  const SizedBox(width: 16),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          AppSkeleton.line(width: 70),
+                          const SizedBox(width: 8),
+                          AppSkeleton.line(width: 70),
+                        ],
+                      ),
+                      const SizedBox(height: 8,),
+                      AppSkeleton.line(height: 24,width: 200,),
+                      const SizedBox(height: 8,),
+                      AppSkeleton.line(width: 200,),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 12),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Colors.white38,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Row(
+                children: [
+                  AppSkeleton.circle(size: 50),
+                  const SizedBox(width: 16),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          AppSkeleton.line(width: 70),
+                          const SizedBox(width: 8),
+                          AppSkeleton.line(width: 70),
+                        ],
+                      ),
+                      const SizedBox(height: 8,),
+                      AppSkeleton.line(height: 24,width: 200,),
+                      const SizedBox(height: 8,),
+                      AppSkeleton.line(width: 200,),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 12),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Colors.white38,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Row(
+                children: [
+                  AppSkeleton.circle(size: 50),
+                  const SizedBox(width: 16),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          AppSkeleton.line(width: 70),
+                          const SizedBox(width: 8),
+                          AppSkeleton.line(width: 70),
+                        ],
+                      ),
+                      const SizedBox(height: 8,),
+                      AppSkeleton.line(height: 24,width: 200,),
+                      const SizedBox(height: 8,),
+                      AppSkeleton.line(width: 200,),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 
-  Widget _buildExerciseSkeleton() {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: Colors.grey.shade100,
-        borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: Colors.grey.shade200, width: 1),
-      ),
-      child: Row(
-        children: [
-          // Order tag placeholder
-          Container(
-            width: 50,
-            height: 50,
-            decoration: BoxDecoration(
-              color: Colors.grey.shade300,
-              borderRadius: BorderRadius.circular(16),
-            ),
-          ),
-          const SizedBox(width: 16),
-          // Exercise details placeholder
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  width: 120,
-                  height: 18,
-                  decoration: BoxDecoration(
-                    color: Colors.grey.shade300,
-                    borderRadius: BorderRadius.circular(4),
+  Widget _buildDetailSkeleton() {
+    return ShimmerLoading(
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Colors.white38,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      AppSkeleton.line(height: 24, width: 150),
+                      AppSkeleton.line(height: 24, width: 50),
+                    ],
                   ),
-                ),
-                const SizedBox(height: 8),
-                Container(
-                  width: 90,
-                  height: 12,
-                  decoration: BoxDecoration(
-                    color: Colors.grey.shade300,
-                    borderRadius: BorderRadius.circular(4),
+                  const SizedBox(height: 16),
+                  AppSkeleton.line(),
+                  const SizedBox(height: 16),
+                  Row(
+                    children: [
+                      AppSkeleton.line(width: 100),
+                      const SizedBox(width: 16),
+                      AppSkeleton.line(width: 100),
+                    ],
                   ),
-                ),
-                const SizedBox(height: 8),
-                Row(
-                  children: [
-                    Container(
-                      width: 60,
-                      height: 16,
-                      decoration: BoxDecoration(
-                        color: Colors.grey.shade300,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                    const SizedBox(width: 6),
-                    Container(
-                      width: 60,
-                      height: 16,
-                      decoration: BoxDecoration(
-                        color: Colors.grey.shade300,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          const SizedBox(width: 8),
-          // Arrow placeholder
-          Container(
-            width: 32,
-            height: 32,
-            decoration: BoxDecoration(
-              color: Colors.grey.shade300,
-              shape: BoxShape.circle,
+            const SizedBox(height: 16),
+            AppSkeleton.line(width: 100),
+            const SizedBox(height: 16),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Colors.white38,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Row(
+                children: [
+                  AppSkeleton.circle(size: 50),
+                  const SizedBox(width: 16),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          AppSkeleton.line(width: 70),
+                          const SizedBox(width: 8),
+                          AppSkeleton.line(width: 70),
+                        ],
+                      ),
+                      const SizedBox(height: 8,),
+                      AppSkeleton.line(width: 200,),
+                      const SizedBox(height: 8,),
+                      Row(
+                        children: [
+                          AppSkeleton.line(width: 70),
+                          const SizedBox(width: 8),
+                          AppSkeleton.line(width: 70),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+            const SizedBox(height: 16),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Colors.white38,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Row(
+                children: [
+                  AppSkeleton.circle(size: 50),
+                  const SizedBox(width: 16),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          AppSkeleton.line(width: 70),
+                          const SizedBox(width: 8),
+                          AppSkeleton.line(width: 70),
+                        ],
+                      ),
+                      const SizedBox(height: 8,),
+                      AppSkeleton.line(width: 200,),
+                      const SizedBox(height: 8,),
+                      Row(
+                        children: [
+                          AppSkeleton.line(width: 70),
+                          const SizedBox(width: 8),
+                          AppSkeleton.line(width: 70),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 16),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Colors.white38,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Row(
+                children: [
+                  AppSkeleton.circle(size: 50),
+                  const SizedBox(width: 16),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          AppSkeleton.line(width: 70),
+                          const SizedBox(width: 8),
+                          AppSkeleton.line(width: 70),
+                        ],
+                      ),
+                      const SizedBox(height: 8,),
+                      AppSkeleton.line(width: 200,),
+                      const SizedBox(height: 8,),
+                      Row(
+                        children: [
+                          AppSkeleton.line(width: 70),
+                          const SizedBox(width: 8),
+                          AppSkeleton.line(width: 70),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

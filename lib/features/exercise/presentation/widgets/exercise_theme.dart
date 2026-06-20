@@ -14,7 +14,7 @@ abstract final class ExerciseTheme {
   );
 
   static const cardRadius = 24.0;
-  static const chipRadius = 12.0;
+  static const chipRadius = 16.0;
   static const horizontalPadding = 16.0;
   static const listBottomPadding = 24.0;
 

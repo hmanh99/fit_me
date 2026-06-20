@@ -32,8 +32,7 @@ class ExerciseGradientAppBar extends StatelessWidget implements PreferredSizeWid
         style: const TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.bold,
-          fontSize: 20,
-          letterSpacing: 0.3,
+          fontSize: 24,
         ),
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
