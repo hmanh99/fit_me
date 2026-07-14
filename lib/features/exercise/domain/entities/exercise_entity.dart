@@ -19,7 +19,7 @@ enum DifficultyLevel {
   }
 
   String? toDbValue() {
-    return name; // 'beginner' | 'intermediate' | 'advanced'
+    return name; // beginner,intermediate,advanced
   }
 }
 
@@ -30,7 +30,7 @@ class ExerciseEntity extends Equatable {
   final DifficultyLevel difficulty;
   final List<String>?  equipments;
   final List<String> instructions;
-  final String? videoUrl;
+  final String? url;
   final int? calories;
 
   const ExerciseEntity({
@@ -40,7 +40,7 @@ class ExerciseEntity extends Equatable {
     required this.difficulty,
     this.equipments,
     required this.instructions,
-    this.videoUrl,
+    this.url,
     this.calories,
   });
 
@@ -53,7 +53,7 @@ class ExerciseEntity extends Equatable {
     DifficultyLevel? difficulty,
     List<String>? equipments,
     List<String>? instructions,
-    String? videoUrl,
+    String? url,
     int? calories,
   }) {
     return ExerciseEntity(
@@ -63,7 +63,7 @@ class ExerciseEntity extends Equatable {
       difficulty: difficulty ?? this.difficulty,
       equipments: equipments ?? this.equipments,
       instructions: instructions ?? this.instructions,
-      videoUrl: videoUrl ?? this.videoUrl,
+      url: url ?? this.url,
       calories: calories ?? this.calories,
     );
   }
@@ -76,7 +76,7 @@ class ExerciseEntity extends Equatable {
     difficulty,
     equipments,
     instructions,
-    videoUrl,
+    url,
     calories,
   ];
 

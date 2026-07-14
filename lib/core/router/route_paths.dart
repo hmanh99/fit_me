@@ -20,15 +20,18 @@ abstract final class AppRoutePaths {
 
   static const appHome = '/app/home';
 
-  static const appProgress = '/app/schedule';
+  static const appSchedule = '/app/home/schedule';
 
-  static const appWorkouts = '/app/workout';
+  static const appWorkout = '/app/home/workout';
+
+  static const appExercise = '/app/home/exercise';
+
+  static const appMeal = '/app/meal';
 
   static const appProfile = '/app/profile';
   static const appProfileSettings = '/app/profile/settings';
   static const appProfileEdit = '/app/profile/edit';
 
-  static const appMealPlanner = '/app/meal-planner';
 
 
   static bool isAuthPath(String location) {

@@ -82,10 +82,17 @@ class ScheduleBloc extends Bloc<ScheduleEvent, ScheduleState> {
     try {
       await scheduleRepository.addSchedule(event.schedule);
 
-      // Re-fetch the current month to get the server-assigned ID
-      await _refreshCurrentMonth(emit);
-
-      emit(state.copyWith(operationStatus: ScheduleOperationStatus.success));
+      // Bug 2 fix: fetch the refreshed data first, then emit a single
+      // atomic state that includes both the new list AND operationStatus
+      // success — this prevents the stale-snapshot rollback.
+      final refreshed = await _fetchCurrentMonthData();
+      emit(state.copyWith(
+        operationStatus: ScheduleOperationStatus.success,
+        allSchedules: refreshed.schedules,
+        markedDates: refreshed.marked,
+        selectedDateSchedules: refreshed.selected,
+        clearErrorMessage: true,
+      ));
     } catch (e) {
       emit(state.copyWith(
         operationStatus: ScheduleOperationStatus.failure,
@@ -102,8 +109,16 @@ class ScheduleBloc extends Bloc<ScheduleEvent, ScheduleState> {
     emit(state.copyWith(operationStatus: ScheduleOperationStatus.loading));
     try {
       await scheduleRepository.updateSchedule(event.schedule);
-      await _refreshCurrentMonth(emit);
-      emit(state.copyWith(operationStatus: ScheduleOperationStatus.success));
+
+      // Bug 2 fix: single atomic emit with fresh data + success status.
+      final refreshed = await _fetchCurrentMonthData();
+      emit(state.copyWith(
+        operationStatus: ScheduleOperationStatus.success,
+        allSchedules: refreshed.schedules,
+        markedDates: refreshed.marked,
+        selectedDateSchedules: refreshed.selected,
+        clearErrorMessage: true,
+      ));
     } catch (e) {
       emit(state.copyWith(
         operationStatus: ScheduleOperationStatus.failure,
@@ -120,8 +135,16 @@ class ScheduleBloc extends Bloc<ScheduleEvent, ScheduleState> {
     emit(state.copyWith(operationStatus: ScheduleOperationStatus.loading));
     try {
       await scheduleRepository.deleteSchedule(event.scheduleId);
-      await _refreshCurrentMonth(emit);
-      emit(state.copyWith(operationStatus: ScheduleOperationStatus.success));
+
+      // Bug 2 fix: single atomic emit with fresh data + success status.
+      final refreshed = await _fetchCurrentMonthData();
+      emit(state.copyWith(
+        operationStatus: ScheduleOperationStatus.success,
+        allSchedules: refreshed.schedules,
+        markedDates: refreshed.marked,
+        selectedDateSchedules: refreshed.selected,
+        clearErrorMessage: true,
+      ));
     } catch (e) {
       emit(state.copyWith(
         operationStatus: ScheduleOperationStatus.failure,
@@ -159,29 +182,45 @@ class ScheduleBloc extends Bloc<ScheduleEvent, ScheduleState> {
     ScheduleOperationStatusReset event,
     Emitter<ScheduleState> emit,
   ) {
-    emit(state.copyWith(operationStatus: ScheduleOperationStatus.idle));
+    emit(state.copyWith(
+      operationStatus: ScheduleOperationStatus.idle,
+      clearErrorMessage: true,
+    ));
   }
 
 
   //     Helpers
-  /// Re-fetch schedules for the currently focused month and update state.
-  Future<void> _refreshCurrentMonth(Emitter<ScheduleState> emit) async {
-    if (state.userId == null) return;
 
+  /// Bug 2 fix: Returns a record with fresh schedule data for the currently
+  /// focused month WITHOUT emitting any state. Callers compose a single
+  /// atomic emit themselves to avoid stale-snapshot rollbacks.
+  Future<
+      ({
+        List<WorkoutScheduleEntity> schedules,
+        Map<DateTime, List<WorkoutScheduleEntity>> marked,
+        List<WorkoutScheduleEntity> selected,
+      })> _fetchCurrentMonthData() async {
+    if (state.userId == null) {
+      return (
+        schedules: <WorkoutScheduleEntity>[],
+        marked: <DateTime, List<WorkoutScheduleEntity>>{},
+        selected: <WorkoutScheduleEntity>[],
+      );
+    }
+
+    // Bug 5 fix: always use state.focusedDate (kept in sync by
+    // _onLoadRequested) as the authoritative month source for CUD refreshes.
     final schedules = await scheduleRepository.getSchedulesByMonth(
       userId: state.userId!,
       year: state.focusedDate.year,
       month: state.focusedDate.month,
     );
 
-    final marked = _buildMarkedDates(schedules);
-    final selectedDayItems = _filterByDate(schedules, state.selectedDate);
-
-    emit(state.copyWith(
-      allSchedules: schedules,
-      markedDates: marked,
-      selectedDateSchedules: selectedDayItems,
-    ));
+    return (
+      schedules: schedules,
+      marked: _buildMarkedDates(schedules),
+      selected: _filterByDate(schedules, state.selectedDate),
+    );
   }
 
   /// Build the marker map: normalised date → list of schedules.

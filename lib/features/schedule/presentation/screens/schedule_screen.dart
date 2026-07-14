@@ -157,10 +157,8 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
               ),
             ),
           ),
-          body: SafeArea(
-            child: _buildBody(theme, state),
-          ),
-          floatingActionButton: _buildFloatingActionButton(theme),
+          body: SafeArea(child: _buildBody(theme, state)),
+          floatingActionButton: _buildFloatingActionButton(),
         );
       },
     );
@@ -178,7 +176,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
     }
 
     return CustomScrollView(
-      physics: const BouncingScrollPhysics(),
+      physics: const ScrollPhysics(),
       slivers: [
         // Calendar Header
         SliverToBoxAdapter(
@@ -208,7 +206,9 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                 color: theme.colorScheme.surface,
                 borderRadius: BorderRadius.circular(24),
                 border: Border.all(
-                  color: theme.colorScheme.outlineVariant.withValues(alpha: 0.25),
+                  color: theme.colorScheme.outlineVariant.withValues(
+                    alpha: 0.25,
+                  ),
                   width: 1,
                 ),
                 boxShadow: [
@@ -314,7 +314,9 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                 // Days-of-week style
                 daysOfWeekStyle: DaysOfWeekStyle(
                   weekdayStyle: theme.textTheme.bodySmall!.copyWith(
-                    color: theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.8),
+                    color: theme.colorScheme.onSurfaceVariant.withValues(
+                      alpha: 0.8,
+                    ),
                     fontWeight: FontWeight.w700,
                     fontSize: 12,
                   ),
@@ -499,7 +501,9 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
             Text(
               'Plan your fitness journey today. Add a workout plan to stay consistent and reach your goals.',
               style: theme.textTheme.bodyMedium?.copyWith(
-                color: theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.7),
+                color: theme.colorScheme.onSurfaceVariant.withValues(
+                  alpha: 0.7,
+                ),
                 height: 1.45,
               ),
               textAlign: TextAlign.center,
@@ -569,9 +573,12 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
             ),
             const SizedBox(height: 8),
             Text(
-              state.errorMessage ?? 'Something went wrong while fetching your schedule calendar data. Please try again.',
+              state.errorMessage ??
+                  'Something went wrong while fetching your schedule calendar data. Please try again.',
               style: theme.textTheme.bodyMedium?.copyWith(
-                color: theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.7),
+                color: theme.colorScheme.onSurfaceVariant.withValues(
+                  alpha: 0.7,
+                ),
                 height: 1.45,
               ),
               textAlign: TextAlign.center,
@@ -582,7 +589,10 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
               icon: const Icon(Icons.refresh_rounded, size: 18),
               label: const Text('Try Again'),
               style: FilledButton.styleFrom(
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                  vertical: 12,
+                ),
               ),
             ),
           ],
@@ -591,28 +601,35 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
     );
   }
 
-  Widget _buildFloatingActionButton(ThemeData theme) {
-    return Container(
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        gradient: const LinearGradient(
-          colors: [Color(0xFF92A3FD), Color(0xFF9DCEFF)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: const Color(0xFF92A3FD).withValues(alpha: 0.4),
-            blurRadius: 12,
-            offset: const Offset(0, 4),
-          ),
-        ],
+  Widget _buildFloatingActionButton() {
+    return Padding(
+      padding: EdgeInsets.only(
+        bottom: 24 + MediaQuery.of(context).padding.bottom,
       ),
-      child: FloatingActionButton(
-        onPressed: () => AddScheduleBottomSheet.show(context),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        child: const Icon(Icons.add_rounded, color: Colors.white, size: 28),
+      child: Container(
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          gradient: const LinearGradient(
+            colors: [Color(0xFF92A3FD), Color(0xFF9DCEFF)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: const Color(0xFF92A3FD).withValues(alpha: 0.4),
+              blurRadius: 12,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: FloatingActionButton(
+          onPressed: () =>
+              AddScheduleBottomSheet.show(context, initialDate: _selectedDay),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          tooltip: 'Add schedule',
+          child: const Icon(Icons.add_rounded, color: Colors.white, size: 28),
+        ),
       ),
     );
   }
@@ -663,4 +680,3 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
     );
   }
 }
-

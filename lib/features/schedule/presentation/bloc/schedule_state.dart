@@ -68,6 +68,7 @@ class ScheduleState extends Equatable {
     ScheduleStateStatus? status,
     ScheduleOperationStatus? operationStatus,
     String? errorMessage,
+    bool clearErrorMessage = false,
     String? userId,
   }) {
     return ScheduleState(
@@ -79,7 +80,9 @@ class ScheduleState extends Equatable {
       markedDates: markedDates ?? this.markedDates,
       status: status ?? this.status,
       operationStatus: operationStatus ?? this.operationStatus,
-      errorMessage: errorMessage,
+      // Bug 1 fix: only overwrite errorMessage if explicitly provided or
+      // clearErrorMessage is true; otherwise preserve the previous value.
+      errorMessage: clearErrorMessage ? null : (errorMessage ?? this.errorMessage),
       userId: userId ?? this.userId,
     );
   }

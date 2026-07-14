@@ -5,14 +5,16 @@ import 'package:personal_fitness_tracker/core/router/go_router_refresh_stream.da
 import 'package:personal_fitness_tracker/core/router/route_names.dart';
 import 'package:personal_fitness_tracker/core/router/route_paths.dart';
 import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_bloc.dart';
-import 'package:personal_fitness_tracker/features/auth/presentation/forgot_password_screen.dart';
-import 'package:personal_fitness_tracker/features/auth/presentation/signin_screen.dart';
-import 'package:personal_fitness_tracker/features/auth/presentation/signup_screen.dart';
-import 'package:personal_fitness_tracker/features/dashboard/presentation/dashboard_screen.dart';
+import 'package:personal_fitness_tracker/features/auth/presentation/screens/forgot_password_screen.dart';
+import 'package:personal_fitness_tracker/features/auth/presentation/screens/signin_screen.dart';
+import 'package:personal_fitness_tracker/features/auth/presentation/screens/signup_screen.dart';
+import 'package:personal_fitness_tracker/features/dashboard/presentation/screens/dashboard_screen.dart';
 import 'package:personal_fitness_tracker/features/exercise/data/repositories/exercise_repository_impl.dart';
 import 'package:personal_fitness_tracker/features/exercise/presentation/bloc/exercise_bloc.dart';
 import 'package:personal_fitness_tracker/features/exercise/presentation/screens/exercise_detail_screen.dart';
-import 'package:personal_fitness_tracker/features/meal_plan/presentation/meal_plan_screen.dart';
+import 'package:personal_fitness_tracker/features/exercise/presentation/screens/exercise_screen.dart';
+import 'package:personal_fitness_tracker/features/meal/presentation/screens/meal_detail_screen.dart';
+import 'package:personal_fitness_tracker/features/meal/presentation/screens/meal_plan_screen.dart';
 import 'package:personal_fitness_tracker/features/onboard/presentation/onboard_screen1.dart';
 import 'package:personal_fitness_tracker/features/onboard/presentation/onboard_screen2.dart';
 import 'package:personal_fitness_tracker/features/onboard/presentation/welcome_screen.dart';
@@ -82,67 +84,82 @@ GoRouter createAppRouter(AuthBloc authBloc) {
           return MainShellScreen(navigationShell: navigationShell);
         },
         branches: [
-          ///dashboard
+          /// dashboard
           StatefulShellBranch(
             routes: [
               GoRoute(
                 path: AppRoutePaths.appHome,
                 name: AppRouteNames.appHome,
                 builder: (context, state) => const DashboardScreen(),
-                routes: [],
-              ),
-            ],
-          ),
-
-          ///workouts
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                path: AppRoutePaths.appWorkouts,
-                name: AppRouteNames.appWorkouts,
-                builder: (context, state) => BlocProvider<WorkoutBloc>(
-                  create: (context) => WorkoutBloc(
-                    workoutRepository: context.read<WorkoutRepositoryImpl>(),
-                  ),
-                  child: const WorkoutScreen(),
-                ),
                 routes: [
+                  /// workout
                   GoRoute(
-                    path: ':workoutId',
-                    name: AppRouteNames.appWorkoutDetail,
-                    builder: (context, state) {
-                      final workoutId = state.pathParameters['workoutId']!;
-                      final String? planName =
+                    path: 'workout',
+                    name: AppRouteNames.appWorkouts,
+                    builder: (context, state) => BlocProvider<WorkoutBloc>(
+                      create: (context) => WorkoutBloc(
+                        workoutRepository: context.read<WorkoutRepositoryImpl>(),
+                      ),
+                      child: const WorkoutScreen(),
+                    ),
+                    routes: [
+                      GoRoute(
+                        path: ':workoutId',
+                        name: AppRouteNames.appWorkoutDetail,
+                        builder: (context, state) {
+                          final workoutId = state.pathParameters['workoutId']!;
+                          final String? planName =
                           state.uri.queryParameters['planName'];
-                      return BlocProvider<WorkoutBloc>(
-                        create: (context) => WorkoutBloc(
-                          workoutRepository: context
-                              .read<WorkoutRepositoryImpl>(),
+                          return WorkoutDetailScreen(
+                            workoutId: int.parse(workoutId),
+                            planName: planName ?? 'Workout Plan',
+                          );
+                        },
+                        routes: [
+                          GoRoute(
+                            path: 'exercises/:exerciseId',
+                            name: AppRouteNames.appWorkoutExerciseDetail,
+                            builder: (context, state) {
+                              final exerciseId =
+                              state.pathParameters['exerciseId']!;
+                              return BlocProvider<ExerciseBloc>(
+                                create: (context) => ExerciseBloc(
+                                  exerciseRepository:
+                                  context.read<ExerciseRepositoryImpl>(),
+                                ),
+                                child: ExerciseDetailScreen(
+                                  exerciseId: int.parse(exerciseId),
+                                ),
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+
+                  /// exercise
+                  GoRoute(
+                    path: 'exercise',
+                    name: AppRouteNames.appExercise,
+                    builder: (context, state) {
+                      return BlocProvider<ExerciseBloc>(
+                        create: (context) => ExerciseBloc(
+                          exerciseRepository:
+                          context.read<ExerciseRepositoryImpl>(),
                         ),
-                        child: WorkoutDetailScreen(
-                          workoutId: int.parse(workoutId),
-                          planName: planName ?? "Workout Plan",
-                        ),
+                        child: const ExerciseScreen(),
                       );
                     },
                     routes: [
                       GoRoute(
-                        path: 'exercises/:exerciseId',
+                        path: ':exerciseId',
                         name: AppRouteNames.appExerciseDetail,
                         builder: (context, state) {
                           final exerciseId =
-                              state.pathParameters['exerciseId']!;
-                          final String? exerciseName =
-                              state.uri.queryParameters['exerciseName'];
-                          return BlocProvider<ExerciseBloc>(
-                            create: (context) => ExerciseBloc(
-                              exerciseRepository: context
-                                  .read<ExerciseRepositoryImpl>(),
-                            ),
-                            child: ExerciseDetailScreen(
-                              exerciseId: int.parse(exerciseId),
-                              exerciseName: exerciseName ?? "Exercise Detail",
-                            ),
+                          state.pathParameters['exerciseId']!;
+                          return ExerciseDetailScreen(
+                            exerciseId: int.parse(exerciseId),
                           );
                         },
                       ),
@@ -153,33 +170,40 @@ GoRouter createAppRouter(AuthBloc authBloc) {
             ],
           ),
 
-          ///progress
+          /// schedule
           StatefulShellBranch(
             routes: [
               GoRoute(
-                path: AppRoutePaths.appProgress,
-                name: AppRouteNames.appProgress,
-                builder: (context, state) {
-                  return const ScheduleScreen();
-                },
+                path: AppRoutePaths.appSchedule,
+                name: AppRouteNames.appSchedule,
+                builder: (context, state) => const ScheduleScreen(),
+                routes: []
               ),
             ],
           ),
 
-          ///meal plan
+          /// meal planner
           StatefulShellBranch(
             routes: [
               GoRoute(
-                path: AppRoutePaths.appMealPlanner,
-                name: AppRouteNames.appMealPlanner,
-                builder: (context, state) {
-                  return const MealPlanScreen();
-                },
+                path: AppRoutePaths.appMeal,
+                name: AppRouteNames.appMeal,
+                builder: (context, state) => const MealPlanScreen(),
+                routes: [
+                  GoRoute(
+                    path: ':mealId',
+                    name: AppRouteNames.appMealDetail,
+                    builder: (context, state) {
+                      final mealId = state.pathParameters['mealId']!;
+                      return MealDetailScreen(mealId: int.parse(mealId));
+                    },
+                  )
+                ],
               ),
             ],
           ),
 
-          ///profile
+          /// profile
           StatefulShellBranch(
             routes: [
               GoRoute(

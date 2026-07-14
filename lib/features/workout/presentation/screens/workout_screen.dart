@@ -29,6 +29,11 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
     return Scaffold(
       backgroundColor: Colors.grey.shade50,
       appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new_rounded),
+          color: Colors.white,
+          onPressed: () => context.pop(),
+        ),
         title: const Text(
           "Workout Plans",
           style: TextStyle(
@@ -50,14 +55,11 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
             ),
           ),
         ),
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
-        ),
       ),
       body: BlocBuilder<WorkoutBloc, WorkoutState>(
         builder: (context, state) {
           if (state is WorkoutLoading) {
-            return const WorkoutLoadingSkeleton(isDetailPage: false,);
+            return const WorkoutLoadingSkeleton(isDetailPage: false);
           } else if (state is WorkoutError) {
             return WorkoutErrorState(
               errorMessage: state.message,
@@ -90,7 +92,7 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                 itemCount: plans.length,
                 itemBuilder: (context, index) {
                   final plan = plans[index];
-                  // Staggered slide & fade animation
+                  // slide & fade animation
                   return TweenAnimationBuilder<double>(
                     key: ValueKey(plan.planId),
                     tween: Tween(begin: 0.0, end: 1.0),

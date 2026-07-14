@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 
-/// Builds dot markers for a calendar cell.
-///
-/// Shows 1–3 dots depending on the number of events on that day,
-/// with a subtle scale animation.
 class WorkoutMarker extends StatelessWidget {
   final int count;
 
@@ -13,7 +9,7 @@ class WorkoutMarker extends StatelessWidget {
   static const _dotSize = 6.0;
   static const _spacing = 2.0;
 
-  // Colour palette for markers (matches fitness theme).
+  // Colour for markers
   static const _dotColors = [
     Color(0xFFFF9B52), // orange — primary workout colour
     Color(0xFF92A3FD), // blue/purple — secondary

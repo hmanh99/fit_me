@@ -24,13 +24,13 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  late final AuthService _authService;
+  late final AuthServices _authService;
   bool _popUpNotifications = true;
 
   @override
   void initState() {
     super.initState();
-    _authService = AuthService();
+    _authService = AuthServices();
     context.read<ProfileBloc>().add(
       ProfileFetched(userId: _authService.user!.id),
     );

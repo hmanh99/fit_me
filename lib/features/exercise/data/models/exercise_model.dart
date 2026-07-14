@@ -8,7 +8,7 @@ class ExerciseModel extends ExerciseEntity {
     required super.difficulty,
     super.equipments,
     required super.instructions,
-    super.videoUrl,
+    super.url,
     super.calories,
   });
 
@@ -22,7 +22,7 @@ class ExerciseModel extends ExerciseEntity {
           ? List<String>.from(json['equipment'])
           : null,
       instructions: List<String>.from(json['instructions'] ?? []),
-      videoUrl: json['video_url'] as String?,
+      url: json['url'] as String?,
       calories: json['calories'] as int?,
     );
   }
@@ -35,7 +35,7 @@ class ExerciseModel extends ExerciseEntity {
       'difficulty': difficulty.toDbValue(),
       'equipment': equipments,
       'instructions': instructions,
-      'video_url': videoUrl,
+      'url': url,
       'calories': calories,
     };
   }
@@ -48,7 +48,7 @@ class ExerciseModel extends ExerciseEntity {
     DifficultyLevel? difficulty,
     List<String>? equipments,
     List<String>? instructions,
-    String? videoUrl,
+    String? url,
     int? calories,
   }) {
     // TODO: implement copyWith
@@ -59,7 +59,7 @@ class ExerciseModel extends ExerciseEntity {
       difficulty: difficulty,
       equipments: equipments,
       instructions: instructions,
-      videoUrl: videoUrl,
+      url: url,
       calories: calories,
     );
   }

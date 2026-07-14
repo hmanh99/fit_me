@@ -2,13 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:personal_fitness_tracker/core/router/app_router.dart';
+import 'package:personal_fitness_tracker/core/services/exercise_services.dart';
 import 'package:personal_fitness_tracker/features/auth/data/repositories/auth_repositories_impl.dart';
 import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_event.dart';
 import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_state.dart';
+import 'package:personal_fitness_tracker/features/dashboard/presentation/bloc/dashboard_bloc.dart';
 import 'package:personal_fitness_tracker/features/exercise/data/datasource/exercise_remote_data_source.dart';
 import 'package:personal_fitness_tracker/features/exercise/data/repositories/exercise_repository_impl.dart';
 import 'package:personal_fitness_tracker/features/exercise/presentation/bloc/exercise_bloc.dart';
+import 'package:personal_fitness_tracker/features/meal/data/datasources/meal_remote_datasource.dart';
+import 'package:personal_fitness_tracker/features/meal/data/repositories/meal_repository_impl.dart';
+import 'package:personal_fitness_tracker/features/meal/presentation/bloc/meal_bloc.dart';
 import 'package:personal_fitness_tracker/features/profile/data/datasource/profile_remote_datasource.dart';
 import 'package:personal_fitness_tracker/features/profile/data/repositories/profile_repositories_impl.dart';
 import 'package:personal_fitness_tracker/features/profile/presentation/bloc/profile_bloc.dart';
@@ -71,6 +76,13 @@ class _MyAppState extends State<MyApp> {
             ),
           ),
         ),
+        RepositoryProvider<MealRepositoryImpl>(
+          create: (context) => MealRepositoryImpl(
+            remoteDatasource: MealRemoteDatasourceImpl(
+              supabaseClient: Supabase.instance.client,
+            ),
+          ),
+        ),
         RepositoryProvider<ProfileRepositoriesImpl>(
           create: (context) => ProfileRepositoriesImpl(
             remoteDatasource: ProfileRemoteDataSourceImpl(
@@ -97,9 +109,19 @@ class _MyAppState extends State<MyApp> {
               scheduleRepository: context.read<ScheduleRepositoryImpl>(),
             ),
           ),
+          BlocProvider<MealBloc>(
+            create: (context) => MealBloc(
+              mealRepository: context.read<MealRepositoryImpl>(),
+            ),
+          ),
           BlocProvider<ProfileBloc>(
             create: (context) => ProfileBloc(
               repositories: context.read<ProfileRepositoriesImpl>(),
+            ),
+          ),
+          BlocProvider<DashboardBloc>(
+            create: (context) => DashboardBloc(
+               exerciseServices: ExerciseServices(),
             ),
           ),
         ],

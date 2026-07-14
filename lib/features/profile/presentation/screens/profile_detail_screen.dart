@@ -30,141 +30,123 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ProfileBloc, ProfileState>(
-      listener: (context, state) {
-        if (state is ProfileError) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(state.message),
-              backgroundColor: Colors.redAccent,
-              behavior: SnackBarBehavior.floating,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-            ),
-          );
-        }
-      },
-      builder: (context, state) {
-        return Scaffold(
-          backgroundColor: const Color(0xFFF8F9FE),
-          appBar: AppBar(
-            backgroundColor: Colors.white,
-            elevation: 0,
-            shape: const Border(
-              bottom: BorderSide(color: Color(0xFFF5F5F5), width: 1),
-            ),
-            centerTitle: true,
-            title: const Text(
-              'Personal Data',
-              style: TextStyle(
-                color: ColorConstants.primaryTextColor,
-                fontWeight: FontWeight.w800,
-                fontSize: 16,
-                letterSpacing: 0.3,
-              ),
-            ),
-            leading: IconButton(
-              icon: const Icon(
-                Icons.arrow_back_ios_new_rounded,
-                color: ColorConstants.primaryTextColor,
-                size: 18,
-              ),
-              onPressed: () => context.pop(),
-            ),
+    return Scaffold(
+      backgroundColor: const Color(0xFFF8F9FE),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        shape: const Border(
+          bottom: BorderSide(color: Color(0xFFF5F5F5), width: 1),
+        ),
+        centerTitle: true,
+        title: const Text(
+          'Personal Data',
+          style: TextStyle(
+            color: ColorConstants.primaryTextColor,
+            fontWeight: FontWeight.w800,
+            fontSize: 16,
+            letterSpacing: 0.3,
           ),
-          body: SafeArea(
-            child: BlocBuilder<ProfileBloc, ProfileState>(
-              builder: (context, state) {
-                if (state is ProfileLoading) {
-                  return const ProfileDetailScreenSkeleton();
-                }
+        ),
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back_ios_new_rounded,
+            color: ColorConstants.primaryTextColor,
+            size: 18,
+          ),
+          onPressed: () => context.pop(),
+        ),
+      ),
+      body: SafeArea(
+        child: BlocBuilder<ProfileBloc, ProfileState>(
+          builder: (context, state) {
+            if (state is ProfileLoading) {
+              return const ProfileDetailScreenSkeleton();
+            }
 
-                if (state is ProfileLoaded) {
-                  return _ProfileBody(profile: state.profile);
-                }
+            if (state is ProfileLoaded) {
+              return _ProfileBody(profile: state.profile);
+            }
 
-                if (state is ProfileUpdating) {
-                  return _ProfileBody(profile: state.profile);
-                }
+            if (state is ProfileUpdating) {
+              return _ProfileBody(profile: state.profile);
+            }
 
-                if (state is ProfileError) {
-                  return Center(
-                    child: Card(
-                      elevation: 0,
-                      color: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(24),
-                        side: BorderSide(color: Colors.grey.shade100),
-                      ),
-                      margin: const EdgeInsets.all(24),
-                      child: Padding(
-                        padding: const EdgeInsets.all(32),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.all(16),
-                              decoration: BoxDecoration(
-                                color: Colors.red.shade50,
-                                shape: BoxShape.circle,
-                              ),
-                              child: const Icon(
-                                Icons.error_outline_rounded,
-                                size: 40,
-                                color: Colors.redAccent,
-                              ),
-                            ),
-                            const SizedBox(height: 20),
-                            const Text(
-                              'Failed to load profile',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black87,
-                              ),
-                            ),
-                            const SizedBox(height: 8),
-                            Text(
-                              state.message,
-                              style: TextStyle(
-                                fontSize: 13,
-                                color: Colors.grey.shade600,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                            const SizedBox(height: 24),
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.redAccent,
-                                foregroundColor: Colors.white,
-                                elevation: 0,
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 24,
-                                  vertical: 12,
-                                ),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                              ),
-                              onPressed: () => context.read<ProfileBloc>().add(
-                                ProfileFetched(userId: widget.profileId),
-                              ),
-                              child: const Text('Retry'),
-                            ),
-                          ],
+            if (state is ProfileError) {
+              return Center(
+                child: Card(
+                  elevation: 0,
+                  color: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(24),
+                    side: BorderSide(color: Colors.grey.shade100),
+                  ),
+                  margin: const EdgeInsets.all(24),
+                  child: Padding(
+                    padding: const EdgeInsets.all(32),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: Colors.red.shade50,
+                            shape: BoxShape.circle,
+                          ),
+                          child: const Icon(
+                            Icons.error_outline_rounded,
+                            size: 40,
+                            color: Colors.redAccent,
+                          ),
                         ),
-                      ),
+                        const SizedBox(height: 20),
+                        const Text(
+                          'Failed to load profile',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black87,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          state.message,
+                          style: TextStyle(
+                            fontSize: 13,
+                            color: Colors.grey.shade600,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        const SizedBox(height: 24),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.redAccent,
+                            foregroundColor: Colors.white,
+                            elevation: 0,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 24,
+                              vertical: 12,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                          ),
+                          onPressed: () => context.read<ProfileBloc>().add(
+                            ProfileFetched(userId: widget.profileId),
+                          ),
+                          child: const Text('Retry'),
+                        ),
+                      ],
                     ),
-                  );
-                }
+                  ),
+                ),
+              );
+            }
 
-                return const SizedBox.shrink();
-              },
-            ),
-          ),
-        );
-      },
+            return const SizedBox.shrink();
+          },
+        ),
+      ),
     );
   }
 }

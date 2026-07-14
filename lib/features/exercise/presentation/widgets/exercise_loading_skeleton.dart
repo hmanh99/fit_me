@@ -7,7 +7,7 @@ class ExerciseLoadingSkeleton extends StatelessWidget {
 
   const ExerciseLoadingSkeleton({
     super.key,
-    this.count = 4,
+    this.count = 15,
     this.isDetailPage = false,
   });
 
@@ -16,10 +16,21 @@ class ExerciseLoadingSkeleton extends StatelessWidget {
     return ShimmerLoading(
       child: isDetailPage
           ? _buildDetailSkeleton()
-          : ListView.builder(
-              padding: const EdgeInsets.symmetric(vertical: 12),
+          : GridView.builder(
+              padding: EdgeInsets.fromLTRB(
+                8,
+                16,
+                8,
+                MediaQuery.of(context).padding.bottom,
+              ),
               itemCount: count,
               itemBuilder: (context, index) => _buildListCardSkeleton(),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                childAspectRatio: 1,
+                crossAxisSpacing: 8,
+                mainAxisSpacing: 8,
+              ),
             ),
     );
   }
@@ -29,6 +40,16 @@ class ExerciseLoadingSkeleton extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
       child: Column(
         children: [
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+            width: double.infinity,
+            height: 200,
+            decoration: BoxDecoration(
+              color: Colors.white38,
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+          const SizedBox(height: 16),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
             width: double.infinity,
@@ -126,6 +147,19 @@ class ExerciseLoadingSkeleton extends StatelessWidget {
   }
 
   Widget _buildListCardSkeleton() {
-    return SingleChildScrollView();
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            height: 120,
+            decoration: BoxDecoration(
+              color: Colors.white38,
+              borderRadius: BorderRadius.circular(24),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

@@ -1,8 +1,7 @@
 import 'package:personal_fitness_tracker/features/schedule/domain/entities/schedule_status.dart';
 import 'package:personal_fitness_tracker/features/schedule/domain/entities/workout_schedule_entity.dart';
 
-/// Data-layer model that maps between Supabase JSON and
-/// the domain [WorkoutScheduleEntity].
+
 class WorkoutScheduleModel extends WorkoutScheduleEntity {
   const WorkoutScheduleModel({
     required super.scheduleId,
@@ -15,7 +14,6 @@ class WorkoutScheduleModel extends WorkoutScheduleEntity {
     super.note,
   });
 
-  /// Parse a Supabase row (snake_case keys) into a model instance.
   factory WorkoutScheduleModel.fromJson(Map<String, dynamic> json) {
     return WorkoutScheduleModel(
       scheduleId: json['schedule_id'] as int,
@@ -29,8 +27,6 @@ class WorkoutScheduleModel extends WorkoutScheduleEntity {
     );
   }
 
-  /// Serialize to a map suitable for Supabase INSERT / UPDATE.
-  /// Excludes `schedule_id` (auto-generated) and `created_at` (default NOW).
   Map<String, dynamic> toInsertJson() {
     return {
       'user_id': userId,
@@ -42,7 +38,6 @@ class WorkoutScheduleModel extends WorkoutScheduleEntity {
     };
   }
 
-  /// Full serialization including `schedule_id` (for updates).
   Map<String, dynamic> toUpdateJson() {
     return {
       'plan_id': planId,
@@ -53,7 +48,6 @@ class WorkoutScheduleModel extends WorkoutScheduleEntity {
     };
   }
 
-  /// Create a model from a domain entity (for passing to data layer).
   factory WorkoutScheduleModel.fromEntity(WorkoutScheduleEntity entity) {
     return WorkoutScheduleModel(
       scheduleId: entity.scheduleId,

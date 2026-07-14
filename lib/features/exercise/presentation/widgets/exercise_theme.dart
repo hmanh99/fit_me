@@ -15,14 +15,12 @@ abstract final class ExerciseTheme {
 
   static const cardRadius = 24.0;
   static const chipRadius = 16.0;
-  static const horizontalPadding = 16.0;
-  static const listBottomPadding = 24.0;
 
   static BoxDecoration cardDecoration(BuildContext context) {
     return BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.circular(cardRadius),
-      border: Border.all(color: Colors.grey.shade100),
+      border: Border.all(color: Colors.grey.shade300),
       boxShadow: [
         BoxShadow(
           color: Colors.black.withValues(alpha: 0.04),

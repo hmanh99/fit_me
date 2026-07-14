@@ -35,8 +35,6 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   ) async {
     final s = state;
     if (s is ProfileLoaded && s.profile.userId == event.userId) {
-      // Already loaded, bypass emitting ProfileLoading to avoid UI flicker.
-      // Fetch in background and update state.
       try {
         emit(ProfileLoading());
         final profile = await _profileRepositories.getCurrentProfile(

@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:personal_fitness_tracker/features/schedule/domain/entities/schedule_status.dart';
 import 'package:personal_fitness_tracker/features/schedule/domain/entities/workout_schedule_entity.dart';
 
-/// A premium card that displays a single schedule entry for the selected day.
+/// A card that displays a single schedule entry for the selected day.
 class ScheduleDayItem extends StatelessWidget {
   final WorkoutScheduleEntity schedule;
   final VoidCallback? onTap;

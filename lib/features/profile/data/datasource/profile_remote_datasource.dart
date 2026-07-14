@@ -134,7 +134,7 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDatasource {
   @override
   Future<void> logoutProfile() async {
     try {
-      final AuthService authService = AuthService();
+      final AuthServices authService = AuthServices();
       await authService.signOut();
     } catch (e) {
       throw ServerException(message: e.toString());

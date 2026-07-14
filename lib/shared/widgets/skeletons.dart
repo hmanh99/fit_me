@@ -51,7 +51,7 @@ class AppSkeleton extends StatelessWidget {
   const AppSkeleton.line({
     super.key,
     this.width,
-    this.height = 14,
+    this.height = 13,
     this.borderRadius = const BorderRadius.all(Radius.circular(8)),
   }) : shape = BoxShape.rectangle;
 

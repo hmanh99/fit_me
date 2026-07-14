@@ -13,13 +13,8 @@ import 'package:personal_fitness_tracker/features/exercise/presentation/widgets/
 
 class ExerciseDetailScreen extends StatefulWidget {
   final int exerciseId;
-  final String exerciseName;
 
-  const ExerciseDetailScreen({
-    super.key,
-    required this.exerciseId,
-    required this.exerciseName,
-  });
+  const ExerciseDetailScreen({super.key, required this.exerciseId});
 
   @override
   State<ExerciseDetailScreen> createState() => _ExerciseDetailScreenState();
@@ -43,9 +38,9 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade50,
+      backgroundColor: Colors.white,
       appBar: ExerciseGradientAppBar(
-        title: widget.exerciseName,
+        title: 'Exercise Detail',
         onBack: () => context.pop(),
       ),
       body: BlocBuilder<ExerciseBloc, ExerciseState>(
@@ -72,6 +67,24 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(16),
+                          ),
+                          border: Border.all(color: Colors.grey.shade300),
+                        ),
+                        alignment: Alignment.center,
+                        width: double.infinity,
+                        height: 200,
+                        child: Hero(
+                          tag: "exercise-image-${exercise.exerciseId}",
+                          child: exercise.url == null
+                              ? Icon(Icons.fitness_center_outlined, size: 50)
+                              : Image.network(exercise.url!),
+                        ),
+                      ),
+                      const SizedBox(height: 16),
                       ExerciseDetailHeader(exercise: exercise),
                       const SizedBox(height: 16),
                       ExerciseInfoSection(
@@ -100,7 +113,7 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
               ),
             );
           }
-          return const SizedBox.shrink();
+          return const ExerciseLoadingSkeleton(isDetailPage: true,);
         },
       ),
     );

@@ -5,10 +5,10 @@ import 'package:personal_fitness_tracker/features/auth/domain/repositories/auth_
 import 'package:personal_fitness_tracker/features/auth/data/models/user_model.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
-  final AuthService _authService;
+  final AuthServices _authService;
 
-  AuthRepositoryImpl({AuthService? authService})
-      : _authService = authService ?? AuthService();
+  AuthRepositoryImpl({AuthServices? authService})
+      : _authService = authService ?? AuthServices();
 
   @override
   UserEntity? get currentUser {
@@ -30,10 +30,10 @@ class AuthRepositoryImpl implements AuthRepository {
         username: username,
       );
       return UserModel.fromJson(user, username: username);
-    } on AuthException {
+    } on CustomAuthException {
       rethrow;
     } catch (e) {
-      throw AuthException(message: 'An unexpected error occurred during sign-up.');
+      throw CustomAuthException(message: 'An unexpected error occurred during sign-up.');
     }
   }
 
@@ -45,10 +45,10 @@ class AuthRepositoryImpl implements AuthRepository {
     try {
       final user = await _authService.signIn(email: email, password: password);
       return UserModel.fromJson(user);
-    } on AuthException {
+    } on CustomAuthException {
       rethrow;
     } catch (e) {
-      throw AuthException(message: 'An unexpected error occurred during login.');
+      throw CustomAuthException(message: 'An unexpected error occurred during login.');
     }
   }
 
@@ -64,10 +64,10 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<void> logout() async {
     try {
       await _authService.signOut();
-    } on AuthException {
+    } on CustomAuthException {
       rethrow;
     } catch (e) {
-      throw AuthException(message: 'An unexpected error occurred during sign-out.');
+      throw CustomAuthException(message: 'An unexpected error occurred during sign-out.');
     }
   }
 
@@ -75,10 +75,10 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<void> forgotPassword({required String email}) async {
     try {
       await _authService.forgotPassword(email: email);
-    } on AuthException {
+    } on CustomAuthException {
       rethrow;
     } catch (e) {
-      throw AuthException(
+      throw CustomAuthException(
           message: 'An unexpected error occurred while sending reset email.');
     }
   }

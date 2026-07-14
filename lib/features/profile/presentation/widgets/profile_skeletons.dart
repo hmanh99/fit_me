@@ -143,13 +143,13 @@ class ProfileDetailScreenSkeleton extends StatelessWidget {
                           children: [
                             Row(
                               children: [
-                                AppSkeleton.line(width: 80),
+                                AppSkeleton.line(width: 50),
                                 const SizedBox(width: 32),
                                 AppSkeleton.circle(size: 20),
                               ],
                             ),
                             const SizedBox(height: 16),
-                            AppSkeleton.line(width: 130),
+                            AppSkeleton.line(width: 100),
                           ],
                         ),
                       ],

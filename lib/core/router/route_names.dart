@@ -15,6 +15,9 @@ abstract final class AppRouteNames {
 
   static const appWorkouts = 'app-workout';
   static const appWorkoutDetail = 'app-workout-detail';
+
+  static const appExercise = 'app-exercise';
+  static const appWorkoutExerciseDetail = 'app-workout-exercise-detail';
   static const appExerciseDetail = 'app-exercise-detail';
 
   static const appProfile = 'app-profile';
@@ -22,7 +25,8 @@ abstract final class AppRouteNames {
   static const appProfileEdit = 'app-profile-edit';
   static const appProfileDetail = 'app-profile-detail';
 
-  static const appProgress = 'app-schedule';
+  static const appSchedule = 'app-schedule';
 
-  static const appMealPlanner = 'app-meal-planner';
+  static const appMeal = 'app-meal';
+  static const appMealDetail = 'app-meal-detail';
 }

@@ -67,11 +67,6 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
             ),
           ),
         ),
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(
-            bottom: Radius.circular(20),
-          ),
-        ),
       ),
       body: BlocBuilder<WorkoutBloc, WorkoutState>(
         builder: (context, state) {
@@ -132,7 +127,7 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
                             planExercise: planEx,
                             onTap: () {
                               context.goNamed(
-                                AppRouteNames.appExerciseDetail,
+                                AppRouteNames.appWorkoutExerciseDetail,
                                 pathParameters: {
                                   'workoutId': plan.planId.toString().trim(),
                                   'exerciseId':

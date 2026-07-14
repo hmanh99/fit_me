@@ -1,10 +1,8 @@
 import 'package:personal_fitness_tracker/core/error/exceptions.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' hide AuthException;
 
-class AuthService {
-  AuthService._();
-  static final AuthService _instance = AuthService._();
-  factory AuthService() => _instance;
+class AuthServices {
+  AuthServices();
 
   SupabaseClient get _client => Supabase.instance.client;
 
@@ -27,16 +25,16 @@ class AuthService {
 
       final User? user = response.user;
       if (user == null) {
-        throw AuthException(message: 'Sign-up failed: no user returned.');
+        throw CustomAuthException(message: 'Sign-up failed: no user returned.');
       }
 
       return user;
-    } on AuthException {
+    } on CustomAuthException {
       rethrow;
     } on AuthApiException catch (e) {
-      throw AuthException(message: e.message);
+      throw CustomAuthException(message: e.message);
     } catch (e) {
-      throw AuthException(message: e.toString());
+      throw CustomAuthException(message: e.toString());
     }
   }
 
@@ -49,16 +47,16 @@ class AuthService {
 
       final User? user = response.user;
       if (user == null) {
-        throw AuthException(message: 'User not found.');
+        throw CustomAuthException(message: 'User not found.');
       }
 
       return user;
-    } on AuthException {
+    } on CustomAuthException {
       rethrow;
     } on AuthApiException catch (e) {
-      throw AuthException(message: e.message);
+      throw CustomAuthException(message: e.message);
     } catch (e) {
-      throw AuthException(message: e.toString());
+      throw CustomAuthException(message: e.toString());
     }
   }
 
@@ -66,9 +64,9 @@ class AuthService {
     try {
       await _client.auth.signOut();
     } on AuthApiException catch (e) {
-      throw AuthException(message: e.message);
+      throw CustomAuthException(message: e.message);
     } catch (e) {
-      throw AuthException(message: e.toString());
+      throw CustomAuthException(message: e.toString());
     }
   }
 
@@ -76,9 +74,9 @@ class AuthService {
     try {
       await _client.auth.resetPasswordForEmail(email.trim());
     } on AuthApiException catch (e) {
-      throw AuthException(message: e.message);
+      throw CustomAuthException(message: e.message);
     } catch (e) {
-      throw AuthException(message: e.toString());
+      throw CustomAuthException(message: e.toString());
     }
   }
 

@@ -7,10 +7,10 @@ class ServerException implements Exception {
   String toString() => message;
 }
 
-class AuthException implements Exception {
+class CustomAuthException implements Exception {
   final String message;
 
-  AuthException({required this.message});
+  CustomAuthException({required this.message});
 
   @override
   String toString() => message;
