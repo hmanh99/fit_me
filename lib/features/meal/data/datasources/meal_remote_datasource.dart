@@ -34,7 +34,6 @@ class MealRemoteDatasourceImpl implements MealRemoteDatasource {
           .from('meal')
           .select()
           .order('meal_id', ascending: true);
-
       return (response as List).map((e) => MealModel.fromJson(e)).toList();
     } catch (e) {
       throw ServerException(message: e.toString());

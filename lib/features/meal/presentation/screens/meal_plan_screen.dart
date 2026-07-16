@@ -33,29 +33,29 @@ class _MealPlanScreenState extends State<MealPlanScreen> {
   static const int _firstPageKey = 1;
 
   late final PagingController<int, MealEntity> _pagingController =
-      PagingController<int, MealEntity>(
-        getNextPageKey: (state) {
-          final filtered = _getFilteredMeals();
-          if (filtered.isEmpty) return null;
+  PagingController<int, MealEntity>(
+    getNextPageKey: (state) {
+      final filtered = _getFilteredMeals();
+      if (filtered.isEmpty) return null;
 
-          if (state.lastPageIsEmpty) return null;
+      if (state.lastPageIsEmpty) return null;
 
-          final loadedCount = state.items?.length ?? 0;
-          if (loadedCount >= filtered.length) return null;
+      final loadedCount = state.items?.length ?? 0;
+      if (loadedCount >= filtered.length) return null;
 
-          return state.nextIntPageKey;
-        },
-        fetchPage: (pageKey) async {
-          Future.delayed(const Duration(seconds: 1));
+      return state.nextIntPageKey;
+    },
+    fetchPage: (pageKey) async {
+      await Future.delayed(const Duration(seconds: 1));
 
-          final filtered = _getFilteredMeals();
-          final start = (pageKey - _firstPageKey) * _pageSize;
-          if (start >= filtered.length) return <MealEntity>[];
+      final filtered = _getFilteredMeals();
+      final start = (pageKey - _firstPageKey) * _pageSize;
+      if (start >= filtered.length) return <MealEntity>[];
 
-          final end = math.min(start + _pageSize, filtered.length);
-          return filtered.sublist(start, end);
-        },
-      );
+      final end = math.min(start + _pageSize, filtered.length);
+      return filtered.sublist(start, end);
+    },
+  );
 
   @override
   void initState() {
@@ -92,8 +92,8 @@ class _MealPlanScreenState extends State<MealPlanScreen> {
     bloc.add(const MealFetchStarted());
 
     await bloc.stream.firstWhere(
-      (state) =>
-          state is MealSuccess || state is MealEmpty || state is MealError,
+          (state) =>
+      state is MealSuccess || state is MealEmpty || state is MealError,
     );
   }
 
@@ -138,7 +138,21 @@ class _MealPlanScreenState extends State<MealPlanScreen> {
             ),
             const SizedBox(height: 12),
             Expanded(
-              child: BlocBuilder<MealBloc, MealState>(
+              child: BlocConsumer<MealBloc, MealState>(
+                listener: (context, state) {
+                  if (state is MealSuccess) {
+                    setState(() {
+                      _allMeals = state.meals;
+                      _hasLoadedOnce = true;
+                    });
+                    _resetPaging();
+                  } else if (state is MealEmpty) {
+                    setState(() {
+                      _allMeals = [];
+                      _hasLoadedOnce = true;
+                    });
+                  }
+                },
                 builder: (context, state) {
                   final filteredMeals = _getFilteredMeals();
 
@@ -153,8 +167,11 @@ class _MealPlanScreenState extends State<MealPlanScreen> {
                       },
                     );
                   }
-                  if (state is MealEmpty || _allMeals.isEmpty) {
+                  if (state is MealEmpty || (_hasLoadedOnce && _allMeals.isEmpty)) {
                     return MealEmptyView(onRefresh: _handleRefresh);
+                  }
+                  if (!_hasLoadedOnce) {
+                    return const MealLoadingSkeleton();
                   }
                   if (filteredMeals.isEmpty) {
                     return MealEmptyView(onRefresh: _handleRefresh);
@@ -174,83 +191,83 @@ class _MealPlanScreenState extends State<MealPlanScreen> {
                             MediaQuery.of(context).padding.bottom,
                           ),
                           builderDelegate:
-                              PagedChildBuilderDelegate<MealEntity>(
-                                itemBuilder: (context, meal, index) {
-                                  return TweenAnimationBuilder<double>(
-                                    key: ValueKey(meal.mealId),
-                                    tween: Tween(begin: 0.0, end: 1.0),
-                                    duration: Duration(
-                                      milliseconds: 300 + (index * 50),
-                                    ),
-                                    curve: Curves.easeOutCubic,
-                                    builder: (context, value, child) {
-                                      return Opacity(
-                                        opacity: value,
-                                        child: Transform.translate(
-                                          offset: Offset(0, 20 * (1 - value)),
-                                          child: child,
-                                        ),
-                                      );
-                                    },
-                                    child: MealCard(
-                                      meal: meal,
-                                      onTap: () {
-                                        context.goNamed(
-                                          AppRouteNames.appMealDetail,
-                                          pathParameters: {
-                                            'mealId': meal.mealId.toString(),
-                                          },
-                                        );
-                                      },
+                          PagedChildBuilderDelegate<MealEntity>(
+                            itemBuilder: (context, meal, index) {
+                              return TweenAnimationBuilder<double>(
+                                key: ValueKey(meal.mealId),
+                                tween: Tween(begin: 0.0, end: 1.0),
+                                duration: Duration(
+                                  milliseconds: 300 + (index * 50),
+                                ),
+                                curve: Curves.easeOutCubic,
+                                builder: (context, value, child) {
+                                  return Opacity(
+                                    opacity: value,
+                                    child: Transform.translate(
+                                      offset: Offset(0, 20 * (1 - value)),
+                                      child: child,
                                     ),
                                   );
                                 },
-                                firstPageProgressIndicatorBuilder: (context) =>
-                                    _hasLoadedOnce
-                                    ? const SizedBox.shrink()
-                                    : const MealLoadingSkeleton(),
-                                newPageProgressIndicatorBuilder: (context) =>
-                                    const Padding(
-                                      padding: EdgeInsets.symmetric(
-                                        vertical: 16,
-                                      ),
-                                      child: Center(
-                                        child: SizedBox(
-                                          width: 24,
-                                          height: 24,
-                                          child: CircularProgressIndicator(
-                                            strokeWidth: 2.5,
-                                            color: Color(0xFF92A3FD),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                firstPageErrorIndicatorBuilder: (context) =>
-                                    MealErrorView(
-                                      errorMessage:
-                                          _pagingController.error?.toString() ??
-                                          'Failed to load meals',
-                                      onRetry: _pagingController.fetchNextPage,
-                                    ),
-                                newPageErrorIndicatorBuilder: (context) =>
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                        vertical: 16,
-                                      ),
-                                      child: Center(
-                                        child: TextButton.icon(
-                                          onPressed:
-                                              _pagingController.fetchNextPage,
-                                          icon: const Icon(
-                                            Icons.refresh_rounded,
-                                          ),
-                                          label: const Text('Retry'),
-                                        ),
-                                      ),
-                                    ),
-                                noItemsFoundIndicatorBuilder: (context) =>
-                                    MealEmptyView(onRefresh: _handleRefresh),
+                                child: MealCard(
+                                  meal: meal,
+                                  onTap: () {
+                                    context.goNamed(
+                                      AppRouteNames.appMealDetail,
+                                      pathParameters: {
+                                        'mealId': meal.mealId.toString(),
+                                      },
+                                    );
+                                  },
+                                ),
+                              );
+                            },
+                            firstPageProgressIndicatorBuilder: (context) =>
+                            _hasLoadedOnce
+                                ? const SizedBox.shrink()
+                                : const MealLoadingSkeleton(),
+                            newPageProgressIndicatorBuilder: (context) =>
+                            const Padding(
+                              padding: EdgeInsets.symmetric(
+                                vertical: 16,
                               ),
+                              child: Center(
+                                child: SizedBox(
+                                  width: 24,
+                                  height: 24,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2.5,
+                                    color: Color(0xFF92A3FD),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            firstPageErrorIndicatorBuilder: (context) =>
+                                MealErrorView(
+                                  errorMessage:
+                                  _pagingController.error?.toString() ??
+                                      'Failed to load meals',
+                                  onRetry: _pagingController.fetchNextPage,
+                                ),
+                            newPageErrorIndicatorBuilder: (context) =>
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 16,
+                                  ),
+                                  child: Center(
+                                    child: TextButton.icon(
+                                      onPressed:
+                                      _pagingController.fetchNextPage,
+                                      icon: const Icon(
+                                        Icons.refresh_rounded,
+                                      ),
+                                      label: const Text('Retry'),
+                                    ),
+                                  ),
+                                ),
+                            noItemsFoundIndicatorBuilder: (context) =>
+                                MealEmptyView(onRefresh: _handleRefresh),
+                          ),
                         ),
                   );
                 },
