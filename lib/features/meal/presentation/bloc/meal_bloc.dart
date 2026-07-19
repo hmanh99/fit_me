@@ -38,7 +38,6 @@ class MealBloc extends Bloc<MealEvent, MealState> {
       emit(MealError(message: e.toString()));
     }
   }
-
   Future<void> _onMealFetchByIdStarted(
     MealFetchByIdStarted event,
     Emitter<MealState> emit,
