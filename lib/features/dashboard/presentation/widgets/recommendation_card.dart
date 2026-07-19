@@ -16,6 +16,7 @@ class RecommendationCard extends StatefulWidget {
 
 class _RecommendationCardState extends State<RecommendationCard> {
   bool _isPressed = false;
+  late final bool _hasImage = widget.exercise['url'] != null ? true : false;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +47,7 @@ class _RecommendationCardState extends State<RecommendationCard> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                height: 150,
+                height: 200,
                 width: double.infinity,
                 decoration: const BoxDecoration(
                   borderRadius: BorderRadius.only(
@@ -59,32 +60,45 @@ class _RecommendationCardState extends State<RecommendationCard> {
                     end: Alignment.bottomRight,
                   ),
                 ),
-                child: Center(
-                  child: Container(
-                    width: 60,
-                    height: 60,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      gradient: const LinearGradient(
-                        colors: [Color(0xFF9DCEFF), Color(0xFF92A3FD)],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: const Color(0xFF92A3FD).withValues(alpha: 0.3),
-                          blurRadius: 12,
-                          offset: const Offset(0, 4),
+                child: _hasImage
+                    ? ClipRRect(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(24),
+                          topRight: Radius.circular(24),
                         ),
-                      ],
-                    ),
-                    child: const Icon(
-                      Icons.fitness_center_rounded,
-                      color: Colors.white,
-                      size: 30,
-                    ),
-                  ),
-                ),
+                        child: Image.network(
+                          fit: BoxFit.fill,
+                          widget.exercise['url'].toString(),
+                        ),
+                      )
+                    : Center(
+                        child: Container(
+                          width: 60,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            gradient: const LinearGradient(
+                              colors: [Color(0xFF9DCEFF), Color(0xFF92A3FD)],
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: const Color(
+                                  0xFF92A3FD,
+                                ).withValues(alpha: 0.3),
+                                blurRadius: 12,
+                                offset: const Offset(0, 4),
+                              ),
+                            ],
+                          ),
+                          child: const Icon(
+                            Icons.fitness_center_rounded,
+                            color: Colors.white,
+                            size: 30,
+                          ),
+                        ),
+                      ),
               ),
               Expanded(
                 child: Padding(
@@ -131,9 +145,7 @@ class _RecommendationCardState extends State<RecommendationCard> {
                           const SizedBox(width: 4),
                           Text(
                             (widget.exercise['muscle_group'] as List).first,
-                            style: const TextStyle(
-                              fontSize: 13,
-                            ),
+                            style: const TextStyle(fontSize: 13),
                           ),
                         ],
                       ),
@@ -147,9 +159,7 @@ class _RecommendationCardState extends State<RecommendationCard> {
                           const SizedBox(width: 4),
                           Text(
                             "${((widget.exercise['equipment'] as List).length).toString()} equipments",
-                            style: const TextStyle(
-                              fontSize: 13,
-                            ),
+                            style: const TextStyle(fontSize: 13),
                           ),
                         ],
                       ),

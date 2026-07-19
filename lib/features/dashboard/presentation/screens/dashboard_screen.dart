@@ -142,9 +142,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     const _SectionLabel(label: 'Weekly Challenge'),
                     const SizedBox(height: 12),
                     WeeklyChallengeCard(
-                      title: 'Complete 3 Workouts This Week',
-                      currentProgress: 1,
-                      totalProgress: 3,
+                      title: 'Complete',
                       onTap: () => context.push(AppRoutePaths.appWorkout),
                     ),
                     const SizedBox(height: 24),
@@ -178,7 +176,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     ),
                     const SizedBox(height: 16),
                     SizedBox(
-                      height: 250,
+                      height: 300,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemCount: 5,

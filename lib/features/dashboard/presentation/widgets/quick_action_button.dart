@@ -31,7 +31,7 @@ class _QuickActionButtonState extends State<QuickActionButton> {
       onTapCancel: () => setState(() => _isPressed = false),
       onTap: widget.onTap,
       child: AnimatedScale(
-        scale: _isPressed ? 0.94 : 1.0,
+        scale: _isPressed ? 0.9 : 1.0,
         duration: const Duration(milliseconds: 100),
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
