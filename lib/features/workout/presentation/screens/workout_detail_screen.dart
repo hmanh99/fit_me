@@ -6,7 +6,7 @@ import 'package:personal_fitness_tracker/features/workout/presentation/bloc/work
 import 'package:personal_fitness_tracker/features/workout/presentation/bloc/workout_event.dart';
 import 'package:personal_fitness_tracker/features/workout/presentation/bloc/workout_state.dart';
 import 'package:personal_fitness_tracker/features/workout/domain/entities/workout_plan_entity.dart';
-import 'package:personal_fitness_tracker/features/workout/presentation/widgets/exercise_card.dart';
+import 'package:personal_fitness_tracker/features/workout/presentation/widgets/workout_exercise_card.dart';
 import 'package:personal_fitness_tracker/features/workout/presentation/widgets/workout_error_state.dart';
 import 'package:personal_fitness_tracker/features/workout/presentation/widgets/workout_loading_skeleton.dart';
 
@@ -123,7 +123,7 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
                               ),
                             );
                           },
-                          child: ExerciseCard(
+                          child: WorkoutExerciseCard(
                             planExercise: planEx,
                             onTap: () {
                               context.goNamed(
@@ -146,6 +146,83 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
                 ],
               ),
             ));
+          }
+          return const SizedBox.shrink();
+        },
+      ),
+      bottomNavigationBar: BlocBuilder<WorkoutBloc, WorkoutState>(
+        builder: (context, state) {
+          if (state is WorkoutPlanDetailsLoaded) {
+            final plan = state.workoutPlan;
+            return Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.05),
+                    blurRadius: 10,
+                    offset: const Offset(0, -4),
+                  ),
+                ],
+              ),
+              child: SafeArea(
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 52,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      context.goNamed(
+                        AppRouteNames.appWorkoutSession,
+                        pathParameters: {
+                          'workoutId': plan.planId.toString(),
+                        },
+                        extra: plan,
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      elevation: 4,
+                      shadowColor:
+                          const Color(0xFF92A3FD).withValues(alpha: 0.4),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      padding: EdgeInsets.zero,
+                    ),
+                    child: Ink(
+                      decoration: BoxDecoration(
+                        gradient: const LinearGradient(
+                          colors: [Color(0xFF92A3FD), Color(0xFF9DCEFF)],
+                        ),
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: Container(
+                        alignment: Alignment.center,
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.play_arrow_rounded,
+                              color: Colors.white,
+                              size: 26,
+                            ),
+                            SizedBox(width: 8),
+                            Text(
+                              'Start Workout',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            );
           }
           return const SizedBox.shrink();
         },

@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:personal_fitness_tracker/features/exercise/domain/entities/exercise_entity.dart';
 
+/// planExerciseId help define order of specific exercise inside a specific plan.
 class PlanExerciseEntity extends Equatable {
   final int planExerciseId;
   final int planId;
@@ -8,7 +9,6 @@ class PlanExerciseEntity extends Equatable {
   final int orderInWorkout;
   final int targetSets;
   final int targetRepsOrSeconds;
-
 
   final ExerciseEntity? exercise;
 
@@ -21,7 +21,6 @@ class PlanExerciseEntity extends Equatable {
     required this.targetRepsOrSeconds,
     this.exercise,
   });
-
 
   int get expectedVolume => targetSets * targetRepsOrSeconds;
 
@@ -59,5 +58,5 @@ class PlanExerciseEntity extends Equatable {
   @override
   String toString() =>
       'PlanExerciseEntity(planExerciseId: $planExerciseId, exerciseId: $exerciseId, '
-          'order: $orderInWorkout, sets: $targetSets, repsOrSecs: $targetRepsOrSeconds)';
+      'order: $orderInWorkout, sets: $targetSets, repsOrSecs: $targetRepsOrSeconds)';
 }

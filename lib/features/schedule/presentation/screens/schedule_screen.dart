@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import 'package:personal_fitness_tracker/core/router/route_names.dart';
+import 'package:personal_fitness_tracker/core/services/auth_services.dart';
 import 'package:personal_fitness_tracker/features/schedule/domain/entities/workout_schedule_entity.dart';
 import 'package:personal_fitness_tracker/features/schedule/presentation/bloc/schedule_bloc.dart';
 import 'package:personal_fitness_tracker/features/schedule/presentation/bloc/schedule_event.dart';
@@ -10,7 +13,6 @@ import 'package:personal_fitness_tracker/features/schedule/presentation/widgets/
 import 'package:personal_fitness_tracker/features/schedule/presentation/widgets/schedule_day_item.dart';
 import 'package:personal_fitness_tracker/features/schedule/presentation/widgets/schedule_loading_skeleton.dart';
 import 'package:personal_fitness_tracker/features/schedule/presentation/widgets/workout_marker.dart';
-import 'package:supabase_flutter/supabase_flutter.dart' hide AuthState;
 import 'package:table_calendar/table_calendar.dart';
 
 class ScheduleScreen extends StatefulWidget {
@@ -25,6 +27,8 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
   DateTime _selectedDay = DateTime.now();
   CalendarFormat _calendarFormat = CalendarFormat.month;
 
+  final _authService = AuthServices();
+
   @override
   void initState() {
     super.initState();
@@ -37,7 +41,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
   }
 
   void _loadSchedules() {
-    final userId = Supabase.instance.client.auth.currentUser?.id;
+    final userId = _authService.user?.id;
     if (userId == null) return;
 
     context.read<ScheduleBloc>().add(
@@ -88,7 +92,6 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
-            elevation: 0,
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -96,9 +99,8 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                   'Schedule',
                   style: TextStyle(
                     color: Colors.white,
-                    fontWeight: FontWeight.w800,
+                    fontWeight: FontWeight.bold,
                     fontSize: 24,
-                    letterSpacing: 0.5,
                   ),
                 ),
                 Material(
@@ -421,6 +423,17 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                 },
                 child: ScheduleDayItem(
                   schedule: schedule,
+                  onTap: () {
+                    context.goNamed(
+                      AppRouteNames.appWorkoutDetail,
+                      pathParameters: {
+                        'workoutId': schedule.planId.toString().trim(),
+                      },
+                      queryParameters: {
+                        'planName' : schedule.planName.trim(),
+                      }
+                    );
+                  },
                   onEdit: () => AddScheduleBottomSheet.show(
                     context,
                     existingSchedule: schedule,
@@ -430,9 +443,6 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
               );
             }, childCount: state.selectedDateSchedules.length),
           ),
-
-        // Bottom padding for FAB
-        const SliverToBoxAdapter(child: SizedBox(height: 100)),
       ],
     );
   }

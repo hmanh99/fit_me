@@ -3,21 +3,21 @@ import 'package:personal_fitness_tracker/core/const/color_constants.dart';
 import 'package:personal_fitness_tracker/features/exercise/domain/entities/exercise_entity.dart';
 import 'package:personal_fitness_tracker/features/workout/domain/entities/plan_exercise_entity.dart';
 
-class ExerciseCard extends StatefulWidget {
+class WorkoutExerciseCard extends StatefulWidget {
   final PlanExerciseEntity planExercise;
   final VoidCallback? onTap;
 
-  const ExerciseCard({
+  const WorkoutExerciseCard({
     super.key,
     required this.planExercise,
     this.onTap,
   });
 
   @override
-  State<ExerciseCard> createState() => _ExerciseCardState();
+  State<WorkoutExerciseCard> createState() => _WorkoutExerciseCardState();
 }
 
-class _ExerciseCardState extends State<ExerciseCard> {
+class _WorkoutExerciseCardState extends State<WorkoutExerciseCard> {
   bool _isPressed = false;
 
   @override

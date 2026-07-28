@@ -8,8 +8,8 @@ import 'package:personal_fitness_tracker/features/exercise/presentation/bloc/exe
 import 'package:personal_fitness_tracker/features/exercise/presentation/bloc/exercise_state.dart';
 import 'package:personal_fitness_tracker/features/exercise/presentation/widgets/exercise_empty_state.dart';
 import 'package:personal_fitness_tracker/features/exercise/presentation/widgets/exercise_error_state.dart';
-import 'package:personal_fitness_tracker/features/exercise/presentation/widgets/exercise_gradient_app_bar.dart';
-import 'package:personal_fitness_tracker/features/exercise/presentation/widgets/exercise_list_card.dart';
+import 'package:personal_fitness_tracker/features/exercise/presentation/widgets/exercise_app_bar.dart';
+import 'package:personal_fitness_tracker/features/exercise/presentation/widgets/exercise_card.dart';
 import 'package:personal_fitness_tracker/features/exercise/presentation/widgets/exercise_loading_skeleton.dart';
 import 'package:personal_fitness_tracker/features/exercise/presentation/widgets/exercise_theme.dart';
 
@@ -34,12 +34,11 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: ExerciseGradientAppBar(
+      appBar: ExerciseAppBar(
         onBack: () {
           context.pop();
         },
-        title: 'Exercises',
-        centerTitle: true,
+        title: 'Exercises Library',
       ),
       body: BlocBuilder<ExerciseBloc, ExerciseState>(
         builder: (context, state) {

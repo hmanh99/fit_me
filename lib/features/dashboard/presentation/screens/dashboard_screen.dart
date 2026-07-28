@@ -11,7 +11,6 @@ import 'package:personal_fitness_tracker/features/dashboard/presentation/widgets
 import 'package:personal_fitness_tracker/features/dashboard/presentation/widgets/dashboard_skeleton.dart';
 import 'package:personal_fitness_tracker/features/dashboard/presentation/widgets/quick_action_button.dart';
 import 'package:personal_fitness_tracker/features/dashboard/presentation/widgets/recommendation_card.dart';
-import 'package:personal_fitness_tracker/features/dashboard/presentation/widgets/weekly_challenge_card.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -64,12 +63,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
               ? state.exercises
               : <Map<String, dynamic>>[];
 
-
           // Empty
           if (state is DashboardEmpty || exercises.isEmpty) {
-            return DashboardEmptyRecommendations(
-              onRefresh: _fetchExercises,
-            );
+            return DashboardEmptyRecommendations(onRefresh: _fetchExercises);
           }
 
           return SafeArea(
@@ -97,7 +93,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       physics: const NeverScrollableScrollPhysics(),
                       crossAxisSpacing: 12,
                       mainAxisSpacing: 12,
-                      childAspectRatio: 2.5,
+                      childAspectRatio: 2,
                       children: [
                         QuickActionButton(
                           icon: Icons.fitness_center_rounded,
@@ -128,7 +124,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         ),
                         QuickActionButton(
                           icon: Icons.restaurant_rounded,
-                          label: 'Meal Planner',
+                          label: 'Meal Idea',
                           gradientColors: const [
                             Color(0xFF9DCEFF),
                             Color(0xFF92A3FD),
@@ -138,15 +134,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       ],
                     ),
                     const SizedBox(height: 24),
-
-                    const _SectionLabel(label: 'Weekly Challenge'),
-                    const SizedBox(height: 12),
-                    WeeklyChallengeCard(
-                      title: 'Complete',
-                      onTap: () => context.push(AppRoutePaths.appWorkout),
-                    ),
-                    const SizedBox(height: 24),
-
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -223,10 +210,7 @@ class _SectionLabel extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       label,
-      style: const TextStyle(
-        fontSize: 18,
-        fontWeight: FontWeight.bold,
-      ),
+      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
     );
   }
 }

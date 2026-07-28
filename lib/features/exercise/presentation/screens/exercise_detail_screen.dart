@@ -6,7 +6,7 @@ import 'package:personal_fitness_tracker/features/exercise/presentation/bloc/exe
 import 'package:personal_fitness_tracker/features/exercise/presentation/bloc/exercise_state.dart';
 import 'package:personal_fitness_tracker/features/exercise/presentation/widgets/exercise_detail_header.dart';
 import 'package:personal_fitness_tracker/features/exercise/presentation/widgets/exercise_error_state.dart';
-import 'package:personal_fitness_tracker/features/exercise/presentation/widgets/exercise_gradient_app_bar.dart';
+import 'package:personal_fitness_tracker/features/exercise/presentation/widgets/exercise_app_bar.dart';
 import 'package:personal_fitness_tracker/features/exercise/presentation/widgets/exercise_info_section.dart';
 import 'package:personal_fitness_tracker/features/exercise/presentation/widgets/exercise_instruction_list.dart';
 import 'package:personal_fitness_tracker/features/exercise/presentation/widgets/exercise_loading_skeleton.dart';
@@ -38,8 +38,7 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: ExerciseGradientAppBar(
+      appBar: ExerciseAppBar(
         title: 'Exercise Detail',
         onBack: () => context.pop(),
       ),
@@ -61,14 +60,14 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
                 );
               },
               child: SingleChildScrollView(
-                physics: const AlwaysScrollableScrollPhysics(),
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+                padding: EdgeInsets.fromLTRB(16, 20, 16, MediaQuery.of(context).padding.bottom + 20),
                 child: Center(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Container(
                         decoration: BoxDecoration(
+                          color: Colors.white,
                           borderRadius: const BorderRadius.all(
                             Radius.circular(16),
                           ),
@@ -91,7 +90,7 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
                         title: 'Target Muscles',
                         icon: Icons.accessibility_new_rounded,
                         items: exercise.muscleGroups,
-                        chipAccentColor: const Color(0xFF7F77DD),
+                        chipAccentColor: const Color(0xFF92A3FD),
                       ),
                       if (exercise.requiresEquipment) ...[
                         const SizedBox(height: 16),

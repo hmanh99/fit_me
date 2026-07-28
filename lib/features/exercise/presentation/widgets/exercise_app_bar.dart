@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:personal_fitness_tracker/features/exercise/presentation/widgets/exercise_theme.dart';
 
-class ExerciseGradientAppBar extends StatelessWidget implements PreferredSizeWidget {
+class ExerciseAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final VoidCallback? onBack;
-  final bool centerTitle;
 
-  const ExerciseGradientAppBar({
+  const ExerciseAppBar({
     super.key,
     required this.title,
     this.onBack,
-    this.centerTitle = false,
   });
 
   @override
@@ -37,7 +35,6 @@ class ExerciseGradientAppBar extends StatelessWidget implements PreferredSizeWid
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
       ),
-      centerTitle: centerTitle,
       toolbarHeight: 64,
       elevation: 0,
       backgroundColor: Colors.transparent,

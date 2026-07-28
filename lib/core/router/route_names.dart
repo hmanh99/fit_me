@@ -15,6 +15,7 @@ abstract final class AppRouteNames {
 
   static const appWorkouts = 'app-workout';
   static const appWorkoutDetail = 'app-workout-detail';
+  static const appWorkoutSession = 'app-workout-session';
 
   static const appExercise = 'app-exercise';
   static const appWorkoutExerciseDetail = 'app-workout-exercise-detail';

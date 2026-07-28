@@ -110,9 +110,8 @@ class _MyAppState extends State<MyApp> {
             ),
           ),
           BlocProvider<MealBloc>(
-            create: (context) => MealBloc(
-              mealRepository: context.read<MealRepositoryImpl>(),
-            ),
+            create: (context) =>
+                MealBloc(mealRepository: context.read<MealRepositoryImpl>()),
           ),
           BlocProvider<ProfileBloc>(
             create: (context) => ProfileBloc(
@@ -120,9 +119,8 @@ class _MyAppState extends State<MyApp> {
             ),
           ),
           BlocProvider<DashboardBloc>(
-            create: (context) => DashboardBloc(
-               exerciseServices: ExerciseServices(),
-            ),
+            create: (context) =>
+                DashboardBloc(exerciseServices: ExerciseServices()),
           ),
         ],
         child: BlocBuilder<AuthBloc, AuthState>(
@@ -137,7 +135,9 @@ class _MyAppState extends State<MyApp> {
               debugShowCheckedModeBanner: false,
               routerConfig: _router,
               builder: (context, child) {
-                if (state is AuthUnknownState) return const CircularProgressIndicator();
+                if (state is AuthUnknownState) {
+                  return const CircularProgressIndicator();
+                }
                 return child ?? const CircularProgressIndicator();
               },
             );

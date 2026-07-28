@@ -7,6 +7,7 @@ import 'package:personal_fitness_tracker/features/meal/domain/entities/meal_type
 import 'package:personal_fitness_tracker/features/meal/presentation/bloc/meal_bloc.dart';
 import 'package:personal_fitness_tracker/features/meal/presentation/bloc/meal_event.dart';
 import 'package:personal_fitness_tracker/features/meal/presentation/bloc/meal_state.dart';
+import 'package:personal_fitness_tracker/features/meal/presentation/widgets/meal_app_bar.dart';
 import 'package:personal_fitness_tracker/features/meal/presentation/widgets/meal_empty_view.dart';
 import 'package:personal_fitness_tracker/features/meal/presentation/widgets/meal_error_view.dart';
 import 'package:personal_fitness_tracker/features/meal/presentation/widgets/meal_item.dart';
@@ -31,37 +32,7 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          "Meal Detail",
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 24,
-            letterSpacing: 0.5,
-          ),
-        ),
-        leading: IconButton(
-          onPressed: () => context.pop(),
-          icon: const Icon(
-            Icons.arrow_back_ios_new_rounded,
-            color: Colors.white,
-            size: 20,
-          ),
-        ),
-        centerTitle: true,
-        toolbarHeight: 64,
-        elevation: 0,
-        flexibleSpace: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Color(0xFF92A3FD), Color(0xFF9DCEFF)],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-          ),
-        ),
-      ),
+      appBar: MealAppBar(title: "Meal Detail", onBack: () => context.pop()),
       body: BlocBuilder<MealBloc, MealState>(
         builder: (context, state) {
           if (state is MealLoading) {
@@ -99,11 +70,7 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
     );
   }
 
-  Widget _buildBody(
-    BuildContext context,
-    MealEntity meal,
-    Color badgeColor,
-  ) {
+  Widget _buildBody(BuildContext context, MealEntity meal, Color badgeColor) {
     return SingleChildScrollView(
       physics: const AlwaysScrollableScrollPhysics(),
       padding: const EdgeInsets.all(20),
@@ -121,7 +88,6 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
       ),
     );
   }
-
 
   Widget _buildImageBanner(MealEntity meal, Color badgeColor, double height) {
     return Hero(

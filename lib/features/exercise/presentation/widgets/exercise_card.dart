@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:personal_fitness_tracker/core/const/color_constants.dart';
 import 'package:personal_fitness_tracker/features/exercise/domain/entities/exercise_entity.dart';
-import 'package:personal_fitness_tracker/features/exercise/presentation/widgets/exercise_difficulty_badge.dart';
 import 'package:personal_fitness_tracker/features/exercise/presentation/widgets/exercise_theme.dart';
 
 class ExerciseListCard extends StatefulWidget {
@@ -38,11 +36,7 @@ class _ExerciseListCardState extends State<ExerciseListCard> {
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
             child: Column(
-              children: [
-                Expanded(
-                  child: _ExerciseAvatar(exercise: exercise),
-                ),
-              ],
+              children: [Expanded(child: _ExerciseAvatar(exercise: exercise))],
             ),
           ),
         ),
@@ -62,8 +56,8 @@ class _ExerciseAvatar extends StatelessWidget {
       child: Hero(
         tag: "exercise-image-${exercise.exerciseId}",
         child: exercise.url == null
-            ? Icon(Icons.fitness_center_outlined, size: 20,)
-            : Image.network(exercise.url!,),
+            ? Icon(Icons.fitness_center_outlined, size: 20)
+            : Image.network(exercise.url!),
       ),
     );
   }

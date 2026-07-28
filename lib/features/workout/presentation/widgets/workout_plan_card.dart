@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:personal_fitness_tracker/features/workout/domain/entities/workout_plan_entity.dart';
 
 class WorkoutPlanCard extends StatefulWidget {
   final WorkoutPlanEntity plan;
   final VoidCallback? onTap;
 
-  const WorkoutPlanCard({
-    super.key,
-    required this.plan,
-    this.onTap,
-  });
+  const WorkoutPlanCard({super.key, required this.plan, this.onTap});
 
   @override
   State<WorkoutPlanCard> createState() => _WorkoutPlanCardState();
@@ -22,7 +17,6 @@ class _WorkoutPlanCardState extends State<WorkoutPlanCard> {
   @override
   Widget build(BuildContext context) {
     final isDefault = widget.plan.isDefaultPlan;
-    final formattedDate = DateFormat.yMMMd().format(widget.plan.createdAt);
 
     return GestureDetector(
       onTapDown: (_) => setState(() => _isPressed = true),
@@ -59,10 +53,10 @@ class _WorkoutPlanCardState extends State<WorkoutPlanCard> {
                 padding: const EdgeInsets.all(20),
                 child: Row(
                   children: [
-                    // Circular Icon container
+                    // Icon
                     Container(
-                      width: 56,
-                      height: 56,
+                      width: 60,
+                      height: 60,
                       decoration: BoxDecoration(
                         color: Colors.white.withValues(alpha: 0.25),
                         shape: BoxShape.circle,
@@ -74,7 +68,7 @@ class _WorkoutPlanCardState extends State<WorkoutPlanCard> {
                       child: const Icon(
                         Icons.fitness_center_rounded,
                         color: Colors.white,
-                        size: 26,
+                        size: 30,
                       ),
                     ),
                     const SizedBox(width: 16),
@@ -84,39 +78,27 @@ class _WorkoutPlanCardState extends State<WorkoutPlanCard> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           // Plan Badges Row
-                          Row(
-                            children: [
-                              Container(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 8,
-                                  vertical: 3,
-                                ),
-                                decoration: BoxDecoration(
-                                  color: isDefault
-                                      ? const Color(0xFF7F77DD)
-                                      : const Color(0xFFEEA282),
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                child: Text(
-                                  isDefault ? "Official" : "Personal",
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 8,
+                              vertical: 3,
+                            ),
+                            decoration: BoxDecoration(
+                              color: isDefault
+                                  ? const Color(0xFF7F77DD)
+                                  : const Color(0xFFEEA282),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Text(
+                              isDefault ? "Official" : "Personal",
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold,
                               ),
-                              const SizedBox(width: 8),
-                              Text(
-                                formattedDate,
-                                style: TextStyle(
-                                  color: Colors.white.withValues(alpha: 0.8),
-                                  fontSize: 11,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ],
+                            ),
                           ),
+
                           const SizedBox(height: 6),
                           // Plan Name
                           Text(

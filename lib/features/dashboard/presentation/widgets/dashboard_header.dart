@@ -55,7 +55,7 @@ class DashboardHeader extends StatelessWidget {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
                             content: Text(
-                              'Notifications — you are all caught up!',
+                              'Notifications — soon',
                             ),
                             behavior: SnackBarBehavior.floating,
                           ),

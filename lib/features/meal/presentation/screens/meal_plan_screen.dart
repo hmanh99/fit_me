@@ -11,6 +11,7 @@ import 'package:personal_fitness_tracker/features/meal/domain/entities/meal_type
 import 'package:personal_fitness_tracker/features/meal/presentation/bloc/meal_bloc.dart';
 import 'package:personal_fitness_tracker/features/meal/presentation/bloc/meal_event.dart';
 import 'package:personal_fitness_tracker/features/meal/presentation/bloc/meal_state.dart';
+import 'package:personal_fitness_tracker/features/meal/presentation/widgets/meal_app_bar.dart';
 import 'package:personal_fitness_tracker/features/meal/presentation/widgets/meal_card.dart';
 import 'package:personal_fitness_tracker/features/meal/presentation/widgets/meal_empty_view.dart';
 import 'package:personal_fitness_tracker/features/meal/presentation/widgets/meal_error_view.dart';
@@ -101,29 +102,7 @@ class _MealPlanScreenState extends State<MealPlanScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey.shade50,
-      appBar: AppBar(
-        title: const Text(
-          "Meal",
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 24,
-            letterSpacing: 0.5,
-          ),
-        ),
-        centerTitle: true,
-        toolbarHeight: 64,
-        elevation: 0,
-        flexibleSpace: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Color(0xFF92A3FD), Color(0xFF9DCEFF)],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-          ),
-        ),
-      ),
+      appBar: MealAppBar(title: "Meal",),
       body: RefreshIndicator(
         onRefresh: _handleRefresh,
         color: const Color(0xFF92A3FD),

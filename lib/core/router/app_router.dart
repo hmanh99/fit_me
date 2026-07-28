@@ -24,9 +24,13 @@ import 'package:personal_fitness_tracker/features/profile/presentation/screens/p
 import 'package:personal_fitness_tracker/features/schedule/presentation/screens/schedule_screen.dart';
 import 'package:personal_fitness_tracker/features/settings/presentation/settings_screen.dart';
 import 'package:personal_fitness_tracker/features/workout/data/repositories/workout_repository_impl.dart';
+import 'package:personal_fitness_tracker/features/workout/domain/entities/workout_plan_entity.dart';
 import 'package:personal_fitness_tracker/features/workout/presentation/bloc/workout_bloc.dart';
+import 'package:personal_fitness_tracker/features/workout/presentation/bloc/workout_session_bloc.dart';
+import 'package:personal_fitness_tracker/features/workout/presentation/bloc/workout_session_event.dart';
 import 'package:personal_fitness_tracker/features/workout/presentation/screens/workout_detail_screen.dart';
 import 'package:personal_fitness_tracker/features/workout/presentation/screens/workout_screen.dart';
+import 'package:personal_fitness_tracker/features/workout/presentation/screens/workout_session_screen.dart';
 import 'package:personal_fitness_tracker/shared/widgets/main_shell.dart';
 
 GoRouter createAppRouter(AuthBloc authBloc) {
@@ -98,7 +102,8 @@ GoRouter createAppRouter(AuthBloc authBloc) {
                     name: AppRouteNames.appWorkouts,
                     builder: (context, state) => BlocProvider<WorkoutBloc>(
                       create: (context) => WorkoutBloc(
-                        workoutRepository: context.read<WorkoutRepositoryImpl>(),
+                        workoutRepository: context
+                            .read<WorkoutRepositoryImpl>(),
                       ),
                       child: const WorkoutScreen(),
                     ),
@@ -109,7 +114,7 @@ GoRouter createAppRouter(AuthBloc authBloc) {
                         builder: (context, state) {
                           final workoutId = state.pathParameters['workoutId']!;
                           final String? planName =
-                          state.uri.queryParameters['planName'];
+                              state.uri.queryParameters['planName'];
                           return WorkoutDetailScreen(
                             workoutId: int.parse(workoutId),
                             planName: planName ?? 'Workout Plan',
@@ -117,15 +122,35 @@ GoRouter createAppRouter(AuthBloc authBloc) {
                         },
                         routes: [
                           GoRoute(
+                            path: 'session',
+                            name: AppRouteNames.appWorkoutSession,
+                            builder: (context, state) {
+                              final workoutPlan = state.extra as WorkoutPlanEntity?;
+                              return BlocProvider<WorkoutSessionBloc>(
+                                create: (context) {
+                                  final bloc = WorkoutSessionBloc(
+                                    repository: context
+                                        .read<WorkoutRepositoryImpl>(),
+                                  );
+                                  if (workoutPlan != null) {
+                                    bloc.add(StartWorkoutPlan(plan: workoutPlan));
+                                  }
+                                  return bloc;
+                                },
+                                child: const WorkoutSessionScreen(),
+                              );
+                            },
+                          ),
+                          GoRoute(
                             path: 'exercises/:exerciseId',
                             name: AppRouteNames.appWorkoutExerciseDetail,
                             builder: (context, state) {
                               final exerciseId =
-                              state.pathParameters['exerciseId']!;
+                                  state.pathParameters['exerciseId']!;
                               return BlocProvider<ExerciseBloc>(
                                 create: (context) => ExerciseBloc(
-                                  exerciseRepository:
-                                  context.read<ExerciseRepositoryImpl>(),
+                                  exerciseRepository: context
+                                      .read<ExerciseRepositoryImpl>(),
                                 ),
                                 child: ExerciseDetailScreen(
                                   exerciseId: int.parse(exerciseId),
@@ -145,8 +170,8 @@ GoRouter createAppRouter(AuthBloc authBloc) {
                     builder: (context, state) {
                       return BlocProvider<ExerciseBloc>(
                         create: (context) => ExerciseBloc(
-                          exerciseRepository:
-                          context.read<ExerciseRepositoryImpl>(),
+                          exerciseRepository: context
+                              .read<ExerciseRepositoryImpl>(),
                         ),
                         child: const ExerciseScreen(),
                       );
@@ -157,7 +182,7 @@ GoRouter createAppRouter(AuthBloc authBloc) {
                         name: AppRouteNames.appExerciseDetail,
                         builder: (context, state) {
                           final exerciseId =
-                          state.pathParameters['exerciseId']!;
+                              state.pathParameters['exerciseId']!;
                           return ExerciseDetailScreen(
                             exerciseId: int.parse(exerciseId),
                           );
@@ -177,7 +202,9 @@ GoRouter createAppRouter(AuthBloc authBloc) {
                 path: AppRoutePaths.appSchedule,
                 name: AppRouteNames.appSchedule,
                 builder: (context, state) => const ScheduleScreen(),
-                routes: []
+                routes: [
+
+                ],
               ),
             ],
           ),
@@ -197,7 +224,7 @@ GoRouter createAppRouter(AuthBloc authBloc) {
                       final mealId = state.pathParameters['mealId']!;
                       return MealDetailScreen(mealId: int.parse(mealId));
                     },
-                  )
+                  ),
                 ],
               ),
             ],

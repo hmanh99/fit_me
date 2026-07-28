@@ -23,6 +23,7 @@ abstract final class AppRoutePaths {
   static const appSchedule = '/app/home/schedule';
 
   static const appWorkout = '/app/home/workout';
+  static const appWorkoutSession = '/app/home/workout/session';
 
   static const appExercise = '/app/home/exercise';
 

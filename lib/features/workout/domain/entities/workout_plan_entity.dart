@@ -18,10 +18,10 @@ class WorkoutPlanEntity extends Equatable {
     this.planExercises = const [],
   });
 
-  /// True when this is a system/default plan (not owned by any user).
+  /// True when this is a default plan
   bool get isDefaultPlan => userId == null;
 
-  /// Total number of exercise slots in this plan.
+  /// Total number of exercise in plan.
   int get exerciseCount => planExercises.length;
 
   WorkoutPlanEntity copyWith({
