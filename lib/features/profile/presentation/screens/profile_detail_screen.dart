@@ -8,6 +8,7 @@ import 'package:personal_fitness_tracker/features/profile/presentation/bloc/prof
 import 'package:personal_fitness_tracker/features/profile/presentation/bloc/profile_event.dart';
 import 'package:personal_fitness_tracker/features/profile/presentation/bloc/profile_state.dart';
 import 'package:personal_fitness_tracker/features/profile/presentation/widgets/bmi_card.dart';
+import 'package:personal_fitness_tracker/features/profile/presentation/widgets/profile_app_bar.dart';
 import 'package:personal_fitness_tracker/features/profile/presentation/widgets/profile_header.dart';
 import 'package:personal_fitness_tracker/features/profile/presentation/widgets/profile_skeletons.dart';
 import 'package:personal_fitness_tracker/features/profile/presentation/widgets/stat_card.dart';
@@ -31,31 +32,10 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF8F9FE),
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        shape: const Border(
-          bottom: BorderSide(color: Color(0xFFF5F5F5), width: 1),
-        ),
+      appBar: ProfileAppBar(
+        title: "Personal Data",
         centerTitle: true,
-        title: const Text(
-          'Personal Data',
-          style: TextStyle(
-            color: ColorConstants.primaryTextColor,
-            fontWeight: FontWeight.w800,
-            fontSize: 16,
-            letterSpacing: 0.3,
-          ),
-        ),
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back_ios_new_rounded,
-            color: ColorConstants.primaryTextColor,
-            size: 18,
-          ),
-          onPressed: () => context.pop(),
-        ),
+        onBack: () => context.pop(),
       ),
       body: SafeArea(
         child: BlocBuilder<ProfileBloc, ProfileState>(
@@ -170,7 +150,7 @@ class _ProfileBody extends StatelessWidget {
     final bmiCategory = _bmiCategory(bmi);
 
     return SingleChildScrollView(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+      padding: const EdgeInsets.all(20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [

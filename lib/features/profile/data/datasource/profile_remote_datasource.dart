@@ -30,14 +30,14 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDatasource {
 
   ProfileRemoteDataSourceImpl({required this.supabaseClient});
 
-  static const _table = "profiles";
+  static const _profileTable = "profiles";
 
   @override
   Future<ProfileModel> getCurrentProfile({required String userId}) async {
     // TODO: implement getCurrentProfile
     try {
       final response = await supabaseClient
-          .from(_table)
+          .from(_profileTable)
           .select()
           .eq('user_id', userId)
           .limit(1);
@@ -52,7 +52,7 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDatasource {
   Future<void> updateAvatar({required ProfileModel model}) async {
     try {
       await supabaseClient
-          .from(_table)
+          .from(_profileTable)
           .update({'avatar': model.avatar})
           .eq("user_id", model.userId);
     } catch (e) {
@@ -64,7 +64,7 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDatasource {
   Future<void> updateHeight({required ProfileModel model}) async {
     try {
       await supabaseClient
-          .from(_table)
+          .from(_profileTable)
           .update({'height': model.height})
           .eq("user_id", model.userId);
     } catch (e) {
@@ -76,7 +76,7 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDatasource {
   Future<void> updateUsername({required ProfileModel model}) async {
     try {
       await supabaseClient
-          .from(_table)
+          .from(_profileTable)
           .update({'username': model.username})
           .eq("user_id", model.userId);
       await supabaseClient.auth.updateUser(
@@ -91,7 +91,7 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDatasource {
   Future<void> updateWeight({required ProfileModel model}) async {
     try {
       await supabaseClient
-          .from(_table)
+          .from(_profileTable)
           .update({'weight': model.weight})
           .eq("user_id", model.userId);
     } catch (e) {
@@ -116,7 +116,7 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDatasource {
 
       if (updates.isNotEmpty) {
         await supabaseClient
-            .from(_table)
+            .from(_profileTable)
             .update(updates)
             .eq("user_id", model.userId);
       }

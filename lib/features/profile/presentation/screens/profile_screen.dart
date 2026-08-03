@@ -61,101 +61,107 @@ class _ProfileScreenState extends State<ProfileScreen> {
         builder: (context, state) {
           final profile = state.profile;
           if (profile != null) {
-            return RefreshIndicator(onRefresh: ()  async {
-              context.read<ProfileBloc>().add(ProfileFetched(userId: profile.userId));
-            }, child: SafeArea(
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 16,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    ProfileHeader(profile: profile),
-                    const SizedBox(height: 24),
-                    SectionCard(
-                      title: 'Account',
-                      child: Column(
-                        children: [
-                          MenuTile(
-                            icon: Icons.person_outline_rounded,
-                            label: 'Personal Data',
-                            onTap: () {
-                              context.goNamed(
-                                AppRouteNames.appProfileDetail,
-                                pathParameters: {'profileId': profile.userId},
-                              );
-                            },
-                          ),
-                          _divider(),
-                          MenuTile(
-                            icon: Icons.show_chart_rounded,
-                            label: 'Activity History',
-                            onTap: () => _toast(context, 'Lịch sử hoạt động'),
-                          ),
-                          _divider(),
-                          MenuTile(
-                            icon: Icons.logout,
-                            label: 'Log out',
-                            isDestructive: true,
-                            onTap: () {
-                              context.read<ProfileBloc>().add(
-                                const ProfileLogoutEvent(),
-                              );
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    SectionCard(
-                      title: 'Notification',
-                      child: MenuRow(
-                        icon: Icons.notifications_none_rounded,
-                        label: 'Pop-up Notification',
-                        trailing: Switch(
-                          value: _popUpNotifications,
-                          onChanged: (v) =>
-                              setState(() => _popUpNotifications = v),
-                          activeThumbColor: Colors.white,
-                          activeTrackColor: _kAccentPurple,
-                          inactiveThumbColor: Colors.grey.shade400,
-                          inactiveTrackColor: Colors.grey.shade200,
+            return RefreshIndicator(
+              onRefresh: () async {
+                context.read<ProfileBloc>().add(
+                  ProfileFetched(userId: profile.userId),
+                );
+              },
+              child: SafeArea(
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      ProfileHeader(profile: profile),
+                      const SizedBox(height: 24),
+                      SectionCard(
+                        title: 'Account',
+                        child: Column(
+                          children: [
+                            MenuTile(
+                              icon: Icons.person_outline_rounded,
+                              label: 'Personal Data',
+                              onTap: () {
+                                context.goNamed(
+                                  AppRouteNames.appProfileDetail,
+                                  pathParameters: {'profileId': profile.userId},
+                                );
+                              },
+                            ),
+                            _divider(),
+                            MenuTile(
+                              icon: Icons.history,
+                              label: 'Activity History',
+                              onTap: () {
+                                context.goNamed(
+                                  AppRouteNames.appProfileActivityHistory,
+                                );
+                              },
+                            ),
+                            _divider(),
+                            MenuTile(
+                              icon: Icons.logout,
+                              label: 'Log out',
+                              isDestructive: true,
+                              onTap: () {
+                                context.read<ProfileBloc>().add(
+                                  const ProfileLogoutEvent(),
+                                );
+                              },
+                            ),
+                          ],
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 16),
-                    SectionCard(
-                      title: 'Other',
-                      child: Column(
-                        children: [
-                          MenuTile(
-                            icon: Icons.mail_outline_rounded,
-                            label: 'Contact Us',
-                            onTap: () => _toast(context, 'Liên hệ'),
+                      const SizedBox(height: 16),
+                      SectionCard(
+                        title: 'Notification',
+                        child: MenuRow(
+                          icon: Icons.notifications_none_rounded,
+                          label: 'Pop-up Notification',
+                          trailing: Switch(
+                            value: _popUpNotifications,
+                            onChanged: (v) =>
+                                setState(() => _popUpNotifications = v),
+                            activeThumbColor: Colors.white,
+                            activeTrackColor: _kAccentPurple,
+                            inactiveThumbColor: Colors.grey.shade400,
+                            inactiveTrackColor: Colors.grey.shade200,
                           ),
-                          _divider(),
-                          MenuTile(
-                            icon: Icons.shield_outlined,
-                            label: 'Privacy Policy',
-                            onTap: () => _toast(context, 'Privacy Policy'),
-                          ),
-                          _divider(),
-                          MenuTile(
-                            icon: Icons.settings_outlined,
-                            label: 'Settings',
-                            onTap: () => context.goNamed(
-                              AppRouteNames.appProfileSettings,
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
-                    ),
-                  ],
+                      const SizedBox(height: 16),
+                      SectionCard(
+                        title: 'Other',
+                        child: Column(
+                          children: [
+                            MenuTile(
+                              icon: Icons.mail_outline_rounded,
+                              label: 'Contact Us',
+                              onTap: () => _toast(context, 'Liên hệ'),
+                            ),
+                            _divider(),
+                            MenuTile(
+                              icon: Icons.shield_outlined,
+                              label: 'Privacy Policy',
+                              onTap: () => _toast(context, 'Privacy Policy'),
+                            ),
+                            _divider(),
+                            MenuTile(
+                              icon: Icons.settings_outlined,
+                              label: 'Settings',
+                              onTap: () => context.goNamed(
+                                AppRouteNames.appProfileSettings,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ));
+            );
           } else if (state is ProfileError) {
             return Center(
               child: Card(

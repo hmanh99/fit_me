@@ -347,12 +347,12 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
         // Date Info and Divider
         SliverToBoxAdapter(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+            padding: const EdgeInsets.all(20),
             child: Row(
               children: [
                 Container(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 14,
+                    horizontal: 16,
                     vertical: 8,
                   ),
                   decoration: BoxDecoration(
@@ -528,7 +528,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
   Widget _buildErrorState(ThemeData theme, ScheduleState state) {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 40),
+        padding: const EdgeInsets.all(32),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

@@ -67,7 +67,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           backgroundColor: ColorConstants.backgroundColor,
           body: SafeArea(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.all(24),
+              padding: const EdgeInsets.all(20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -319,7 +319,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   GestureDetector(
                     onTap: isLoading
                         ? null
-                        : () => context.go(AppRoutePaths.signIn),
+                        : () => context.go(AppRoutePaths.login),
                     child: RichText(
                       text: const TextSpan(
                         style: TextStyle(

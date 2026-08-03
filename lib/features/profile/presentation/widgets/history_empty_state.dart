@@ -1,42 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:personal_fitness_tracker/core/const/color_constants.dart';
 
-class DashboardEmptyRecommendations extends StatelessWidget {
+class HistoryEmptyState extends StatelessWidget {
   final VoidCallback? onRefresh;
-
-  const DashboardEmptyRecommendations({super.key, this.onRefresh});
+  const HistoryEmptyState({super.key, this.onRefresh});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 32),
+      padding: const EdgeInsets.symmetric(horizontal: 32),
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            // Glowing visual badge
             Stack(
               alignment: Alignment.center,
               children: [
                 Container(
-                  width: 120,
-                  height: 120,
+                  width: 130,
+                  height: 130,
                   decoration: BoxDecoration(
                     color: const Color(0xFF92A3FD).withValues(alpha: 0.05),
                     shape: BoxShape.circle,
                   ),
                 ),
                 Container(
-                  width: 90,
-                  height: 90,
+                  width: 100,
+                  height: 100,
                   decoration: BoxDecoration(
-                    color: const Color(0xFF92A3FD).withValues(alpha: 0.10),
+                    color: const Color(0xFF92A3FD).withValues(alpha: 0.1),
                     shape: BoxShape.circle,
                   ),
                 ),
                 Container(
-                  width: 64,
-                  height: 64,
+                  width: 70,
+                  height: 70,
                   decoration: const BoxDecoration(
                     gradient: LinearGradient(
                       colors: [Color(0xFF92A3FD), Color(0xFF9DCEFF)],
@@ -48,29 +48,25 @@ class DashboardEmptyRecommendations extends StatelessWidget {
                   child: const Icon(
                     Icons.fitness_center_rounded,
                     color: Colors.white,
-                    size: 28,
+                    size: 32,
                   ),
                 ),
               ],
             ),
-
-            const SizedBox(height: 24),
-
+            const SizedBox(height: 32),
+            // Text Content
             const Text(
-              'No Exercises Found',
+              "No Sessions Available",
               style: TextStyle(
-                fontSize: 18,
+                fontSize: 20,
                 fontWeight: FontWeight.w700,
                 color: ColorConstants.primaryTextColor,
               ),
               textAlign: TextAlign.center,
             ),
-
-            const SizedBox(height: 10),
-
+            const SizedBox(height: 12),
             const Text(
-              'We couldn\'t find any exercises to recommend right now. '
-              'Tap Refresh to try again.',
+              "We couldn't find any workout sessions. Try checking back later or tap Refresh to reload.",
               style: TextStyle(
                 fontSize: 14,
                 color: ColorConstants.secondaryTextColor,
@@ -78,9 +74,9 @@ class DashboardEmptyRecommendations extends StatelessWidget {
               ),
               textAlign: TextAlign.center,
             ),
-
             if (onRefresh != null) ...[
-              const SizedBox(height: 24),
+              const SizedBox(height: 32),
+              // Refresh Button
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(99),
@@ -101,7 +97,7 @@ class DashboardEmptyRecommendations extends StatelessWidget {
                   onPressed: onRefresh,
                   icon: const Icon(Icons.refresh_rounded, color: Colors.white),
                   label: const Text(
-                    'Refresh',
+                    "Refresh",
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
@@ -112,8 +108,8 @@ class DashboardEmptyRecommendations extends StatelessWidget {
                     backgroundColor: Colors.transparent,
                     shadowColor: Colors.transparent,
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 28,
-                      vertical: 12,
+                      horizontal: 24,
+                      vertical: 14,
                     ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(99),

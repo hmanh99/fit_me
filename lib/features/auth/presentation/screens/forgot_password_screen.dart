@@ -59,7 +59,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           );
           Future<void>.delayed(const Duration(seconds: 10), () {
             if (!context.mounted) return;
-            context.go(AppRoutePaths.signIn);
+            context.go(AppRoutePaths.login);
           });
         }
 
@@ -91,7 +91,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       if (context.canPop()) {
                         context.pop();
                       } else {
-                        context.go(AppRoutePaths.signIn);
+                        context.go(AppRoutePaths.login);
                       }
                     },
             ),
@@ -214,7 +214,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   GestureDetector(
                     onTap: isLoading
                         ? null
-                        : () => context.go(AppRoutePaths.signIn),
+                        : () => context.go(AppRoutePaths.login),
                     child: RichText(
                       text: const TextSpan(
                         style: TextStyle(

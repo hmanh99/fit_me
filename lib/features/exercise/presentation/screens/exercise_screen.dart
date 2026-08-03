@@ -6,10 +6,10 @@ import 'package:personal_fitness_tracker/features/exercise/domain/entities/exerc
 import 'package:personal_fitness_tracker/features/exercise/presentation/bloc/exercise_bloc.dart';
 import 'package:personal_fitness_tracker/features/exercise/presentation/bloc/exercise_event.dart';
 import 'package:personal_fitness_tracker/features/exercise/presentation/bloc/exercise_state.dart';
-import 'package:personal_fitness_tracker/features/exercise/presentation/widgets/exercise_empty_state.dart';
-import 'package:personal_fitness_tracker/features/exercise/presentation/widgets/exercise_error_state.dart';
 import 'package:personal_fitness_tracker/features/exercise/presentation/widgets/exercise_app_bar.dart';
 import 'package:personal_fitness_tracker/features/exercise/presentation/widgets/exercise_card.dart';
+import 'package:personal_fitness_tracker/features/exercise/presentation/widgets/exercise_empty_state.dart';
+import 'package:personal_fitness_tracker/features/exercise/presentation/widgets/exercise_error_state.dart';
 import 'package:personal_fitness_tracker/features/exercise/presentation/widgets/exercise_loading_skeleton.dart';
 import 'package:personal_fitness_tracker/features/exercise/presentation/widgets/exercise_theme.dart';
 
@@ -57,7 +57,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
               onRefresh: _fetchExercises,
             );
           }
-          return const ExerciseLoadingSkeleton(isDetailPage: false,);
+          return const ExerciseLoadingSkeleton(isDetailPage: false);
         },
       ),
     );
@@ -78,9 +78,9 @@ class _ExerciseListView extends StatelessWidget {
       backgroundColor: Colors.white,
       child: GridView.builder(
         padding: EdgeInsets.fromLTRB(
-          8,
           16,
-          8,
+          20,
+          16,
           MediaQuery.of(context).padding.bottom,
         ),
         itemCount: exercises.length,

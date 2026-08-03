@@ -18,9 +18,9 @@ class ExerciseLoadingSkeleton extends StatelessWidget {
           ? _buildDetailSkeleton()
           : GridView.builder(
               padding: EdgeInsets.fromLTRB(
-                8,
                 16,
-                8,
+                20,
+                16,
                 MediaQuery.of(context).padding.bottom,
               ),
               itemCount: count,
@@ -37,7 +37,7 @@ class ExerciseLoadingSkeleton extends StatelessWidget {
 
   Widget _buildDetailSkeleton() {
     return SingleChildScrollView(
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+      padding: EdgeInsets.all(20),
       child: Column(
         children: [
           Container(

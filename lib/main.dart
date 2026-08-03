@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:personal_fitness_tracker/core/router/app_router.dart';
 import 'package:personal_fitness_tracker/core/services/exercise_services.dart';
-import 'package:personal_fitness_tracker/features/auth/data/repositories/auth_repositories_impl.dart';
+import 'package:personal_fitness_tracker/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_event.dart';
 import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_state.dart';
@@ -15,7 +15,7 @@ import 'package:personal_fitness_tracker/features/meal/data/datasources/meal_rem
 import 'package:personal_fitness_tracker/features/meal/data/repositories/meal_repository_impl.dart';
 import 'package:personal_fitness_tracker/features/meal/presentation/bloc/meal_bloc.dart';
 import 'package:personal_fitness_tracker/features/profile/data/datasource/profile_remote_datasource.dart';
-import 'package:personal_fitness_tracker/features/profile/data/repositories/profile_repositories_impl.dart';
+import 'package:personal_fitness_tracker/features/profile/data/repositories/profile_repository_impl.dart';
 import 'package:personal_fitness_tracker/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:personal_fitness_tracker/features/schedule/data/datasource/schedule_remote_data_source.dart';
 import 'package:personal_fitness_tracker/features/schedule/data/repositories/schedule_repository_impl.dart';

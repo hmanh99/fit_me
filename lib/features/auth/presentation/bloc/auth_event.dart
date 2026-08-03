@@ -25,11 +25,11 @@ class AuthSessionChanged extends AuthEvent {
 
 //        Auth action events                                                                                                               
 
-class AuthSignInEvent extends AuthEvent {
+class AuthLoginEvent extends AuthEvent {
   final String email;
   final String password;
 
-  const AuthSignInEvent({
+  const AuthLoginEvent({
     required this.email,
     required this.password,
   });

@@ -32,12 +32,12 @@ class AuthLoadingState extends AuthState {
 
 //     Sign-in / Sign-up success                                                
 
-class AuthSignInState extends AuthAuthenticatedState {
+class AuthLoginState extends AuthAuthenticatedState {
   // FIX: changed UserModel → UserEntity (domain states must depend on
   //      domain types only, never on data-layer models).
   final UserEntity user;
 
-  const AuthSignInState({required this.user});
+  const AuthLoginState({required this.user});
 
   @override
   List<Object?> get props => [user];

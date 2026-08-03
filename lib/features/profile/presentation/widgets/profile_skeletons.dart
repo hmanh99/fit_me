@@ -9,7 +9,7 @@ class ProfileScreenSkeleton extends StatelessWidget {
     return ShimmerLoading(
       child: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+          padding: const EdgeInsets.all(20),
           child: Column(
             children: [
               Container(
@@ -102,7 +102,7 @@ class ProfileDetailScreenSkeleton extends StatelessWidget {
     return ShimmerLoading(
       child: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+          padding: const EdgeInsets.all(20),
           child: Column(
             children: [
               Container(
@@ -226,7 +226,7 @@ class EditProfileScreenSkeleton extends StatelessWidget {
     return ShimmerLoading(
       child: SafeArea(
         child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+          padding: const EdgeInsets.all(20),
           child: Column(
             children: [
               Container(
@@ -303,6 +303,246 @@ class EditProfileScreenSkeleton extends StatelessWidget {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class ProfileActivityHistoryScreenSkeletons extends StatelessWidget {
+  const ProfileActivityHistoryScreenSkeletons({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ShimmerLoading(
+      child: SingleChildScrollView(
+        padding: EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            AppSkeleton.line(width: 100),
+            SizedBox(height: 12),
+            Container(
+              margin: EdgeInsets.only(bottom: 12),
+              padding: EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.white24,
+                borderRadius: BorderRadius.circular(24),
+              ),
+              child: Row(
+                children: [
+                  AppSkeleton(
+                    width: 50,
+                    height: 50,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        AppSkeleton.line(width: 200),
+                        SizedBox(height: 16),
+                        AppSkeleton.line(width: 200),
+                      ],
+                    ),
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      AppSkeleton.line(width: 50,),
+                      const SizedBox(height: 16),
+                      AppSkeleton.line(width: 50,),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(bottom: 12),
+              padding: EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.white24,
+                borderRadius: BorderRadius.circular(24),
+              ),
+              child: Row(
+                children: [
+                  AppSkeleton(
+                    width: 50,
+                    height: 50,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        AppSkeleton.line(width: 200),
+                        SizedBox(height: 16),
+                        AppSkeleton.line(width: 200),
+                      ],
+                    ),
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      AppSkeleton.line(width: 50,),
+                      const SizedBox(height: 16),
+                      AppSkeleton.line(width: 50,),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            AppSkeleton.line(width: 100),
+            SizedBox(height: 12),
+            Container(
+              margin: EdgeInsets.only(bottom: 12),
+              padding: EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.white24,
+                borderRadius: BorderRadius.circular(24),
+              ),
+              child: Row(
+                children: [
+                  AppSkeleton(
+                    width: 50,
+                    height: 50,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        AppSkeleton.line(width: 200),
+                        SizedBox(height: 16),
+                        AppSkeleton.line(width: 200),
+                      ],
+                    ),
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      AppSkeleton.line(width: 50,),
+                      const SizedBox(height: 16),
+                      AppSkeleton.line(width: 50,),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(bottom: 12),
+              padding: EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.white24,
+                borderRadius: BorderRadius.circular(24),
+              ),
+              child: Row(
+                children: [
+                  AppSkeleton(
+                    width: 50,
+                    height: 50,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        AppSkeleton.line(width: 200),
+                        SizedBox(height: 16),
+                        AppSkeleton.line(width: 200),
+                      ],
+                    ),
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      AppSkeleton.line(width: 50,),
+                      const SizedBox(height: 16),
+                      AppSkeleton.line(width: 50,),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            AppSkeleton.line(width: 100),
+            SizedBox(height: 12),
+            Container(
+              margin: EdgeInsets.only(bottom: 12),
+              padding: EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.white24,
+                borderRadius: BorderRadius.circular(24),
+              ),
+              child: Row(
+                children: [
+                  AppSkeleton(
+                    width: 50,
+                    height: 50,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        AppSkeleton.line(width: 200),
+                        SizedBox(height: 16),
+                        AppSkeleton.line(width: 200),
+                      ],
+                    ),
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      AppSkeleton.line(width: 50,),
+                      const SizedBox(height: 16),
+                      AppSkeleton.line(width: 50,),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(bottom: 12),
+              padding: EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.white24,
+                borderRadius: BorderRadius.circular(24),
+              ),
+              child: Row(
+                children: [
+                  AppSkeleton(
+                    width: 50,
+                    height: 50,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        AppSkeleton.line(width: 200),
+                        SizedBox(height: 16),
+                        AppSkeleton.line(width: 200),
+                      ],
+                    ),
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      AppSkeleton.line(width: 50,),
+                      const SizedBox(height: 16),
+                      AppSkeleton.line(width: 50,),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

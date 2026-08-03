@@ -11,7 +11,7 @@ abstract final class AppRoutePaths {
   static const onboardingStep2 = '/onboarding/step-2';
 
   static const auth = '/auth';
-  static const signIn = '/auth/sign-in';
+  static const login = '/auth/login';
   static const signUp = '/auth/sign-up';
   static const forgotPassword = '/auth/forgot-password';
 
@@ -32,6 +32,7 @@ abstract final class AppRoutePaths {
   static const appProfile = '/app/profile';
   static const appProfileSettings = '/app/profile/settings';
   static const appProfileEdit = '/app/profile/edit';
+  static const appProfileActivityHistory = '/app/profile/activity-history';
 
 
 

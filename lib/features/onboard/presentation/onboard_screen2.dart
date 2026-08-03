@@ -17,7 +17,7 @@ class _OnboardScreen2State extends State<OnboardScreen2> {
       backgroundColor: ColorConstants.backgroundColor,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.all(30),
+          padding: EdgeInsets.all(20),
           child: Column(
             children: [
               Center(

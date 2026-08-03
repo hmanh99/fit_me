@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:personal_fitness_tracker/features/profile/domain/entities/profile_entity.dart';
-import 'package:personal_fitness_tracker/features/profile/domain/repositories/profile_repositories.dart';
+import 'package:personal_fitness_tracker/features/profile/domain/repositories/profile_repository.dart';
 import 'package:personal_fitness_tracker/features/profile/presentation/bloc/profile_event.dart';
 import 'package:personal_fitness_tracker/features/profile/presentation/bloc/profile_state.dart';
 

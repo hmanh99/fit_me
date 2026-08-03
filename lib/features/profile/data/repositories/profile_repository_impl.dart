@@ -1,7 +1,7 @@
 import 'package:personal_fitness_tracker/features/profile/data/datasource/profile_remote_datasource.dart';
 import 'package:personal_fitness_tracker/features/profile/data/models/profile_model.dart';
 import 'package:personal_fitness_tracker/features/profile/domain/entities/profile_entity.dart';
-import 'package:personal_fitness_tracker/features/profile/domain/repositories/profile_repositories.dart';
+import 'package:personal_fitness_tracker/features/profile/domain/repositories/profile_repository.dart';
 
 class ProfileRepositoriesImpl implements ProfileRepositories {
   final ProfileRemoteDatasource remoteDatasource;

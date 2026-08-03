@@ -8,17 +8,17 @@ import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_bl
 import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_event.dart';
 import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_state.dart';
 
-class SignInScreen extends StatefulWidget {
-  const SignInScreen({super.key, this.returnTo});
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key, this.returnTo});
 
   /// Deep link / redirect after sign in(query `from` from auth guard).
   final String? returnTo;
 
   @override
-  State<SignInScreen> createState() => _SignInScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _SignInScreenState extends State<SignInScreen> {
+class _LoginScreenState extends State<LoginScreen> {
   bool _obscurePassword = true;
 
   final _formKey = GlobalKey<FormState>();
@@ -35,7 +35,7 @@ class _SignInScreenState extends State<SignInScreen> {
   void _onLoginPressed() {
     if (_formKey.currentState!.validate()) {
       context.read<AuthBloc>().add(
-        AuthSignInEvent(
+        AuthLoginEvent(
           email: _email.text.trim(),
           password: _password.text,
         ),
@@ -47,7 +47,7 @@ class _SignInScreenState extends State<SignInScreen> {
   Widget build(BuildContext context) {
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
-        if (state is AuthSignInState) {
+        if (state is AuthLoginState) {
           final target = widget.returnTo;
           if (target != null && target.isNotEmpty) {
             context.go(target);
@@ -71,7 +71,7 @@ class _SignInScreenState extends State<SignInScreen> {
           backgroundColor: ColorConstants.backgroundColor,
           body: SafeArea(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.all(24),
+              padding: const EdgeInsets.all(20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [

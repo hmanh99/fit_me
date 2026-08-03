@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:personal_fitness_tracker/features/auth/domain/repositories/auth_repositories.dart';
+import 'package:personal_fitness_tracker/features/auth/domain/repositories/auth_repository.dart';
 import 'package:personal_fitness_tracker/features/auth/domain/entities/user_entities.dart';
 import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_event.dart';
 import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_state.dart';
@@ -20,7 +20,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthSessionRestoreRequested>((event, emit) {
       final user = _authRepository.currentUser;
       if (user != null) {
-        emit(AuthSignInState(user: user));
+        emit(AuthLoginState(user: user));
       } else {
         emit(const AuthInitialState());
       }
@@ -38,7 +38,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
       final user = event.user!;
       final currentState = state;
-      if (currentState is AuthSignInState &&
+      if (currentState is AuthLoginState &&
           currentState.user.id == user.id) {
         return;
       }
@@ -46,7 +46,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           currentState.user.id == user.id) {
         return;
       }
-      emit(AuthSignInState(user: user));
+      emit(AuthLoginState(user: user));
     });
 
     ///handle sign up
@@ -66,14 +66,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     });
 
     ///handle sign in
-    on<AuthSignInEvent>((event, emit) async {
+    on<AuthLoginEvent>((event, emit) async {
       emit(const AuthLoadingState());
       try {
         final user = await _authRepository.login(
           email: event.email,
           password: event.password,
         );
-        emit(AuthSignInState(user: user));
+        emit(AuthLoginState(user: user));
       } catch (e) {
         emit(AuthErrorState(message: e.toString()));
       }

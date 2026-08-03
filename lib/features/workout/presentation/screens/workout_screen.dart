@@ -27,7 +27,6 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade50,
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_new_rounded),
@@ -86,9 +85,8 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                 );
               },
               color: const Color(0xFF92A3FD),
-              backgroundColor: Colors.white,
               child: ListView.builder(
-                padding: const EdgeInsets.only(top: 12, bottom: 24),
+                padding: EdgeInsets.only(top: 8, bottom: MediaQuery.of(context).padding.bottom),
                 itemCount: plans.length,
                 itemBuilder: (context, index) {
                   final plan = plans[index];

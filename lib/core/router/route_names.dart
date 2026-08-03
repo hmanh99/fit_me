@@ -7,7 +7,7 @@ abstract final class AppRouteNames {
   static const onboardingStep1 = 'onboarding-step-1';
   static const onboardingStep2 = 'onboarding-step-2';
 
-  static const signIn = 'sign-in';
+  static const login = 'login';
   static const signUp = 'sign-up';
   static const forgotPassword = 'forgot-password';
 
@@ -25,6 +25,7 @@ abstract final class AppRouteNames {
   static const appProfileSettings = 'app-profile-settings';
   static const appProfileEdit = 'app-profile-edit';
   static const appProfileDetail = 'app-profile-detail';
+  static const appProfileActivityHistory = 'app-profile-activity-history';
 
   static const appSchedule = 'app-schedule';
 

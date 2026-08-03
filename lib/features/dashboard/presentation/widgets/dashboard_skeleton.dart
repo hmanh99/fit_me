@@ -9,7 +9,10 @@ class DashboardSkeleton extends StatelessWidget {
     return ShimmerLoading(
       child: SingleChildScrollView(
         physics: const NeverScrollableScrollPhysics(),
-        padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
+        padding: EdgeInsets.fromLTRB(16,
+          8,
+          16,
+          MediaQuery.of(context).padding.bottom,),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

@@ -7,6 +7,7 @@ import 'package:personal_fitness_tracker/features/profile/domain/entities/profil
 import 'package:personal_fitness_tracker/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:personal_fitness_tracker/features/profile/presentation/bloc/profile_event.dart';
 import 'package:personal_fitness_tracker/features/profile/presentation/bloc/profile_state.dart';
+import 'package:personal_fitness_tracker/features/profile/presentation/widgets/profile_app_bar.dart';
 import 'package:personal_fitness_tracker/features/profile/presentation/widgets/profile_skeletons.dart';
 
 class EditProfileScreen extends StatefulWidget {
@@ -161,39 +162,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       builder: (context, state) {
         final isLoading = state is ProfileLoading && !_isInitialized;
         return Scaffold(
-          backgroundColor: Colors.grey.shade50,
-          appBar: AppBar(
-            backgroundColor: Colors.white,
-            elevation: 0,
-            shape: const Border(
-              bottom: BorderSide(color: Color(0xFFF5F5F5), width: 1),
-            ),
+          appBar: ProfileAppBar(
+            title: "Edit Profile",
             centerTitle: true,
-            title: const Text(
-              'Edit Profile',
-              style: TextStyle(
-                color: ColorConstants.primaryTextColor,
-                fontWeight: FontWeight.w700,
-                fontSize: 16,
-              ),
-            ),
-            leading: IconButton(
-              icon: const Icon(
-                Icons.arrow_back_ios_new_rounded,
-                color: ColorConstants.primaryTextColor,
-                size: 20,
-              ),
-              onPressed: () => context.pop(),
-            ),
+            onBack: () => context.pop(),
           ),
           body: isLoading
               ? const EditProfileScreenSkeleton()
               : SafeArea(
                   child: SingleChildScrollView(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 20,
-                    ),
+                    padding: const EdgeInsets.all(20),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [

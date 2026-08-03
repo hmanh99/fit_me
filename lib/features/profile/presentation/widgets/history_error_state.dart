@@ -1,20 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:personal_fitness_tracker/core/const/color_constants.dart';
 
-class DashboardEmptyRecommendations extends StatelessWidget {
-  final VoidCallback? onRefresh;
+class HistoryErrorState extends StatelessWidget {
+  final String errorMessage;
+  final VoidCallback? onRetry;
 
-  const DashboardEmptyRecommendations({super.key, this.onRefresh});
+  const HistoryErrorState({
+    super.key,
+    required this.errorMessage,
+    this.onRetry,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 32),
+      padding: const EdgeInsets.symmetric(horizontal: 32),
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            // Glowing Error Badge
             Stack(
               alignment: Alignment.center,
               children: [
@@ -22,7 +28,7 @@ class DashboardEmptyRecommendations extends StatelessWidget {
                   width: 120,
                   height: 120,
                   decoration: BoxDecoration(
-                    color: const Color(0xFF92A3FD).withValues(alpha: 0.05),
+                    color: Colors.red.shade50.withValues(alpha: 0.5),
                     shape: BoxShape.circle,
                   ),
                 ),
@@ -30,57 +36,59 @@ class DashboardEmptyRecommendations extends StatelessWidget {
                   width: 90,
                   height: 90,
                   decoration: BoxDecoration(
-                    color: const Color(0xFF92A3FD).withValues(alpha: 0.10),
+                    color: Colors.red.shade100.withValues(alpha: 0.8),
                     shape: BoxShape.circle,
                   ),
                 ),
                 Container(
                   width: 64,
                   height: 64,
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [Color(0xFF92A3FD), Color(0xFF9DCEFF)],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                    ),
+                  decoration: BoxDecoration(
+                    color: Colors.red.shade400,
                     shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.red.shade400.withValues(alpha: 0.3),
+                        blurRadius: 8,
+                        offset: const Offset(0, 3),
+                      ),
+                    ],
                   ),
                   child: const Icon(
-                    Icons.fitness_center_rounded,
+                    Icons.error_outline_rounded,
                     color: Colors.white,
-                    size: 28,
+                    size: 32,
                   ),
                 ),
               ],
             ),
-
-            const SizedBox(height: 24),
-
+            const SizedBox(height: 32),
+            // Title
             const Text(
-              'No Exercises Found',
+              "Something Went Wrong",
               style: TextStyle(
-                fontSize: 18,
+                fontSize: 20,
                 fontWeight: FontWeight.w700,
                 color: ColorConstants.primaryTextColor,
               ),
               textAlign: TextAlign.center,
             ),
-
-            const SizedBox(height: 10),
-
-            const Text(
-              'We couldn\'t find any exercises to recommend right now. '
-              'Tap Refresh to try again.',
-              style: TextStyle(
+            const SizedBox(height: 12),
+            // Details
+            Text(
+              errorMessage.contains("ServerException")
+                  ? "We encountered a server error. Please check your internet connection and try again."
+                  : errorMessage,
+              style: const TextStyle(
                 fontSize: 14,
                 color: ColorConstants.secondaryTextColor,
                 height: 1.5,
               ),
               textAlign: TextAlign.center,
             ),
-
-            if (onRefresh != null) ...[
-              const SizedBox(height: 24),
+            if (onRetry != null) ...[
+              const SizedBox(height: 32),
+              // Gradient Button
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(99),
@@ -98,10 +106,10 @@ class DashboardEmptyRecommendations extends StatelessWidget {
                   ],
                 ),
                 child: ElevatedButton.icon(
-                  onPressed: onRefresh,
+                  onPressed: onRetry,
                   icon: const Icon(Icons.refresh_rounded, color: Colors.white),
                   label: const Text(
-                    'Refresh',
+                    "Try Again",
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
@@ -112,8 +120,8 @@ class DashboardEmptyRecommendations extends StatelessWidget {
                     backgroundColor: Colors.transparent,
                     shadowColor: Colors.transparent,
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 28,
-                      vertical: 12,
+                      horizontal: 32,
+                      vertical: 14,
                     ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(99),
