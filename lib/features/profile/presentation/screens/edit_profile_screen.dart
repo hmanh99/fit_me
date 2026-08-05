@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:personal_fitness_tracker/core/const/color_constants.dart';
 import 'package:personal_fitness_tracker/features/profile/domain/entities/profile_entity.dart';
 import 'package:personal_fitness_tracker/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:personal_fitness_tracker/features/profile/presentation/bloc/profile_event.dart';
@@ -210,7 +209,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             style: TextStyle(
               fontSize: 15,
               fontWeight: FontWeight.bold,
-              color: ColorConstants.primaryTextColor,
+              color: Colors.black,
             ),
           ),
           const SizedBox(height: 16),
@@ -254,7 +253,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     shape: BoxShape.circle,
                     border: Border.all(
                       color: isSelected
-                          ? ColorConstants.buttonColor
+                          ? Color(0xFF92A3FD)
                           : Colors.transparent,
                       width: 3,
                     ),
@@ -273,14 +272,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             controller: _customAvatarController,
             decoration: InputDecoration(
               labelText: 'Or paste image URL',
-              labelStyle: const TextStyle(
-                fontSize: 13,
-                color: ColorConstants.secondaryTextColor,
-              ),
-              prefixIcon: const Icon(
-                Icons.link_rounded,
-                color: ColorConstants.secondaryTextColor,
-              ),
+              labelStyle: const TextStyle(fontSize: 13, color: Colors.grey),
+              prefixIcon: const Icon(Icons.link_rounded, color: Colors.grey),
               filled: true,
               fillColor: Colors.grey.shade50,
               border: OutlineInputBorder(
@@ -290,7 +283,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(16),
                 borderSide: const BorderSide(
-                  color: ColorConstants.buttonColor,
+                  color: Color(0xFF92A3FD),
                   width: 1.5,
                 ),
               ),
@@ -333,7 +326,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               style: TextStyle(
                 fontSize: 15,
                 fontWeight: FontWeight.bold,
-                color: ColorConstants.primaryTextColor,
+                color: Colors.black,
               ),
             ),
             const SizedBox(height: 20),
@@ -350,7 +343,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 labelText: 'Username',
                 prefixIcon: const Icon(
                   Icons.person_outline_rounded,
-                  color: ColorConstants.secondaryTextColor,
+                  color: Colors.grey,
                 ),
                 filled: true,
                 fillColor: Colors.grey.shade50,
@@ -361,7 +354,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(16),
                   borderSide: const BorderSide(
-                    color: ColorConstants.buttonColor,
+                    color: Color(0xFF92A3FD),
                     width: 1.5,
                   ),
                 ),
@@ -387,7 +380,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 labelText: 'Height (cm)',
                 prefixIcon: const Icon(
                   Icons.height_rounded,
-                  color: ColorConstants.secondaryTextColor,
+                  color: Colors.grey,
                 ),
                 filled: true,
                 fillColor: Colors.grey.shade50,
@@ -398,7 +391,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(16),
                   borderSide: const BorderSide(
-                    color: ColorConstants.buttonColor,
+                    color: Color(0xFF92A3FD),
                     width: 1.5,
                   ),
                 ),
@@ -424,7 +417,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 labelText: 'Weight (kg)',
                 prefixIcon: const Icon(
                   Icons.fitness_center_rounded,
-                  color: ColorConstants.secondaryTextColor,
+                  color: Colors.grey,
                 ),
                 filled: true,
                 fillColor: Colors.grey.shade50,
@@ -435,7 +428,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(16),
                   borderSide: const BorderSide(
-                    color: ColorConstants.buttonColor,
+                    color: Color(0xFF92A3FD),
                     width: 1.5,
                   ),
                 ),
@@ -444,8 +437,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             const SizedBox(height: 32),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: ColorConstants.buttonColor,
-                foregroundColor: ColorConstants.buttonTextColor,
+                backgroundColor: Color(0xFF92A3FD),
+                foregroundColor: Colors.white,
                 elevation: 0,
                 minimumSize: const Size(double.infinity, 52),
                 shape: RoundedRectangleBorder(

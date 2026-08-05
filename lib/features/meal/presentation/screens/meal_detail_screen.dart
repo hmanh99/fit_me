@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:personal_fitness_tracker/core/const/color_constants.dart';
+import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
 import 'package:personal_fitness_tracker/features/meal/domain/entities/meal_entity.dart';
 import 'package:personal_fitness_tracker/features/meal/domain/entities/meal_type.dart';
 import 'package:personal_fitness_tracker/features/meal/presentation/bloc/meal_bloc.dart';
@@ -122,7 +122,7 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
     return const Center(
       child: Icon(
         Icons.restaurant_rounded,
-        color: ColorConstants.icon,
+        color: Colors.blue,
         size: 60,
       ),
     );
@@ -153,7 +153,7 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
           style: const TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.bold,
-            color: ColorConstants.primaryTextColor,
+            color: Colors.black,
             letterSpacing: -0.2,
           ),
         ),
@@ -200,7 +200,7 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
                   style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
-                    color: ColorConstants.secondaryTextColor,
+                    color: Colors.grey,
                   ),
                 ),
                 const SizedBox(height: 4),
@@ -209,7 +209,7 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
-                    color: ColorConstants.primaryTextColor,
+                    color: Colors.black,
                   ),
                 ),
               ],
@@ -229,7 +229,7 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
-            color: ColorConstants.primaryTextColor,
+            color: Colors.black,
           ),
         ),
         const SizedBox(height: 12),
@@ -237,7 +237,7 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
           const Text(
             "No ingredients listed.",
             style: TextStyle(
-              color: ColorConstants.secondaryTextColor,
+              color: Colors.grey,
               fontSize: 14,
             ),
           )

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:personal_fitness_tracker/core/const/color_constants.dart';
+import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
 import 'package:personal_fitness_tracker/features/profile/domain/entities/profile_entity.dart';
 
 class ProfileHeader extends StatelessWidget {
@@ -52,7 +52,7 @@ class ProfileHeader extends StatelessWidget {
                   style: const TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.w900,
-                    color: ColorConstants.primaryTextColor,
+                    color: Colors.black,
                     letterSpacing: 0.5,
                   ),
                   textAlign: TextAlign.left,
@@ -64,12 +64,12 @@ class ProfileHeader extends StatelessWidget {
                     vertical: 6,
                   ),
                   decoration: BoxDecoration(
-                    color: ColorConstants.buttonColor.withValues(
+                    color: Color(0xFF92A3FD).withValues(
                       alpha: 0.08,
                     ),
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(
-                      color: ColorConstants.buttonColor.withValues(
+                      color: Color(0xFF92A3FD).withValues(
                         alpha: 0.15,
                       ),
                       width: 1,
@@ -81,7 +81,7 @@ class ProfileHeader extends StatelessWidget {
                       Icon(
                         Icons.fingerprint_rounded,
                         size: 13,
-                        color: ColorConstants.buttonColor.withValues(
+                        color: Color(0xFF92A3FD).withValues(
                           alpha: 0.8,
                         ),
                       ),
@@ -91,7 +91,7 @@ class ProfileHeader extends StatelessWidget {
                         style: const TextStyle(
                           fontSize: 11,
                           fontWeight: FontWeight.w700,
-                          color: ColorConstants.buttonColor,
+                          color: Color(0xFF92A3FD),
                           letterSpacing: 0.5,
                         ),
                       ),

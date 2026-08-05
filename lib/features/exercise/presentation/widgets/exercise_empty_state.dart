@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:personal_fitness_tracker/core/const/color_constants.dart';
-import 'package:personal_fitness_tracker/features/exercise/presentation/widgets/exercise_theme.dart';
 
 class ExerciseEmptyState extends StatelessWidget {
   final VoidCallback? onRefresh;
@@ -22,7 +20,7 @@ class ExerciseEmptyState extends StatelessWidget {
                   width: 130,
                   height: 130,
                   decoration: BoxDecoration(
-                    color: ExerciseTheme.gradientStart.withValues(alpha: 0.05),
+                    color: Color(0xFF92A3FD).withValues(alpha: 0.05),
                     shape: BoxShape.circle,
                   ),
                 ),
@@ -30,7 +28,7 @@ class ExerciseEmptyState extends StatelessWidget {
                   width: 100,
                   height: 100,
                   decoration: BoxDecoration(
-                    color: ExerciseTheme.gradientStart.withValues(alpha: 0.1),
+                    color: Color(0xFF92A3FD).withValues(alpha: 0.1),
                     shape: BoxShape.circle,
                   ),
                 ),
@@ -38,7 +36,11 @@ class ExerciseEmptyState extends StatelessWidget {
                   width: 70,
                   height: 70,
                   decoration: const BoxDecoration(
-                    gradient: ExerciseTheme.gradient,
+                    gradient: LinearGradient(
+                      colors: [Color(0xFF92A3FD), Color(0xFF9DCEFF)],
+                      begin: AlignmentGeometry.topLeft,
+                      end: AlignmentGeometry.bottomRight,
+                    ),
                     shape: BoxShape.circle,
                   ),
                   child: const Icon(
@@ -55,7 +57,7 @@ class ExerciseEmptyState extends StatelessWidget {
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w700,
-                color: ColorConstants.primaryTextColor,
+                color: Colors.black,
               ),
               textAlign: TextAlign.center,
             ),
@@ -64,7 +66,7 @@ class ExerciseEmptyState extends StatelessWidget {
               "We couldn't find any exercises right now. Pull down to refresh or tap the button below.",
               style: TextStyle(
                 fontSize: 14,
-                color: ColorConstants.secondaryTextColor,
+                color: Colors.grey,
                 height: 1.5,
               ),
               textAlign: TextAlign.center,
@@ -100,10 +102,14 @@ class _GradientActionButton extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(99),
-        gradient: ExerciseTheme.gradient,
+          gradient: LinearGradient(
+            colors: [Color(0xFF92A3FD), Color(0xFF9DCEFF)],
+            begin: AlignmentGeometry.topLeft,
+            end: AlignmentGeometry.bottomRight,
+          ),
         boxShadow: [
           BoxShadow(
-            color: ExerciseTheme.gradientStart.withValues(alpha: 0.3),
+            color: Color(0xFF92A3FD).withValues(alpha: 0.3),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),

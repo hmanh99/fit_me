@@ -24,7 +24,7 @@ String? resolveAuthRedirect({
     return null;
   }
 
-  // un_auth -> sign in
+  // Un_auth -> sign in
   if (!authenticated) {
     if (AppRoutePaths.isAppShellPath(path)) {
       return Uri(

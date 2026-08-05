@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:personal_fitness_tracker/core/const/color_constants.dart';
 
 class MenuRow extends StatelessWidget {
-  const MenuRow({super.key, 
+  const MenuRow({
+    super.key,
     required this.icon,
     required this.label,
     required this.trailing,
@@ -18,8 +18,8 @@ class MenuRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final themeColor = isDestructive ? Colors.redAccent : ColorConstants.icon;
-    
+    final themeColor = isDestructive ? Colors.redAccent : Colors.blue;
+
     return Material(
       color: Colors.transparent,
       child: InkWell(
@@ -38,11 +38,7 @@ class MenuRow extends StatelessWidget {
                   color: themeColor.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(14),
                 ),
-                child: Icon(
-                  icon, 
-                  size: 20, 
-                  color: themeColor,
-                ),
+                child: Icon(icon, size: 20, color: themeColor),
               ),
               const SizedBox(width: 16),
               Expanded(
@@ -51,9 +47,9 @@ class MenuRow extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.w600,
-                    color: isDestructive 
-                        ? Colors.redAccent 
-                        : ColorConstants.primaryTextColor.withValues(alpha: 0.85),
+                    color: isDestructive
+                        ? Colors.redAccent
+                        : Colors.black.withValues(alpha: 0.85),
                     letterSpacing: 0.2,
                   ),
                 ),
@@ -70,4 +66,3 @@ class MenuRow extends StatelessWidget {
     );
   }
 }
-

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:personal_fitness_tracker/core/const/color_constants.dart';
+import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
 import 'package:personal_fitness_tracker/core/router/route_paths.dart';
 
 class WelcomeScreen extends StatefulWidget {
@@ -14,7 +14,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorConstants.backgroundColor,
+      backgroundColor: Colors.white,
       body: SafeArea(child: Stack(
         children: [
           //
@@ -28,7 +28,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       TextSpan(
                         text: 'Fit',
                         style: TextStyle(
-                          color: ColorConstants.primaryTextColor,
+                          color: Colors.black,
                           fontSize: 50,
                           fontWeight: FontWeight.w700,
                         ),
@@ -36,7 +36,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       TextSpan(
                         text: 'nesS',
                         style: TextStyle(
-                          color: ColorConstants.headingTextColor,
+                          color: Color(0xFF3A8BCA),
                           fontSize: 50,
                           fontWeight: FontWeight.w700,
                         ),
@@ -47,7 +47,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 Text(
                   'Everybody Can Train',
                   style: TextStyle(
-                    color: ColorConstants.secondaryTextColor,
+                    color: Colors.grey,
                     fontSize: 18,
                     fontWeight: FontWeight.w400,
                   ),
@@ -63,8 +63,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             child: Center(
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: ColorConstants.buttonColor,
-                  foregroundColor: ColorConstants.buttonTextColor,
+                  backgroundColor: Color(0xFF92A3FD),
+                  foregroundColor: Colors.white,
                   minimumSize: const Size(360, 48),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(24),

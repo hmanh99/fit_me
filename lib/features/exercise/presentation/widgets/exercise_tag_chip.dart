@@ -1,28 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:personal_fitness_tracker/core/const/color_constants.dart';
-import 'package:personal_fitness_tracker/features/exercise/presentation/widgets/exercise_theme.dart';
 
 class ExerciseTagChip extends StatelessWidget {
   final String label;
   final IconData? icon;
-  final Color? accentColor;
+  final Color accentColor;
 
   const ExerciseTagChip({
     super.key,
     required this.label,
     this.icon,
-    this.accentColor,
+    required this.accentColor,
   });
 
   @override
   Widget build(BuildContext context) {
-    final color = accentColor ?? ColorConstants.labelColor;
+    final color = accentColor;
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.08),
-        borderRadius: BorderRadius.circular(ExerciseTheme.chipRadius),
+        borderRadius: BorderRadius.circular(16),
         border: Border.all(color: color.withValues(alpha: 0.15)),
       ),
       child: Row(

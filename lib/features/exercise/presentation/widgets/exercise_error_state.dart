@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:personal_fitness_tracker/core/const/color_constants.dart';
-import 'package:personal_fitness_tracker/features/exercise/presentation/widgets/exercise_theme.dart';
 
 class ExerciseErrorState extends StatelessWidget {
   final String errorMessage;
@@ -75,7 +73,7 @@ class ExerciseErrorState extends StatelessWidget {
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w700,
-                color: ColorConstants.primaryTextColor,
+                color: Colors.black,
               ),
               textAlign: TextAlign.center,
             ),
@@ -84,7 +82,7 @@ class ExerciseErrorState extends StatelessWidget {
               _displayMessage,
               style: const TextStyle(
                 fontSize: 14,
-                color: ColorConstants.secondaryTextColor,
+                color: Colors.grey,
                 height: 1.5,
               ),
               textAlign: TextAlign.center,
@@ -94,10 +92,14 @@ class ExerciseErrorState extends StatelessWidget {
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(99),
-                  gradient: ExerciseTheme.gradient,
+                  gradient: LinearGradient(
+                    colors: [Color(0xFF92A3FD), Color(0xFF9DCEFF)],
+                    begin: AlignmentGeometry.topLeft,
+                    end: AlignmentGeometry.bottomRight,
+                  ),
                   boxShadow: [
                     BoxShadow(
-                      color: ExerciseTheme.gradientStart.withValues(alpha: 0.3),
+                      color: Color(0xFF92A3FD).withValues(alpha: 0.3),
                       blurRadius: 10,
                       offset: const Offset(0, 4),
                     ),

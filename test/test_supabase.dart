@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:personal_fitness_tracker/features/meal/data/models/meal_model.dart';
@@ -16,21 +17,22 @@ void main() {
 
     try {
       final responseMeal = await client.from('meal').select();
-      print('Fetched ${responseMeal.length} meals.');
+      debugPrint('Fetched ${responseMeal.length} meals.');
       
       int parsedCount = 0;
       for (var row in responseMeal) {
         try {
           final meal = MealModel.fromJson(row);
+          expect(meal, isNotNull);
           parsedCount++;
         } catch (e) {
-          print('Failed to parse row: $row');
-          print('Error: $e');
+          debugPrint('Failed to parse row: $row');
+          debugPrint('Error: $e');
         }
       }
-      print('Successfully parsed $parsedCount / ${responseMeal.length} meals.');
+      debugPrint('Successfully parsed $parsedCount / ${responseMeal.length} meals.');
     } catch (e) {
-      print('Query error: $e');
+      debugPrint('Query error: $e');
     }
   });
 }

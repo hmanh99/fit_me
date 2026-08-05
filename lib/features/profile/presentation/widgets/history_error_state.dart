@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:personal_fitness_tracker/core/const/color_constants.dart';
+import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
 
 class HistoryErrorState extends StatelessWidget {
   final String errorMessage;
@@ -69,7 +69,7 @@ class HistoryErrorState extends StatelessWidget {
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w700,
-                color: ColorConstants.primaryTextColor,
+                color: Colors.black,
               ),
               textAlign: TextAlign.center,
             ),
@@ -81,7 +81,7 @@ class HistoryErrorState extends StatelessWidget {
                   : errorMessage,
               style: const TextStyle(
                 fontSize: 14,
-                color: ColorConstants.secondaryTextColor,
+                color: Colors.grey,
                 height: 1.5,
               ),
               textAlign: TextAlign.center,

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:personal_fitness_tracker/features/exercise/domain/entities/exercise_entity.dart';
-import 'package:personal_fitness_tracker/features/exercise/presentation/widgets/exercise_theme.dart';
 
 class ExerciseListCard extends StatefulWidget {
   final ExerciseEntity exercise;
@@ -32,7 +31,18 @@ class _ExerciseListCardState extends State<ExerciseListCard> {
         scale: _isPressed ? 0.97 : 1.0,
         duration: const Duration(milliseconds: 100),
         child: Container(
-          decoration: ExerciseTheme.cardDecoration(context),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(24),
+            border: Border.all(color: Colors.grey.shade300),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.04),
+                blurRadius: 10,
+                offset: const Offset(0, 4),
+              ),
+            ],
+          ),
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
             child: Column(

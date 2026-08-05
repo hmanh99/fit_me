@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:personal_fitness_tracker/core/const/color_constants.dart';
 
 class StatCard extends StatelessWidget {
   const StatCard({
@@ -48,8 +47,8 @@ class StatCard extends StatelessWidget {
               Text(
                 label,
                 style: TextStyle(
-                  fontSize: 13, 
-                  color: ColorConstants.secondaryTextColor.withValues(alpha: 0.8),
+                  fontSize: 13,
+                  color: Colors.grey.withValues(alpha: 0.8),
                   fontWeight: FontWeight.w600,
                   letterSpacing: 0.2,
                 ),
@@ -78,9 +77,8 @@ class StatCard extends StatelessWidget {
                   style: const TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.w800,
-                    color: ColorConstants.primaryTextColor,
+                    color: Colors.black,
                     height: 1,
-                    letterSpacing: -0.5,
                   ),
                 ),
                 const SizedBox(width: 4),
@@ -88,7 +86,7 @@ class StatCard extends StatelessWidget {
                   unit,
                   style: TextStyle(
                     fontSize: 14,
-                    color: ColorConstants.secondaryTextColor,
+                    color: Colors.grey,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
@@ -100,4 +98,3 @@ class StatCard extends StatelessWidget {
     );
   }
 }
-

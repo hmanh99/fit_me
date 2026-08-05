@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:personal_fitness_tracker/core/const/color_constants.dart';
 import 'package:personal_fitness_tracker/core/router/route_paths.dart';
 
 class OnboardScreen2 extends StatefulWidget {
@@ -14,7 +13,7 @@ class _OnboardScreen2State extends State<OnboardScreen2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorConstants.backgroundColor,
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.all(20),
@@ -33,7 +32,7 @@ class _OnboardScreen2State extends State<OnboardScreen2> {
                   Text(
                     'Eat Well',
                     style: TextStyle(
-                      color: ColorConstants.primaryTextColor,
+                      color: Colors.black,
                       fontSize: 24,
                       fontWeight: FontWeight.w700,
                       height: 1.50,
@@ -44,7 +43,7 @@ class _OnboardScreen2State extends State<OnboardScreen2> {
                     "Let's start a healthy lifestyle with us,"
                     " we can determine your diet every day. healthy eating is fun",
                     style: TextStyle(
-                      color: ColorConstants.secondaryTextColor,
+                      color: Colors.grey,
                       fontSize: 13,
                       fontWeight: FontWeight.w400,
                       height: 1.50,
@@ -58,11 +57,11 @@ class _OnboardScreen2State extends State<OnboardScreen2> {
       ),
       floatingActionButton: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: ColorConstants.buttonColor,
-          foregroundColor: ColorConstants.buttonTextColor,
+          backgroundColor: Color(0xFF92A3FD),
+          foregroundColor: Colors.white,
           minimumSize: Size(60, 60),
           shape: CircleBorder(),
-      ),
+        ),
         onPressed: () => context.go(AppRoutePaths.signUp),
         child: Icon(Icons.navigate_next),
       ),

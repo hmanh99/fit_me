@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -5,10 +6,7 @@ import 'package:go_router/go_router.dart';
 class MainShellScreen extends StatelessWidget {
   final StatefulNavigationShell navigationShell;
 
-  const MainShellScreen({
-    required this.navigationShell,
-    super.key,
-  });
+  const MainShellScreen({required this.navigationShell, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,30 +15,31 @@ class MainShellScreen extends StatelessWidget {
       body: navigationShell,
       bottomNavigationBar: NavigationBar(
         selectedIndex: navigationShell.currentIndex,
-        destinations: const [
+        destinations: [
           NavigationDestination(
-            icon: Icon(Icons.dashboard_outlined),
-            selectedIcon: Icon(Icons.dashboard),
-            label: 'Home',
+            icon: const Icon(Icons.dashboard_outlined),
+            selectedIcon: const Icon(Icons.dashboard),
+            label: 'home'.tr(),
           ),
           NavigationDestination(
             icon: Icon(Icons.calendar_month_outlined),
             selectedIcon: Icon(Icons.calendar_month_outlined),
-            label: 'Schedule',
+            label: 'schedule'.tr(),
           ),
           NavigationDestination(
             icon: Icon(Icons.restaurant_rounded),
             selectedIcon: Icon(Icons.restaurant_rounded),
-            label: 'Meal',
+            label: 'meal'.tr(),
           ),
           NavigationDestination(
             icon: Icon(Icons.person_outline),
             selectedIcon: Icon(Icons.person),
-            label: 'Profile',
+            label: 'profile'.tr(),
           ),
         ],
         onDestinationSelected: navigationShell.goBranch,
       ),
     );
+
   }
 }

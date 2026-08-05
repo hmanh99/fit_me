@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:personal_fitness_tracker/core/const/color_constants.dart';
+import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
 import 'package:personal_fitness_tracker/core/router/route_paths.dart';
 
 class OnboardScreen1 extends StatefulWidget {
@@ -14,7 +14,7 @@ class _OnboardScreen1State extends State<OnboardScreen1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorConstants.backgroundColor,
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.all(20),
@@ -35,7 +35,7 @@ class _OnboardScreen1State extends State<OnboardScreen1> {
                     Text(
                       'Track Your Goal',
                       style: TextStyle(
-                        color: ColorConstants.primaryTextColor,
+                        color: Colors.black,
                         fontSize: 24,
                         fontWeight: FontWeight.w700,
                         height: 1.50,
@@ -46,7 +46,7 @@ class _OnboardScreen1State extends State<OnboardScreen1> {
                       "Don't worry if you have trouble determining your goals. "
                           "We can help you determine your goals and track your goals.",
                       style: TextStyle(
-                        color: ColorConstants.secondaryTextColor,
+                        color: Colors.grey,
                         fontSize: 13,
                         fontWeight: FontWeight.w400,
                         height: 1.50,
@@ -60,8 +60,8 @@ class _OnboardScreen1State extends State<OnboardScreen1> {
       ),
       floatingActionButton: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: ColorConstants.buttonColor,
-          foregroundColor: ColorConstants.buttonTextColor,
+          backgroundColor: Color(0xFF92A3FD),
+          foregroundColor: Colors.white,
           minimumSize: Size(60, 60),
           shape: CircleBorder(),
         ),

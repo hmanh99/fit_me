@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:personal_fitness_tracker/core/const/color_constants.dart';
+import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
 import 'package:personal_fitness_tracker/features/exercise/domain/entities/exercise_entity.dart';
 import 'package:personal_fitness_tracker/features/workout/domain/entities/plan_exercise_entity.dart';
 
@@ -163,7 +163,7 @@ class _WorkoutExerciseCardState extends State<WorkoutExerciseCard> {
                         style: const TextStyle(
                           fontSize: 17,
                           fontWeight: FontWeight.bold,
-                          color: ColorConstants.primaryTextColor,
+                          color: Colors.black,
                         ),
                       ),
                       const SizedBox(height: 8),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:personal_fitness_tracker/core/const/color_constants.dart';
+import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
 
 class SectionCard extends StatelessWidget {
   const SectionCard({super.key, 
@@ -36,7 +36,7 @@ class SectionCard extends StatelessWidget {
                   width: 4,
                   height: 16,
                   decoration: BoxDecoration(
-                    color: ColorConstants.buttonColor,
+                    color: Color(0xFF92A3FD),
                     borderRadius: BorderRadius.circular(2),
                   ),
                 ),
@@ -46,7 +46,7 @@ class SectionCard extends StatelessWidget {
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w800,
-                    color: ColorConstants.primaryTextColor,
+                    color: Colors.black,
                     letterSpacing: 0.3,
                   ),
                 ),

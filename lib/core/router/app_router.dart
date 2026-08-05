@@ -18,11 +18,15 @@ import 'package:personal_fitness_tracker/features/meal/presentation/screens/meal
 import 'package:personal_fitness_tracker/features/onboard/presentation/onboard_screen1.dart';
 import 'package:personal_fitness_tracker/features/onboard/presentation/onboard_screen2.dart';
 import 'package:personal_fitness_tracker/features/onboard/presentation/welcome_screen.dart';
+import 'package:personal_fitness_tracker/features/profile/data/datasource/activity_history_remote_datasource.dart';
+import 'package:personal_fitness_tracker/features/profile/data/repositories/activity_history_repository_impl.dart';
+import 'package:personal_fitness_tracker/features/profile/presentation/bloc/activity_history_bloc.dart';
+import 'package:personal_fitness_tracker/features/profile/presentation/screens/activity_history_screen.dart';
 import 'package:personal_fitness_tracker/features/profile/presentation/screens/edit_profile_screen.dart';
 import 'package:personal_fitness_tracker/features/profile/presentation/screens/profile_detail_screen.dart';
 import 'package:personal_fitness_tracker/features/profile/presentation/screens/profile_screen.dart';
 import 'package:personal_fitness_tracker/features/schedule/presentation/screens/schedule_screen.dart';
-import 'package:personal_fitness_tracker/features/settings/presentation/settings_screen.dart';
+import 'package:personal_fitness_tracker/features/settings/presentation/screens/settings_screen.dart';
 import 'package:personal_fitness_tracker/features/workout/data/repositories/workout_repository_impl.dart';
 import 'package:personal_fitness_tracker/features/workout/domain/entities/workout_plan_entity.dart';
 import 'package:personal_fitness_tracker/features/workout/presentation/bloc/workout_bloc.dart';
@@ -31,10 +35,6 @@ import 'package:personal_fitness_tracker/features/workout/presentation/bloc/work
 import 'package:personal_fitness_tracker/features/workout/presentation/screens/workout_detail_screen.dart';
 import 'package:personal_fitness_tracker/features/workout/presentation/screens/workout_screen.dart';
 import 'package:personal_fitness_tracker/features/workout/presentation/screens/workout_session_screen.dart';
-import 'package:personal_fitness_tracker/features/profile/data/datasource/activity_history_remote_datasource.dart';
-import 'package:personal_fitness_tracker/features/profile/data/repositories/activity_history_repository_impl.dart';
-import 'package:personal_fitness_tracker/features/profile/presentation/bloc/activity_history_bloc.dart';
-import 'package:personal_fitness_tracker/features/profile/presentation/screens/activity_history_screen.dart';
 import 'package:personal_fitness_tracker/shared/widgets/main_shell.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -65,21 +65,20 @@ GoRouter createAppRouter(AuthBloc authBloc) {
         name: AppRouteNames.onboardingStep2,
         builder: (context, state) => const OnboardScreen2(),
       ),
+
       ///
       GoRoute(
         path: AppRoutePaths.login,
         name: AppRouteNames.login,
         builder: (context, state) {
-          final from = state.uri.queryParameters['from'];
-          return LoginScreen(returnTo: from);
+          return LoginScreen();
         },
       ),
       GoRoute(
         path: AppRoutePaths.signUp,
         name: AppRouteNames.signUp,
         builder: (context, state) {
-          final from = state.uri.queryParameters['from'];
-          return SignUpScreen(returnTo: from);
+          return SignUpScreen();
         },
       ),
       GoRoute(
@@ -132,7 +131,8 @@ GoRouter createAppRouter(AuthBloc authBloc) {
                             path: 'session',
                             name: AppRouteNames.appWorkoutSession,
                             builder: (context, state) {
-                              final workoutPlan = state.extra as WorkoutPlanEntity?;
+                              final workoutPlan =
+                                  state.extra as WorkoutPlanEntity?;
                               return BlocProvider<WorkoutSessionBloc>(
                                 create: (context) {
                                   final bloc = WorkoutSessionBloc(
@@ -140,7 +140,9 @@ GoRouter createAppRouter(AuthBloc authBloc) {
                                         .read<WorkoutRepositoryImpl>(),
                                   );
                                   if (workoutPlan != null) {
-                                    bloc.add(StartWorkoutPlan(plan: workoutPlan));
+                                    bloc.add(
+                                      StartWorkoutPlan(plan: workoutPlan),
+                                    );
                                   }
                                   return bloc;
                                 },
@@ -209,9 +211,7 @@ GoRouter createAppRouter(AuthBloc authBloc) {
                 path: AppRoutePaths.appSchedule,
                 name: AppRouteNames.appSchedule,
                 builder: (context, state) => const ScheduleScreen(),
-                routes: [
-
-                ],
+                routes: [],
               ),
             ],
           ),
@@ -256,16 +256,18 @@ GoRouter createAppRouter(AuthBloc authBloc) {
                   GoRoute(
                     path: 'activity-history',
                     name: AppRouteNames.appProfileActivityHistory,
-                    builder: (context, state) => BlocProvider<ActivityHistoryBloc>(
-                      create: (context) => ActivityHistoryBloc(
-                        repository: ActivityHistoryRepositoryImpl(
-                          remoteDatasource: ActivityHistoryRemoteDataSourceImpl(
-                            supabaseClient: Supabase.instance.client,
+                    builder: (context, state) =>
+                        BlocProvider<ActivityHistoryBloc>(
+                          create: (context) => ActivityHistoryBloc(
+                            repository: ActivityHistoryRepositoryImpl(
+                              remoteDatasource:
+                                  ActivityHistoryRemoteDataSourceImpl(
+                                    supabaseClient: Supabase.instance.client,
+                                  ),
+                            ),
                           ),
+                          child: const ActivityHistoryScreen(),
                         ),
-                      ),
-                      child: const ActivityHistoryScreen(),
-                    ),
                   ),
                   GoRoute(
                     path: ':profileId',

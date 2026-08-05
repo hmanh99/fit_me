@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:personal_fitness_tracker/core/const/color_constants.dart';
+import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
 
 class HistoryEmptyState extends StatelessWidget {
   final VoidCallback? onRefresh;
@@ -60,7 +60,7 @@ class HistoryEmptyState extends StatelessWidget {
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w700,
-                color: ColorConstants.primaryTextColor,
+                color: Colors.black,
               ),
               textAlign: TextAlign.center,
             ),
@@ -69,7 +69,7 @@ class HistoryEmptyState extends StatelessWidget {
               "We couldn't find any workout sessions. Try checking back later or tap Refresh to reload.",
               style: TextStyle(
                 fontSize: 14,
-                color: ColorConstants.secondaryTextColor,
+                color: Colors.grey,
                 height: 1.5,
               ),
               textAlign: TextAlign.center,

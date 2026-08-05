@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:personal_fitness_tracker/core/const/color_constants.dart';
+import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
 import 'package:personal_fitness_tracker/features/meal/domain/entities/meal_entity.dart';
 
 class MealCard extends StatelessWidget {
@@ -90,7 +90,7 @@ class MealCard extends StatelessWidget {
                         style: const TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.bold,
-                          color: ColorConstants.primaryTextColor,
+                          color: Colors.black,
                         ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
@@ -110,7 +110,7 @@ class MealCard extends StatelessWidget {
                             style: const TextStyle(
                               fontSize: 13,
                               fontWeight: FontWeight.w600,
-                              color: ColorConstants.secondaryTextColor,
+                              color: Colors.grey,
                             ),
                           ),
                         ],
@@ -145,7 +145,7 @@ class MealCard extends StatelessWidget {
     return const Center(
       child: Icon(
         Icons.restaurant_rounded,
-        color: ColorConstants.icon,
+        color: Colors.blue,
         size: 32,
       ),
     );

@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:personal_fitness_tracker/core/const/color_constants.dart';
 import 'package:personal_fitness_tracker/core/router/route_paths.dart';
 import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_event.dart';
 import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_state.dart';
 
 class SignUpScreen extends StatefulWidget {
-  final String? returnTo;
+  final String returnTo;
 
-  const SignUpScreen({super.key, this.returnTo});
+  const SignUpScreen({super.key, this.returnTo = "app/home"});
 
   @override
   State<SignUpScreen> createState() => _SignUpScreenState();
@@ -39,12 +38,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is AuthSignUpState) {
-          final target = widget.returnTo;
-          if (target != null && target.isNotEmpty) {
-            context.go(target);
-          } else {
-            context.go(AppRoutePaths.appHome);
-          }
+          context.go(AppRoutePaths.appHome);
+
           _username.clear();
           _email.clear();
           _password.clear();
@@ -55,7 +50,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             SnackBar(
               duration: const Duration(seconds: 5),
               content: Text(state.message),
-              backgroundColor: ColorConstants.snackBarColor,
+              backgroundColor: Colors.green,
             ),
           );
         }
@@ -64,7 +59,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         final isLoading = state is AuthLoadingState;
 
         return Scaffold(
-          backgroundColor: ColorConstants.backgroundColor,
+          backgroundColor: Colors.white,
           body: SafeArea(
             child: SingleChildScrollView(
               padding: const EdgeInsets.all(20),
@@ -73,10 +68,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 children: [
                   const Text(
                     'Hey there,',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: ColorConstants.secondaryTextColor,
-                    ),
+                    style: TextStyle(fontSize: 16, color: Colors.grey),
                   ),
                   const SizedBox(height: 2),
                   const Text(
@@ -197,7 +189,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(2),
                               ),
-                              activeColor: ColorConstants.buttonColor,
+                              activeColor: Color(0xFF92A3FD),
                               materialTapTargetSize:
                                   MaterialTapTargetSize.shrinkWrap,
                               visualDensity: VisualDensity.compact,
@@ -208,7 +200,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 text: const TextSpan(
                                   style: TextStyle(
                                     fontSize: 13,
-                                    color: ColorConstants.secondaryTextColor,
+                                    color: Colors.grey,
                                   ),
                                   children: [
                                     TextSpan(
@@ -216,16 +208,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     ),
                                     TextSpan(
                                       text: 'Privacy Policy',
-                                      style: TextStyle(
-                                        color: ColorConstants.highlightText,
-                                      ),
+                                      style: TextStyle(color: Colors.blue),
                                     ),
                                     TextSpan(text: ' and '),
                                     TextSpan(
                                       text: 'Term of Use',
-                                      style: TextStyle(
-                                        color: ColorConstants.highlightText,
-                                      ),
+                                      style: TextStyle(color: Colors.blue),
                                     ),
                                   ],
                                 ),
@@ -242,8 +230,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               borderRadius: BorderRadius.circular(12),
                             ),
                             minimumSize: const Size(double.infinity, 50),
-                            backgroundColor: ColorConstants.buttonColor,
-                            foregroundColor: ColorConstants.buttonTextColor,
+                            backgroundColor: Color(0xFF92A3FD),
+                            foregroundColor: Colors.white,
                           ),
                           onPressed: isLoading
                               ? null
@@ -257,12 +245,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                           content: Text(
                                             'Please accept the Privacy Policy and Terms of Use',
                                             style: TextStyle(
-                                              color: ColorConstants
-                                                  .primaryTextColor,
+                                              color: Colors.black,
                                             ),
                                           ),
-                                          backgroundColor:
-                                              ColorConstants.snackBarColor,
+                                          backgroundColor: Colors.green,
                                         ),
                                       );
                                       return;
@@ -283,7 +269,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   width: 22,
                                   child: CircularProgressIndicator(
                                     strokeWidth: 2.5,
-                                    color: ColorConstants.buttonTextColor,
+                                    color: Colors.white,
                                   ),
                                 )
                               : const Text("Sign up"),
@@ -300,10 +286,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         padding: EdgeInsets.all(12),
                         child: Text(
                           'Or',
-                          style: TextStyle(
-                            color: ColorConstants.secondaryTextColor,
-                            fontSize: 13,
-                          ),
+                          style: TextStyle(color: Colors.grey, fontSize: 13),
                         ),
                       ),
                       Expanded(child: Divider()),
@@ -324,16 +307,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       text: const TextSpan(
                         style: TextStyle(
                           fontSize: 13,
-                          color: ColorConstants.primaryTextColor,
+                          color: Colors.black,
                           fontWeight: FontWeight.bold,
                         ),
                         children: [
                           TextSpan(text: "Already have an account? "),
                           TextSpan(
                             text: "Login",
-                            style: TextStyle(
-                              color: ColorConstants.highlightText,
-                            ),
+                            style: TextStyle(color: Colors.blue),
                           ),
                         ],
                       ),
@@ -355,7 +336,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         width: 60,
         height: 60,
         decoration: BoxDecoration(
-          color: ColorConstants.backgroundColor,
+          color: Colors.white,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(color: Colors.grey.shade300, width: 1.0),
         ),

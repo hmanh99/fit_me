@@ -90,11 +90,12 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
                         title: 'Target Muscles',
                         icon: Icons.accessibility_new_rounded,
                         items: exercise.muscleGroups,
-                        chipAccentColor: const Color(0xFF92A3FD),
+                        chipAccentColor: Colors.blue,
                       ),
                       if (exercise.requiresEquipment) ...[
                         const SizedBox(height: 16),
                         ExerciseInfoSection(
+                          chipAccentColor: Colors.blue,
                           title: 'Equipment',
                           icon: Icons.fitness_center_rounded,
                           items: exercise.equipments ?? [],

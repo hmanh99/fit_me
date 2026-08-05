@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:personal_fitness_tracker/core/const/color_constants.dart';
+import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
 class MealEmptyView extends StatelessWidget {
   final VoidCallback? onRefresh;
   const MealEmptyView({super.key, this.onRefresh});
@@ -58,7 +58,7 @@ class MealEmptyView extends StatelessWidget {
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w700,
-                color: ColorConstants.primaryTextColor,
+                color: Colors.black,
               ),
               textAlign: TextAlign.center,
             ),
@@ -67,7 +67,7 @@ class MealEmptyView extends StatelessWidget {
               "We couldn't find any meal recommendations for the selected category. Try checking back later or tap Refresh to reload.",
               style: TextStyle(
                 fontSize: 14,
-                color: ColorConstants.secondaryTextColor,
+                color: Colors.grey,
                 height: 1.5,
               ),
               textAlign: TextAlign.center,

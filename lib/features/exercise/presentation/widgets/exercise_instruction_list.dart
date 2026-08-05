@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:personal_fitness_tracker/core/const/color_constants.dart';
-import 'package:personal_fitness_tracker/features/exercise/presentation/widgets/exercise_theme.dart';
 
 class ExerciseInstructionList extends StatelessWidget {
   final List<String> instructions;
@@ -16,7 +14,18 @@ class ExerciseInstructionList extends StatelessWidget {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(18),
-      decoration: ExerciseTheme.cardDecoration(context),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(color: Colors.grey.shade300),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.04),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -25,7 +34,7 @@ class ExerciseInstructionList extends StatelessWidget {
               Icon(
                 Icons.menu_book_rounded,
                 size: 20,
-                color: ExerciseTheme.gradientStart,
+                color: Color(0xFF92A3FD),
               ),
               SizedBox(width: 8),
               Text(
@@ -33,7 +42,7 @@ class ExerciseInstructionList extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w700,
-                  color: ColorConstants.primaryTextColor,
+                  color: Colors.black,
                 ),
               ),
             ],
@@ -76,7 +85,11 @@ class _InstructionStep extends StatelessWidget {
                 width: 30,
                 height: 30,
                 decoration: const BoxDecoration(
-                  gradient: ExerciseTheme.gradient,
+                  gradient: LinearGradient(
+                    colors: [Color(0xFF92A3FD), Color(0xFF9DCEFF)],
+                    begin: AlignmentGeometry.topLeft,
+                    end: AlignmentGeometry.bottomRight,
+                  ),
                   shape: BoxShape.circle,
                 ),
                 alignment: Alignment.center,
@@ -94,7 +107,7 @@ class _InstructionStep extends StatelessWidget {
                   child: Container(
                     width: 2,
                     margin: const EdgeInsets.symmetric(vertical: 4),
-                    color: ExerciseTheme.gradientStart.withValues(alpha: 0.2),
+                    color: Color(0xFF92A3FD).withValues(alpha: 0.2),
                   ),
                 ),
             ],

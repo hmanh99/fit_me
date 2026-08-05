@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:personal_fitness_tracker/core/const/color_constants.dart';
+import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
 import 'package:personal_fitness_tracker/core/router/route_names.dart';
 import 'package:personal_fitness_tracker/features/profile/domain/entities/profile_entity.dart';
 import 'package:personal_fitness_tracker/features/profile/presentation/bloc/profile_bloc.dart';
@@ -164,7 +164,7 @@ class _ProfileBody extends StatelessWidget {
                   label: "Height",
                   value: profile.height.toStringAsFixed(0),
                   unit: "cm",
-                  color: ColorConstants.buttonColor,
+                  color: Color(0xFF92A3FD),
                 ),
               ),
               const SizedBox(width: 16),
@@ -186,11 +186,11 @@ class _ProfileBody extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16),
               gradient: const LinearGradient(
-                colors: [ColorConstants.buttonColor, Color(0xFFC58BF2)],
+                colors: [Color(0xFF92A3FD), Color(0xFFC58BF2)],
               ),
               boxShadow: [
                 BoxShadow(
-                  color: ColorConstants.buttonColor.withValues(alpha: 0.3),
+                  color: Color(0xFF92A3FD).withValues(alpha: 0.3),
                   blurRadius: 16,
                   offset: const Offset(0, 8),
                 ),

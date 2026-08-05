@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:personal_fitness_tracker/core/const/color_constants.dart';
 import 'package:personal_fitness_tracker/features/exercise/domain/entities/exercise_entity.dart';
 import 'package:personal_fitness_tracker/features/exercise/presentation/widgets/exercise_difficulty_badge.dart';
-import 'package:personal_fitness_tracker/features/exercise/presentation/widgets/exercise_theme.dart';
 
 class ExerciseDetailHeader extends StatelessWidget {
   final ExerciseEntity exercise;
@@ -14,7 +12,18 @@ class ExerciseDetailHeader extends StatelessWidget {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(20),
-      decoration: ExerciseTheme.cardDecoration(context),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(color: Colors.grey.shade300),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.04),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -30,7 +39,7 @@ class ExerciseDetailHeader extends StatelessWidget {
                       style: const TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
-                        color: ColorConstants.primaryTextColor,
+                        color: Colors.black,
                         height: 1.2,
                       ),
                     ),
@@ -59,13 +68,13 @@ class ExerciseDetailHeader extends StatelessWidget {
                 label: exercise.requiresEquipment
                     ? '${exercise.equipments!.length} equipment'
                     : 'Bodyweight',
-                color: ExerciseTheme.gradientStart,
+                color: Colors.blue,
               ),
               if (exercise.muscleGroups.isNotEmpty)
                 _MetaChip(
                   icon: Icons.accessibility_new_rounded,
                   label: '${exercise.muscleGroups.length} muscle groups',
-                  color: const Color(0xFF7F77DD),
+                  color: Colors.blue,
                 ),
             ],
           ),

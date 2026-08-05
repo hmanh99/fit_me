@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:personal_fitness_tracker/core/const/color_constants.dart';
+import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
 
 class BmiCard extends StatelessWidget {
   const BmiCard({super.key, required this.bmi, required this.category});
@@ -57,7 +57,7 @@ class BmiCard extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w700,
-                  color: ColorConstants.primaryTextColor,
+                  color: Colors.black,
                   letterSpacing: 0.1,
                 ),
               ),
@@ -91,7 +91,7 @@ class BmiCard extends StatelessWidget {
                 style: const TextStyle(
                   fontSize: 42,
                   fontWeight: FontWeight.w900,
-                  color: ColorConstants.primaryTextColor,
+                  color: Colors.black,
                   height: 1,
                   letterSpacing: -1,
                 ),
@@ -102,7 +102,7 @@ class BmiCard extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
-                  color: ColorConstants.secondaryTextColor.withValues(alpha: 0.8),
+                  color: Colors.grey.withValues(alpha: 0.8),
                 ),
               ),
             ],
@@ -170,7 +170,7 @@ class BmiCard extends StatelessWidget {
               Icon(
                 Icons.info_outline_rounded,
                 size: 16,
-                color: ColorConstants.secondaryTextColor.withValues(alpha: 0.7),
+                color: Colors.grey.withValues(alpha: 0.7),
               ),
               const SizedBox(width: 8),
               Expanded(
@@ -179,7 +179,7 @@ class BmiCard extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 12.5,
                     height: 1.4,
-                    color: ColorConstants.secondaryTextColor.withValues(alpha: 0.9),
+                    color: Colors.grey.withValues(alpha: 0.9),
                     fontWeight: FontWeight.w500,
                   ),
                 ),

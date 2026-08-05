@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:personal_fitness_tracker/core/const/color_constants.dart';
+import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
 import 'package:personal_fitness_tracker/core/services/auth_services.dart';
 import 'package:personal_fitness_tracker/features/profile/presentation/bloc/activity_history_bloc.dart';
 import 'package:personal_fitness_tracker/features/profile/presentation/bloc/activity_history_event.dart';
@@ -106,7 +106,7 @@ class _ActivityHistoryScreenState extends State<ActivityHistoryScreen> {
                           style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
-                            color: ColorConstants.primaryTextColor,
+                            color: Colors.black,
                           ),
                         ),
                       ),

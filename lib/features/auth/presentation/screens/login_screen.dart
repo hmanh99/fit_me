@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:personal_fitness_tracker/core/const/color_constants.dart';
 import 'package:personal_fitness_tracker/core/router/route_names.dart';
 import 'package:personal_fitness_tracker/core/router/route_paths.dart';
 import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_bloc.dart';
@@ -9,10 +8,10 @@ import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_ev
 import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_state.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key, this.returnTo});
+  const LoginScreen({super.key, this.returnTo = 'app/home'});
 
   /// Deep link / redirect after sign in(query `from` from auth guard).
-  final String? returnTo;
+  final String returnTo;
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -35,10 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
   void _onLoginPressed() {
     if (_formKey.currentState!.validate()) {
       context.read<AuthBloc>().add(
-        AuthLoginEvent(
-          email: _email.text.trim(),
-          password: _password.text,
-        ),
+        AuthLoginEvent(email: _email.text.trim(), password: _password.text),
       );
     }
   }
@@ -48,18 +44,13 @@ class _LoginScreenState extends State<LoginScreen> {
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is AuthLoginState) {
-          final target = widget.returnTo;
-          if (target != null && target.isNotEmpty) {
-            context.go(target);
-          } else {
-            context.go(AppRoutePaths.appHome);
-          }
+          context.go(AppRoutePaths.appHome);
         }
         if (state is AuthErrorState) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(state.message),
-              backgroundColor: ColorConstants.snackBarColor,
+              backgroundColor: Colors.green,
             ),
           );
         }
@@ -68,7 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
         final isLoading = state is AuthLoadingState;
 
         return Scaffold(
-          backgroundColor: ColorConstants.backgroundColor,
+          backgroundColor: Colors.white,
           body: SafeArea(
             child: SingleChildScrollView(
               padding: const EdgeInsets.all(20),
@@ -78,18 +69,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   const SizedBox(height: 24),
                   const Text(
                     'Hey there,',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: ColorConstants.secondaryTextColor,
-                    ),
+                    style: TextStyle(fontSize: 16, color: Colors.grey),
                   ),
                   const SizedBox(height: 4),
                   const Text(
                     'Welcome Back',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
 
                   Form(
@@ -159,16 +144,16 @@ class _LoginScreenState extends State<LoginScreen> {
                           onTap: isLoading
                               ? null
                               : () => context.pushNamed(
-                                    AppRouteNames.forgotPassword,
-                                    queryParameters: {
-                                      if (_email.text.trim().isNotEmpty)
-                                        'email': _email.text.trim(),
-                                    },
-                                  ),
+                                  AppRouteNames.forgotPassword,
+                                  queryParameters: {
+                                    if (_email.text.trim().isNotEmpty)
+                                      'email': _email.text.trim(),
+                                  },
+                                ),
                           child: Text(
                             'Forgot your password?',
                             style: TextStyle(
-                              color: ColorConstants.secondaryTextColor,
+                              color: Colors.grey,
                               fontSize: 13,
                               fontWeight: FontWeight.w500,
                               decoration: TextDecoration.underline,
@@ -185,19 +170,19 @@ class _LoginScreenState extends State<LoginScreen> {
                               borderRadius: BorderRadius.circular(12),
                             ),
                             minimumSize: const Size(double.infinity, 50),
-                            backgroundColor: ColorConstants.buttonColor,
-                            foregroundColor: ColorConstants.buttonTextColor,
+                            backgroundColor: Color(0xFF92A3FD),
+                            foregroundColor: Colors.white,
                           ),
                           onPressed: isLoading ? null : _onLoginPressed,
                           child: isLoading
                               ? const SizedBox(
-                            height: 22,
-                            width: 22,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2.5,
-                              color: ColorConstants.buttonTextColor,
-                            ),
-                          )
+                                  height: 22,
+                                  width: 22,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2.5,
+                                    color: Colors.white,
+                                  ),
+                                )
                               : const Text('Login'),
                         ),
                       ],
@@ -212,10 +197,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         padding: EdgeInsets.all(12),
                         child: Text(
                           'Or',
-                          style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 13,
-                          ),
+                          style: TextStyle(color: Colors.grey, fontSize: 13),
                         ),
                       ),
                       Expanded(child: Divider()),
@@ -223,7 +205,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
 
                   const SizedBox(height: 12),
-                  _buildSocialButton(assetPath: 'assets/images/auth/google.png'),
+                  _buildSocialButton(
+                    assetPath: 'assets/images/auth/google.png',
+                  ),
 
                   const SizedBox(height: 24),
                   GestureDetector(
@@ -234,14 +218,14 @@ class _LoginScreenState extends State<LoginScreen> {
                       text: const TextSpan(
                         style: TextStyle(
                           fontSize: 13,
-                          color: ColorConstants.primaryTextColor,
+                          color: Colors.black,
                           fontWeight: FontWeight.bold,
                         ),
                         children: [
                           TextSpan(text: "Don't have an account yet? "),
                           TextSpan(
                             text: 'Sign up',
-                            style: TextStyle(color: ColorConstants.highlightText),
+                            style: TextStyle(color: Colors.blue),
                           ),
                         ],
                       ),
@@ -258,14 +242,12 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Widget _buildSocialButton({required String assetPath}) {
     return GestureDetector(
-      onTap: () {
-
-      },
+      onTap: () {},
       child: Container(
         width: 60,
         height: 60,
         decoration: BoxDecoration(
-          color: ColorConstants.backgroundColor,
+          color: Colors.white,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(color: Colors.grey.shade300, width: 1.0),
         ),

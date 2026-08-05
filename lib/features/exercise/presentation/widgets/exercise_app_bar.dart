@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:personal_fitness_tracker/features/exercise/presentation/widgets/exercise_theme.dart';
 
 class ExerciseAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final VoidCallback? onBack;
 
-  const ExerciseAppBar({
-    super.key,
-    required this.title,
-    this.onBack,
-  });
+  const ExerciseAppBar({super.key, required this.title, this.onBack});
 
   @override
   Size get preferredSize => const Size.fromHeight(64);
@@ -39,7 +34,13 @@ class ExerciseAppBar extends StatelessWidget implements PreferredSizeWidget {
       elevation: 0,
       backgroundColor: Colors.transparent,
       flexibleSpace: Container(
-        decoration: const BoxDecoration(gradient: ExerciseTheme.gradient),
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xFF92A3FD), Color(0xFF9DCEFF)],
+            begin: AlignmentGeometry.topLeft,
+            end: AlignmentGeometry.bottomRight,
+          ),
+        ),
       ),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),

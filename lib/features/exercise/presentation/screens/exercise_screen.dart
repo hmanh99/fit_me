@@ -11,7 +11,6 @@ import 'package:personal_fitness_tracker/features/exercise/presentation/widgets/
 import 'package:personal_fitness_tracker/features/exercise/presentation/widgets/exercise_empty_state.dart';
 import 'package:personal_fitness_tracker/features/exercise/presentation/widgets/exercise_error_state.dart';
 import 'package:personal_fitness_tracker/features/exercise/presentation/widgets/exercise_loading_skeleton.dart';
-import 'package:personal_fitness_tracker/features/exercise/presentation/widgets/exercise_theme.dart';
 
 class ExerciseScreen extends StatefulWidget {
   const ExerciseScreen({super.key});
@@ -74,7 +73,7 @@ class _ExerciseListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return RefreshIndicator(
       onRefresh: () async => onRefresh(),
-      color: ExerciseTheme.gradientStart,
+      color: Colors.blue,
       backgroundColor: Colors.white,
       child: GridView.builder(
         padding: EdgeInsets.fromLTRB(
