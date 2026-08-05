@@ -32,9 +32,9 @@ class ActivityHistoryModel extends ActivityHistoryEntity {
       'user_id': userId,
       'plan_id': planId,
       'plan_name': planName,
-      'date_tracked': dateTracked.toIso8601String().split('T').first,
-      'started_at': startedAt.toIso8601String().split('T').first,
-      'completed_at': completedAt.toIso8601String().split('T').first,
+      'date_tracked': dateTracked.toUtc().toIso8601String().split('T').first,
+      'started_at': startedAt.toUtc().toIso8601String(),
+      'completed_at': completedAt.toUtc().toIso8601String(),
     };
   }
 
