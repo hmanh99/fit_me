@@ -1,0 +1,13 @@
+{
+  "settings": "Settings",
+  "appearance": "Appearance",
+  "dark_mode": "Dark Mode",
+  "light_mode": "Light Mode",
+  "system_default": "System Default",
+  "language": "Language",
+  "select_language": "Select Language",
+  "home": "Home",
+  "schedule": "Schedule",
+  "meal": "Meal",
+  "profile": "Profile"
+}

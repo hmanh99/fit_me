@@ -1,0 +1,13 @@
+{
+  "settings": "Configuración",
+  "appearance": "Apariencia",
+  "dark_mode": "Modo Oscuro",
+  "light_mode": "Modo Claro",
+  "system_default": "Predeterminado del Sistema",
+  "language": "Idioma",
+  "select_language": "Seleccionar Idioma",
+  "home": "Inicio",
+  "schedule": "Horario",
+  "meal": "Comida",
+  "profile": "Perfil"
+}
