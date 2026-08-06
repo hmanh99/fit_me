@@ -1,8 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
+
 class MealEmptyView extends StatelessWidget {
   final VoidCallback? onRefresh;
+
   const MealEmptyView({super.key, this.onRefresh});
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -53,7 +56,7 @@ class MealEmptyView extends StatelessWidget {
             ),
             const SizedBox(height: 24),
             // Text Content
-            const Text(
+            Text(
               "No Meals Found",
               style: TextStyle(
                 fontSize: 18,
@@ -63,13 +66,9 @@ class MealEmptyView extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 10),
-            const Text(
-              "We couldn't find any meal recommendations for the selected category. Try checking back later or tap Refresh to reload.",
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.grey,
-                height: 1.5,
-              ),
+            Text(
+              "empty_meal".tr(),
+              style: TextStyle(fontSize: 14, color: Colors.grey, height: 1.5),
               textAlign: TextAlign.center,
             ),
             if (onRefresh != null) ...[
@@ -94,8 +93,8 @@ class MealEmptyView extends StatelessWidget {
                 child: ElevatedButton.icon(
                   onPressed: onRefresh,
                   icon: const Icon(Icons.refresh_rounded, color: Colors.white),
-                  label: const Text(
-                    "Refresh Meals",
+                  label: Text(
+                    "refresh".tr(),
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w600,

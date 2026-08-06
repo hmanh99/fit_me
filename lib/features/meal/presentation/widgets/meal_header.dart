@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:personal_fitness_tracker/features/meal/domain/entities/meal_type.dart';
 
@@ -25,11 +26,11 @@ class MealHeader extends StatelessWidget {
             children: [
               _buildTab(context, null, "All"),
               const SizedBox(width: 12),
-              _buildTab(context, MealType.breakfast, "Breakfast"),
+              _buildTab(context, MealType.breakfast, "breakfast".tr()),
               const SizedBox(width: 12),
-              _buildTab(context, MealType.lunch, "Lunch"),
+              _buildTab(context, MealType.lunch, "lunch".tr()),
               const SizedBox(width: 12),
-              _buildTab(context, MealType.dinner, "Dinner"),
+              _buildTab(context, MealType.dinner, "dinner".tr()),
             ],
           ),
         ),

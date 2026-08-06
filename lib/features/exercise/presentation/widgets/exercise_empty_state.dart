@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class ExerciseEmptyState extends StatelessWidget {
@@ -52,9 +53,9 @@ class ExerciseEmptyState extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 32),
-            const Text(
-              'No Exercises Found',
-              style: TextStyle(
+            Text(
+              'no_exercises_found'.tr(),
+              style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w700,
                 color: Colors.black,
@@ -62,9 +63,9 @@ class ExerciseEmptyState extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 12),
-            const Text(
-              "We couldn't find any exercises right now. Pull down to refresh or tap the button below.",
-              style: TextStyle(
+            Text(
+              'empty_exercises'.tr(),
+              style: const TextStyle(
                 fontSize: 14,
                 color: Colors.grey,
                 height: 1.5,
@@ -74,7 +75,7 @@ class ExerciseEmptyState extends StatelessWidget {
             if (onRefresh != null) ...[
               const SizedBox(height: 32),
               _GradientActionButton(
-                label: 'Refresh',
+                label: 'refresh'.tr(),
                 icon: Icons.refresh_rounded,
                 onPressed: onRefresh!,
               ),
@@ -102,11 +103,11 @@ class _GradientActionButton extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(99),
-          gradient: LinearGradient(
-            colors: [Color(0xFF92A3FD), Color(0xFF9DCEFF)],
-            begin: AlignmentGeometry.topLeft,
-            end: AlignmentGeometry.bottomRight,
-          ),
+        gradient: LinearGradient(
+          colors: [Color(0xFF92A3FD), Color(0xFF9DCEFF)],
+          begin: AlignmentGeometry.topLeft,
+          end: AlignmentGeometry.bottomRight,
+        ),
         boxShadow: [
           BoxShadow(
             color: Color(0xFF92A3FD).withValues(alpha: 0.3),

@@ -1,6 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 import 'package:personal_fitness_tracker/core/services/auth_services.dart';
 import 'package:personal_fitness_tracker/features/schedule/domain/entities/schedule_status.dart';
 import 'package:personal_fitness_tracker/features/schedule/domain/entities/workout_schedule_entity.dart';
@@ -53,7 +53,6 @@ class _AddScheduleBottomSheetState extends State<AddScheduleBottomSheet> {
   late DateTime _selectedDate;
   ScheduleStatus _selectedStatus = ScheduleStatus.upcoming;
   WorkoutPlanEntity? _selectedPlan;
-  bool _isCustomPlan = false;
 
   bool _isSaving = false;
 
@@ -71,7 +70,6 @@ class _AddScheduleBottomSheetState extends State<AddScheduleBottomSheet> {
       _selectedStatus = s.status;
       _noteController.text = s.note ?? '';
       _planNameController.text = s.planName;
-      _isCustomPlan = true;
     } else {
       _selectedDate = widget.initialDate ?? DateTime.now();
     }
@@ -134,7 +132,7 @@ class _AddScheduleBottomSheetState extends State<AddScheduleBottomSheet> {
 
             // Title
             Text(
-              _isEditing ? 'Edit Schedule' : 'Schedule Workout',
+              _isEditing ? 'edit'.tr() : 'new_schedule_workout'.tr(),
               style: theme.textTheme.titleLarge?.copyWith(
                 fontWeight: FontWeight.w800,
                 fontSize: 22,
@@ -145,7 +143,7 @@ class _AddScheduleBottomSheetState extends State<AddScheduleBottomSheet> {
             const SizedBox(height: 24),
 
             // Workout Plan Selector Label
-            _buildSectionLabel(theme, 'Workout Plan'),
+            _buildSectionLabel(theme, 'workout_plan'.tr()),
             const SizedBox(height: 8),
 
             BlocBuilder<WorkoutBloc, WorkoutState>(
@@ -165,11 +163,11 @@ class _AddScheduleBottomSheetState extends State<AddScheduleBottomSheet> {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    if (plans.isNotEmpty && !_isCustomPlan)
+                    if (plans.isNotEmpty)
                       DropdownButtonFormField<WorkoutPlanEntity>(
                         initialValue: _selectedPlan,
-                        decoration: const InputDecoration(
-                          hintText: 'Select a workout plan',
+                        decoration: InputDecoration(
+                          hintText: 'select_a_workout_plan'.tr(),
                           prefixIcon: Icon(
                             Icons.fitness_center_rounded,
                             size: 20,
@@ -195,74 +193,6 @@ class _AddScheduleBottomSheetState extends State<AddScheduleBottomSheet> {
                           });
                         },
                       ),
-                    if (_isCustomPlan) ...[
-                      TextField(
-                        controller: _planNameController,
-                        decoration: const InputDecoration(
-                          hintText: 'Enter plan name',
-                          prefixIcon: Icon(Icons.edit_note_rounded, size: 22),
-                        ),
-                      ),
-                    ],
-                    const SizedBox(height: 10),
-                    Row(
-                      children: [
-                        GestureDetector(
-                          onTap: () =>
-                              setState(() => _isCustomPlan = !_isCustomPlan),
-                          child: AnimatedContainer(
-                            duration: const Duration(milliseconds: 200),
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 12,
-                              vertical: 6,
-                            ),
-                            decoration: BoxDecoration(
-                              color: _isCustomPlan
-                                  ? theme.colorScheme.primary.withValues(
-                                      alpha: 0.08,
-                                    )
-                                  : theme.colorScheme.onSurface.withValues(
-                                      alpha: 0.03,
-                                    ),
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(
-                                color: _isCustomPlan
-                                    ? theme.colorScheme.primary.withValues(
-                                        alpha: 0.2,
-                                      )
-                                    : Colors.transparent,
-                              ),
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Icon(
-                                  _isCustomPlan
-                                      ? Icons.check_box_rounded
-                                      : Icons.check_box_outline_blank_rounded,
-                                  size: 18,
-                                  color: _isCustomPlan
-                                      ? theme.colorScheme.primary
-                                      : theme.colorScheme.onSurfaceVariant,
-                                ),
-                                const SizedBox(width: 8),
-                                Text(
-                                  'Custom plan name',
-                                  style: theme.textTheme.bodySmall?.copyWith(
-                                    color: _isCustomPlan
-                                        ? theme.colorScheme.primary
-                                        : theme.colorScheme.onSurfaceVariant,
-                                    fontWeight: _isCustomPlan
-                                        ? FontWeight.w700
-                                        : FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
                   ],
                 );
               },
@@ -270,7 +200,7 @@ class _AddScheduleBottomSheetState extends State<AddScheduleBottomSheet> {
             const SizedBox(height: 20),
 
             // Date Selector Label
-            _buildSectionLabel(theme, 'Schedule Date'),
+            _buildSectionLabel(theme, 'schedule_date'.tr()),
             const SizedBox(height: 8),
 
             InkWell(
@@ -316,7 +246,7 @@ class _AddScheduleBottomSheetState extends State<AddScheduleBottomSheet> {
             const SizedBox(height: 20),
 
             // Status Selector Label
-            _buildSectionLabel(theme, 'Status'),
+            _buildSectionLabel(theme, 'status'.tr()),
             const SizedBox(height: 8),
 
             Row(
@@ -401,14 +331,14 @@ class _AddScheduleBottomSheetState extends State<AddScheduleBottomSheet> {
             const SizedBox(height: 20),
 
             // Note Label
-            _buildSectionLabel(theme, 'Note (Optional)'),
+            _buildSectionLabel(theme, 'note'.tr()),
             const SizedBox(height: 8),
 
             TextField(
               controller: _noteController,
               maxLines: 3,
-              decoration: const InputDecoration(
-                hintText: 'Add workout objectives, details or reminders...',
+              decoration: InputDecoration(
+                hintText: 'add_note'.tr(),
                 prefixIcon: Padding(
                   padding: EdgeInsets.only(bottom: 44),
                   child: Icon(Icons.note_alt_outlined, size: 20),
@@ -419,7 +349,7 @@ class _AddScheduleBottomSheetState extends State<AddScheduleBottomSheet> {
 
             // Save Button
             _GradientButton(
-              text: _isEditing ? 'Update Schedule' : 'Save Schedule',
+              text: _isEditing ? 'update'.tr() : 'save'.tr(),
               onPressed: _onSave,
             ),
           ],
@@ -445,7 +375,7 @@ class _AddScheduleBottomSheetState extends State<AddScheduleBottomSheet> {
       context: context,
       initialDate: _selectedDate,
       firstDate: DateTime(2020),
-      lastDate: DateTime(2030),
+      lastDate: DateTime(2100),
       builder: (context, child) {
         return Theme(
           data: Theme.of(context).copyWith(
@@ -466,7 +396,7 @@ class _AddScheduleBottomSheetState extends State<AddScheduleBottomSheet> {
     if (_isSaving) return;
 
     // Determine plan name
-    final planName = _isCustomPlan || _selectedPlan == null
+    final planName = _selectedPlan == null
         ? _planNameController.text.trim()
         : _selectedPlan!.planName;
 
@@ -491,7 +421,7 @@ class _AddScheduleBottomSheetState extends State<AddScheduleBottomSheet> {
     final schedule = WorkoutScheduleEntity(
       scheduleId: widget.existingSchedule?.scheduleId ?? 0,
       userId: userId,
-      planId: _isCustomPlan ? null : _selectedPlan?.planId,
+      planId: _selectedPlan?.planId,
       planName: planName,
       scheduleDate: _selectedDate,
       note: _noteController.text.trim().isEmpty

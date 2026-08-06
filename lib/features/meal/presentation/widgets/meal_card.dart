@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
 import 'package:personal_fitness_tracker/features/meal/domain/entities/meal_entity.dart';
 
 class MealCard extends StatelessWidget {

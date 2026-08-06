@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:personal_fitness_tracker/features/exercise/domain/entities/exercise_entity.dart';
 import 'package:personal_fitness_tracker/features/exercise/presentation/widgets/exercise_difficulty_badge.dart';
@@ -66,14 +67,14 @@ class ExerciseDetailHeader extends StatelessWidget {
                     ? Icons.fitness_center_rounded
                     : Icons.bolt_rounded,
                 label: exercise.requiresEquipment
-                    ? '${exercise.equipments!.length} equipment'
+                    ? '${exercise.equipments!.length} ${'equipments'.tr()}'
                     : 'Bodyweight',
                 color: Colors.blue,
               ),
               if (exercise.muscleGroups.isNotEmpty)
                 _MetaChip(
                   icon: Icons.accessibility_new_rounded,
-                  label: '${exercise.muscleGroups.length} muscle groups',
+                  label: '${exercise.muscleGroups.length} ${'muscles_groups'.tr()}',
                   color: Colors.blue,
                 ),
             ],

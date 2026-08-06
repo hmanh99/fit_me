@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class ExerciseInstructionList extends StatelessWidget {
@@ -29,17 +30,17 @@ class ExerciseInstructionList extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Row(
+          Row(
             children: [
-              Icon(
+              const Icon(
                 Icons.menu_book_rounded,
                 size: 20,
                 color: Color(0xFF92A3FD),
               ),
-              SizedBox(width: 8),
+              const SizedBox(width: 8),
               Text(
-                'Instructions',
-                style: TextStyle(
+                'instructions'.tr(),
+                style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w700,
                   color: Colors.black,

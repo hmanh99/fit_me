@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -39,7 +40,7 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: ExerciseAppBar(
-        title: 'Exercise Detail',
+        title: 'exercise_detail'.tr(),
         onBack: () => context.pop(),
       ),
       body: BlocBuilder<ExerciseBloc, ExerciseState>(
@@ -87,7 +88,7 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
                       ExerciseDetailHeader(exercise: exercise),
                       const SizedBox(height: 16),
                       ExerciseInfoSection(
-                        title: 'Target Muscles',
+                        title: 'muscles_groups'.tr(),
                         icon: Icons.accessibility_new_rounded,
                         items: exercise.muscleGroups,
                         chipAccentColor: Colors.blue,
@@ -96,7 +97,7 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
                         const SizedBox(height: 16),
                         ExerciseInfoSection(
                           chipAccentColor: Colors.blue,
-                          title: 'Equipment',
+                          title: 'equipments'.tr(),
                           icon: Icons.fitness_center_rounded,
                           items: exercise.equipments ?? [],
                         ),

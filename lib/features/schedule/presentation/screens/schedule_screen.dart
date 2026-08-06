@@ -1,8 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
-import 'package:intl/intl.dart';
-import 'package:personal_fitness_tracker/core/router/route_names.dart';
 import 'package:personal_fitness_tracker/core/services/auth_services.dart';
 import 'package:personal_fitness_tracker/features/schedule/domain/entities/workout_schedule_entity.dart';
 import 'package:personal_fitness_tracker/features/schedule/presentation/bloc/schedule_bloc.dart';
@@ -62,7 +60,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
         if (state.operationStatus == ScheduleOperationStatus.success) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: const Text('Schedule updated successfully!'),
+              content: Text('schedule_updated_successfully!'.tr()),
               backgroundColor: Colors.green,
               behavior: SnackBarBehavior.floating,
               shape: RoundedRectangleBorder(
@@ -76,7 +74,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
         } else if (state.operationStatus == ScheduleOperationStatus.failure) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(state.errorMessage ?? 'Operation failed'),
+              content: Text(state.errorMessage ?? 'something_went_wrong'.tr()),
               backgroundColor: Colors.red.shade400,
               behavior: SnackBarBehavior.floating,
               shape: RoundedRectangleBorder(
@@ -95,8 +93,8 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
-                  'Schedule',
+                 Text(
+                  'schedule'.tr(),
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
@@ -134,7 +132,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                           ),
                           const SizedBox(width: 6),
                           Text(
-                            'Today',
+                            'today'.tr(),
                             style: theme.textTheme.bodyMedium?.copyWith(
                               color: Colors.white,
                               fontSize: 13,
@@ -423,17 +421,6 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                 },
                 child: ScheduleDayItem(
                   schedule: schedule,
-                  onTap: () {
-                    context.goNamed(
-                      AppRouteNames.appWorkoutDetail,
-                      pathParameters: {
-                        'workoutId': schedule.planId.toString().trim(),
-                      },
-                      queryParameters: {
-                        'planName' : schedule.planName.trim(),
-                      }
-                    );
-                  },
                   onEdit: () => AddScheduleBottomSheet.show(
                     context,
                     existingSchedule: schedule,
@@ -499,22 +486,11 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
             ),
             const SizedBox(height: 24),
             Text(
-              'No Scheduled Workouts',
+              'no_scheduled_workouts'.tr(),
               style: theme.textTheme.titleMedium?.copyWith(
                 color: theme.colorScheme.onSurface,
                 fontWeight: FontWeight.w800,
                 fontSize: 18,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 8),
-            Text(
-              'Plan your fitness journey today. Add a workout plan to stay consistent and reach your goals.',
-              style: theme.textTheme.bodyMedium?.copyWith(
-                color: theme.colorScheme.onSurfaceVariant.withValues(
-                  alpha: 0.7,
-                ),
-                height: 1.45,
               ),
               textAlign: TextAlign.center,
             ),
@@ -575,7 +551,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
             ),
             const SizedBox(height: 24),
             Text(
-              'Failed to load schedules',
+              'something_went_wrong'.tr(),
               style: theme.textTheme.titleMedium?.copyWith(
                 color: theme.colorScheme.onSurface,
                 fontWeight: FontWeight.w800,
@@ -584,7 +560,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
             const SizedBox(height: 8),
             Text(
               state.errorMessage ??
-                  'Something went wrong while fetching your schedule calendar data. Please try again.',
+                  'server_exception'.tr(),
               style: theme.textTheme.bodyMedium?.copyWith(
                 color: theme.colorScheme.onSurfaceVariant.withValues(
                   alpha: 0.7,
@@ -597,7 +573,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
             FilledButton.icon(
               onPressed: _loadSchedules,
               icon: const Icon(Icons.refresh_rounded, size: 18),
-              label: const Text('Try Again'),
+              label: Text('try_again'.tr()),
               style: FilledButton.styleFrom(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 24,
@@ -624,20 +600,12 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
-          boxShadow: [
-            BoxShadow(
-              color: const Color(0xFF92A3FD).withValues(alpha: 0.4),
-              blurRadius: 12,
-              offset: const Offset(0, 4),
-            ),
-          ],
         ),
         child: FloatingActionButton(
           onPressed: () =>
               AddScheduleBottomSheet.show(context, initialDate: _selectedDay),
           backgroundColor: Colors.transparent,
           elevation: 0,
-          tooltip: 'Add schedule',
           child: const Icon(Icons.add_rounded, color: Colors.white, size: 28),
         ),
       ),
@@ -653,19 +621,19 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(24),
           ),
-          title: const Text(
-            'Delete Schedule',
+          title: Text(
+            'delete'.tr(),
             style: TextStyle(fontWeight: FontWeight.w800),
           ),
           content: Text(
-            'Are you sure you want to remove "${schedule.planName}" from your schedule?',
+            'schedule_delete_confirmation'.tr(),
             style: const TextStyle(fontSize: 15, height: 1.4),
           ),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(dialogContext).pop(),
               child: Text(
-                'Cancel',
+                'cancel'.tr(),
                 style: TextStyle(color: theme.colorScheme.onSurfaceVariant),
               ),
             ),
@@ -682,7 +650,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                   borderRadius: BorderRadius.circular(12),
                 ),
               ),
-              child: const Text('Delete'),
+              child: Text('delete'.tr()),
             ),
           ],
         );

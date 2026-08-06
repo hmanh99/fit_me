@@ -72,6 +72,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    EasyLocalization.of(context)?.locale;
     return BlocProvider<SettingsBloc>(
       create: (_) => di.sl<SettingsBloc>()..add(const SettingsLoadRequested()),
       child: MultiRepositoryProvider(

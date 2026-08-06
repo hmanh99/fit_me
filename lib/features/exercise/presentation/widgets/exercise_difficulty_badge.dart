@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:personal_fitness_tracker/features/exercise/domain/entities/exercise_entity.dart';
 
@@ -15,22 +16,22 @@ class ExerciseDifficultyStyle {
   static ExerciseDifficultyStyle fromLevel(DifficultyLevel level) {
     switch (level) {
       case DifficultyLevel.beginner:
-        return const ExerciseDifficultyStyle(
+        return ExerciseDifficultyStyle(
           backgroundColor: Color(0xFFE8F5E9),
           textColor: Color(0xFF2E7D32),
-          label: 'Beginner',
+          label: 'beginner'.tr(),
         );
       case DifficultyLevel.intermediate:
-        return const ExerciseDifficultyStyle(
+        return ExerciseDifficultyStyle(
           backgroundColor: Color(0xFFFFF3E0),
           textColor: Color(0xFFFF8B2B),
-          label: 'Intermediate',
+          label: 'intermediate'.tr(),
         );
       case DifficultyLevel.advanced:
-        return const ExerciseDifficultyStyle(
-          backgroundColor: Color(0xFFFFEBEE),
-          textColor: Color(0xFFC62828),
-          label: 'Advanced',
+        return ExerciseDifficultyStyle(
+          backgroundColor: const Color(0xFFFFEBEE),
+          textColor: const Color(0xFFC62828),
+          label: 'advanced'.tr(),
         );
     }
   }

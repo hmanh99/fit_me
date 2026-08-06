@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class ExerciseErrorState extends StatelessWidget {
@@ -12,8 +13,7 @@ class ExerciseErrorState extends StatelessWidget {
 
   String get _displayMessage {
     if (errorMessage.contains('ServerException')) {
-      return 'We encountered a server error. '
-          'Please check your internet connection and try again.';
+      return 'server_exception'.tr();
     }
     return errorMessage;
   }
@@ -68,9 +68,9 @@ class ExerciseErrorState extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 32),
-            const Text(
-              'Something Went Wrong',
-              style: TextStyle(
+            Text(
+              'something_went_wrong'.tr(),
+              style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w700,
                 color: Colors.black,
@@ -108,9 +108,9 @@ class ExerciseErrorState extends StatelessWidget {
                 child: ElevatedButton.icon(
                   onPressed: onRetry,
                   icon: const Icon(Icons.refresh_rounded, color: Colors.white),
-                  label: const Text(
-                    'Try Again',
-                    style: TextStyle(
+                  label: Text(
+                    'try_again'.tr(),
+                    style: const TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
                       color: Colors.white,
