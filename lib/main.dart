@@ -2,7 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:personal_fitness_tracker/core/di/injection_container.dart' as di;
+import 'package:personal_fitness_tracker/core/di/injection_container.dart'
+    as di;
 import 'package:personal_fitness_tracker/core/router/app_router.dart';
 import 'package:personal_fitness_tracker/core/services/exercise_services.dart';
 import 'package:personal_fitness_tracker/core/theme/app_theme.dart';
@@ -46,11 +47,7 @@ void main() async {
 
   runApp(
     EasyLocalization(
-      supportedLocales: [
-        Locale('en'),
-        Locale('es'),
-        Locale('vi'),
-      ],
+      supportedLocales: [Locale('en'), Locale('es'), Locale('vi')],
       path: 'assets/translations',
       fallbackLocale: Locale('en'),
       child: MyApp(authBloc: authBloc),
@@ -157,8 +154,6 @@ class _MyAppState extends State<MyApp> {
                     supportedLocales: context.supportedLocales,
                     locale: context.locale,
                     theme: AppTheme.light,
-                    darkTheme: AppTheme.dark,
-                    themeMode: AppTheme.toFlutterThemeMode(settingsState.settings.themeMode),
                     debugShowCheckedModeBanner: false,
                     routerConfig: _router,
                     builder: (context, child) {

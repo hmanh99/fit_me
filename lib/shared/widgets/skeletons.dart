@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
 
 class ShimmerLoading extends StatelessWidget {
   final Widget child;
@@ -15,10 +16,9 @@ class ShimmerLoading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
 
-    final defaultBase = isDark ? Colors.grey[800]! : Colors.grey[400]!;
-    final defaultHighlight = isDark ? Colors.grey[700]! : Colors.grey[100]!;
+    final defaultBase =  ColorConstants.greyShade300 ;
+    final defaultHighlight = ColorConstants.greyShade500;
 
     return Shimmer.fromColors(
       baseColor: baseColor ?? defaultBase,
@@ -61,7 +61,7 @@ class AppSkeleton extends StatelessWidget {
       width: width,
       height: height,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: ColorConstants.white,
         shape: shape,
         borderRadius: shape == BoxShape.circle
             ? null
@@ -92,12 +92,12 @@ class SkeletonCard extends StatelessWidget {
       height: height,
       padding: padding ?? const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: ColorConstants.white,
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: Colors.grey.shade100),
+        border: Border.all(color: ColorConstants.greyShade100),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.01),
+            color: ColorConstants.black.withValues(alpha: 0.01),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
