@@ -13,7 +13,6 @@ class SettingsState extends Equatable {
   factory SettingsState.initial() {
     return const SettingsState(
       settings: AppSettings(
-        themeMode: AppThemeMode.system,
         languageCode: 'en',
       ),
       isLoading: true,

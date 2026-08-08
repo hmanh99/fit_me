@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
 import 'package:personal_fitness_tracker/features/exercise/presentation/widgets/exercise_tag_chip.dart';
 
 class ExerciseInfoSection extends StatelessWidget {
@@ -25,12 +26,12 @@ class ExerciseInfoSection extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: ColorConstants.backgroundColor,
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: Colors.grey.shade300),
+        border: Border.all(color: ColorConstants.socialBorderColor),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.04),
+            color: ColorConstants.black.withValues(alpha: 0.04),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -41,14 +42,14 @@ class ExerciseInfoSection extends StatelessWidget {
         children: [
           Row(
             children: [
-              Icon(icon, size: 20, color: Color(0xFF92A3FD)),
+              Icon(icon, size: 20, color: ColorConstants.buttonColor),
               const SizedBox(width: 8),
               Text(
                 title,
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w700,
-                  color: Colors.black,
+                  color: ColorConstants.textPrimaryColor,
                 ),
               ),
             ],

@@ -14,7 +14,7 @@ class _OnboardScreen1State extends State<OnboardScreen1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: ColorConstants.backgroundColor,
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.all(20),
@@ -35,7 +35,7 @@ class _OnboardScreen1State extends State<OnboardScreen1> {
                     Text(
                       'Track Your Goal',
                       style: TextStyle(
-                        color: Colors.black,
+                        color: ColorConstants.textPrimaryColor,
                         fontSize: 24,
                         fontWeight: FontWeight.w700,
                         height: 1.50,
@@ -46,7 +46,7 @@ class _OnboardScreen1State extends State<OnboardScreen1> {
                       "Don't worry if you have trouble determining your goals. "
                           "We can help you determine your goals and track your goals.",
                       style: TextStyle(
-                        color: Colors.grey,
+                        color: ColorConstants.textSecondaryColor,
                         fontSize: 13,
                         fontWeight: FontWeight.w400,
                         height: 1.50,
@@ -60,8 +60,8 @@ class _OnboardScreen1State extends State<OnboardScreen1> {
       ),
       floatingActionButton: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: Color(0xFF92A3FD),
-          foregroundColor: Colors.white,
+          backgroundColor: ColorConstants.buttonColor,
+          foregroundColor: ColorConstants.buttonTextColor,
           minimumSize: Size(60, 60),
           shape: CircleBorder(),
         ),

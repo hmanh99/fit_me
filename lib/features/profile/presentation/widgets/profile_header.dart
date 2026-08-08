@@ -13,21 +13,21 @@ class ProfileHeader extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: ColorConstants.white,
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: Colors.grey.shade100),
+        border: Border.all(color: ColorConstants.greyShade100, width: 1),
       ),
       child: Row(
         children: [
           Container(
             padding: const EdgeInsets.all(2),
             decoration: const BoxDecoration(
-              color: Colors.white,
+              color: ColorConstants.white,
               shape: BoxShape.circle,
             ),
             child: CircleAvatar(
               radius: 50,
-              backgroundColor: Colors.grey.shade300,
+              backgroundColor: ColorConstants.greyShade300,
               backgroundImage:
                   profile.avatar != null && profile.avatar!.isNotEmpty
                   ? NetworkImage(profile.avatar!)
@@ -36,7 +36,7 @@ class ProfileHeader extends StatelessWidget {
                   ? Icon(
                       Icons.person_rounded,
                       size: 50,
-                      color: Colors.white,
+                      color: ColorConstants.white,
                     )
                   : null,
             ),
@@ -52,7 +52,7 @@ class ProfileHeader extends StatelessWidget {
                   style: const TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.w900,
-                    color: Colors.black,
+                    color: ColorConstants.black,
                     letterSpacing: 0.5,
                   ),
                   textAlign: TextAlign.left,
@@ -64,12 +64,12 @@ class ProfileHeader extends StatelessWidget {
                     vertical: 6,
                   ),
                   decoration: BoxDecoration(
-                    color: Color(0xFF92A3FD).withValues(
+                    color: ColorConstants.primaryColor.withValues(
                       alpha: 0.08,
                     ),
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(
-                      color: Color(0xFF92A3FD).withValues(
+                      color: ColorConstants.primaryColor.withValues(
                         alpha: 0.15,
                       ),
                       width: 1,
@@ -81,17 +81,17 @@ class ProfileHeader extends StatelessWidget {
                       Icon(
                         Icons.fingerprint_rounded,
                         size: 13,
-                        color: Color(0xFF92A3FD).withValues(
+                        color: ColorConstants.primaryColor.withValues(
                           alpha: 0.8,
                         ),
                       ),
                       const SizedBox(width: 4),
                       Text(
-                        'ID: ${profile.userId.length > 8 ? profile.userId.substring(0, 8) : profile.userId}',
+                        'ID: ${profile.userId.length > 8 ? profile.userId.substring(0, 8) : profile.userId}...',
                         style: const TextStyle(
                           fontSize: 11,
                           fontWeight: FontWeight.w700,
-                          color: Color(0xFF92A3FD),
+                          color: ColorConstants.primaryColor,
                           letterSpacing: 0.5,
                         ),
                       ),

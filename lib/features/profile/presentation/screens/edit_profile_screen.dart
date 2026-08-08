@@ -9,6 +9,8 @@ import 'package:personal_fitness_tracker/features/profile/presentation/bloc/prof
 import 'package:personal_fitness_tracker/features/profile/presentation/widgets/profile_app_bar.dart';
 import 'package:personal_fitness_tracker/features/profile/presentation/widgets/profile_skeletons.dart';
 
+import '../../../../core/constants/color_constants.dart';
+
 class EditProfileScreen extends StatefulWidget {
   final String profileId;
 
@@ -140,7 +142,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 content: Text('Profile updated successfully!'),
-                backgroundColor: Colors.green,
+                backgroundColor: ColorConstants.snackBarSuccessColor,
               ),
             );
             context.pop();
@@ -153,7 +155,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(state.message),
-              backgroundColor: Colors.redAccent,
+              backgroundColor: ColorConstants.errorColor,
             ),
           );
         }
@@ -161,6 +163,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       builder: (context, state) {
         final isLoading = state is ProfileLoading && !_isInitialized;
         return Scaffold(
+          backgroundColor: ColorConstants.backgroundColor,
           appBar: ProfileAppBar(
             title: "Edit Profile",
             centerTitle: true,
@@ -190,14 +193,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: ColorConstants.white,
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: Colors.grey.shade100),
+        border: Border.all(color: ColorConstants.borderLightColor),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.03),
-            blurRadius: 16,
-            offset: const Offset(0, 8),
+            color: ColorConstants.black.withValues(alpha: 0.1),
+            blurRadius: 8,
+            offset: const Offset(0, 4),
           ),
         ],
       ),
@@ -207,9 +210,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           const Text(
             'Choose Avatar',
             style: TextStyle(
-              fontSize: 15,
+              fontSize: 16,
               fontWeight: FontWeight.bold,
-              color: Colors.black,
+              color: ColorConstants.textPrimaryColor,
             ),
           ),
           const SizedBox(height: 16),
@@ -220,9 +223,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               backgroundImage: _selectedAvatarUrl != null
                   ? NetworkImage(_selectedAvatarUrl!)
                   : null,
-              backgroundColor: Colors.grey.shade200,
+              backgroundColor: ColorConstants.placeholderDarkColor,
               child: _selectedAvatarUrl == null
-                  ? const Icon(Icons.person, size: 44, color: Colors.grey)
+                  ? const Icon(Icons.person, size: 44, color:ColorConstants.buttonTextColor)
                   : null,
             ),
           ),
@@ -253,14 +256,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     shape: BoxShape.circle,
                     border: Border.all(
                       color: isSelected
-                          ? Color(0xFF92A3FD)
+                          ? ColorConstants.primaryColor
                           : Colors.transparent,
                       width: 3,
                     ),
                   ),
                   child: CircleAvatar(
                     backgroundImage: NetworkImage(url),
-                    backgroundColor: Colors.grey.shade200,
+                    backgroundColor: ColorConstants.greyShade200,
                   ),
                 ),
               );
@@ -272,10 +275,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             controller: _customAvatarController,
             decoration: InputDecoration(
               labelText: 'Or paste image URL',
-              labelStyle: const TextStyle(fontSize: 13, color: Colors.grey),
-              prefixIcon: const Icon(Icons.link_rounded, color: Colors.grey),
+              labelStyle: const TextStyle(fontSize: 13, color: ColorConstants.textSecondaryColor),
+              prefixIcon: const Icon(Icons.link_rounded, color: ColorConstants.grey),
               filled: true,
-              fillColor: Colors.grey.shade50,
+              fillColor: ColorConstants.greyShade50,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(16),
                 borderSide: BorderSide.none,
@@ -283,7 +286,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(16),
                 borderSide: const BorderSide(
-                  color: Color(0xFF92A3FD),
+                  color: ColorConstants.primaryColor,
                   width: 1.5,
                 ),
               ),
@@ -305,12 +308,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: ColorConstants.white,
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: Colors.grey.shade100),
+        border: Border.all(color: ColorConstants.greyShade100),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.03),
+            color: ColorConstants.black.withValues(alpha: 0.03),
             blurRadius: 16,
             offset: const Offset(0, 8),
           ),
@@ -326,7 +329,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               style: TextStyle(
                 fontSize: 15,
                 fontWeight: FontWeight.bold,
-                color: Colors.black,
+                color: ColorConstants.textPrimaryColor,
               ),
             ),
             const SizedBox(height: 20),
@@ -343,10 +346,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 labelText: 'Username',
                 prefixIcon: const Icon(
                   Icons.person_outline_rounded,
-                  color: Colors.grey,
+                  color: ColorConstants.grey,
                 ),
                 filled: true,
-                fillColor: Colors.grey.shade50,
+                fillColor: ColorConstants.greyShade50,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(16),
                   borderSide: BorderSide.none,
@@ -354,7 +357,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(16),
                   borderSide: const BorderSide(
-                    color: Color(0xFF92A3FD),
+                    color: ColorConstants.primaryColor,
                     width: 1.5,
                   ),
                 ),
@@ -380,10 +383,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 labelText: 'Height (cm)',
                 prefixIcon: const Icon(
                   Icons.height_rounded,
-                  color: Colors.grey,
+                  color: ColorConstants.grey,
                 ),
                 filled: true,
-                fillColor: Colors.grey.shade50,
+                fillColor: ColorConstants.greyShade50,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(16),
                   borderSide: BorderSide.none,
@@ -391,7 +394,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(16),
                   borderSide: const BorderSide(
-                    color: Color(0xFF92A3FD),
+                    color: ColorConstants.primaryColor,
                     width: 1.5,
                   ),
                 ),
@@ -417,10 +420,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 labelText: 'Weight (kg)',
                 prefixIcon: const Icon(
                   Icons.fitness_center_rounded,
-                  color: Colors.grey,
+                  color: ColorConstants.grey,
                 ),
                 filled: true,
-                fillColor: Colors.grey.shade50,
+                fillColor: ColorConstants.greyShade50,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(16),
                   borderSide: BorderSide.none,
@@ -428,7 +431,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(16),
                   borderSide: const BorderSide(
-                    color: Color(0xFF92A3FD),
+                    color: ColorConstants.primaryColor,
                     width: 1.5,
                   ),
                 ),
@@ -437,8 +440,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             const SizedBox(height: 32),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xFF92A3FD),
-                foregroundColor: Colors.white,
+                backgroundColor: ColorConstants.primaryColor,
+                foregroundColor: ColorConstants.buttonTextColor,
                 elevation: 0,
                 minimumSize: const Size(double.infinity, 52),
                 shape: RoundedRectangleBorder(
@@ -451,7 +454,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       width: 24,
                       height: 24,
                       child: CircularProgressIndicator(
-                        color: Colors.white,
+                        color: ColorConstants.buttonTextColor,
                         strokeWidth: 2.5,
                       ),
                     )

@@ -29,25 +29,25 @@ class _WorkoutExerciseCardState extends State<WorkoutExerciseCard> {
     final order = widget.planExercise.orderInWorkout;
 
     // Difficulty colors
-    Color diffBgColor = Colors.green.shade50;
-    Color diffTextColor = Colors.green.shade700;
+    Color diffBgColor = ColorConstants.difficultyBeginnerBgColor;
+    Color diffTextColor = ColorConstants.difficultyBeginnerTextColor;
     String diffLabel = "Beginner";
 
     if (exercise != null) {
       switch (exercise.difficulty) {
         case DifficultyLevel.beginner:
-          diffBgColor = const Color(0xFFE8F5E9);
-          diffTextColor = const Color(0xFF2E7D32);
+          diffBgColor = ColorConstants.difficultyBeginnerBgColor;
+          diffTextColor = ColorConstants.difficultyBeginnerTextColor;
           diffLabel = "Beginner";
           break;
         case DifficultyLevel.intermediate:
-          diffBgColor = const Color(0xFFFFF3E0);
-          diffTextColor = const Color(0xFFEF6C00);
+          diffBgColor = ColorConstants.difficultyIntermediateBgColor;
+          diffTextColor = ColorConstants.difficultyIntermediateTextColor;
           diffLabel = "Intermediate";
           break;
         case DifficultyLevel.advanced:
-          diffBgColor = const Color(0xFFFFEBEE);
-          diffTextColor = const Color(0xFFC62828);
+          diffBgColor = ColorConstants.difficultyAdvancedBgColor;
+          diffTextColor = ColorConstants.difficultyAdvancedTextColor;
           diffLabel = "Advanced";
           break;
       }
@@ -64,17 +64,17 @@ class _WorkoutExerciseCardState extends State<WorkoutExerciseCard> {
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: ColorConstants.backgroundColor,
             borderRadius: BorderRadius.circular(24),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withValues(alpha: 0.04),
+                color: ColorConstants.black.withValues(alpha: 0.04),
                 blurRadius: 10,
                 offset: const Offset(0, 4),
               ),
             ],
             border: Border.all(
-              color: Colors.grey.shade100,
+              color: ColorConstants.borderLightColor,
               width: 1,
             ),
           ),
@@ -88,18 +88,14 @@ class _WorkoutExerciseCardState extends State<WorkoutExerciseCard> {
                   width: 48,
                   height: 48,
                   decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [Color(0xFF92A3FD), Color(0xFF9DCEFF)],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                    ),
+                    color: ColorConstants.primaryColor,
                     shape: BoxShape.circle,
                   ),
                   alignment: Alignment.center,
                   child: Text(
                     order.toString().padLeft(2, '0'),
                     style: const TextStyle(
-                      color: Colors.white,
+                      color: ColorConstants.white,
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
                     ),
@@ -141,13 +137,13 @@ class _WorkoutExerciseCardState extends State<WorkoutExerciseCard> {
                                 vertical: 2,
                               ),
                               decoration: BoxDecoration(
-                                color: Colors.grey.shade100,
-                                borderRadius: BorderRadius.circular(6),
+                                color: ColorConstants.primaryColor.withValues(alpha: 0.08),
+                                borderRadius: BorderRadius.circular(20),
                               ),
                               child: Text(
                                 exercise.muscleGroups.first,
-                                style: TextStyle(
-                                  color: Colors.grey.shade600,
+                                style: const TextStyle(
+                                  color: ColorConstants.primaryColor,
                                   fontSize: 10,
                                   fontWeight: FontWeight.w600,
                                 ),
@@ -163,7 +159,7 @@ class _WorkoutExerciseCardState extends State<WorkoutExerciseCard> {
                         style: const TextStyle(
                           fontSize: 17,
                           fontWeight: FontWeight.bold,
-                          color: Colors.black,
+                          color: ColorConstants.textPrimaryColor,
                         ),
                       ),
                       const SizedBox(height: 8),
@@ -177,7 +173,7 @@ class _WorkoutExerciseCardState extends State<WorkoutExerciseCard> {
                               vertical: 4,
                             ),
                             decoration: BoxDecoration(
-                              color: const Color(0xFF92A3FD).withValues(alpha: 0.08),
+                              color: ColorConstants.primaryColor.withValues(alpha: 0.08),
                               borderRadius: BorderRadius.circular(20),
                             ),
                             child: Row(
@@ -186,13 +182,13 @@ class _WorkoutExerciseCardState extends State<WorkoutExerciseCard> {
                                 const Icon(
                                   Icons.repeat_rounded,
                                   size: 13,
-                                  color: Color(0xFF92A3FD),
+                                  color:ColorConstants.buttonColor,
                                 ),
                                 const SizedBox(width: 4),
                                 Text(
                                   "$targetSets x $targetRepsOrSeconds",
                                   style: const TextStyle(
-                                    color: Color(0xFF7F77DD),
+                                    color: ColorConstants.primaryColor,
                                     fontSize: 11,
                                     fontWeight: FontWeight.w700,
                                   ),
@@ -200,7 +196,7 @@ class _WorkoutExerciseCardState extends State<WorkoutExerciseCard> {
                               ],
                             ),
                           ),
-                          // Calories badge (if available)
+                          // Calories badge
                           if (exercise?.calories != null) ...[
                             const SizedBox(width: 8),
                             Container(
@@ -209,7 +205,7 @@ class _WorkoutExerciseCardState extends State<WorkoutExerciseCard> {
                                 vertical: 4,
                               ),
                               decoration: BoxDecoration(
-                                color: Colors.orange.shade50,
+                                color: ColorConstants.caloriesIconColor.withValues(alpha: 0.2),
                                 borderRadius: BorderRadius.circular(20),
                               ),
                               child: Row(
@@ -218,13 +214,13 @@ class _WorkoutExerciseCardState extends State<WorkoutExerciseCard> {
                                   const Icon(
                                     Icons.local_fire_department_rounded,
                                     size: 13,
-                                    color: Colors.orange,
+                                    color: ColorConstants.caloriesIconColor,
                                   ),
                                   const SizedBox(width: 4),
                                   Text(
                                     "${exercise!.calories} kcal",
-                                    style: TextStyle(
-                                      color: Colors.orange.shade800,
+                                    style: const TextStyle(
+                                      color: ColorConstants.caloriesTextColor,
                                       fontSize: 11,
                                       fontWeight: FontWeight.w700,
                                     ),
@@ -240,16 +236,12 @@ class _WorkoutExerciseCardState extends State<WorkoutExerciseCard> {
                 ),
                 const SizedBox(width: 12),
                 // Chevron icon
-                Container(
+                const SizedBox(
                   width: 32,
                   height: 32,
-                  decoration: BoxDecoration(
-                    color: Colors.grey.shade50,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(
+                  child: const Icon(
                     Icons.chevron_right_rounded,
-                    color: Colors.grey.shade400,
+                    color: ColorConstants.greyShade400,
                     size: 20,
                   ),
                 ),

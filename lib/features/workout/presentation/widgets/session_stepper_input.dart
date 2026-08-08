@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
 
 class StepperInput extends StatelessWidget {
   final String label;
@@ -21,7 +22,7 @@ class StepperInput extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Icon(icon, color: const Color(0xFF92A3FD), size: 20),
+        Icon(icon, color: ColorConstants.buttonColor, size: 20),
         const SizedBox(width: 10),
         Expanded(
           child: Text(
@@ -29,7 +30,7 @@ class StepperInput extends StatelessWidget {
             style: const TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w600,
-              color: Colors.black87,
+              color: ColorConstants.textPrimaryColor,
             ),
           ),
         ),
@@ -43,7 +44,7 @@ class StepperInput extends StatelessWidget {
                 : next.toInt().toString();
           },
           icon: const Icon(Icons.remove_circle_outline_rounded),
-          color: Colors.red.shade300,
+          color: ColorConstants.errorColor,
         ),
 
         // text field input
@@ -61,14 +62,14 @@ class StepperInput extends StatelessWidget {
             style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
-              color: Color(0xFF92A3FD),
+              color: ColorConstants.textPrimaryColor,
             ),
             decoration: InputDecoration(
               contentPadding: const EdgeInsets.all(8),
               isDense: true,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide(color: Colors.grey.shade300),
+                borderSide: const BorderSide(color: ColorConstants.socialBorderColor),
               ),
             ),
           ),
@@ -84,7 +85,7 @@ class StepperInput extends StatelessWidget {
                 : next.toInt().toString();
           },
           icon: const Icon(Icons.add_circle_outline_rounded),
-          color: const Color(0xFF92A3FD),
+          color: ColorConstants.buttonColor,
         ),
       ],
     );

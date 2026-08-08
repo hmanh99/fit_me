@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
 
 class RecommendationCard extends StatefulWidget {
   final VoidCallback onTap;
@@ -26,22 +27,22 @@ class _RecommendationCardState extends State<RecommendationCard> {
       onTapCancel: () => setState(() => _isPressed = false),
       onTap: widget.onTap,
       child: AnimatedScale(
-        scale: _isPressed ? 0.97 : 1.0,
+        scale: _isPressed ? 0.95 : 1.0,
         duration: const Duration(milliseconds: 100),
         child: Container(
           width: 250,
           margin: const EdgeInsets.fromLTRB(0, 0, 8, 0),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: ColorConstants.white,
             borderRadius: BorderRadius.circular(24),
             boxShadow: [
               BoxShadow(
-                color: Colors.grey.withValues(alpha: 0.15),
-                blurRadius: 12,
-                offset: const Offset(0, 6),
+                color: ColorConstants.black.withValues(alpha: 0.1),
+                blurRadius: 4,
+                offset: const Offset(0, 4),
               ),
             ],
-            border: Border.all(color: Colors.grey.shade100, width: 1),
+            border: Border.all(color: ColorConstants.borderLightColor, width: 1),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -54,15 +55,11 @@ class _RecommendationCardState extends State<RecommendationCard> {
                     topLeft: Radius.circular(24),
                     topRight: Radius.circular(24),
                   ),
-                  gradient: LinearGradient(
-                    colors: [Color(0xFF2E2A38), Color(0xFF1E1C24)],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
+                  color: ColorConstants.placeholderDarkColor,
                 ),
                 child: _hasImage
                     ? ClipRRect(
-                        borderRadius: BorderRadius.only(
+                        borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(24),
                           topRight: Radius.circular(24),
                         ),
@@ -77,16 +74,10 @@ class _RecommendationCardState extends State<RecommendationCard> {
                           height: 60,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            gradient: const LinearGradient(
-                              colors: [Color(0xFF9DCEFF), Color(0xFF92A3FD)],
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                            ),
+                            color: ColorConstants.primaryColor,
                             boxShadow: [
                               BoxShadow(
-                                color: const Color(
-                                  0xFF92A3FD,
-                                ).withValues(alpha: 0.3),
+                                color: ColorConstants.primaryColor.withValues(alpha: 0.3),
                                 blurRadius: 12,
                                 offset: const Offset(0, 4),
                               ),
@@ -94,7 +85,7 @@ class _RecommendationCardState extends State<RecommendationCard> {
                           ),
                           child: const Icon(
                             Icons.fitness_center_rounded,
-                            color: Colors.white,
+                            color: ColorConstants.buttonTextColor,
                             size: 30,
                           ),
                         ),
@@ -112,6 +103,7 @@ class _RecommendationCardState extends State<RecommendationCard> {
                         style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
+                          color: ColorConstants.textPrimaryColor,
                         ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
@@ -120,7 +112,7 @@ class _RecommendationCardState extends State<RecommendationCard> {
                         children: [
                           const Icon(
                             Icons.local_fire_department_rounded,
-                            color: Colors.orangeAccent,
+                            color: ColorConstants.caloriesIconColor,
                             size: 13,
                           ),
                           const SizedBox(width: 4),
@@ -129,7 +121,7 @@ class _RecommendationCardState extends State<RecommendationCard> {
                             style: const TextStyle(
                               fontSize: 13,
                               fontWeight: FontWeight.w600,
-                              color: Colors.black87,
+                              color: ColorConstants.textPrimaryColor,
                             ),
                           ),
                         ],
@@ -139,13 +131,13 @@ class _RecommendationCardState extends State<RecommendationCard> {
                         children: [
                           const Icon(
                             Icons.fitness_center_outlined,
-                            color: Color(0xFF92A3FD),
+                            color: ColorConstants.iconColor,
                             size: 13,
                           ),
                           const SizedBox(width: 4),
                           Text(
                             (widget.exercise['muscle_group'] as List).first,
-                            style: const TextStyle(fontSize: 13),
+                            style: const TextStyle(fontSize: 13, color: ColorConstants.textPrimaryColor),
                           ),
                         ],
                       ),
@@ -153,13 +145,13 @@ class _RecommendationCardState extends State<RecommendationCard> {
                         children: [
                           const Icon(
                             Icons.fitness_center_outlined,
-                            color: Color(0xFF92A3FD),
+                            color: ColorConstants.iconColor,
                             size: 13,
                           ),
                           const SizedBox(width: 4),
                           Text(
                             "${((widget.exercise['equipment'] as List).length).toString()} equipments",
-                            style: const TextStyle(fontSize: 13),
+                            style: const TextStyle(fontSize: 13, color: ColorConstants.textPrimaryColor),
                           ),
                         ],
                       ),

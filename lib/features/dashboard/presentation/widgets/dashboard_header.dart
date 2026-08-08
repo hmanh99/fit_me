@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
 import 'package:personal_fitness_tracker/core/services/auth_services.dart';
 
 class DashboardHeader extends StatelessWidget {
@@ -23,7 +24,7 @@ class DashboardHeader extends StatelessWidget {
                 style: const TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black,
+                  color: ColorConstants.textPrimaryColor,
                 ),
               ),
               const SizedBox(height: 4),
@@ -31,36 +32,8 @@ class DashboardHeader extends StatelessWidget {
                 "It's time to break your limit",
                 style: TextStyle(
                   fontSize: 13,
-                  color: Colors.black,
+                  color: ColorConstants.textSecondaryColor,
                   fontWeight: FontWeight.w500,
-                ),
-              ),
-            ],
-          ),
-
-          // Notification
-          Stack(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.08),
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(),
-                ),
-                child: IconButton(
-                  icon: const Icon(Icons.notifications_none_rounded, size: 24),
-                  onPressed:
-                      onNotificationPressed ??
-                      () {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text(
-                              'Notifications — soon',
-                            ),
-                            behavior: SnackBarBehavior.floating,
-                          ),
-                        );
-                      },
                 ),
               ),
             ],

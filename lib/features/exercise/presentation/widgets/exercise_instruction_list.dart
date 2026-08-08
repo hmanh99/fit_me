@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
 
 class ExerciseInstructionList extends StatelessWidget {
   final List<String> instructions;
@@ -16,12 +17,12 @@ class ExerciseInstructionList extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: ColorConstants.backgroundColor,
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: Colors.grey.shade300),
+        border: Border.all(color: ColorConstants.socialBorderColor),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.04),
+            color: ColorConstants.black.withValues(alpha: 0.04),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -35,7 +36,7 @@ class ExerciseInstructionList extends StatelessWidget {
               const Icon(
                 Icons.menu_book_rounded,
                 size: 20,
-                color: Color(0xFF92A3FD),
+                color: ColorConstants.buttonColor,
               ),
               const SizedBox(width: 8),
               Text(
@@ -43,7 +44,7 @@ class ExerciseInstructionList extends StatelessWidget {
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w700,
-                  color: Colors.black,
+                  color: ColorConstants.textPrimaryColor,
                 ),
               ),
             ],
@@ -86,18 +87,14 @@ class _InstructionStep extends StatelessWidget {
                 width: 30,
                 height: 30,
                 decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [Color(0xFF92A3FD), Color(0xFF9DCEFF)],
-                    begin: AlignmentGeometry.topLeft,
-                    end: AlignmentGeometry.bottomRight,
-                  ),
+                  color: ColorConstants.buttonColor,
                   shape: BoxShape.circle,
                 ),
                 alignment: Alignment.center,
                 child: Text(
                   '$stepNumber',
                   style: const TextStyle(
-                    color: Colors.white,
+                    color: ColorConstants.buttonTextColor,
                     fontSize: 13,
                     fontWeight: FontWeight.bold,
                   ),
@@ -108,7 +105,7 @@ class _InstructionStep extends StatelessWidget {
                   child: Container(
                     width: 2,
                     margin: const EdgeInsets.symmetric(vertical: 4),
-                    color: Color(0xFF92A3FD).withValues(alpha: 0.2),
+                    color: ColorConstants.buttonColor.withValues(alpha: 0.2),
                   ),
                 ),
             ],
@@ -119,9 +116,9 @@ class _InstructionStep extends StatelessWidget {
               padding: EdgeInsets.only(bottom: showConnector ? 16 : 0),
               child: Text(
                 text,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 16,
-                  color: Colors.grey.shade800,
+                  color: ColorConstants.textPrimaryColor,
                   height: 2,
                 ),
               ),

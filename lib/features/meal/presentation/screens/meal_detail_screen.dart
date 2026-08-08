@@ -32,6 +32,7 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorConstants.backgroundColor,
       appBar: MealAppBar(title: "Meal Detail", onBack: () => context.pop()),
       body: BlocBuilder<MealBloc, MealState>(
         builder: (context, state) {
@@ -59,8 +60,8 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
               onRefresh: () async => context.read<MealBloc>().add(
                 MealFetchByIdStarted(mealId: widget.mealId),
               ),
-              color: const Color(0xFF92A3FD),
-              backgroundColor: Colors.white,
+              color: ColorConstants.buttonColor,
+              backgroundColor: ColorConstants.white,
               child: _buildBody(context, meal, badgeColor),
             );
           }
@@ -99,7 +100,7 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withValues(alpha: 0.04),
+              color: ColorConstants.black.withValues(alpha: 0.04),
               blurRadius: 12,
               offset: const Offset(0, 4),
             ),
@@ -122,7 +123,7 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
     return const Center(
       child: Icon(
         Icons.restaurant_rounded,
-        color: Colors.blue,
+        color: ColorConstants.primaryColor,
         size: 60,
       ),
     );
@@ -153,7 +154,7 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
           style: const TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.bold,
-            color: Colors.black,
+            color: ColorConstants.textPrimaryColor,
             letterSpacing: -0.2,
           ),
         ),
@@ -165,28 +166,28 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: ColorConstants.white,
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.02),
+            color: ColorConstants.black.withValues(alpha: 0.02),
             blurRadius: 8,
             offset: const Offset(0, 4),
           ),
         ],
-        border: Border.all(color: Colors.grey.shade100),
+        border: Border.all(color: ColorConstants.greyShade100),
       ),
       child: Row(
         children: [
           Container(
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-              color: const Color(0xFFFF9B70).withValues(alpha: 0.1),
+              color: ColorConstants.caloriesIconColor.withValues(alpha: 0.1),
               shape: BoxShape.circle,
             ),
             child: const Icon(
               Icons.local_fire_department_rounded,
-              color: Color(0xFFFF9B70),
+              color: ColorConstants.caloriesIconColor,
               size: 24,
             ),
           ),
@@ -198,9 +199,9 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
                 const Text(
                   "Calories",
                   style: TextStyle(
-                    fontSize: 12,
+                    fontSize: 11,
                     fontWeight: FontWeight.w600,
-                    color: Colors.grey,
+                    color: ColorConstants.textSecondaryColor,
                   ),
                 ),
                 const SizedBox(height: 4),
@@ -209,7 +210,7 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black,
+                    color: ColorConstants.textPrimaryColor,
                   ),
                 ),
               ],
@@ -229,7 +230,7 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
-            color: Colors.black,
+            color:ColorConstants.textPrimaryColor,
           ),
         ),
         const SizedBox(height: 12),
@@ -237,7 +238,7 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
           const Text(
             "No ingredients listed.",
             style: TextStyle(
-              color: Colors.grey,
+              color: ColorConstants.textSecondaryColor,
               fontSize: 14,
             ),
           )
@@ -257,11 +258,11 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
   Color _getMealTypeColor(MealType mealType) {
     switch (mealType) {
       case MealType.breakfast:
-        return const Color(0xFF92A3FD);
+        return ColorConstants.mealBreakfastColor;
       case MealType.lunch:
-        return const Color(0xFFC58BF2);
+        return ColorConstants.mealLunchColor;
       case MealType.dinner:
-        return const Color(0xFFFF9B70);
+        return ColorConstants.mealDinnerColor;
     }
   }
 }

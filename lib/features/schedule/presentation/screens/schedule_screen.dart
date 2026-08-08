@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
 import 'package:personal_fitness_tracker/core/services/auth_services.dart';
 import 'package:personal_fitness_tracker/features/schedule/domain/entities/workout_schedule_entity.dart';
 import 'package:personal_fitness_tracker/features/schedule/presentation/bloc/schedule_bloc.dart';
@@ -61,7 +62,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text('schedule_updated_successfully!'.tr()),
-              backgroundColor: Colors.green,
+              backgroundColor: ColorConstants.snackBarSuccessColor,
               behavior: SnackBarBehavior.floating,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
@@ -75,7 +76,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(state.errorMessage ?? 'something_went_wrong'.tr()),
-              backgroundColor: Colors.red.shade400,
+              backgroundColor: ColorConstants.redShade400,
               behavior: SnackBarBehavior.floating,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
@@ -89,6 +90,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
       },
       builder: (context, state) {
         return Scaffold(
+          backgroundColor: ColorConstants.backgroundColor,
           appBar: AppBar(
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -96,13 +98,13 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                  Text(
                   'schedule'.tr(),
                   style: TextStyle(
-                    color: Colors.white,
+                    color: ColorConstants.white,
                     fontWeight: FontWeight.bold,
                     fontSize: 24,
                   ),
                 ),
                 Material(
-                  color: Colors.white.withValues(alpha: 0.18),
+                  color: ColorConstants.white.withValues(alpha: 0.18),
                   borderRadius: BorderRadius.circular(99),
                   child: InkWell(
                     borderRadius: BorderRadius.circular(99),
@@ -127,14 +129,14 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                         children: [
                           const Icon(
                             Icons.today_rounded,
-                            color: Colors.white,
+                            color: ColorConstants.white,
                             size: 18,
                           ),
                           const SizedBox(width: 6),
                           Text(
                             'today'.tr(),
                             style: theme.textTheme.bodyMedium?.copyWith(
-                              color: Colors.white,
+                              color: ColorConstants.white,
                               fontSize: 13,
                               fontWeight: FontWeight.w700,
                             ),
@@ -149,11 +151,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
             toolbarHeight: 64,
             flexibleSpace: Container(
               decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Color(0xFF92A3FD), Color(0xFF9DCEFF)],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
+                color: ColorConstants.buttonColor
               ),
             ),
           ),
@@ -213,7 +211,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                 ),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.02),
+                    color: ColorConstants.black.withValues(alpha: 0.02),
                     blurRadius: 10,
                     offset: const Offset(0, 4),
                   ),
@@ -258,7 +256,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                 calendarStyle: CalendarStyle(
                   // Today (ring style instead of filled soft circle)
                   todayDecoration: BoxDecoration(
-                    color: Colors.transparent,
+                    color: ColorConstants.transparent,
                     shape: BoxShape.circle,
                     border: Border.all(
                       color: theme.colorScheme.primary,
@@ -272,22 +270,18 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
 
                   // Selected Day
                   selectedDecoration: BoxDecoration(
-                    gradient: const LinearGradient(
-                      colors: [Color(0xFF92A3FD), Color(0xFF9DCEFF)],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                    ),
+                    color: ColorConstants.buttonColor,
                     shape: BoxShape.circle,
                     boxShadow: [
                       BoxShadow(
-                        color: const Color(0xFF92A3FD).withValues(alpha: 0.35),
+                        color: ColorConstants.buttonColor.withValues(alpha: 0.35),
                         blurRadius: 8,
                         offset: const Offset(0, 3),
                       ),
                     ],
                   ),
                   selectedTextStyle: const TextStyle(
-                    color: Colors.white,
+                    color: ColorConstants.white,
                     fontWeight: FontWeight.w800,
                   ),
 
@@ -321,7 +315,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                     fontSize: 12,
                   ),
                   weekendStyle: theme.textTheme.bodySmall!.copyWith(
-                    color: Colors.red.shade400,
+                    color: ColorConstants.redShade400,
                     fontWeight: FontWeight.w700,
                     fontSize: 12,
                   ),
@@ -464,13 +458,11 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                   width: 72,
                   height: 72,
                   decoration: BoxDecoration(
-                    gradient: const LinearGradient(
-                      colors: [Color(0xFF92A3FD), Color(0xFF9DCEFF)],
-                    ),
+                    color: ColorConstants.buttonColor,
                     shape: BoxShape.circle,
                     boxShadow: [
                       BoxShadow(
-                        color: const Color(0xFF92A3FD).withValues(alpha: 0.3),
+                        color: ColorConstants.buttonColor.withValues(alpha: 0.3),
                         blurRadius: 12,
                         offset: const Offset(0, 4),
                       ),
@@ -479,7 +471,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                   child: const Icon(
                     Icons.calendar_today_rounded,
                     size: 32,
-                    color: Colors.white,
+                    color: ColorConstants.white,
                   ),
                 ),
               ],
@@ -515,7 +507,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                   width: 110,
                   height: 110,
                   decoration: BoxDecoration(
-                    color: Colors.red.shade50.withValues(alpha: 0.5),
+                    color: ColorConstants.redShade50.withValues(alpha: 0.5),
                     shape: BoxShape.circle,
                   ),
                 ),
@@ -523,7 +515,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                   width: 80,
                   height: 80,
                   decoration: BoxDecoration(
-                    color: Colors.red.shade100.withValues(alpha: 0.8),
+                    color: ColorConstants.redShade100.withValues(alpha: 0.8),
                     shape: BoxShape.circle,
                   ),
                 ),
@@ -531,11 +523,11 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                   width: 60,
                   height: 60,
                   decoration: BoxDecoration(
-                    color: Colors.red.shade400,
+                    color: ColorConstants.redShade400,
                     shape: BoxShape.circle,
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.red.shade400.withValues(alpha: 0.3),
+                        color: ColorConstants.redShade400.withValues(alpha: 0.3),
                         blurRadius: 8,
                         offset: const Offset(0, 3),
                       ),
@@ -543,7 +535,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                   ),
                   child: const Icon(
                     Icons.error_outline_rounded,
-                    color: Colors.white,
+                    color: ColorConstants.white,
                     size: 30,
                   ),
                 ),
@@ -595,18 +587,14 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
       child: Container(
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          gradient: const LinearGradient(
-            colors: [Color(0xFF92A3FD), Color(0xFF9DCEFF)],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
+          color: ColorConstants.buttonColor,
         ),
         child: FloatingActionButton(
           onPressed: () =>
               AddScheduleBottomSheet.show(context, initialDate: _selectedDay),
-          backgroundColor: Colors.transparent,
+          backgroundColor: ColorConstants.transparent,
           elevation: 0,
-          child: const Icon(Icons.add_rounded, color: Colors.white, size: 28),
+          child: const Icon(Icons.add_rounded, color: ColorConstants.white, size: 28),
         ),
       ),
     );
@@ -645,7 +633,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                 );
               },
               style: FilledButton.styleFrom(
-                backgroundColor: Colors.red.shade400,
+                backgroundColor: ColorConstants.red,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),

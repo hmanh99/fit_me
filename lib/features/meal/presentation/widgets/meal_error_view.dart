@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
 
 class MealErrorView extends StatelessWidget {
   final String errorMessage;
@@ -24,7 +25,7 @@ class MealErrorView extends StatelessWidget {
                   width: 120,
                   height: 120,
                   decoration: BoxDecoration(
-                    color: Colors.red.shade50.withValues(alpha: 0.5),
+                    color: ColorConstants.errorColor.withValues(alpha: 0.5),
                     shape: BoxShape.circle,
                   ),
                 ),
@@ -32,7 +33,7 @@ class MealErrorView extends StatelessWidget {
                   width: 90,
                   height: 90,
                   decoration: BoxDecoration(
-                    color: Colors.red.shade100.withValues(alpha: 0.8),
+                    color: ColorConstants.errorColor.withValues(alpha: 0.8),
                     shape: BoxShape.circle,
                   ),
                 ),
@@ -40,19 +41,19 @@ class MealErrorView extends StatelessWidget {
                   width: 64,
                   height: 64,
                   decoration: BoxDecoration(
-                    color: Colors.red.shade400,
+                    color: ColorConstants.errorColor,
                     shape: BoxShape.circle,
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.red.shade400.withValues(alpha: 0.3),
+                        color: ColorConstants.errorColor.withValues(alpha: 0.3),
                         blurRadius: 8,
                         offset: const Offset(0, 3),
                       ),
                     ],
                   ),
-                  child: const Icon(
+                  child: Icon(
                     Icons.error_outline_rounded,
-                    color: Colors.white,
+                    color: ColorConstants.buttonTextColor,
                     size: 32,
                   ),
                 ),
@@ -65,19 +66,17 @@ class MealErrorView extends StatelessWidget {
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w700,
-                color: Colors.black,
+                color: ColorConstants.textPrimaryColor,
               ),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 10),
             // Details error
             Text(
-              errorMessage.contains("ServerException")
-                  ? "server_exception".tr()
-                  : errorMessage,
+              "server_exception".tr(),
               style: const TextStyle(
                 fontSize: 14,
-                color: Colors.grey,
+                color: ColorConstants.textSecondaryColor,
                 height: 1.5,
               ),
               textAlign: TextAlign.center,
@@ -88,33 +87,32 @@ class MealErrorView extends StatelessWidget {
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(99),
-                  gradient: const LinearGradient(
-                    colors: [Color(0xFF92A3FD), Color(0xFF9DCEFF)],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
+                  color: ColorConstants.iconColor,
                   boxShadow: [
                     BoxShadow(
-                      color: const Color(0xFF92A3FD).withValues(alpha: 0.3),
-                      blurRadius: 10,
+                      color: ColorConstants.iconColor.withValues(alpha: 0.3),
+                      blurRadius: 8,
                       offset: const Offset(0, 4),
                     ),
                   ],
                 ),
                 child: ElevatedButton.icon(
                   onPressed: onRetry,
-                  icon: const Icon(Icons.refresh_rounded, color: Colors.white),
+                  icon: const Icon(
+                    Icons.refresh_rounded,
+                    color: ColorConstants.iconColor,
+                  ),
                   label: Text(
                     "try_again".tr(),
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
-                      color: Colors.white,
+                      color: ColorConstants.buttonTextColor,
                     ),
                   ),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.transparent,
-                    shadowColor: Colors.transparent,
+                    backgroundColor: ColorConstants.transparent,
+                    shadowColor: ColorConstants.transparent,
                     padding: const EdgeInsets.symmetric(
                       horizontal: 32,
                       vertical: 12,

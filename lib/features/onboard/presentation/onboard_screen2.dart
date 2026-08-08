@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
 import 'package:personal_fitness_tracker/core/router/route_paths.dart';
 
 class OnboardScreen2 extends StatefulWidget {
@@ -13,7 +14,7 @@ class _OnboardScreen2State extends State<OnboardScreen2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: ColorConstants.backgroundColor,
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.all(20),
@@ -32,7 +33,7 @@ class _OnboardScreen2State extends State<OnboardScreen2> {
                   Text(
                     'Eat Well',
                     style: TextStyle(
-                      color: Colors.black,
+                      color: ColorConstants.textPrimaryColor,
                       fontSize: 24,
                       fontWeight: FontWeight.w700,
                       height: 1.50,
@@ -43,7 +44,7 @@ class _OnboardScreen2State extends State<OnboardScreen2> {
                     "Let's start a healthy lifestyle with us,"
                     " we can determine your diet every day. healthy eating is fun",
                     style: TextStyle(
-                      color: Colors.grey,
+                      color: ColorConstants.textSecondaryColor,
                       fontSize: 13,
                       fontWeight: FontWeight.w400,
                       height: 1.50,
@@ -57,8 +58,8 @@ class _OnboardScreen2State extends State<OnboardScreen2> {
       ),
       floatingActionButton: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: Color(0xFF92A3FD),
-          foregroundColor: Colors.white,
+          backgroundColor: ColorConstants.buttonColor,
+          foregroundColor: ColorConstants.buttonTextColor,
           minimumSize: Size(60, 60),
           shape: CircleBorder(),
         ),

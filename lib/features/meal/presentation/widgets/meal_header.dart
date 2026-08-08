@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
 import 'package:personal_fitness_tracker/features/meal/domain/entities/meal_type.dart';
 
 class MealHeader extends StatelessWidget {
@@ -47,20 +48,13 @@ class MealHeader extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
-          gradient: isSelected
-              ? const LinearGradient(
-                  colors: [Color(0xFF92A3FD), Color(0xFF9DCEFF)],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                )
-              : null,
-          color: isSelected ? null : Colors.grey.shade100,
+          color: isSelected ? ColorConstants.iconColor : ColorConstants.textSecondaryColor.withValues(alpha: 0.2),
         ),
         alignment: Alignment.center,
         child: Text(
           label,
           style: TextStyle(
-            color: isSelected ? Colors.white : Colors.black54,
+            color: isSelected ? ColorConstants.buttonTextColor : ColorConstants.textSecondaryColor,
             fontSize: 13,
             fontWeight: FontWeight.bold,
           ),

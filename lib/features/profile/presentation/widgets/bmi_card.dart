@@ -8,16 +8,22 @@ class BmiCard extends StatelessWidget {
   final String category;
 
   Color get _categoryColor {
-    if (bmi < 18.5) return const Color(0xFF6FCFED); // Underweight
-    if (bmi < 25) return const Color(0xFF4CAF82);  // Normal
-    if (bmi < 30) return const Color(0xFFFF8C42);  // Overweight
-    return Colors.redAccent;                       // Obese
+    if (bmi < 18.5) return ColorConstants.bmiUnderweightColor; // Underweight
+    if (bmi < 25) return ColorConstants.bmiNormalColor; // Normal
+    if (bmi < 30) return ColorConstants.bmiOverweightColor; // Overweight
+    return ColorConstants.bmiObeseColor; // Obese
   }
 
   String get _feedbackText {
-    if (bmi < 18.5) return "You are underweight. Consider checking your nutrition plan.";
-    if (bmi < 25) return "You have a normal body weight. Great job, keep it up!";
-    if (bmi < 30) return "You are overweight. Try adding more cardio exercises.";
+    if (bmi < 18.5) {
+      return "You are underweight. Consider checking your nutrition plan.";
+    }
+    if (bmi < 25) {
+      return "You have a normal body weight. Great job, keep it up!";
+    }
+    if (bmi < 30) {
+      return "You are overweight. Try adding more cardio exercises.";
+    }
     return "You are obese. Consult a fitness professional for advice.";
   }
 
@@ -30,9 +36,9 @@ class BmiCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color:ColorConstants.white,
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: Colors.grey.shade100),
+        border: Border.all(color: ColorConstants.borderLightColor),
         boxShadow: [
           BoxShadow(
             color: activeColor.withValues(alpha: 0.04),
@@ -40,8 +46,8 @@ class BmiCard extends StatelessWidget {
             offset: const Offset(0, 8),
           ),
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.01),
-            blurRadius: 10,
+            color: ColorConstants.black.withValues(alpha: 0.1),
+            blurRadius: 8,
             offset: const Offset(0, 4),
           ),
         ],
@@ -57,7 +63,7 @@ class BmiCard extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w700,
-                  color: Colors.black,
+                  color: ColorConstants.textPrimaryColor,
                   letterSpacing: 0.1,
                 ),
               ),
@@ -91,7 +97,7 @@ class BmiCard extends StatelessWidget {
                 style: const TextStyle(
                   fontSize: 42,
                   fontWeight: FontWeight.w900,
-                  color: Colors.black,
+                  color: ColorConstants.black,
                   height: 1,
                   letterSpacing: -1,
                 ),
@@ -102,7 +108,7 @@ class BmiCard extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
-                  color: Colors.grey.withValues(alpha: 0.8),
+                  color: ColorConstants.grey.withValues(alpha: 0.8),
                 ),
               ),
             ],
@@ -119,23 +125,21 @@ class BmiCard extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
                       gradient: const LinearGradient(
-                        colors: [
-                          Color(0xFF6FCFED),
-                          Color(0xFF4CAF82),
-                          Color(0xFFFF8C42),
-                          Colors.redAccent,
-                        ],
+                        colors: ColorConstants.bmiGradientColors,
                       ),
                     ),
                   ),
                   Positioned(
-                    left: (_indicatorPercent * totalWidth).clamp(6, totalWidth - 6) - 6,
+                    left: (_indicatorPercent * totalWidth).clamp(
+                      6,
+                      totalWidth - 6,
+                    ),
                     top: -3,
                     child: Container(
                       width: 16,
                       height: 16,
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: ColorConstants.buttonTextColor,
                         shape: BoxShape.circle,
                         border: Border.all(color: activeColor, width: 3.5),
                         boxShadow: [
@@ -156,21 +160,36 @@ class BmiCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('15', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: Colors.grey.shade400)),
-              Text('18.5', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: Colors.grey.shade400)),
-              Text('25', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: Colors.grey.shade400)),
-              Text('30', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: Colors.grey.shade400)),
-              Text('40', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: Colors.grey.shade400)),
+              Text(
+                '15',
+                style: TextStyle(
+                  fontSize: 10,
+                  fontWeight: FontWeight.w600,
+                  color: ColorConstants.textSecondaryColor,
+                ),
+              ),
+              Text(
+                '40',
+                style: TextStyle(
+                  fontSize: 10,
+                  fontWeight: FontWeight.w600,
+                  color: ColorConstants.textSecondaryColor,
+                ),
+              ),
             ],
           ),
-          const Divider(height: 32, thickness: 1, color: Color(0xFFF5F5F5)),
+          const Divider(
+            height: 32,
+            thickness: 1,
+            color: ColorConstants.dividerColor,
+          ),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Icon(
                 Icons.info_outline_rounded,
                 size: 16,
-                color: Colors.grey.withValues(alpha: 0.7),
+                color: ColorConstants.iconColor.withValues(alpha: 0.7),
               ),
               const SizedBox(width: 8),
               Expanded(
@@ -179,7 +198,9 @@ class BmiCard extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 12.5,
                     height: 1.4,
-                    color: Colors.grey.withValues(alpha: 0.9),
+                    color: ColorConstants.textSecondaryColor.withValues(
+                      alpha: 0.9,
+                    ),
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -191,4 +212,3 @@ class BmiCard extends StatelessWidget {
     );
   }
 }
-

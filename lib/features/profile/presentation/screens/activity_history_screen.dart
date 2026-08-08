@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
 import 'package:personal_fitness_tracker/core/services/auth_services.dart';
 import 'package:personal_fitness_tracker/features/profile/presentation/bloc/activity_history_bloc.dart';
 import 'package:personal_fitness_tracker/features/profile/presentation/bloc/activity_history_event.dart';
@@ -10,6 +9,8 @@ import 'package:personal_fitness_tracker/features/profile/presentation/widgets/a
 import 'package:personal_fitness_tracker/features/profile/presentation/widgets/history_empty_state.dart';
 import 'package:personal_fitness_tracker/features/profile/presentation/widgets/profile_app_bar.dart';
 import 'package:personal_fitness_tracker/features/profile/presentation/widgets/profile_skeletons.dart';
+
+import '../../../../core/constants/color_constants.dart';
 
 class ActivityHistoryScreen extends StatefulWidget {
   const ActivityHistoryScreen({super.key});
@@ -33,6 +34,7 @@ class _ActivityHistoryScreenState extends State<ActivityHistoryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorConstants.backgroundColor,
       appBar: ProfileAppBar(
         title: "Activity History",
         centerTitle: true,
@@ -106,7 +108,7 @@ class _ActivityHistoryScreenState extends State<ActivityHistoryScreen> {
                           style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
-                            color: Colors.black,
+                            color: ColorConstants.textPrimaryColor,
                           ),
                         ),
                       ),

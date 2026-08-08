@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
 
 class SummaryCard extends StatelessWidget {
   final IconData icon;
@@ -13,10 +14,10 @@ class SummaryCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: ColorConstants.backgroundColor,
         borderRadius: BorderRadius.circular(18),
         boxShadow: [
-          BoxShadow(color: Colors.black.withValues(alpha: 0.03), blurRadius: 8),
+          BoxShadow(color: ColorConstants.black.withValues(alpha: 0.03), blurRadius: 8),
         ],
       ),
       child: Column(
@@ -30,9 +31,9 @@ class SummaryCard extends StatelessWidget {
               Expanded(
                 child: Text(
                   label,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 12,
-                    color: Colors.grey.shade600,
+                    color: ColorConstants.textSecondaryColor,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -45,7 +46,7 @@ class SummaryCard extends StatelessWidget {
             style: const TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
-              color: Colors.black,
+              color: ColorConstants.textPrimaryColor,
             ),
           ),
         ],

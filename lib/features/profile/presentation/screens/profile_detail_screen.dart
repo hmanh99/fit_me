@@ -9,6 +9,7 @@ import 'package:personal_fitness_tracker/features/profile/presentation/bloc/prof
 import 'package:personal_fitness_tracker/features/profile/presentation/bloc/profile_state.dart';
 import 'package:personal_fitness_tracker/features/profile/presentation/widgets/bmi_card.dart';
 import 'package:personal_fitness_tracker/features/profile/presentation/widgets/profile_app_bar.dart';
+import 'package:personal_fitness_tracker/features/profile/presentation/widgets/profile_error_state.dart';
 import 'package:personal_fitness_tracker/features/profile/presentation/widgets/profile_header.dart';
 import 'package:personal_fitness_tracker/features/profile/presentation/widgets/profile_skeletons.dart';
 import 'package:personal_fitness_tracker/features/profile/presentation/widgets/stat_card.dart';
@@ -32,6 +33,7 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorConstants.backgroundColor,
       appBar: ProfileAppBar(
         title: "Personal Data",
         centerTitle: true,
@@ -53,72 +55,10 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
             }
 
             if (state is ProfileError) {
-              return Center(
-                child: Card(
-                  elevation: 0,
-                  color: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(24),
-                    side: BorderSide(color: Colors.grey.shade100),
-                  ),
-                  margin: const EdgeInsets.all(24),
-                  child: Padding(
-                    padding: const EdgeInsets.all(32),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(16),
-                          decoration: BoxDecoration(
-                            color: Colors.red.shade50,
-                            shape: BoxShape.circle,
-                          ),
-                          child: const Icon(
-                            Icons.error_outline_rounded,
-                            size: 40,
-                            color: Colors.redAccent,
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-                        const Text(
-                          'Failed to load profile',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black87,
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          state.message,
-                          style: TextStyle(
-                            fontSize: 13,
-                            color: Colors.grey.shade600,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                        const SizedBox(height: 24),
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.redAccent,
-                            foregroundColor: Colors.white,
-                            elevation: 0,
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 24,
-                              vertical: 12,
-                            ),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(16),
-                            ),
-                          ),
-                          onPressed: () => context.read<ProfileBloc>().add(
-                            ProfileFetched(userId: widget.profileId),
-                          ),
-                          child: const Text('Retry'),
-                        ),
-                      ],
-                    ),
-                  ),
+              ProfileErrorState(
+                state: state,
+                onTap: () => context.read<ProfileBloc>().add(
+                  ProfileFetched(userId: widget.profileId),
                 ),
               );
             }
@@ -164,7 +104,7 @@ class _ProfileBody extends StatelessWidget {
                   label: "Height",
                   value: profile.height.toStringAsFixed(0),
                   unit: "cm",
-                  color: Color(0xFF92A3FD),
+                  color: ColorConstants.iconColor,
                 ),
               ),
               const SizedBox(width: 16),
@@ -174,7 +114,7 @@ class _ProfileBody extends StatelessWidget {
                   label: "Weight",
                   value: profile.weight.toStringAsFixed(0),
                   unit: "kg",
-                  color: const Color(0xFFC58BF2),
+                  color: ColorConstants.iconColor,
                 ),
               ),
             ],
@@ -185,12 +125,10 @@ class _ProfileBody extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16),
-              gradient: const LinearGradient(
-                colors: [Color(0xFF92A3FD), Color(0xFFC58BF2)],
-              ),
+              color: ColorConstants.buttonColor,
               boxShadow: [
                 BoxShadow(
-                  color: Color(0xFF92A3FD).withValues(alpha: 0.3),
+                  color: ColorConstants.buttonColor.withValues(alpha: 0.3),
                   blurRadius: 16,
                   offset: const Offset(0, 8),
                 ),
@@ -200,7 +138,7 @@ class _ProfileBody extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.transparent,
                 shadowColor: Colors.transparent,
-                minimumSize: const Size(double.infinity, 54),
+                minimumSize: const Size(double.infinity, 50),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16),
                 ),
@@ -214,14 +152,18 @@ class _ProfileBody extends StatelessWidget {
               child: const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.edit_rounded, color: Colors.white, size: 18),
+                  Icon(
+                    Icons.edit_rounded,
+                    color: ColorConstants.buttonTextColor,
+                    size: 18,
+                  ),
                   SizedBox(width: 8),
                   Text(
                     "Edit Profile",
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                      color: ColorConstants.buttonTextColor,
                     ),
                   ),
                 ],

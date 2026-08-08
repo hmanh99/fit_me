@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
 
 class ExerciseEmptyState extends StatelessWidget {
   final VoidCallback? onRefresh;
@@ -21,7 +22,7 @@ class ExerciseEmptyState extends StatelessWidget {
                   width: 130,
                   height: 130,
                   decoration: BoxDecoration(
-                    color: Color(0xFF92A3FD).withValues(alpha: 0.05),
+                    color: ColorConstants.buttonTextColor.withValues(alpha: 0.05),
                     shape: BoxShape.circle,
                   ),
                 ),
@@ -29,7 +30,7 @@ class ExerciseEmptyState extends StatelessWidget {
                   width: 100,
                   height: 100,
                   decoration: BoxDecoration(
-                    color: Color(0xFF92A3FD).withValues(alpha: 0.1),
+                    color: ColorConstants.buttonColor.withValues(alpha: 0.1),
                     shape: BoxShape.circle,
                   ),
                 ),
@@ -37,16 +38,12 @@ class ExerciseEmptyState extends StatelessWidget {
                   width: 70,
                   height: 70,
                   decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [Color(0xFF92A3FD), Color(0xFF9DCEFF)],
-                      begin: AlignmentGeometry.topLeft,
-                      end: AlignmentGeometry.bottomRight,
-                    ),
+                    color: ColorConstants.buttonColor,
                     shape: BoxShape.circle,
                   ),
                   child: const Icon(
                     Icons.sports_gymnastics_rounded,
-                    color: Colors.white,
+                    color: ColorConstants.buttonTextColor,
                     size: 32,
                   ),
                 ),
@@ -58,7 +55,7 @@ class ExerciseEmptyState extends StatelessWidget {
               style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w700,
-                color: Colors.black,
+                color: ColorConstants.textPrimaryColor,
               ),
               textAlign: TextAlign.center,
             ),
@@ -67,7 +64,7 @@ class ExerciseEmptyState extends StatelessWidget {
               'empty_exercises'.tr(),
               style: const TextStyle(
                 fontSize: 14,
-                color: Colors.grey,
+                color: ColorConstants.textSecondaryColor,
                 height: 1.5,
               ),
               textAlign: TextAlign.center,
@@ -103,14 +100,10 @@ class _GradientActionButton extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(99),
-        gradient: LinearGradient(
-          colors: [Color(0xFF92A3FD), Color(0xFF9DCEFF)],
-          begin: AlignmentGeometry.topLeft,
-          end: AlignmentGeometry.bottomRight,
-        ),
+        color: ColorConstants.buttonColor,
         boxShadow: [
           BoxShadow(
-            color: Color(0xFF92A3FD).withValues(alpha: 0.3),
+            color: ColorConstants.buttonColor.withValues(alpha: 0.3),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -118,18 +111,18 @@ class _GradientActionButton extends StatelessWidget {
       ),
       child: ElevatedButton.icon(
         onPressed: onPressed,
-        icon: Icon(icon, color: Colors.white),
+        icon: Icon(icon, color: ColorConstants.buttonTextColor),
         label: Text(
           label,
           style: const TextStyle(
             fontSize: 15,
             fontWeight: FontWeight.w600,
-            color: Colors.white,
+            color: ColorConstants.buttonTextColor,
           ),
         ),
         style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.transparent,
-          shadowColor: Colors.transparent,
+          backgroundColor: ColorConstants.transparent,
+          shadowColor: ColorConstants.transparent,
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(99),

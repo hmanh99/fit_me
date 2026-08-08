@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
 import 'package:personal_fitness_tracker/features/exercise/domain/entities/exercise_entity.dart';
 
 class ExerciseListCard extends StatefulWidget {
@@ -28,17 +29,17 @@ class _ExerciseListCardState extends State<ExerciseListCard> {
       onTapCancel: () => setState(() => _isPressed = false),
       onTap: widget.onTap,
       child: AnimatedScale(
-        scale: _isPressed ? 0.97 : 1.0,
+        scale: _isPressed ? 0.95 : 1.0,
         duration: const Duration(milliseconds: 100),
         child: Container(
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: ColorConstants.white,
             borderRadius: BorderRadius.circular(24),
-            border: Border.all(color: Colors.grey.shade300),
+            border: Border.all(color: ColorConstants.borderLightColor),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withValues(alpha: 0.04),
-                blurRadius: 10,
+                color: ColorConstants.black.withValues(alpha: 0.1),
+                blurRadius: 8,
                 offset: const Offset(0, 4),
               ),
             ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
 
 class ProfileAppBar extends StatelessWidget implements PreferredSizeWidget {
   const ProfileAppBar({
@@ -19,7 +20,7 @@ class ProfileAppBar extends StatelessWidget implements PreferredSizeWidget {
       leading: onBack != null
           ? IconButton(
               icon: const Icon(Icons.arrow_back_ios_new_rounded),
-              color: Colors.white,
+              color: ColorConstants.white,
               onPressed: onBack,
             )
           : null,
@@ -27,7 +28,7 @@ class ProfileAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: Text(
         title,
         style: const TextStyle(
-          color: Colors.white,
+          color: ColorConstants.white,
           fontWeight: FontWeight.bold,
           fontSize: 24,
         ),
@@ -36,14 +37,10 @@ class ProfileAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       toolbarHeight: 64,
       elevation: 0,
-      backgroundColor: Colors.transparent,
+      backgroundColor: ColorConstants.transparent,
       flexibleSpace: Container(
         decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Color(0xFF92A3FD), Color(0xFF9DCEFF)],
-            begin: AlignmentGeometry.topLeft,
-            end: AlignmentGeometry.bottomRight,
-          ),
+         color: ColorConstants.appBarBackgroundColor,
         ),
       ),
     );

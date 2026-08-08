@@ -22,7 +22,7 @@ class WorkoutEmptyState extends StatelessWidget {
                   width: 130,
                   height: 130,
                   decoration: BoxDecoration(
-                    color: const Color(0xFF92A3FD).withValues(alpha: 0.05),
+                    color: ColorConstants.primaryColor.withValues(alpha: 0.05),
                     shape: BoxShape.circle,
                   ),
                 ),
@@ -30,7 +30,7 @@ class WorkoutEmptyState extends StatelessWidget {
                   width: 100,
                   height: 100,
                   decoration: BoxDecoration(
-                    color: const Color(0xFF92A3FD).withValues(alpha: 0.1),
+                    color: ColorConstants.primaryColor.withValues(alpha: 0.1),
                     shape: BoxShape.circle,
                   ),
                 ),
@@ -38,16 +38,12 @@ class WorkoutEmptyState extends StatelessWidget {
                   width: 70,
                   height: 70,
                   decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [Color(0xFF92A3FD), Color(0xFF9DCEFF)],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                    ),
+                    color: ColorConstants.primaryColor,
                     shape: BoxShape.circle,
                   ),
                   child: const Icon(
                     Icons.fitness_center_rounded,
-                    color: Colors.white,
+                    color: ColorConstants.white,
                     size: 32,
                   ),
                 ),
@@ -60,7 +56,7 @@ class WorkoutEmptyState extends StatelessWidget {
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w700,
-                color: Colors.black,
+                color: ColorConstants.textPrimaryColor,
               ),
               textAlign: TextAlign.center,
             ),
@@ -69,7 +65,7 @@ class WorkoutEmptyState extends StatelessWidget {
               "We couldn't find any workout plans. Try checking back later or tap Refresh to reload.",
               style: TextStyle(
                 fontSize: 14,
-                color: Colors.grey,
+                color: ColorConstants.textSecondaryColor,
                 height: 1.5,
               ),
               textAlign: TextAlign.center,
@@ -80,14 +76,10 @@ class WorkoutEmptyState extends StatelessWidget {
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(99),
-                  gradient: const LinearGradient(
-                    colors: [Color(0xFF92A3FD), Color(0xFF9DCEFF)],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
+                  color: ColorConstants.primaryColor,
                   boxShadow: [
                     BoxShadow(
-                      color: const Color(0xFF92A3FD).withValues(alpha: 0.3),
+                      color: ColorConstants.primaryColor.withValues(alpha: 0.3),
                       blurRadius: 10,
                       offset: const Offset(0, 4),
                     ),
@@ -95,18 +87,18 @@ class WorkoutEmptyState extends StatelessWidget {
                 ),
                 child: ElevatedButton.icon(
                   onPressed: onRefresh,
-                  icon: const Icon(Icons.refresh_rounded, color: Colors.white),
+                  icon: const Icon(Icons.refresh_rounded, color: ColorConstants.buttonTextColor),
                   label: const Text(
                     "Refresh Plans",
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
-                      color: Colors.white,
+                      color: ColorConstants.buttonTextColor,
                     ),
                   ),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.transparent,
-                    shadowColor: Colors.transparent,
+                    backgroundColor: ColorConstants.transparent,
+                    shadowColor: ColorConstants.transparent,
                     padding: const EdgeInsets.symmetric(
                       horizontal: 24,
                       vertical: 14,

@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import '../../domain/entities/app_settings.dart';
 
 abstract class SettingsEvent extends Equatable {
   const SettingsEvent();
@@ -12,14 +11,6 @@ class SettingsLoadRequested extends SettingsEvent {
   const SettingsLoadRequested();
 }
 
-class SettingsThemeModeChanged extends SettingsEvent {
-  final AppThemeMode mode;
-
-  const SettingsThemeModeChanged(this.mode);
-
-  @override
-  List<Object?> get props => [mode];
-}
 
 class SettingsLanguageChanged extends SettingsEvent {
   final String languageCode;

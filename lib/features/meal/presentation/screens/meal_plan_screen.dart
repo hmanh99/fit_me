@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
 import 'package:personal_fitness_tracker/core/router/route_names.dart';
 import 'package:personal_fitness_tracker/features/meal/domain/entities/meal_entity.dart';
 import 'package:personal_fitness_tracker/features/meal/domain/entities/meal_type.dart';
@@ -101,12 +102,12 @@ class _MealPlanScreenState extends State<MealPlanScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade50,
+      backgroundColor: ColorConstants.backgroundColor,
       appBar: MealAppBar(title: "Meal",),
       body: RefreshIndicator(
         onRefresh: _handleRefresh,
-        color: const Color(0xFF92A3FD),
-        backgroundColor: Colors.white,
+        color: ColorConstants.iconColor,
+        backgroundColor: ColorConstants.backgroundColor,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [

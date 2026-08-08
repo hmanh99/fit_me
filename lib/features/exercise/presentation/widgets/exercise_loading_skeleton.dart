@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
 import 'package:personal_fitness_tracker/shared/widgets/skeletons.dart';
 
 class ExerciseLoadingSkeleton extends StatelessWidget {
@@ -45,7 +46,7 @@ class ExerciseLoadingSkeleton extends StatelessWidget {
             width: double.infinity,
             height: 200,
             decoration: BoxDecoration(
-              color: Colors.white38,
+              color: ColorConstants.white24,
               borderRadius: BorderRadius.circular(12),
             ),
           ),
@@ -54,7 +55,7 @@ class ExerciseLoadingSkeleton extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
             width: double.infinity,
             decoration: BoxDecoration(
-              color: Colors.white38,
+              color: ColorConstants.white24,
               borderRadius: BorderRadius.circular(12),
             ),
             child: Column(
@@ -79,7 +80,7 @@ class ExerciseLoadingSkeleton extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
             width: double.infinity,
             decoration: BoxDecoration(
-              color: Colors.white38,
+              color: ColorConstants.white24,
               borderRadius: BorderRadius.circular(12),
             ),
             child: Column(
@@ -102,7 +103,7 @@ class ExerciseLoadingSkeleton extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
             width: double.infinity,
             decoration: BoxDecoration(
-              color: Colors.white38,
+              color: ColorConstants.white24,
               borderRadius: BorderRadius.circular(12),
             ),
             child: Column(
@@ -125,7 +126,7 @@ class ExerciseLoadingSkeleton extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
             width: double.infinity,
             decoration: BoxDecoration(
-              color: Colors.white38,
+              color: ColorConstants.white24,
               borderRadius: BorderRadius.circular(12),
             ),
             child: Column(
@@ -154,7 +155,7 @@ class ExerciseLoadingSkeleton extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             height: 120,
             decoration: BoxDecoration(
-              color: Colors.white38,
+              color: ColorConstants.white24,
               borderRadius: BorderRadius.circular(24),
             ),
           ),

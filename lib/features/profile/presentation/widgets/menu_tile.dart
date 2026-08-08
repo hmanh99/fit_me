@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
 import 'package:personal_fitness_tracker/features/profile/presentation/widgets/menu_row.dart';
 
 class MenuTile extends StatelessWidget {
@@ -7,23 +8,23 @@ class MenuTile extends StatelessWidget {
     required this.icon,
     required this.label,
     required this.onTap,
-    this.isDestructive = false,
+    this.isLogout = false,
   });
 
   final IconData icon;
   final String label;
   final VoidCallback onTap;
-  final bool isDestructive;
+  final bool isLogout;
 
   @override
   Widget build(BuildContext context) {
     return MenuRow(
       icon: icon,
       label: label,
-      isDestructive: isDestructive,
+      isDestructive: isLogout,
       trailing: Icon(
         Icons.chevron_right_rounded, 
-        color: isDestructive ? Colors.redAccent.withValues(alpha: 0.5) : Colors.grey.shade400,
+        color: isLogout ? ColorConstants.red.withValues(alpha: 0.5) : ColorConstants.greyShade400,
         size: 20,
       ),
       onTap: onTap,

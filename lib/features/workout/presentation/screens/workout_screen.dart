@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
 import 'package:personal_fitness_tracker/core/router/route_names.dart';
 import 'package:personal_fitness_tracker/features/workout/presentation/bloc/workout_bloc.dart';
 import 'package:personal_fitness_tracker/features/workout/presentation/bloc/workout_event.dart';
@@ -27,16 +28,17 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorConstants.backgroundColor,
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_new_rounded),
-          color: Colors.white,
+          color: ColorConstants.appBarForegroundColor,
           onPressed: () => context.pop(),
         ),
         title: const Text(
           "Workout Plans",
           style: TextStyle(
-            color: Colors.white,
+            color: ColorConstants.appBarForegroundColor,
             fontWeight: FontWeight.bold,
             fontSize: 22,
             letterSpacing: 0.5,
@@ -45,15 +47,7 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
         centerTitle: true,
         toolbarHeight: 64,
         elevation: 0,
-        flexibleSpace: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Color(0xFF92A3FD), Color(0xFF9DCEFF)],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-          ),
-        ),
+        backgroundColor: ColorConstants.appBarBackgroundColor,
       ),
       body: BlocBuilder<WorkoutBloc, WorkoutState>(
         builder: (context, state) {
@@ -84,9 +78,9 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                   const WorkoutFetchPlansStarted(),
                 );
               },
-              color: const Color(0xFF92A3FD),
+              color: ColorConstants.buttonColor,
               child: ListView.builder(
-                padding: EdgeInsets.only(top: 8, bottom: MediaQuery.of(context).padding.bottom),
+                padding: EdgeInsets.only(top: 12, bottom: MediaQuery.of(context).padding.bottom),
                 itemCount: plans.length,
                 itemBuilder: (context, index) {
                   final plan = plans[index];

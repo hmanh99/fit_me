@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
 import 'package:personal_fitness_tracker/shared/widgets/skeletons.dart';
 
 class ProfileScreenSkeleton extends StatelessWidget {
@@ -15,7 +16,7 @@ class ProfileScreenSkeleton extends StatelessWidget {
               Container(
                 padding: EdgeInsets.all(24),
                 decoration: BoxDecoration(
-                  color: Colors.white24,
+                  color: ColorConstants.white24,
                   borderRadius: BorderRadius.circular(24),
                 ),
                 child: Row(
@@ -36,7 +37,7 @@ class ProfileScreenSkeleton extends StatelessWidget {
               Container(
                 padding: EdgeInsets.all(24),
                 decoration: BoxDecoration(
-                  color: Colors.white24,
+                  color: ColorConstants.white24,
                   borderRadius: BorderRadius.circular(24),
                 ),
                 child: Column(
@@ -54,7 +55,7 @@ class ProfileScreenSkeleton extends StatelessWidget {
               Container(
                 padding: EdgeInsets.all(24),
                 decoration: BoxDecoration(
-                  color: Colors.white24,
+                  color: ColorConstants.white24,
                   borderRadius: BorderRadius.circular(24),
                 ),
                 child: Column(
@@ -72,7 +73,7 @@ class ProfileScreenSkeleton extends StatelessWidget {
               Container(
                 padding: EdgeInsets.all(24),
                 decoration: BoxDecoration(
-                  color: Colors.white24,
+                  color: ColorConstants.white24,
                   borderRadius: BorderRadius.circular(24),
                 ),
                 child: Column(
@@ -108,7 +109,7 @@ class ProfileDetailScreenSkeleton extends StatelessWidget {
               Container(
                 padding: EdgeInsets.all(24),
                 decoration: BoxDecoration(
-                  color: Colors.white24,
+                  color: ColorConstants.white24,
                   borderRadius: BorderRadius.circular(24),
                 ),
                 child: Row(
@@ -132,7 +133,7 @@ class ProfileDetailScreenSkeleton extends StatelessWidget {
                   Container(
                     padding: EdgeInsets.all(24),
                     decoration: BoxDecoration(
-                      color: Colors.white24,
+                      color: ColorConstants.white24,
                       borderRadius: BorderRadius.circular(24),
                     ),
                     child: Row(
@@ -143,7 +144,7 @@ class ProfileDetailScreenSkeleton extends StatelessWidget {
                           children: [
                             Row(
                               children: [
-                                AppSkeleton.line(width: 50),
+                                AppSkeleton.line(width: 80),
                                 const SizedBox(width: 32),
                                 AppSkeleton.circle(size: 20),
                               ],
@@ -158,7 +159,7 @@ class ProfileDetailScreenSkeleton extends StatelessWidget {
                   Container(
                     padding: EdgeInsets.all(24),
                     decoration: BoxDecoration(
-                      color: Colors.white24,
+                      color: ColorConstants.white24,
                       borderRadius: BorderRadius.circular(24),
                     ),
                     child: Row(
@@ -188,7 +189,7 @@ class ProfileDetailScreenSkeleton extends StatelessWidget {
                 height: 200,
                 padding: EdgeInsets.all(24),
                 decoration: BoxDecoration(
-                  color: Colors.white24,
+                  color: ColorConstants.white24,
                   borderRadius: BorderRadius.circular(24),
                 ),
                 child: Column(
@@ -233,7 +234,7 @@ class EditProfileScreenSkeleton extends StatelessWidget {
                 width: double.infinity,
                 padding: EdgeInsets.all(24),
                 decoration: BoxDecoration(
-                  color: Colors.white24,
+                  color: ColorConstants.white24,
                   borderRadius: BorderRadius.circular(24),
                 ),
                 child: Column(
@@ -271,7 +272,7 @@ class EditProfileScreenSkeleton extends StatelessWidget {
                 width: double.infinity,
                 padding: EdgeInsets.all(24),
                 decoration: BoxDecoration(
-                  color: Colors.white24,
+                  color: ColorConstants.white24,
                   borderRadius: BorderRadius.circular(24),
                 ),
                 child: Column(
@@ -326,7 +327,7 @@ class ProfileActivityHistoryScreenSkeletons extends StatelessWidget {
               margin: EdgeInsets.only(bottom: 12),
               padding: EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: Colors.white24,
+                color: ColorConstants.white24,
                 borderRadius: BorderRadius.circular(24),
               ),
               child: Row(
@@ -362,81 +363,7 @@ class ProfileActivityHistoryScreenSkeletons extends StatelessWidget {
               margin: EdgeInsets.only(bottom: 12),
               padding: EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: Colors.white24,
-                borderRadius: BorderRadius.circular(24),
-              ),
-              child: Row(
-                children: [
-                  AppSkeleton(
-                    width: 50,
-                    height: 50,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        AppSkeleton.line(width: 200),
-                        SizedBox(height: 16),
-                        AppSkeleton.line(width: 200),
-                      ],
-                    ),
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      AppSkeleton.line(width: 50,),
-                      const SizedBox(height: 16),
-                      AppSkeleton.line(width: 50,),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            AppSkeleton.line(width: 100),
-            SizedBox(height: 12),
-            Container(
-              margin: EdgeInsets.only(bottom: 12),
-              padding: EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Colors.white24,
-                borderRadius: BorderRadius.circular(24),
-              ),
-              child: Row(
-                children: [
-                  AppSkeleton(
-                    width: 50,
-                    height: 50,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        AppSkeleton.line(width: 200),
-                        SizedBox(height: 16),
-                        AppSkeleton.line(width: 200),
-                      ],
-                    ),
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      AppSkeleton.line(width: 50,),
-                      const SizedBox(height: 16),
-                      AppSkeleton.line(width: 50,),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.only(bottom: 12),
-              padding: EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Colors.white24,
+                color: ColorConstants.white24,
                 borderRadius: BorderRadius.circular(24),
               ),
               child: Row(
@@ -474,7 +401,7 @@ class ProfileActivityHistoryScreenSkeletons extends StatelessWidget {
               margin: EdgeInsets.only(bottom: 12),
               padding: EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: Colors.white24,
+                color: ColorConstants.white24,
                 borderRadius: BorderRadius.circular(24),
               ),
               child: Row(
@@ -510,7 +437,81 @@ class ProfileActivityHistoryScreenSkeletons extends StatelessWidget {
               margin: EdgeInsets.only(bottom: 12),
               padding: EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: Colors.white24,
+                color: ColorConstants.white24,
+                borderRadius: BorderRadius.circular(24),
+              ),
+              child: Row(
+                children: [
+                  AppSkeleton(
+                    width: 50,
+                    height: 50,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        AppSkeleton.line(width: 200),
+                        SizedBox(height: 16),
+                        AppSkeleton.line(width: 200),
+                      ],
+                    ),
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      AppSkeleton.line(width: 50,),
+                      const SizedBox(height: 16),
+                      AppSkeleton.line(width: 50,),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            AppSkeleton.line(width: 100),
+            SizedBox(height: 12),
+            Container(
+              margin: EdgeInsets.only(bottom: 12),
+              padding: EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: ColorConstants.white24,
+                borderRadius: BorderRadius.circular(24),
+              ),
+              child: Row(
+                children: [
+                  AppSkeleton(
+                    width: 50,
+                    height: 50,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        AppSkeleton.line(width: 200),
+                        SizedBox(height: 16),
+                        AppSkeleton.line(width: 200),
+                      ],
+                    ),
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      AppSkeleton.line(width: 50,),
+                      const SizedBox(height: 16),
+                      AppSkeleton.line(width: 50,),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(bottom: 12),
+              padding: EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: ColorConstants.white24,
                 borderRadius: BorderRadius.circular(24),
               ),
               child: Row(
@@ -550,5 +551,5 @@ class ProfileActivityHistoryScreenSkeletons extends StatelessWidget {
 }
 
 Widget _divider() {
-  return Divider(height: 1, thickness: 1, color: Colors.grey.shade100);
+  return Divider(height: 1, thickness: 1, color: ColorConstants.greyShade100);
 }

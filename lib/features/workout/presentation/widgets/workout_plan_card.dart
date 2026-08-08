@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
 import 'package:personal_fitness_tracker/features/workout/domain/entities/workout_plan_entity.dart';
 
 class WorkoutPlanCard extends StatefulWidget {
@@ -16,35 +17,29 @@ class _WorkoutPlanCardState extends State<WorkoutPlanCard> {
 
   @override
   Widget build(BuildContext context) {
-    final isDefault = widget.plan.isDefaultPlan;
-
     return GestureDetector(
       onTapDown: (_) => setState(() => _isPressed = true),
       onTapUp: (_) => setState(() => _isPressed = false),
       onTapCancel: () => setState(() => _isPressed = false),
       onTap: widget.onTap,
       child: AnimatedScale(
-        scale: _isPressed ? 0.96 : 1.0,
+        scale: _isPressed ? 0.95 : 1.0,
         duration: const Duration(milliseconds: 100),
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           decoration: BoxDecoration(
+            color: ColorConstants.primaryColor.withValues(alpha: 0.6),
             borderRadius: BorderRadius.circular(24),
-            gradient: const LinearGradient(
-              colors: [Color(0xFF92A3FD), Color(0xFF9DCEFF)],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
             boxShadow: [
               BoxShadow(
-                color: const Color(0xFF92A3FD).withValues(alpha: 0.3),
-                blurRadius: 15,
+                color: ColorConstants.primaryColor.withValues(alpha: 0.3),
+                blurRadius: 8,
                 offset: const Offset(0, 8),
               ),
             ],
             border: Border.all(
-              color: Colors.white.withValues(alpha: 0.4),
-              width: 1.5,
+              color: ColorConstants.white.withValues(alpha: 0.4),
+              width: 1,
             ),
           ),
           child: Stack(
@@ -58,16 +53,16 @@ class _WorkoutPlanCardState extends State<WorkoutPlanCard> {
                       width: 60,
                       height: 60,
                       decoration: BoxDecoration(
-                        color: Colors.white.withValues(alpha: 0.25),
+                        color: ColorConstants.blue.withValues(alpha: 0.25),
                         shape: BoxShape.circle,
                         border: Border.all(
-                          color: Colors.white.withValues(alpha: 0.3),
+                          color: ColorConstants.blue.withValues(alpha: 0.3),
                           width: 1,
                         ),
                       ),
                       child: const Icon(
                         Icons.fitness_center_rounded,
-                        color: Colors.white,
+                        color: ColorConstants.white,
                         size: 30,
                       ),
                     ),
@@ -77,34 +72,11 @@ class _WorkoutPlanCardState extends State<WorkoutPlanCard> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // Plan Badges Row
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 8,
-                              vertical: 3,
-                            ),
-                            decoration: BoxDecoration(
-                              color: isDefault
-                                  ? const Color(0xFF7F77DD)
-                                  : const Color(0xFFEEA282),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Text(
-                              isDefault ? "Official" : "Personal",
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 10,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-
-                          const SizedBox(height: 6),
                           // Plan Name
                           Text(
                             widget.plan.planName,
                             style: const TextStyle(
-                              color: Colors.white,
+                              color: ColorConstants.buttonTextColor,
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
                               letterSpacing: 0.2,
@@ -119,7 +91,8 @@ class _WorkoutPlanCardState extends State<WorkoutPlanCard> {
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
-                                color: Colors.white.withValues(alpha: 0.85),
+                                color: ColorConstants.buttonTextColor
+                                    .withValues(alpha: 0.85),
                                 fontSize: 13,
                                 height: 1.35,
                               ),
@@ -134,12 +107,12 @@ class _WorkoutPlanCardState extends State<WorkoutPlanCard> {
                       width: 36,
                       height: 36,
                       decoration: BoxDecoration(
-                        color: Colors.white.withValues(alpha: 0.2),
+                        color: ColorConstants.white.withValues(alpha: 0.1),
                         shape: BoxShape.circle,
                       ),
                       child: const Icon(
                         Icons.chevron_right_rounded,
-                        color: Colors.white,
+                        color: ColorConstants.white,
                         size: 20,
                       ),
                     ),

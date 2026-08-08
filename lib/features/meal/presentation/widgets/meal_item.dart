@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
 class MealItem extends StatelessWidget {
   final String text;
   final IconData icon;
@@ -7,7 +8,7 @@ class MealItem extends StatelessWidget {
     super.key,
     required this.text,
     this.icon = Icons.check_circle_outline_rounded,
-    this.iconColor = const Color(0xFF92A3FD),
+    this.iconColor = ColorConstants.iconColor,
   });
   @override
   Widget build(BuildContext context) {
@@ -15,9 +16,9 @@ class MealItem extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
       margin: const EdgeInsets.only(bottom: 8),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: ColorConstants.white,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.grey.shade100),
+        border: Border.all(color: ColorConstants.borderLightColor),
       ),
       child: Row(
         children: [
@@ -27,8 +28,8 @@ class MealItem extends StatelessWidget {
             child: Text(
               text,
               style: const TextStyle(
-                fontSize: 14,
-                color: Colors.black87,
+                fontSize: 16,
+                color: ColorConstants.textPrimaryColor,
                 fontWeight: FontWeight.w500,
               ),
             ),

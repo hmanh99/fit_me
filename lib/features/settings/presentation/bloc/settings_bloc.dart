@@ -8,7 +8,6 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
 
   SettingsBloc({required this.repository}) : super(SettingsState.initial()) {
     on<SettingsLoadRequested>(_onLoadRequested);
-    on<SettingsThemeModeChanged>(_onThemeModeChanged);
     on<SettingsLanguageChanged>(_onLanguageChanged);
   }
 
@@ -19,15 +18,6 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     emit(state.copyWith(isLoading: true));
     final settings = await repository.getSettings();
     emit(state.copyWith(settings: settings, isLoading: false));
-  }
-
-  Future<void> _onThemeModeChanged(
-    SettingsThemeModeChanged event,
-    Emitter<SettingsState> emit,
-  ) async {
-    final updatedSettings = state.settings.copyWith(themeMode: event.mode);
-    emit(state.copyWith(settings: updatedSettings));
-    await repository.saveThemeMode(event.mode);
   }
 
   Future<void> _onLanguageChanged(

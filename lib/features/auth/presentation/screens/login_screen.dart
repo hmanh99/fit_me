@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
 import 'package:personal_fitness_tracker/core/router/route_names.dart';
 import 'package:personal_fitness_tracker/core/router/route_paths.dart';
 import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_bloc.dart';
@@ -50,7 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(state.message),
-              backgroundColor: Colors.green,
+              backgroundColor: ColorConstants.snackBarFailedColor,
             ),
           );
         }
@@ -59,7 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
         final isLoading = state is AuthLoadingState;
 
         return Scaffold(
-          backgroundColor: Colors.white,
+          backgroundColor: ColorConstants.backgroundColor,
           body: SafeArea(
             child: SingleChildScrollView(
               padding: const EdgeInsets.all(20),
@@ -67,9 +68,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const SizedBox(height: 24),
-                  const Text(
+                  Text(
                     'Hey there,',
-                    style: TextStyle(fontSize: 16, color: Colors.grey),
+                    style: TextStyle(fontSize: 16, color: ColorConstants.textSecondaryColor),
                   ),
                   const SizedBox(height: 4),
                   const Text(
@@ -106,7 +107,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           keyboardType: TextInputType.emailAddress,
                         ),
 
-                        const SizedBox(height: 24),
+                        const SizedBox(height: 16),
                         TextFormField(
                           validator: (value) {
                             if (value == null || value.isEmpty) {
@@ -153,7 +154,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: Text(
                             'Forgot your password?',
                             style: TextStyle(
-                              color: Colors.grey,
+                              color: ColorConstants.textSecondaryColor,
                               fontSize: 13,
                               fontWeight: FontWeight.w500,
                               decoration: TextDecoration.underline,
@@ -162,7 +163,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
 
-                        const SizedBox(height: 128),
+                        const SizedBox(height: 140),
 
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
@@ -170,8 +171,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               borderRadius: BorderRadius.circular(12),
                             ),
                             minimumSize: const Size(double.infinity, 50),
-                            backgroundColor: Color(0xFF92A3FD),
-                            foregroundColor: Colors.white,
+                            backgroundColor: ColorConstants.buttonColor,
+                            foregroundColor: ColorConstants.buttonTextColor,
                           ),
                           onPressed: isLoading ? null : _onLoginPressed,
                           child: isLoading
@@ -180,7 +181,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   width: 22,
                                   child: CircularProgressIndicator(
                                     strokeWidth: 2.5,
-                                    color: Colors.white,
+                                    color: ColorConstants.buttonTextColor,
                                   ),
                                 )
                               : const Text('Login'),
@@ -197,16 +198,11 @@ class _LoginScreenState extends State<LoginScreen> {
                         padding: EdgeInsets.all(12),
                         child: Text(
                           'Or',
-                          style: TextStyle(color: Colors.grey, fontSize: 13),
+                          style: TextStyle(color: ColorConstants.textSecondaryColor, fontSize: 13),
                         ),
                       ),
                       Expanded(child: Divider()),
                     ],
-                  ),
-
-                  const SizedBox(height: 12),
-                  _buildSocialButton(
-                    assetPath: 'assets/images/auth/google.png',
                   ),
 
                   const SizedBox(height: 24),
@@ -218,14 +214,14 @@ class _LoginScreenState extends State<LoginScreen> {
                       text: const TextSpan(
                         style: TextStyle(
                           fontSize: 13,
-                          color: Colors.black,
+                          color: ColorConstants.textPrimaryColor,
                           fontWeight: FontWeight.bold,
                         ),
                         children: [
                           TextSpan(text: "Don't have an account yet? "),
                           TextSpan(
                             text: 'Sign up',
-                            style: TextStyle(color: Colors.blue),
+                            style: TextStyle(color: ColorConstants.textHighlightColor),
                           ),
                         ],
                       ),
@@ -237,25 +233,6 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         );
       },
-    );
-  }
-
-  Widget _buildSocialButton({required String assetPath}) {
-    return GestureDetector(
-      onTap: () {},
-      child: Container(
-        width: 60,
-        height: 60,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: Colors.grey.shade300, width: 1.0),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(12),
-          child: Image.asset(assetPath),
-        ),
-      ),
     );
   }
 }

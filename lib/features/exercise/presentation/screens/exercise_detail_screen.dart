@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
 import 'package:personal_fitness_tracker/features/exercise/presentation/bloc/exercise_bloc.dart';
 import 'package:personal_fitness_tracker/features/exercise/presentation/bloc/exercise_event.dart';
 import 'package:personal_fitness_tracker/features/exercise/presentation/bloc/exercise_state.dart';
@@ -39,6 +40,7 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorConstants.backgroundColor,
       appBar: ExerciseAppBar(
         title: 'exercise_detail'.tr(),
         onBack: () => context.pop(),
@@ -68,11 +70,11 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
                     children: [
                       Container(
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: ColorConstants.white,
                           borderRadius: const BorderRadius.all(
                             Radius.circular(16),
                           ),
-                          border: Border.all(color: Colors.grey.shade300),
+                          border: Border.all(color: ColorConstants.greyShade300),
                         ),
                         alignment: Alignment.center,
                         width: double.infinity,
@@ -91,12 +93,12 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
                         title: 'muscles_groups'.tr(),
                         icon: Icons.accessibility_new_rounded,
                         items: exercise.muscleGroups,
-                        chipAccentColor: Colors.blue,
+                        chipAccentColor: ColorConstants.primaryColor,
                       ),
                       if (exercise.requiresEquipment) ...[
                         const SizedBox(height: 16),
                         ExerciseInfoSection(
-                          chipAccentColor: Colors.blue,
+                          chipAccentColor: ColorConstants.primaryColor,
                           title: 'equipments'.tr(),
                           icon: Icons.fitness_center_rounded,
                           items: exercise.equipments ?? [],

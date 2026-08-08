@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
 
 class StatCard extends StatelessWidget {
   const StatCard({
@@ -21,9 +22,9 @@ class StatCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: ColorConstants.white,
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: Colors.grey.shade100),
+        border: Border.all(color: ColorConstants.greyShade100),
         boxShadow: [
           BoxShadow(
             color: color.withValues(alpha: 0.04),
@@ -31,7 +32,7 @@ class StatCard extends StatelessWidget {
             offset: const Offset(0, 8),
           ),
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.01),
+            color: ColorConstants.black.withValues(alpha: 0.01),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -48,7 +49,7 @@ class StatCard extends StatelessWidget {
                 label,
                 style: TextStyle(
                   fontSize: 13,
-                  color: Colors.grey.withValues(alpha: 0.8),
+                  color: ColorConstants.grey.withValues(alpha: 0.8),
                   fontWeight: FontWeight.w600,
                   letterSpacing: 0.2,
                 ),
@@ -77,7 +78,7 @@ class StatCard extends StatelessWidget {
                   style: const TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.w800,
-                    color: Colors.black,
+                    color: ColorConstants.black,
                     height: 1,
                   ),
                 ),
@@ -86,7 +87,7 @@ class StatCard extends StatelessWidget {
                   unit,
                   style: TextStyle(
                     fontSize: 14,
-                    color: Colors.grey,
+                    color: ColorConstants.grey,
                     fontWeight: FontWeight.w700,
                   ),
                 ),

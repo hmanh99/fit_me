@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
 import 'package:personal_fitness_tracker/features/exercise/domain/entities/exercise_entity.dart';
 import 'package:personal_fitness_tracker/features/exercise/presentation/widgets/exercise_difficulty_badge.dart';
 
@@ -14,13 +15,13 @@ class ExerciseDetailHeader extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: ColorConstants.backgroundColor,
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: Colors.grey.shade300),
+        border: Border.all(color: ColorConstants.socialBorderColor),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.04),
-            blurRadius: 10,
+            color: ColorConstants.black.withValues(alpha: 0.1),
+            blurRadius: 8,
             offset: const Offset(0, 4),
           ),
         ],
@@ -40,7 +41,7 @@ class ExerciseDetailHeader extends StatelessWidget {
                       style: const TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
-                        color: Colors.black,
+                        color: ColorConstants.textPrimaryColor,
                         height: 1.2,
                       ),
                     ),
@@ -60,7 +61,7 @@ class ExerciseDetailHeader extends StatelessWidget {
                 _MetaChip(
                   icon: Icons.local_fire_department_rounded,
                   label: '${exercise.calories} kcal',
-                  color: Colors.orange,
+                  color: ColorConstants.caloriesIconColor,
                 ),
               _MetaChip(
                 icon: exercise.requiresEquipment
@@ -69,13 +70,13 @@ class ExerciseDetailHeader extends StatelessWidget {
                 label: exercise.requiresEquipment
                     ? '${exercise.equipments!.length} ${'equipments'.tr()}'
                     : 'Bodyweight',
-                color: Colors.blue,
+                color: ColorConstants.iconColor,
               ),
               if (exercise.muscleGroups.isNotEmpty)
                 _MetaChip(
                   icon: Icons.accessibility_new_rounded,
                   label: '${exercise.muscleGroups.length} ${'muscles_groups'.tr()}',
-                  color: Colors.blue,
+                  color: ColorConstants.iconColor,
                 ),
             ],
           ),

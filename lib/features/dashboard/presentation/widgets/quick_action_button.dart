@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
 
-/// A compact tappable button used in the Quick Actions section of the Dashboard.
-/// Displays an icon, a label, and optional gradient colours.
+
 class QuickActionButton extends StatefulWidget {
   final IconData icon;
   final String label;
   final VoidCallback? onTap;
-  final List<Color> gradientColors;
 
   const QuickActionButton({
     super.key,
     required this.icon,
     required this.label,
     this.onTap,
-    this.gradientColors = const [Color(0xFF92A3FD), Color(0xFF9DCEFF)],
   });
 
   @override
@@ -36,14 +34,14 @@ class _QuickActionButtonState extends State<QuickActionButton> {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: ColorConstants.white,
             borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: Colors.grey.shade100, width: 1),
+            border: Border.all(color: ColorConstants.borderLightColor, width: 1),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withValues(alpha: 0.04),
-                blurRadius: 8,
-                offset: const Offset(0, 3),
+                color: Colors.black.withValues(alpha: 0.1),
+                blurRadius: 4,
+                offset: const Offset(0, 4),
               ),
             ],
           ),
@@ -53,21 +51,17 @@ class _QuickActionButtonState extends State<QuickActionButton> {
                 width: 40,
                 height: 40,
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: widget.gradientColors,
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
+                  color: ColorConstants.primaryColor,
                   shape: BoxShape.circle,
                   boxShadow: [
                     BoxShadow(
-                      color: widget.gradientColors.first.withValues(alpha: 0.3),
+                      color: ColorConstants.primaryColor.withValues(alpha: 0.3),
                       blurRadius: 4,
                       offset: const Offset(0, 2),
                     ),
                   ],
                 ),
-                child: Icon(widget.icon, color: Colors.white, size: 20),
+                child: Icon(widget.icon, color: ColorConstants.buttonTextColor, size: 20),
               ),
               const SizedBox(width: 10),
               // Label
@@ -77,7 +71,7 @@ class _QuickActionButtonState extends State<QuickActionButton> {
                   style: const TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w700,
-                    color: Colors.black87,
+                    color: ColorConstants.textPrimaryColor,
                     height: 1.2,
                   ),
                   maxLines: 2,

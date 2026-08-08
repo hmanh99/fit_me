@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
 import 'package:personal_fitness_tracker/features/meal/domain/entities/meal_entity.dart';
 
 class MealCard extends StatelessWidget {
@@ -13,18 +14,18 @@ class MealCard extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: ColorConstants.white,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.04),
-            blurRadius: 12,
+            color: ColorConstants.black.withValues(alpha: 0.1),
+            blurRadius: 8,
             offset: const Offset(0, 4),
           ),
         ],
       ),
       child: Material(
-        color: Colors.transparent,
+        color: ColorConstants.transparent,
         child: InkWell(
           onTap: onTap,
           borderRadius: BorderRadius.circular(16),
@@ -89,7 +90,7 @@ class MealCard extends StatelessWidget {
                         style: const TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.bold,
-                          color: Colors.black,
+                          color: ColorConstants.textPrimaryColor,
                         ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
@@ -100,7 +101,7 @@ class MealCard extends StatelessWidget {
                         children: [
                           const Icon(
                             Icons.local_fire_department_rounded,
-                            color: Color(0xFFFF9B70),
+                            color: ColorConstants.caloriesIconColor,
                             size: 16,
                           ),
                           const SizedBox(width: 4),
@@ -109,7 +110,7 @@ class MealCard extends StatelessWidget {
                             style: const TextStyle(
                               fontSize: 13,
                               fontWeight: FontWeight.w600,
-                              color: Colors.grey,
+                              color: ColorConstants.textSecondaryColor,
                             ),
                           ),
                         ],
@@ -117,21 +118,13 @@ class MealCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                const SizedBox(width: 8),
                 // Arrow Action
-                Container(
-                  width: 32,
-                  height: 32,
-                  decoration: BoxDecoration(
-                    color: Colors.grey.shade50,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(
-                    Icons.arrow_forward_ios_rounded,
-                    size: 12,
-                    color: Colors.grey.shade400,
-                  ),
+                Icon(
+                  Icons.arrow_forward_ios_rounded,
+                  size: 12,
+                  color: ColorConstants.iconColor,
                 ),
+                const SizedBox(width: 8),
               ],
             ),
           ),
@@ -144,7 +137,7 @@ class MealCard extends StatelessWidget {
     return const Center(
       child: Icon(
         Icons.restaurant_rounded,
-        color: Colors.blue,
+        color: ColorConstants.iconColor,
         size: 32,
       ),
     );
@@ -154,13 +147,13 @@ class MealCard extends StatelessWidget {
     final typeStr = mealType.toString().split('.').last.toLowerCase();
     switch (typeStr) {
       case 'breakfast':
-        return const Color(0xFF92A3FD);
+        return ColorConstants.mealBreakfastColor;
       case 'lunch':
-        return const Color(0xFFC58BF2);
+        return ColorConstants.mealLunchColor;
       case 'dinner':
-        return const Color(0xFFFF9B70);
+        return ColorConstants.mealDinnerColor;
       default:
-        return const Color(0xFF92A3FD);
+        return ColorConstants.mealLunchColor;
     }
   }
 }

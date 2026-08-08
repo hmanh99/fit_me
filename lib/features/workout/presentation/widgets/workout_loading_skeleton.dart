@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
 import 'package:personal_fitness_tracker/shared/widgets/skeletons.dart';
 
 class WorkoutLoadingSkeleton extends StatelessWidget {
@@ -22,7 +23,7 @@ class WorkoutLoadingSkeleton extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
               width: double.infinity,
               decoration: BoxDecoration(
-                color: Colors.white38,
+                color: ColorConstants.skeletonColor,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Row(
@@ -32,15 +33,7 @@ class WorkoutLoadingSkeleton extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        children: [
-                          AppSkeleton.line(width: 70),
-                          const SizedBox(width: 8),
-                          AppSkeleton.line(width: 70),
-                        ],
-                      ),
-                      const SizedBox(height: 8,),
-                      AppSkeleton.line(height: 24,width: 200,),
+                      AppSkeleton.line(width: 200,),
                       const SizedBox(height: 8,),
                       AppSkeleton.line(width: 200,),
                     ],
@@ -53,7 +46,7 @@ class WorkoutLoadingSkeleton extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
               width: double.infinity,
               decoration: BoxDecoration(
-                color: Colors.white38,
+                color: ColorConstants.skeletonColor,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Row(
@@ -63,15 +56,7 @@ class WorkoutLoadingSkeleton extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        children: [
-                          AppSkeleton.line(width: 70),
-                          const SizedBox(width: 8),
-                          AppSkeleton.line(width: 70),
-                        ],
-                      ),
-                      const SizedBox(height: 8,),
-                      AppSkeleton.line(height: 24,width: 200,),
+                      AppSkeleton.line(width: 200,),
                       const SizedBox(height: 8,),
                       AppSkeleton.line(width: 200,),
                     ],
@@ -84,7 +69,7 @@ class WorkoutLoadingSkeleton extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
               width: double.infinity,
               decoration: BoxDecoration(
-                color: Colors.white38,
+                color: ColorConstants.skeletonColor,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Row(
@@ -94,15 +79,7 @@ class WorkoutLoadingSkeleton extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        children: [
-                          AppSkeleton.line(width: 70),
-                          const SizedBox(width: 8),
-                          AppSkeleton.line(width: 70),
-                        ],
-                      ),
-                      const SizedBox(height: 8,),
-                      AppSkeleton.line(height: 24,width: 200,),
+                      AppSkeleton.line(width: 200,),
                       const SizedBox(height: 8,),
                       AppSkeleton.line(width: 200,),
                     ],
@@ -115,7 +92,7 @@ class WorkoutLoadingSkeleton extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
               width: double.infinity,
               decoration: BoxDecoration(
-                color: Colors.white38,
+                color: ColorConstants.skeletonColor,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Row(
@@ -125,15 +102,7 @@ class WorkoutLoadingSkeleton extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        children: [
-                          AppSkeleton.line(width: 70),
-                          const SizedBox(width: 8),
-                          AppSkeleton.line(width: 70),
-                        ],
-                      ),
-                      const SizedBox(height: 8,),
-                      AppSkeleton.line(height: 24,width: 200,),
+                      AppSkeleton.line(width: 200,),
                       const SizedBox(height: 8,),
                       AppSkeleton.line(width: 200,),
                     ],
@@ -146,7 +115,7 @@ class WorkoutLoadingSkeleton extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
               width: double.infinity,
               decoration: BoxDecoration(
-                color: Colors.white38,
+                color: ColorConstants.skeletonColor,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Row(
@@ -156,15 +125,7 @@ class WorkoutLoadingSkeleton extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        children: [
-                          AppSkeleton.line(width: 70),
-                          const SizedBox(width: 8),
-                          AppSkeleton.line(width: 70),
-                        ],
-                      ),
-                      const SizedBox(height: 8,),
-                      AppSkeleton.line(height: 24,width: 200,),
+                      AppSkeleton.line(width: 200,),
                       const SizedBox(height: 8,),
                       AppSkeleton.line(width: 200,),
                     ],
@@ -172,6 +133,8 @@ class WorkoutLoadingSkeleton extends StatelessWidget {
                 ],
               ),
             ),
+            SizedBox(height: 12),
+
           ],
         ),
       ),
@@ -189,7 +152,7 @@ class WorkoutLoadingSkeleton extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
               width: double.infinity,
               decoration: BoxDecoration(
-                color: Colors.white38,
+                color: ColorConstants.skeletonColor,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Column(
@@ -222,7 +185,7 @@ class WorkoutLoadingSkeleton extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
               width: double.infinity,
               decoration: BoxDecoration(
-                color: Colors.white38,
+                color: ColorConstants.skeletonColor,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Row(
@@ -259,7 +222,7 @@ class WorkoutLoadingSkeleton extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
               width: double.infinity,
               decoration: BoxDecoration(
-                color: Colors.white38,
+                color: ColorConstants.skeletonColor,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Row(
@@ -296,7 +259,7 @@ class WorkoutLoadingSkeleton extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
               width: double.infinity,
               decoration: BoxDecoration(
-                color: Colors.white38,
+                color: ColorConstants.skeletonColor,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Row(

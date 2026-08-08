@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
 
 class WorkoutMarker extends StatelessWidget {
   final int count;
@@ -11,9 +12,9 @@ class WorkoutMarker extends StatelessWidget {
 
   // Colour for markers
   static const _dotColors = [
-    Color(0xFFFF9B52), // orange — primary workout colour
-    Color(0xFF92A3FD), // blue/purple — secondary
-    Color(0xFF4CD964), // green — done
+    ColorConstants.scheduleInProgressColor,
+    ColorConstants.primaryColor,
+    ColorConstants.scheduleDoneColor,
   ];
 
   @override

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
 import 'package:personal_fitness_tracker/core/router/route_paths.dart';
 import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_event.dart';
@@ -50,7 +51,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
             SnackBar(
               duration: const Duration(seconds: 5),
               content: Text(state.message),
-              backgroundColor: Colors.green,
             ),
           );
         }
@@ -59,28 +59,29 @@ class _SignUpScreenState extends State<SignUpScreen> {
         final isLoading = state is AuthLoadingState;
 
         return Scaffold(
-          backgroundColor: Colors.white,
+          backgroundColor: ColorConstants.backgroundColor,
           body: SafeArea(
             child: SingleChildScrollView(
+              physics: NeverScrollableScrollPhysics(),
               padding: const EdgeInsets.all(20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  const SizedBox(height: 24),
                   const Text(
                     'Hey there,',
-                    style: TextStyle(fontSize: 16, color: Colors.grey),
+                    style: TextStyle(fontSize: 16, color: ColorConstants.textSecondaryColor),
                   ),
                   const SizedBox(height: 2),
                   const Text(
                     'Create an Account',
                     style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
-
+                  const SizedBox(height: 24),
                   Form(
                     key: _formKey,
                     child: Column(
                       children: [
-                        const SizedBox(height: 24),
                         TextFormField(
                           validator: (value) {
                             if (value == null || value.isEmpty) {
@@ -100,7 +101,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           keyboardType: TextInputType.text,
                         ),
 
-                        const SizedBox(height: 24),
+                        const SizedBox(height: 16),
                         TextFormField(
                           validator: (value) {
                             if (value == null || value.isEmpty) {
@@ -125,7 +126,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           keyboardType: TextInputType.emailAddress,
                         ),
 
-                        const SizedBox(height: 24),
+                        const SizedBox(height: 16),
                         TextFormField(
                           validator: (value) {
                             if (value == null || value.isEmpty) {
@@ -175,7 +176,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           keyboardType: TextInputType.text,
                         ),
 
-                        const SizedBox(height: 24),
+                        const SizedBox(height: 16),
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -189,7 +190,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(2),
                               ),
-                              activeColor: Color(0xFF92A3FD),
+                              activeColor: ColorConstants.buttonColor,
                               materialTapTargetSize:
                                   MaterialTapTargetSize.shrinkWrap,
                               visualDensity: VisualDensity.compact,
@@ -200,7 +201,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 text: const TextSpan(
                                   style: TextStyle(
                                     fontSize: 13,
-                                    color: Colors.grey,
+                                    color: ColorConstants.textSecondaryColor,
                                   ),
                                   children: [
                                     TextSpan(
@@ -208,12 +209,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     ),
                                     TextSpan(
                                       text: 'Privacy Policy',
-                                      style: TextStyle(color: Colors.blue),
+                                      style: TextStyle(color: ColorConstants.textHighlightColor),
                                     ),
                                     TextSpan(text: ' and '),
                                     TextSpan(
                                       text: 'Term of Use',
-                                      style: TextStyle(color: Colors.blue),
+                                      style: TextStyle(color: ColorConstants.textHighlightColor),
                                     ),
                                   ],
                                 ),
@@ -230,8 +231,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               borderRadius: BorderRadius.circular(12),
                             ),
                             minimumSize: const Size(double.infinity, 50),
-                            backgroundColor: Color(0xFF92A3FD),
-                            foregroundColor: Colors.white,
+                            backgroundColor: ColorConstants.buttonColor,
+                            foregroundColor: ColorConstants.buttonTextColor,
                           ),
                           onPressed: isLoading
                               ? null
@@ -244,11 +245,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                         const SnackBar(
                                           content: Text(
                                             'Please accept the Privacy Policy and Terms of Use',
-                                            style: TextStyle(
-                                              color: Colors.black,
-                                            ),
                                           ),
-                                          backgroundColor: Colors.green,
                                         ),
                                       );
                                       return;
@@ -265,11 +262,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 },
                           child: isLoading
                               ? const SizedBox(
-                                  height: 22,
-                                  width: 22,
+                                  height: 25,
+                                  width: 25,
                                   child: CircularProgressIndicator(
                                     strokeWidth: 2.5,
-                                    color: Colors.white,
+                                    color: ColorConstants.buttonColor,
                                   ),
                                 )
                               : const Text("Sign up"),
@@ -286,16 +283,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         padding: EdgeInsets.all(12),
                         child: Text(
                           'Or',
-                          style: TextStyle(color: Colors.grey, fontSize: 13),
+                          style: TextStyle(color: ColorConstants.textSecondaryColor, fontSize: 13),
                         ),
                       ),
                       Expanded(child: Divider()),
                     ],
-                  ),
-
-                  const SizedBox(height: 12),
-                  _buildSocialButton(
-                    assetPath: "assets/images/auth/google.png",
                   ),
 
                   const SizedBox(height: 24),
@@ -307,14 +299,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       text: const TextSpan(
                         style: TextStyle(
                           fontSize: 13,
-                          color: Colors.black,
+                          color: ColorConstants.textPrimaryColor,
                           fontWeight: FontWeight.bold,
                         ),
                         children: [
                           TextSpan(text: "Already have an account? "),
                           TextSpan(
                             text: "Login",
-                            style: TextStyle(color: Colors.blue),
+                            style: TextStyle(color: ColorConstants.textHighlightColor),
                           ),
                         ],
                       ),
@@ -326,25 +318,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
           ),
         );
       },
-    );
-  }
-
-  Widget _buildSocialButton({required String assetPath}) {
-    return GestureDetector(
-      onTap: () {},
-      child: Container(
-        width: 60,
-        height: 60,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: Colors.grey.shade300, width: 1.0),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(12),
-          child: Image.asset(assetPath),
-        ),
-      ),
     );
   }
 }

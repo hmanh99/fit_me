@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
 
 class SectionCard extends StatefulWidget {
   const SectionCard({
@@ -36,10 +37,9 @@ class _SectionCardState extends State<SectionCard> {
           width: double.infinity,
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
           decoration: BoxDecoration(
-            color: Colors.grey.shade600,
             borderRadius: BorderRadius.circular(22),
             border: Border.all(
-              color: Colors.white.withValues(alpha: 0.06),
+              color: ColorConstants.buttonTextColor.withValues(alpha: 0.06),
               width: 1,
             ),
             boxShadow: [
@@ -60,23 +60,17 @@ class _SectionCardState extends State<SectionCard> {
                       width: 60,
                       height: 60,
                       decoration: BoxDecoration(
-                        gradient: const LinearGradient(
-                          colors: [Color(0xFF92A3FD), Color(0xFF9DCEFF)],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                        ),
+                        color: ColorConstants.primaryColor,
                         shape: BoxShape.circle,
                         boxShadow: [
                           BoxShadow(
-                            color: const Color(
-                              0xFF92A3FD,
-                            ).withValues(alpha: 0.25),
-                            blurRadius: 10,
-                            offset: const Offset(0, 3),
+                            color: ColorConstants.primaryColor.withValues(alpha: 0.25),
+                            blurRadius: 4,
+                            offset: const Offset(0, 4),
                           ),
                         ],
                       ),
-                      child: Icon(widget.icon, color: Colors.white, size: 30),
+                      child: Icon(widget.icon, color: ColorConstants.buttonTextColor, size: 30),
                     ),
                     const SizedBox(width: 16),
                     Expanded(
@@ -87,7 +81,7 @@ class _SectionCardState extends State<SectionCard> {
                           Text(
                             widget.title,
                             style: const TextStyle(
-                              color: Colors.white,
+                              color: ColorConstants.buttonTextColor,
                               fontWeight: FontWeight.bold,
                               fontSize: 18,
                               letterSpacing: 0.2,
@@ -100,7 +94,7 @@ class _SectionCardState extends State<SectionCard> {
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
-                              color: Colors.white.withValues(alpha: 0.7),
+                              color: ColorConstants.buttonTextColor.withValues(alpha: 0.7),
                               fontSize: 12,
                             ),
                           ),
@@ -115,16 +109,16 @@ class _SectionCardState extends State<SectionCard> {
                 width: 36,
                 height: 36,
                 decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.08),
+                  color: ColorConstants.buttonTextColor.withValues(alpha: 0.08),
                   shape: BoxShape.circle,
                   border: Border.all(
-                    color: Colors.white.withValues(alpha: 0.05),
+                    color: ColorConstants.buttonTextColor.withValues(alpha: 0.05),
                     width: 1,
                   ),
                 ),
                 child: const Icon(
                   Icons.chevron_right_rounded,
-                  color: Colors.white,
+                  color: ColorConstants.buttonTextColor,
                   size: 20,
                 ),
               ),

@@ -22,7 +22,7 @@ class DashboardEmptyRecommendations extends StatelessWidget {
                   width: 120,
                   height: 120,
                   decoration: BoxDecoration(
-                    color: const Color(0xFF92A3FD).withValues(alpha: 0.05),
+                    color: ColorConstants.primaryColor.withValues(alpha: 0.05),
                     shape: BoxShape.circle,
                   ),
                 ),
@@ -30,7 +30,7 @@ class DashboardEmptyRecommendations extends StatelessWidget {
                   width: 90,
                   height: 90,
                   decoration: BoxDecoration(
-                    color: const Color(0xFF92A3FD).withValues(alpha: 0.10),
+                    color: ColorConstants.primaryColor.withValues(alpha: 0.10),
                     shape: BoxShape.circle,
                   ),
                 ),
@@ -38,16 +38,12 @@ class DashboardEmptyRecommendations extends StatelessWidget {
                   width: 64,
                   height: 64,
                   decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [Color(0xFF92A3FD), Color(0xFF9DCEFF)],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                    ),
+                    color: ColorConstants.primaryColor,
                     shape: BoxShape.circle,
                   ),
                   child: const Icon(
                     Icons.fitness_center_rounded,
-                    color: Colors.white,
+                    color: ColorConstants.buttonTextColor,
                     size: 28,
                   ),
                 ),
@@ -61,7 +57,7 @@ class DashboardEmptyRecommendations extends StatelessWidget {
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w700,
-                color: Colors.black,
+                color: ColorConstants.textPrimaryColor,
               ),
               textAlign: TextAlign.center,
             ),
@@ -73,7 +69,7 @@ class DashboardEmptyRecommendations extends StatelessWidget {
               'Tap Refresh to try again.',
               style: TextStyle(
                 fontSize: 14,
-                color: Colors.grey,
+                color: ColorConstants.textSecondaryColor,
                 height: 1.5,
               ),
               textAlign: TextAlign.center,
@@ -84,14 +80,10 @@ class DashboardEmptyRecommendations extends StatelessWidget {
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(99),
-                  gradient: const LinearGradient(
-                    colors: [Color(0xFF92A3FD), Color(0xFF9DCEFF)],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
+                  color: ColorConstants.primaryColor,
                   boxShadow: [
                     BoxShadow(
-                      color: const Color(0xFF92A3FD).withValues(alpha: 0.3),
+                      color: ColorConstants.primaryColor.withValues(alpha: 0.3),
                       blurRadius: 10,
                       offset: const Offset(0, 4),
                     ),
@@ -99,18 +91,18 @@ class DashboardEmptyRecommendations extends StatelessWidget {
                 ),
                 child: ElevatedButton.icon(
                   onPressed: onRefresh,
-                  icon: const Icon(Icons.refresh_rounded, color: Colors.white),
+                  icon: const Icon(Icons.refresh_rounded, color: ColorConstants.buttonTextColor),
                   label: const Text(
                     'Refresh',
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
-                      color: Colors.white,
+                      color: ColorConstants.buttonTextColor,
                     ),
                   ),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.transparent,
-                    shadowColor: Colors.transparent,
+                    backgroundColor: ColorConstants.transparent,
+                    shadowColor: ColorConstants.transparent,
                     padding: const EdgeInsets.symmetric(
                       horizontal: 28,
                       vertical: 12,

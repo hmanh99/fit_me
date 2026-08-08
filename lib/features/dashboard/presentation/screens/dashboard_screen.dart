@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
 import 'package:personal_fitness_tracker/core/router/route_paths.dart';
 import 'package:personal_fitness_tracker/features/dashboard/presentation/bloc/dashboard_bloc.dart';
 import 'package:personal_fitness_tracker/features/dashboard/presentation/bloc/dashboard_event.dart';
@@ -38,13 +39,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorConstants.backgroundColor,
       body: BlocBuilder<DashboardBloc, DashboardState>(
         builder: (context, state) {
           if (state is DashboardInitial || state is DashboardLoading) {
             return SafeArea(
               child: RefreshIndicator(
                 onRefresh: _onRefresh,
-                color: const Color(0xFF92A3FD),
+                color: ColorConstants.buttonColor,
                 child: SingleChildScrollView(
                   physics: const NeverScrollableScrollPhysics(),
                   child: const DashboardSkeleton(),
@@ -70,8 +72,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
           return SafeArea(
             child: RefreshIndicator(
+              color: ColorConstants.buttonColor,
+              backgroundColor: ColorConstants.backgroundColor,
               onRefresh: _onRefresh,
-              color: const Color(0xFF92A3FD),
               child: SingleChildScrollView(
                 padding: EdgeInsets.fromLTRB(
                   16,
@@ -98,37 +101,21 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         QuickActionButton(
                           icon: Icons.fitness_center_rounded,
                           label: r'Workout Plans',
-                          gradientColors: const [
-                            Color(0xFF92A3FD),
-                            Color(0xFF9DCEFF),
-                          ],
                           onTap: () => context.push(AppRoutePaths.appWorkout),
                         ),
                         QuickActionButton(
                           icon: Icons.sports_gymnastics_outlined,
                           label: 'Exercises\nLibrary',
-                          gradientColors: const [
-                            Color(0xFF9DCEFF),
-                            Color(0xFF92A3FD),
-                          ],
                           onTap: () => context.push(AppRoutePaths.appExercise),
                         ),
                         QuickActionButton(
                           icon: Icons.calendar_month_rounded,
                           label: 'My\nSchedule',
-                          gradientColors: const [
-                            Color(0xFF9DCEFF),
-                            Color(0xFF92A3FD),
-                          ],
                           onTap: () => context.go(AppRoutePaths.appSchedule),
                         ),
                         QuickActionButton(
                           icon: Icons.restaurant_rounded,
                           label: 'Meal Idea',
-                          gradientColors: const [
-                            Color(0xFF9DCEFF),
-                            Color(0xFF92A3FD),
-                          ],
                           onTap: () => context.go(AppRoutePaths.appMeal),
                         ),
                       ],
@@ -145,7 +132,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               Text(
                                 'See All',
                                 style: TextStyle(
-                                  color: Color(0xFF0080FF),
+                                  color: ColorConstants.textHighlightColor,
                                   fontSize: 13,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -153,7 +140,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               SizedBox(width: 4),
                               Icon(
                                 Icons.arrow_forward_ios_rounded,
-                                color: Color(0xFF0080FF),
+                                color: ColorConstants.textHighlightColor,
                                 size: 13,
                               ),
                             ],

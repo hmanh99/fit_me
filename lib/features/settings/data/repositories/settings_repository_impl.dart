@@ -10,24 +10,13 @@ class SettingsRepositoryImpl implements SettingsRepository {
 
   @override
   Future<AppSettings> getSettings() async {
-    final themeIndex = await localDataSource.getThemeModeIndex();
     final languageCode = await localDataSource.getLanguageCode();
 
-    final themeMode = themeIndex != null && themeIndex >= 0 && themeIndex < AppThemeMode.values.length
-        ? AppThemeMode.values[themeIndex]
-        : AppThemeMode.system;
-
     final model = SettingsModel(
-      themeMode: themeMode,
       languageCode: languageCode ?? 'en',
     );
 
     return model.toEntity();
-  }
-
-  @override
-  Future<void> saveThemeMode(AppThemeMode mode) async {
-    await localDataSource.saveThemeModeIndex(mode.index);
   }
 
   @override

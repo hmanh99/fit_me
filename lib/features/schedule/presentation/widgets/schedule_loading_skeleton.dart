@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
 import 'package:personal_fitness_tracker/shared/widgets/skeletons.dart';
 
 class ScheduleLoadingSkeleton extends StatelessWidget {
@@ -26,7 +27,7 @@ class ScheduleLoadingSkeleton extends StatelessWidget {
               width: double.infinity,
               padding: EdgeInsets.all(24),
               decoration: BoxDecoration(
-                color: Colors.white24,
+                color: ColorConstants.white24,
                 borderRadius: BorderRadius.circular(24),
               ),
               child: Row(
@@ -62,7 +63,7 @@ Widget scheduleCard(){
     width: double.infinity,
     padding: EdgeInsets.all(20),
     decoration: BoxDecoration(
-      color: Colors.white24,
+      color: ColorConstants.white24,
       borderRadius: BorderRadius.circular(24),
     ),
     child: Column(

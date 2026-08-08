@@ -25,7 +25,7 @@ class DashboardRecommendationsError extends StatelessWidget {
                   width: 120,
                   height: 120,
                   decoration: BoxDecoration(
-                    color: Colors.red.shade50.withValues(alpha: 0.5),
+                    color: ColorConstants.errorColor.withValues(alpha: 0.5),
                     shape: BoxShape.circle,
                   ),
                 ),
@@ -33,7 +33,7 @@ class DashboardRecommendationsError extends StatelessWidget {
                   width: 90,
                   height: 90,
                   decoration: BoxDecoration(
-                    color: Colors.red.shade100.withValues(alpha: 0.8),
+                    color: ColorConstants.errorColor.withValues(alpha: 0.8),
                     shape: BoxShape.circle,
                   ),
                 ),
@@ -41,11 +41,11 @@ class DashboardRecommendationsError extends StatelessWidget {
                   width: 64,
                   height: 64,
                   decoration: BoxDecoration(
-                    color: Colors.red.shade400,
+                    color: ColorConstants.errorColor,
                     shape: BoxShape.circle,
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.red.shade400.withValues(alpha: 0.3),
+                        color: ColorConstants.errorColor.withValues(alpha: 0.3),
                         blurRadius: 8,
                         offset: const Offset(0, 3),
                       ),
@@ -53,7 +53,7 @@ class DashboardRecommendationsError extends StatelessWidget {
                   ),
                   child: const Icon(
                     Icons.error_outline_rounded,
-                    color: Colors.white,
+                    color: ColorConstants.buttonTextColor,
                     size: 32,
                   ),
                 ),
@@ -66,7 +66,7 @@ class DashboardRecommendationsError extends StatelessWidget {
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w700,
-                color: Colors.black,
+                color: ColorConstants.textPrimaryColor,
               ),
               textAlign: TextAlign.center,
             ),
@@ -78,7 +78,7 @@ class DashboardRecommendationsError extends StatelessWidget {
                   : errorMessage,
               style: const TextStyle(
                 fontSize: 14,
-                color: Colors.grey,
+                color: ColorConstants.textSecondaryColor,
                 height: 1.5,
               ),
               textAlign: TextAlign.center,
@@ -89,14 +89,10 @@ class DashboardRecommendationsError extends StatelessWidget {
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(99),
-                  gradient: const LinearGradient(
-                    colors: [Color(0xFF92A3FD), Color(0xFF9DCEFF)],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
+                  color: ColorConstants.primaryColor,
                   boxShadow: [
                     BoxShadow(
-                      color: const Color(0xFF92A3FD).withValues(alpha: 0.3),
+                      color: ColorConstants.primaryColor.withValues(alpha: 0.3),
                       blurRadius: 10,
                       offset: const Offset(0, 4),
                     ),
@@ -104,18 +100,18 @@ class DashboardRecommendationsError extends StatelessWidget {
                 ),
                 child: ElevatedButton.icon(
                   onPressed: onRetry,
-                  icon: const Icon(Icons.refresh_rounded, color: Colors.white),
+                  icon: const Icon(Icons.refresh_rounded, color: ColorConstants.buttonTextColor),
                   label: const Text(
                     "Try Again",
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
-                      color: Colors.white,
+                      color: ColorConstants.buttonTextColor,
                     ),
                   ),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.transparent,
-                    shadowColor: Colors.transparent,
+                    backgroundColor: ColorConstants.transparent,
+                    shadowColor: ColorConstants.transparent,
                     padding: const EdgeInsets.symmetric(
                       horizontal: 32,
                       vertical: 12,

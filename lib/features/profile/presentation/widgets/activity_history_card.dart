@@ -32,16 +32,16 @@ class ActivityHistoryCard extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: ColorConstants.white,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.04),
+            color: ColorConstants.black.withValues(alpha: 0.04),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
         ],
-        border: Border.all(color: Colors.grey.shade100, width: 1),
+        border: Border.all(color: ColorConstants.greyShade100, width: 1),
       ),
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -53,15 +53,11 @@ class ActivityHistoryCard extends StatelessWidget {
               height: 50,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
-                gradient: const LinearGradient(
-                  colors: [Color(0xFF92A3FD), Color(0xFF9DCEFF)],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
+                color: ColorConstants.buttonColor
               ),
               child: const Icon(
                 Icons.fitness_center_rounded,
-                color: Colors.white,
+                color: ColorConstants.white,
                 size: 25,
               ),
             ),
@@ -76,7 +72,7 @@ class ActivityHistoryCard extends StatelessWidget {
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
-                      color: Colors.black,
+                      color: ColorConstants.primaryColor,
                     ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -87,14 +83,14 @@ class ActivityHistoryCard extends StatelessWidget {
                       Icon(
                         Icons.access_time_rounded,
                         size: 15,
-                        color: Colors.grey.shade500,
+                        color: ColorConstants.greyShade50,
                       ),
                       const SizedBox(width: 4),
                       Text(
                         '$startTimeStr - $endTimeStr',
                         style: TextStyle(
                           fontSize: 14,
-                          color: Colors.grey.shade600,
+                          color: ColorConstants.greyShade600,
                         ),
                       ),
                     ],
@@ -130,14 +126,14 @@ class ActivityHistoryCard extends StatelessWidget {
                     Icon(
                       Icons.check_circle_rounded,
                       size: 12,
-                      color: Colors.green,
+                      color: ColorConstants.green,
                     ),
                     const SizedBox(width: 4),
                     Text(
                       'Complete',
                       style: TextStyle(
                         fontSize: 12,
-                        color: Colors.green,
+                        color: ColorConstants.green,
                         fontWeight: FontWeight.w500,
                       ),
                     ),

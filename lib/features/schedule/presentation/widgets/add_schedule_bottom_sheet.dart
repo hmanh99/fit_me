@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
 import 'package:personal_fitness_tracker/core/services/auth_services.dart';
 import 'package:personal_fitness_tracker/features/schedule/domain/entities/schedule_status.dart';
 import 'package:personal_fitness_tracker/features/schedule/domain/entities/workout_schedule_entity.dart';
@@ -31,7 +32,7 @@ class AddScheduleBottomSheet extends StatefulWidget {
     return showModalBottomSheet<void>(
       context: context,
       isScrollControlled: true,
-      backgroundColor: Colors.transparent,
+      backgroundColor: ColorConstants.transparent,
       builder: (_) => BlocProvider.value(
         value: context.read<ScheduleBloc>(),
         child: AddScheduleBottomSheet(
@@ -98,7 +99,7 @@ class _AddScheduleBottomSheetState extends State<AddScheduleBottomSheet> {
         borderRadius: const BorderRadius.vertical(top: Radius.circular(28)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.15),
+            color: ColorConstants.black.withValues(alpha: 0.15),
             blurRadius: 20,
             offset: const Offset(0, -4),
           ),
@@ -295,7 +296,7 @@ class _AddScheduleBottomSheetState extends State<AddScheduleBottomSheet> {
                               decoration: BoxDecoration(
                                 color: isSelected
                                     ? color.withValues(alpha: 0.12)
-                                    : Colors.transparent,
+                                    : ColorConstants.transparent,
                                 shape: BoxShape.circle,
                               ),
                               child: Icon(
@@ -381,7 +382,7 @@ class _AddScheduleBottomSheetState extends State<AddScheduleBottomSheet> {
           data: Theme.of(context).copyWith(
             colorScheme: Theme.of(
               context,
-            ).colorScheme.copyWith(primary: const Color(0xFF92A3FD)),
+            ).colorScheme.copyWith(primary: ColorConstants.primaryColor),
           ),
           child: child!,
         );
@@ -444,11 +445,11 @@ class _AddScheduleBottomSheetState extends State<AddScheduleBottomSheet> {
   Color _statusColor(ScheduleStatus s) {
     switch (s) {
       case ScheduleStatus.upcoming:
-        return const Color(0xFF5B8DEF);
+        return ColorConstants.scheduleUpcomingColor;
       case ScheduleStatus.inProgress:
-        return const Color(0xFFFF9B52);
+        return ColorConstants.scheduleInProgressColor;
       case ScheduleStatus.done:
-        return const Color(0xFF4CD964);
+        return ColorConstants.scheduleDoneColor;
     }
   }
 
@@ -519,19 +520,17 @@ class _GradientButtonState extends State<_GradientButton>
         height: 52,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(99),
-          gradient: const LinearGradient(
-            colors: [Color(0xFF92A3FD), Color(0xFF9DCEFF)],
-          ),
+          color: ColorConstants.buttonColor,
           boxShadow: [
             BoxShadow(
-              color: const Color(0xFF92A3FD).withValues(alpha: 0.35),
+              color: ColorConstants.buttonColor.withValues(alpha: 0.35),
               blurRadius: 12,
               offset: const Offset(0, 6),
             ),
           ],
         ),
         child: Material(
-          color: Colors.transparent,
+          color: ColorConstants.transparent,
           child: InkWell(
             borderRadius: BorderRadius.circular(99),
             onTapDown: _onTapDown,
@@ -540,7 +539,7 @@ class _GradientButtonState extends State<_GradientButton>
               child: Text(
                 widget.text,
                 style: const TextStyle(
-                  color: Colors.white,
+                  color: ColorConstants.white,
                   fontSize: 16,
                   fontWeight: FontWeight.w700,
                   letterSpacing: 0.5,

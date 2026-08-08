@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
 import 'package:personal_fitness_tracker/features/schedule/domain/entities/schedule_status.dart';
 import 'package:personal_fitness_tracker/features/schedule/domain/entities/workout_schedule_entity.dart';
 
@@ -28,7 +29,7 @@ class ScheduleDayItem extends StatelessWidget {
           borderRadius: BorderRadius.circular(18),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withValues(alpha: 0.03),
+              color: ColorConstants.black.withValues(alpha: 0.03),
               blurRadius: 10,
               offset: const Offset(0, 4),
             ),
@@ -213,7 +214,7 @@ class ScheduleDayItem extends StatelessWidget {
                               borderRadius: BorderRadius.circular(14),
                             ),
                             elevation: 4,
-                            shadowColor: Colors.black.withValues(alpha: 0.15),
+                            shadowColor: ColorConstants.black.withValues(alpha: 0.15),
                             onSelected: (value) {
                               if (value == 'edit') onEdit?.call();
                               if (value == 'delete') onDelete?.call();
@@ -236,12 +237,12 @@ class ScheduleDayItem extends StatelessWidget {
                                     Icon(
                                       Icons.delete_outline_rounded,
                                       size: 18,
-                                      color: Colors.red,
+                                      color: ColorConstants.deleteActionColor,
                                     ),
                                     SizedBox(width: 10),
                                     Text(
                                       'delete'.tr(),
-                                      style: TextStyle(color: Colors.red),
+                                      style: TextStyle(color: ColorConstants.deleteActionColor),
                                     ),
                                   ],
                                 ),
@@ -295,17 +296,17 @@ class ScheduleDayItem extends StatelessWidget {
       case ScheduleStatus.upcoming:
         return _StatusInfo(
           icon: Icons.access_time_rounded,
-          color: const Color(0xFF5B8DEF),
+          color: ColorConstants.scheduleUpcomingColor,
         );
       case ScheduleStatus.inProgress:
         return _StatusInfo(
           icon: Icons.play_circle_outline_rounded,
-          color: const Color(0xFFFF9B52),
+          color: ColorConstants.scheduleInProgressColor,
         );
       case ScheduleStatus.done:
         return _StatusInfo(
           icon: Icons.check_circle_outline_rounded,
-          color: const Color(0xFF4CD964),
+          color: ColorConstants.scheduleDoneColor,
         );
     }
   }
