@@ -1,5 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:personal_fitness_tracker/core/di/injection_container.dart'
+    as di;
 import 'package:personal_fitness_tracker/core/router/auth_redirect.dart';
 import 'package:personal_fitness_tracker/core/router/go_router_refresh_stream.dart';
 import 'package:personal_fitness_tracker/core/router/route_names.dart';
@@ -9,7 +11,9 @@ import 'package:personal_fitness_tracker/features/auth/presentation/screens/forg
 import 'package:personal_fitness_tracker/features/auth/presentation/screens/login_screen.dart';
 import 'package:personal_fitness_tracker/features/auth/presentation/screens/signup_screen.dart';
 import 'package:personal_fitness_tracker/features/dashboard/presentation/screens/dashboard_screen.dart';
-import 'package:personal_fitness_tracker/features/exercise/data/repositories/exercise_repository_impl.dart';
+import 'package:personal_fitness_tracker/features/exercise/domain/repositories/exercise_repository.dart';
+import 'package:personal_fitness_tracker/features/exercise/domain/usecases/get_exercise_by_id_use_case.dart';
+import 'package:personal_fitness_tracker/features/exercise/domain/usecases/get_exercises_use_case.dart';
 import 'package:personal_fitness_tracker/features/exercise/presentation/bloc/exercise_bloc.dart';
 import 'package:personal_fitness_tracker/features/exercise/presentation/screens/exercise_detail_screen.dart';
 import 'package:personal_fitness_tracker/features/exercise/presentation/screens/exercise_screen.dart';
@@ -20,6 +24,7 @@ import 'package:personal_fitness_tracker/features/onboard/presentation/onboard_s
 import 'package:personal_fitness_tracker/features/onboard/presentation/welcome_screen.dart';
 import 'package:personal_fitness_tracker/features/profile/data/datasource/activity_history_remote_datasource.dart';
 import 'package:personal_fitness_tracker/features/profile/data/repositories/activity_history_repository_impl.dart';
+import 'package:personal_fitness_tracker/features/profile/domain/usecases/get_activity_histories_use_case.dart';
 import 'package:personal_fitness_tracker/features/profile/presentation/bloc/activity_history_bloc.dart';
 import 'package:personal_fitness_tracker/features/profile/presentation/screens/activity_history_screen.dart';
 import 'package:personal_fitness_tracker/features/profile/presentation/screens/edit_profile_screen.dart';
@@ -27,8 +32,11 @@ import 'package:personal_fitness_tracker/features/profile/presentation/screens/p
 import 'package:personal_fitness_tracker/features/profile/presentation/screens/profile_screen.dart';
 import 'package:personal_fitness_tracker/features/schedule/presentation/screens/schedule_screen.dart';
 import 'package:personal_fitness_tracker/features/settings/presentation/screens/settings_screen.dart';
-import 'package:personal_fitness_tracker/features/workout/data/repositories/workout_repository_impl.dart';
 import 'package:personal_fitness_tracker/features/workout/domain/entities/workout_plan_entity.dart';
+import 'package:personal_fitness_tracker/features/workout/domain/usecases/create_set_session_use_case.dart';
+import 'package:personal_fitness_tracker/features/workout/domain/usecases/create_workout_session_use_case.dart';
+import 'package:personal_fitness_tracker/features/workout/domain/usecases/get_workout_plan_details_use_case.dart';
+import 'package:personal_fitness_tracker/features/workout/domain/usecases/get_workout_plans_use_case.dart';
 import 'package:personal_fitness_tracker/features/workout/presentation/bloc/workout_bloc.dart';
 import 'package:personal_fitness_tracker/features/workout/presentation/bloc/workout_session_bloc.dart';
 import 'package:personal_fitness_tracker/features/workout/presentation/bloc/workout_session_event.dart';
@@ -37,6 +45,8 @@ import 'package:personal_fitness_tracker/features/workout/presentation/screens/w
 import 'package:personal_fitness_tracker/features/workout/presentation/screens/workout_session_screen.dart';
 import 'package:personal_fitness_tracker/shared/widgets/main_shell.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+
+import '../../features/workout/domain/repositories/workout_repository.dart';
 
 GoRouter createAppRouter(AuthBloc authBloc) {
   return GoRouter(
@@ -106,13 +116,18 @@ GoRouter createAppRouter(AuthBloc authBloc) {
                   GoRoute(
                     path: 'workout',
                     name: AppRouteNames.appWorkouts,
-                    builder: (context, state) => BlocProvider<WorkoutBloc>(
-                      create: (context) => WorkoutBloc(
-                        workoutRepository: context
-                            .read<WorkoutRepositoryImpl>(),
-                      ),
-                      child: const WorkoutScreen(),
-                    ),
+                    builder: (context, state) {
+                      final repo = di.serviceLocator<WorkoutRepository>();
+                      return BlocProvider<WorkoutBloc>(
+                        create: (context) => WorkoutBloc(
+                          getWorkoutPlans: GetWorkoutPlansUseCase(repo),
+                          getWorkoutPlanDetails: GetWorkoutPlanDetailsUseCase(
+                            repo,
+                          ),
+                        ),
+                        child: const WorkoutScreen(),
+                      );
+                    },
                     routes: [
                       GoRoute(
                         path: ':workoutId',
@@ -135,9 +150,14 @@ GoRouter createAppRouter(AuthBloc authBloc) {
                                   state.extra as WorkoutPlanEntity?;
                               return BlocProvider<WorkoutSessionBloc>(
                                 create: (context) {
+                                  final repo = di
+                                      .serviceLocator<WorkoutRepository>();
                                   final bloc = WorkoutSessionBloc(
-                                    repository: context
-                                        .read<WorkoutRepositoryImpl>(),
+                                    createWorkoutSession:
+                                        CreateWorkoutSessionUseCase(repo),
+                                    createSetSession: CreateSetSessionUseCase(
+                                      repo,
+                                    ),
                                   );
                                   if (workoutPlan != null) {
                                     bloc.add(
@@ -157,10 +177,16 @@ GoRouter createAppRouter(AuthBloc authBloc) {
                               final exerciseId =
                                   state.pathParameters['exerciseId']!;
                               return BlocProvider<ExerciseBloc>(
-                                create: (context) => ExerciseBloc(
-                                  exerciseRepository: context
-                                      .read<ExerciseRepositoryImpl>(),
-                                ),
+                                create: (context) {
+                                  final repo = di
+                                      .serviceLocator<ExerciseRepository>();
+                                  return ExerciseBloc(
+                                    getExercises: GetExercisesUseCase(repo),
+                                    getExerciseById: GetExerciseByIdUseCase(
+                                      repo,
+                                    ),
+                                  );
+                                },
                                 child: ExerciseDetailScreen(
                                   exerciseId: int.parse(exerciseId),
                                 ),
@@ -178,10 +204,13 @@ GoRouter createAppRouter(AuthBloc authBloc) {
                     name: AppRouteNames.appExercise,
                     builder: (context, state) {
                       return BlocProvider<ExerciseBloc>(
-                        create: (context) => ExerciseBloc(
-                          exerciseRepository: context
-                              .read<ExerciseRepositoryImpl>(),
-                        ),
+                        create: (context) {
+                          final repo = di.serviceLocator<ExerciseRepository>();
+                          return ExerciseBloc(
+                            getExercises: GetExercisesUseCase(repo),
+                            getExerciseById: GetExerciseByIdUseCase(repo),
+                          );
+                        },
                         child: const ExerciseScreen(),
                       );
                     },
@@ -256,18 +285,21 @@ GoRouter createAppRouter(AuthBloc authBloc) {
                   GoRoute(
                     path: 'activity-history',
                     name: AppRouteNames.appProfileActivityHistory,
-                    builder: (context, state) =>
-                        BlocProvider<ActivityHistoryBloc>(
-                          create: (context) => ActivityHistoryBloc(
-                            repository: ActivityHistoryRepositoryImpl(
-                              remoteDatasource:
-                                  ActivityHistoryRemoteDataSourceImpl(
-                                    supabaseClient: Supabase.instance.client,
-                                  ),
-                            ),
-                          ),
-                          child: const ActivityHistoryScreen(),
+                    builder: (context, state) {
+                      final repo = ActivityHistoryRepositoryImpl(
+                        remoteDatasource: ActivityHistoryRemoteDataSourceImpl(
+                          supabaseClient: Supabase.instance.client,
                         ),
+                      );
+                      return BlocProvider<ActivityHistoryBloc>(
+                        create: (context) => ActivityHistoryBloc(
+                          getActivityHistories: GetActivityHistoriesUseCase(
+                            repo,
+                          ),
+                        ),
+                        child: const ActivityHistoryScreen(),
+                      );
+                    },
                   ),
                   GoRoute(
                     path: ':profileId',
