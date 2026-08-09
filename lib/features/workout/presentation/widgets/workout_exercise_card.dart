@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
 import 'package:personal_fitness_tracker/features/exercise/domain/entities/exercise_entity.dart';
@@ -23,7 +24,7 @@ class _WorkoutExerciseCardState extends State<WorkoutExerciseCard> {
   @override
   Widget build(BuildContext context) {
     final exercise = widget.planExercise.exercise;
-    final exerciseName = exercise?.name ?? "Exercise";
+    final exerciseName = exercise?.name ?? "exercise".tr();
     final targetSets = widget.planExercise.targetSets;
     final targetRepsOrSeconds = widget.planExercise.targetRepsOrSeconds;
     final order = widget.planExercise.orderInWorkout;
@@ -31,24 +32,24 @@ class _WorkoutExerciseCardState extends State<WorkoutExerciseCard> {
     // Difficulty colors
     Color diffBgColor = ColorConstants.difficultyBeginnerBgColor;
     Color diffTextColor = ColorConstants.difficultyBeginnerTextColor;
-    String diffLabel = "Beginner";
+    String diffLabel = "beginner".tr();
 
     if (exercise != null) {
       switch (exercise.difficulty) {
         case DifficultyLevel.beginner:
           diffBgColor = ColorConstants.difficultyBeginnerBgColor;
           diffTextColor = ColorConstants.difficultyBeginnerTextColor;
-          diffLabel = "Beginner";
+          diffLabel = "beginner".tr();
           break;
         case DifficultyLevel.intermediate:
           diffBgColor = ColorConstants.difficultyIntermediateBgColor;
           diffTextColor = ColorConstants.difficultyIntermediateTextColor;
-          diffLabel = "Intermediate";
+          diffLabel = "intermediate".tr();
           break;
         case DifficultyLevel.advanced:
           diffBgColor = ColorConstants.difficultyAdvancedBgColor;
           diffTextColor = ColorConstants.difficultyAdvancedTextColor;
-          diffLabel = "Advanced";
+          diffLabel = "advanced".tr();
           break;
       }
     }
@@ -59,7 +60,7 @@ class _WorkoutExerciseCardState extends State<WorkoutExerciseCard> {
       onTapCancel: () => setState(() => _isPressed = false),
       onTap: widget.onTap,
       child: AnimatedScale(
-        scale: _isPressed ? 0.97 : 1.0,
+        scale: _isPressed ? 0.95 : 1.0,
         duration: const Duration(milliseconds: 100),
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -137,7 +138,9 @@ class _WorkoutExerciseCardState extends State<WorkoutExerciseCard> {
                                 vertical: 2,
                               ),
                               decoration: BoxDecoration(
-                                color: ColorConstants.primaryColor.withValues(alpha: 0.08),
+                                color: ColorConstants.primaryColor.withValues(
+                                  alpha: 0.08,
+                                ),
                                 borderRadius: BorderRadius.circular(20),
                               ),
                               child: Text(
@@ -173,7 +176,9 @@ class _WorkoutExerciseCardState extends State<WorkoutExerciseCard> {
                               vertical: 4,
                             ),
                             decoration: BoxDecoration(
-                              color: ColorConstants.primaryColor.withValues(alpha: 0.08),
+                              color: ColorConstants.primaryColor.withValues(
+                                alpha: 0.08,
+                              ),
                               borderRadius: BorderRadius.circular(20),
                             ),
                             child: Row(
@@ -182,11 +187,14 @@ class _WorkoutExerciseCardState extends State<WorkoutExerciseCard> {
                                 const Icon(
                                   Icons.repeat_rounded,
                                   size: 13,
-                                  color:ColorConstants.buttonColor,
+                                  color: ColorConstants.buttonColor,
                                 ),
                                 const SizedBox(width: 4),
                                 Text(
-                                  "$targetSets x $targetRepsOrSeconds",
+                                  "workout_exercise_card_sets_reps_badge".tr(namedArgs: {
+                                    "sets" : targetSets.toString(),
+                                    "reps" : targetRepsOrSeconds.toString(),
+                                  }),
                                   style: const TextStyle(
                                     color: ColorConstants.primaryColor,
                                     fontSize: 11,
@@ -205,7 +213,8 @@ class _WorkoutExerciseCardState extends State<WorkoutExerciseCard> {
                                 vertical: 4,
                               ),
                               decoration: BoxDecoration(
-                                color: ColorConstants.caloriesIconColor.withValues(alpha: 0.2),
+                                color: ColorConstants.caloriesIconColor
+                                    .withValues(alpha: 0.2),
                                 borderRadius: BorderRadius.circular(20),
                               ),
                               child: Row(

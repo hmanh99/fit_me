@@ -90,7 +90,7 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
                       ExerciseDetailHeader(exercise: exercise),
                       const SizedBox(height: 16),
                       ExerciseInfoSection(
-                        title: 'muscles_groups'.tr(),
+                        title: 'muscle_group'.tr(),
                         icon: Icons.accessibility_new_rounded,
                         items: exercise.muscleGroups,
                         chipAccentColor: ColorConstants.primaryColor,
@@ -99,7 +99,7 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
                         const SizedBox(height: 16),
                         ExerciseInfoSection(
                           chipAccentColor: ColorConstants.primaryColor,
-                          title: 'equipments'.tr(),
+                          title: 'equipment'.tr(),
                           icon: Icons.fitness_center_rounded,
                           items: exercise.equipments ?? [],
                         ),

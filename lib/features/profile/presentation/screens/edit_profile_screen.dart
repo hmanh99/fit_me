@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -92,7 +93,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         !hasAvatarChanged) {
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(const SnackBar(content: Text('No changes made')));
+      ).showSnackBar(SnackBar(content: Text('no_changes_message'.tr())));
       context.pop();
       return;
     }
@@ -140,8 +141,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               _isSaving = false;
             });
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Profile updated successfully!'),
+              SnackBar(
+                content: Text('update_success_message'.tr()),
                 backgroundColor: ColorConstants.snackBarSuccessColor,
               ),
             );
@@ -165,7 +166,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         return Scaffold(
           backgroundColor: ColorConstants.backgroundColor,
           appBar: ProfileAppBar(
-            title: "Edit Profile",
+            title: "profile_edit_profile_button".tr(),
             centerTitle: true,
             onBack: () => context.pop(),
           ),
@@ -207,9 +208,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const Text(
-            'Choose Avatar',
-            style: TextStyle(
+          Text(
+            'choose_avatar_title'.tr(),
+            style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
               color: ColorConstants.textPrimaryColor,
@@ -225,7 +226,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   : null,
               backgroundColor: ColorConstants.placeholderDarkColor,
               child: _selectedAvatarUrl == null
-                  ? const Icon(Icons.person, size: 44, color:ColorConstants.buttonTextColor)
+                  ? const Icon(
+                      Icons.person,
+                      size: 44,
+                      color: ColorConstants.buttonTextColor,
+                    )
                   : null,
             ),
           ),
@@ -274,9 +279,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           TextFormField(
             controller: _customAvatarController,
             decoration: InputDecoration(
-              labelText: 'Or paste image URL',
-              labelStyle: const TextStyle(fontSize: 13, color: ColorConstants.textSecondaryColor),
-              prefixIcon: const Icon(Icons.link_rounded, color: ColorConstants.grey),
+              labelText: 'avatar_url'.tr(),
+              labelStyle: const TextStyle(
+                fontSize: 13,
+                color: ColorConstants.textSecondaryColor,
+              ),
+              prefixIcon: const Icon(
+                Icons.link_rounded,
+                color: ColorConstants.grey,
+              ),
               filled: true,
               fillColor: ColorConstants.greyShade50,
               border: OutlineInputBorder(
@@ -324,8 +335,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const Text(
-              'Personal Information',
+             Text(
+              'personal_info_title'.tr(),
               style: TextStyle(
                 fontSize: 15,
                 fontWeight: FontWeight.bold,
@@ -338,12 +349,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               enabled: !isSavingOrUpdating,
               validator: (val) {
                 if (val == null || val.trim().isEmpty) {
-                  return 'Username is required';
+                  return 'username_required_error'.tr();
                 }
                 return null;
               },
               decoration: InputDecoration(
-                labelText: 'Username',
+                labelText: 'username'.tr(),
                 prefixIcon: const Icon(
                   Icons.person_outline_rounded,
                   color: ColorConstants.grey,
@@ -372,15 +383,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               ),
               inputFormatters: [FilteringTextInputFormatter.digitsOnly],
               validator: (val) {
-                if (val == null || val.isEmpty) return 'Height is required';
+                if (val == null || val.isEmpty) return 'height_required_error'.tr();
                 final height = double.tryParse(val);
                 if (height == null || height <= 0) {
-                  return 'Enter a valid height';
+                  return 'height_invalid_error'.tr();
                 }
                 return null;
               },
               decoration: InputDecoration(
-                labelText: 'Height (cm)',
+                labelText: 'height'.tr(),
                 prefixIcon: const Icon(
                   Icons.height_rounded,
                   color: ColorConstants.grey,
@@ -409,15 +420,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               ),
               inputFormatters: [FilteringTextInputFormatter.digitsOnly],
               validator: (val) {
-                if (val == null || val.isEmpty) return 'Weight is required';
+                if (val == null || val.isEmpty) return 'height_required_error'.tr();
                 final weight = double.tryParse(val);
                 if (weight == null || weight <= 0) {
-                  return 'Enter a valid weight';
+                  return 'weight_invalid_error'.tr();
                 }
                 return null;
               },
               decoration: InputDecoration(
-                labelText: 'Weight (kg)',
+                labelText: 'weight'.tr(),
                 prefixIcon: const Icon(
                   Icons.fitness_center_rounded,
                   color: ColorConstants.grey,
@@ -458,9 +469,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         strokeWidth: 2.5,
                       ),
                     )
-                  : const Text(
-                      "Save Changes",
-                      style: TextStyle(
+                  : Text(
+                      "save_changes_button".tr(),
+                      style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),

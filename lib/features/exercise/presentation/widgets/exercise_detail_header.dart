@@ -68,14 +68,15 @@ class ExerciseDetailHeader extends StatelessWidget {
                     ? Icons.fitness_center_rounded
                     : Icons.bolt_rounded,
                 label: exercise.requiresEquipment
-                    ? '${exercise.equipments!.length} ${'equipments'.tr()}'
-                    : 'Bodyweight',
+                    ? 'equipment_count'.plural(exercise.equipments!.length)
+                    : 'bodyweight'.tr(),
                 color: ColorConstants.iconColor,
               ),
               if (exercise.muscleGroups.isNotEmpty)
                 _MetaChip(
                   icon: Icons.accessibility_new_rounded,
-                  label: '${exercise.muscleGroups.length} ${'muscles_groups'.tr()}',
+                  label:
+                      'muscle_group_count'.plural(exercise.muscleGroups.length),
                   color: ColorConstants.iconColor,
                 ),
             ],

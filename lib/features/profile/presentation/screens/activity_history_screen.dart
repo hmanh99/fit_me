@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -36,7 +37,7 @@ class _ActivityHistoryScreenState extends State<ActivityHistoryScreen> {
     return Scaffold(
       backgroundColor: ColorConstants.backgroundColor,
       appBar: ProfileAppBar(
-        title: "Activity History",
+        title: "profile_activity_history_title".tr(),
         centerTitle: true,
         onBack: () => context.pop(),
       ),
@@ -113,7 +114,7 @@ class _ActivityHistoryScreenState extends State<ActivityHistoryScreen> {
                         ),
                       ),
                       ...items.map(
-                        (item) => ActivityHistoryCard(history: item),
+                            (item) => ActivityHistoryCard(history: item),
                       ),
                     ],
                   );

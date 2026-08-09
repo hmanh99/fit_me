@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:math' as math;
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -31,7 +32,7 @@ class _MealPlanScreenState extends State<MealPlanScreen> {
   List<MealEntity> _allMeals = [];
   bool _hasLoadedOnce = false;
 
-  static const int _pageSize = 10;
+  static const int _pageSize = 5;
   static const int _firstPageKey = 1;
 
   late final PagingController<int, MealEntity> _pagingController =
@@ -48,14 +49,25 @@ class _MealPlanScreenState extends State<MealPlanScreen> {
       return state.nextIntPageKey;
     },
     fetchPage: (pageKey) async {
-      await Future.delayed(const Duration(seconds: 1));
+      if (_firstPageKey == 1) {
+        await Future.delayed(const Duration(milliseconds: 300));
 
-      final filtered = _getFilteredMeals();
-      final start = (pageKey - _firstPageKey) * _pageSize;
-      if (start >= filtered.length) return <MealEntity>[];
+        final filtered = _getFilteredMeals();
+        final start = (pageKey - _firstPageKey) * _pageSize;
+        if (start >= filtered.length) return <MealEntity>[];
 
-      final end = math.min(start + _pageSize, filtered.length);
-      return filtered.sublist(start, end);
+        final end = math.min(start + _pageSize, filtered.length);
+        return filtered.sublist(start, end);
+      }else{
+        await Future.delayed(const Duration(seconds: 2));
+
+        final filtered = _getFilteredMeals();
+        final start = (pageKey - _firstPageKey) * _pageSize;
+        if (start >= filtered.length) return <MealEntity>[];
+
+        final end = math.min(start + _pageSize, filtered.length);
+        return filtered.sublist(start, end);
+      }
     },
   );
 
@@ -103,7 +115,7 @@ class _MealPlanScreenState extends State<MealPlanScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorConstants.backgroundColor,
-      appBar: MealAppBar(title: "Meal",),
+      appBar: MealAppBar(title: "meal".tr(),),
       body: RefreshIndicator(
         onRefresh: _handleRefresh,
         color: ColorConstants.iconColor,
@@ -177,7 +189,7 @@ class _MealPlanScreenState extends State<MealPlanScreen> {
                                 key: ValueKey(meal.mealId),
                                 tween: Tween(begin: 0.0, end: 1.0),
                                 duration: Duration(
-                                  milliseconds: 300 + (index * 50),
+                                  milliseconds: 200 + (index * 50),
                                 ),
                                 curve: Curves.easeOutCubic,
                                 builder: (context, value, child) {
@@ -224,9 +236,7 @@ class _MealPlanScreenState extends State<MealPlanScreen> {
                             ),
                             firstPageErrorIndicatorBuilder: (context) =>
                                 MealErrorView(
-                                  errorMessage:
-                                  _pagingController.error?.toString() ??
-                                      'Failed to load meals',
+                                  errorMessage: 'server_exception'.tr(),
                                   onRetry: _pagingController.fetchNextPage,
                                 ),
                             newPageErrorIndicatorBuilder: (context) =>
@@ -241,7 +251,7 @@ class _MealPlanScreenState extends State<MealPlanScreen> {
                                       icon: const Icon(
                                         Icons.refresh_rounded,
                                       ),
-                                      label: const Text('Retry'),
+                                      label:  Text('retry'.tr()),
                                     ),
                                   ),
                                 ),

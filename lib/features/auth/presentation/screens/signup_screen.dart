@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -62,20 +63,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
           backgroundColor: ColorConstants.backgroundColor,
           body: SafeArea(
             child: SingleChildScrollView(
-              physics: NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               padding: const EdgeInsets.all(20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const SizedBox(height: 24),
-                  const Text(
-                    'Hey there,',
-                    style: TextStyle(fontSize: 16, color: ColorConstants.textSecondaryColor),
+                  Text(
+                    'hey_there'.tr(),
+                    style: const TextStyle(fontSize: 16, color: ColorConstants.textSecondaryColor),
                   ),
                   const SizedBox(height: 2),
-                  const Text(
-                    'Create an Account',
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  Text(
+                    'create_an_account'.tr(),
+                    style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 24),
                   Form(
@@ -85,14 +86,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         TextFormField(
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return "You must enter your username";
+                              return 'username_required'.tr();
                             }
                             return null;
                           },
                           controller: _username,
                           enabled: !isLoading,
                           decoration: InputDecoration(
-                            hintText: "Username",
+                            hintText: 'username_hint'.tr(),
                             prefixIcon: const Icon(Icons.person_outline),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
@@ -105,19 +106,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         TextFormField(
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return "You must enter your email";
+                              return 'email_required'.tr();
                             }
                             if (!RegExp(
                               r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
                             ).hasMatch(value)) {
-                              return "Enter a valid email";
+                              return 'email_invalid'.tr();
                             }
                             return null;
                           },
                           controller: _email,
                           enabled: !isLoading,
                           decoration: InputDecoration(
-                            hintText: "Email",
+                            hintText: 'email_hint'.tr(),
                             prefixIcon: const Icon(Icons.email),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
@@ -130,31 +131,31 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         TextFormField(
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Password is required';
+                              return 'password_required'.tr();
                             }
                             if (value.length < 8) {
-                              return 'At least 8 characters';
+                              return 'password_min_length'.tr();
                             }
                             if (!RegExp(r'[A-Z]').hasMatch(value)) {
-                              return "At least one uppercase letter";
+                              return 'password_uppercase'.tr();
                             }
                             if (!RegExp(r'[a-z]').hasMatch(value)) {
-                              return 'At least one lowercase letter';
+                              return 'password_lowercase'.tr();
                             }
                             if (!RegExp(r'[0-9]').hasMatch(value)) {
-                              return 'At least one number';
+                              return 'password_number'.tr();
                             }
                             if (!RegExp(
                               r'[!@#\/$%^&*(),.?":{}|<>]',
                             ).hasMatch(value)) {
-                              return 'At least one special character';
+                              return 'password_special_char'.tr();
                             }
                             return null;
                           },
                           controller: _password,
                           enabled: !isLoading,
                           decoration: InputDecoration(
-                            hintText: "Password",
+                            hintText: 'password_hint'.tr(),
                             prefixIcon: const Icon(Icons.lock),
                             suffixIcon: IconButton(
                               onPressed: () {
@@ -185,36 +186,36 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               onChanged: isLoading
                                   ? null
                                   : (val) => setState(
-                                      () => _acceptedTerms = val ?? false,
-                                    ),
+                                    () => _acceptedTerms = val ?? false,
+                              ),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(2),
                               ),
                               activeColor: ColorConstants.buttonColor,
                               materialTapTargetSize:
-                                  MaterialTapTargetSize.shrinkWrap,
+                              MaterialTapTargetSize.shrinkWrap,
                               visualDensity: VisualDensity.compact,
                             ),
                             const SizedBox(width: 8),
                             Expanded(
                               child: RichText(
-                                text: const TextSpan(
-                                  style: TextStyle(
+                                text: TextSpan(
+                                  style: const TextStyle(
                                     fontSize: 13,
                                     color: ColorConstants.textSecondaryColor,
                                   ),
                                   children: [
                                     TextSpan(
-                                      text: 'By continuing you accept our ',
+                                      text: 'terms_prefix'.tr(),
                                     ),
                                     TextSpan(
-                                      text: 'Privacy Policy',
-                                      style: TextStyle(color: ColorConstants.textHighlightColor),
+                                      text: 'terms_privacy_policy'.tr(),
+                                      style: const TextStyle(color: ColorConstants.textHighlightColor),
                                     ),
-                                    TextSpan(text: ' and '),
+                                    TextSpan(text: 'terms_and'.tr()),
                                     TextSpan(
-                                      text: 'Term of Use',
-                                      style: TextStyle(color: ColorConstants.textHighlightColor),
+                                      text: 'terms_of_use'.tr(),
+                                      style: const TextStyle(color: ColorConstants.textHighlightColor),
                                     ),
                                   ],
                                 ),
@@ -237,39 +238,39 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           onPressed: isLoading
                               ? null
                               : () {
-                                  if (_formKey.currentState!.validate()) {
-                                    if (!_acceptedTerms) {
-                                      ScaffoldMessenger.of(
-                                        context,
-                                      ).showSnackBar(
-                                        const SnackBar(
-                                          content: Text(
-                                            'Please accept the Privacy Policy and Terms of Use',
-                                          ),
-                                        ),
-                                      );
-                                      return;
-                                    }
+                            if (_formKey.currentState!.validate()) {
+                              if (!_acceptedTerms) {
+                                ScaffoldMessenger.of(
+                                  context,
+                                ).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      'terms_not_accepted'.tr(),
+                                    ),
+                                  ),
+                                );
+                                return;
+                              }
 
-                                    context.read<AuthBloc>().add(
-                                      AuthSignUpEvent(
-                                        username: _username.text.trim(),
-                                        email: _email.text.trim(),
-                                        password: _password.text,
-                                      ),
-                                    );
-                                  }
-                                },
+                              context.read<AuthBloc>().add(
+                                AuthSignUpEvent(
+                                  username: _username.text.trim(),
+                                  email: _email.text.trim(),
+                                  password: _password.text,
+                                ),
+                              );
+                            }
+                          },
                           child: isLoading
                               ? const SizedBox(
-                                  height: 25,
-                                  width: 25,
-                                  child: CircularProgressIndicator(
-                                    strokeWidth: 2.5,
-                                    color: ColorConstants.buttonColor,
-                                  ),
-                                )
-                              : const Text("Sign up"),
+                            height: 25,
+                            width: 25,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2.5,
+                              color: ColorConstants.buttonColor,
+                            ),
+                          )
+                              : Text('sign_up_button'.tr()),
                         ),
                       ],
                     ),
@@ -277,16 +278,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
                   const SizedBox(height: 24),
                   Row(
-                    children: const [
-                      Expanded(child: Divider()),
+                    children: [
+                      const Expanded(child: Divider()),
                       Padding(
-                        padding: EdgeInsets.all(12),
+                        padding: const EdgeInsets.all(12),
                         child: Text(
-                          'Or',
-                          style: TextStyle(color: ColorConstants.textSecondaryColor, fontSize: 13),
+                          'or_divider'.tr(),
+                          style: const TextStyle(color: ColorConstants.textSecondaryColor, fontSize: 13),
                         ),
                       ),
-                      Expanded(child: Divider()),
+                      const Expanded(child: Divider()),
                     ],
                   ),
 
@@ -296,17 +297,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ? null
                         : () => context.go(AppRoutePaths.login),
                     child: RichText(
-                      text: const TextSpan(
-                        style: TextStyle(
+                      text: TextSpan(
+                        style: const TextStyle(
                           fontSize: 13,
                           color: ColorConstants.textPrimaryColor,
                           fontWeight: FontWeight.bold,
                         ),
                         children: [
-                          TextSpan(text: "Already have an account? "),
+                          TextSpan(text: 'have_account_prompt'.tr()),
                           TextSpan(
-                            text: "Login",
-                            style: TextStyle(color: ColorConstants.textHighlightColor),
+                            text: 'login_button'.tr(),
+                            style: const TextStyle(color: ColorConstants.textHighlightColor),
                           ),
                         ],
                       ),

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
 import 'package:personal_fitness_tracker/core/services/auth_services.dart';
@@ -10,7 +11,8 @@ class DashboardHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = AuthServices();
-    final username = user.user?.userMetadata?['username'] ?? "Fitness Partner";
+    final username =
+        user.user?.userMetadata?['username'] ?? 'default_username'.tr();
     return SafeArea(
       bottom: false,
       child: Row(
@@ -20,7 +22,7 @@ class DashboardHeader extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Hi, $username",
+                'greeting'.tr(namedArgs: {'username': username}),
                 style: const TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
@@ -29,8 +31,8 @@ class DashboardHeader extends StatelessWidget {
               ),
               const SizedBox(height: 4),
               Text(
-                "It's time to break your limit",
-                style: TextStyle(
+                'tagline'.tr(),
+                style: const TextStyle(
                   fontSize: 13,
                   color: ColorConstants.textSecondaryColor,
                   fontWeight: FontWeight.w500,

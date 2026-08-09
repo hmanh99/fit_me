@@ -48,7 +48,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           if (state is ProfileLogoutFailure) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text('Logout failed: ${state.message}'),
+                content: Text(state.message),
                 backgroundColor: ColorConstants.errorColor,
               ),
             );
@@ -77,12 +77,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ProfileHeader(profile: profile),
                       const SizedBox(height: 16),
                       SectionCard(
-                        title: 'Account',
+                        title: 'profile_account_section'.tr(),
                         child: Column(
                           children: [
                             MenuTile(
                               icon: Icons.person_outline_rounded,
-                              label: 'Personal Data',
+                              label: 'profile_personal_data_title'.tr(),
                               onTap: () {
                                 context.goNamed(
                                   AppRouteNames.appProfileDetail,
@@ -90,20 +90,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 );
                               },
                             ),
-                            _divider(),
                             MenuTile(
                               icon: Icons.history,
-                              label: 'Activity History',
+                              label: 'profile_activity_history_title'.tr(),
                               onTap: () {
                                 context.goNamed(
                                   AppRouteNames.appProfileActivityHistory,
                                 );
                               },
                             ),
-                            _divider(),
                             MenuTile(
                               icon: Icons.logout,
-                              label: 'Log out',
+                              label: 'logout'.tr(),
                               isLogout: true,
                               onTap: () {
                                 context.read<ProfileBloc>().add(
@@ -116,16 +114,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                       const SizedBox(height: 16),
                       SectionCard(
-                        title: 'Other',
+                        title: 'profile_other_section'.tr(),
                         child: Column(
                           children: [
                             MenuTile(
                               icon: Icons.settings_outlined,
                               label: 'settings'.tr(),
-                              onTap: () =>
-                                  context.goNamed(
-                                    AppRouteNames.appProfileSettings,
-                                  ),
+                              onTap: () => context.goNamed(
+                                AppRouteNames.appProfileSettings,
+                              ),
                             ),
                           ],
                         ),
@@ -136,18 +133,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             );
           } else if (state is ProfileError) {
-            ProfileErrorState(state: state, onTap: () =>
-                context.read<ProfileBloc>().add(
-                  ProfileFetched(userId: _authService.user!.id),
-                ),);
+            ProfileErrorState(
+              state: state,
+              onTap: () => context.read<ProfileBloc>().add(
+                ProfileFetched(userId: _authService.user!.id),
+              ),
+            );
           }
           return const ProfileScreenSkeleton();
         },
       ),
     );
   }
-}
-
-Widget _divider() {
-  return Divider(height: 1, thickness: 1, color: ColorConstants.dividerColor);
 }

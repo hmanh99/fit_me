@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
@@ -10,7 +11,7 @@ import 'package:personal_fitness_tracker/features/workout/presentation/widgets/c
 import '../widgets/session_summary_card.dart';
 
 class SummaryScreen extends StatelessWidget {
-  const SummaryScreen( {super.key, required this.state, required this.context});
+  const SummaryScreen({super.key, required this.state, required this.context});
 
   final WorkoutSessionState state;
   final BuildContext context;
@@ -62,9 +63,9 @@ class SummaryScreen extends StatelessWidget {
                       color: ColorConstants.yellow,
                     ),
                     const SizedBox(height: 12),
-                    const Text(
-                      'Congratulations!',
-                      style: TextStyle(
+                    Text(
+                      'congratulations_title'.tr(),
+                      style: const TextStyle(
                         color: ColorConstants.white,
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
@@ -72,7 +73,9 @@ class SummaryScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 6),
                     Text(
-                      'You completed ${state.plan.planName}',
+                      'completed_plan_message'.tr(
+                        namedArgs: {'planName': state.plan.planName},
+                      ),
                       style: TextStyle(
                         color: ColorConstants.white.withValues(alpha: 0.9),
                         fontSize: 13,
@@ -95,27 +98,37 @@ class SummaryScreen extends StatelessWidget {
                 children: [
                   SummaryCard(
                     icon: Icons.timer_outlined,
-                    label: 'Total Duration',
+                    label: 'total_duration'.tr(),
                     value: formatDuration(state.elapsedSeconds),
                     color: ColorConstants.primaryColor,
                   ),
                   SummaryCard(
                     icon: Icons.fitness_center_rounded,
-                    label: 'Total Volume',
-                    value: '${state.totalVolume.toStringAsFixed(1)} kg',
+                    label: 'total_volume'.tr(),
+                    value: 'total_volume_value'.tr(
+                      namedArgs: {
+                        "volume": state.totalVolume.toStringAsFixed(1),
+                      },
+                    ),
                     color: ColorConstants.primaryColor,
                   ),
                   SummaryCard(
                     icon: Icons.check_circle_outline_rounded,
-                    label: 'Sets Completed',
-                    value:
-                        '${state.totalSetsCompleted} / ${state.totalSetsInPlan}',
+                    label: 'sets_completed'.tr(),
+                    value: "sets_completed_value".tr(
+                      namedArgs: {
+                        "completed": state.completedSets.toString(),
+                        "total": state.totalSetsInPlan.toString(),
+                      },
+                    ),
                     color: ColorConstants.primaryColor,
                   ),
                   SummaryCard(
                     icon: Icons.repeat_rounded,
-                    label: 'Reps Completed',
-                    value: '${state.totalRepsCompleted} reps',
+                    label: 'reps_completed'.tr(),
+                    value: 'reps_completed_value'.tr(
+                      namedArgs: {"reps": state.totalRepsCompleted.toString()},
+                    ),
                     color: ColorConstants.primaryColor,
                   ),
                 ],
@@ -150,8 +163,8 @@ class SummaryScreen extends StatelessWidget {
                     ),
                     child: Container(
                       alignment: Alignment.center,
-                      child: const Text(
-                        'FINISH & SAVE WORKOUT',
+                      child: Text(
+                        'finish_and_save_button'.tr(),
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,

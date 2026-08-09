@@ -25,7 +25,7 @@ class MealHeader extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(horizontal: 20),
             children: [
-              _buildTab(context, null, "All"),
+              _buildTab(context, null, "all".tr()),
               const SizedBox(width: 12),
               _buildTab(context, MealType.breakfast, "breakfast".tr()),
               const SizedBox(width: 12),

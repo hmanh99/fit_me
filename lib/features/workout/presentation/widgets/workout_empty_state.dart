@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
 
 class WorkoutEmptyState extends StatelessWidget {
   final VoidCallback? onRefresh;
+
   const WorkoutEmptyState({super.key, this.onRefresh});
 
   @override
@@ -51,9 +53,9 @@ class WorkoutEmptyState extends StatelessWidget {
             ),
             const SizedBox(height: 32),
             // Text Content
-            const Text(
-              "No Workouts Available",
-              style: TextStyle(
+            Text(
+              "workout_empty_state_title".tr(),
+              style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w700,
                 color: ColorConstants.textPrimaryColor,
@@ -61,8 +63,8 @@ class WorkoutEmptyState extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 12),
-            const Text(
-              "We couldn't find any workout plans. Try checking back later or tap Refresh to reload.",
+            Text(
+              "workout_empty_state_message".tr(),
               style: TextStyle(
                 fontSize: 14,
                 color: ColorConstants.textSecondaryColor,
@@ -87,9 +89,12 @@ class WorkoutEmptyState extends StatelessWidget {
                 ),
                 child: ElevatedButton.icon(
                   onPressed: onRefresh,
-                  icon: const Icon(Icons.refresh_rounded, color: ColorConstants.buttonTextColor),
-                  label: const Text(
-                    "Refresh Plans",
+                  icon: const Icon(
+                    Icons.refresh_rounded,
+                    color: ColorConstants.buttonTextColor,
+                  ),
+                  label: Text(
+                    "refresh".tr(),
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w600,

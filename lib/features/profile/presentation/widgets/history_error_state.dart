@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
 
@@ -48,7 +49,8 @@ class HistoryErrorState extends StatelessWidget {
                     shape: BoxShape.circle,
                     boxShadow: [
                       BoxShadow(
-                        color: ColorConstants.errorColor..withValues(alpha: 0.3),
+                        color: ColorConstants.errorColor
+                          ..withValues(alpha: 0.3),
                         blurRadius: 8,
                         offset: const Offset(0, 3),
                       ),
@@ -64,8 +66,8 @@ class HistoryErrorState extends StatelessWidget {
             ),
             const SizedBox(height: 32),
             // Title
-            const Text(
-              "Something Went Wrong",
+            Text(
+              "something_went_wrong".tr(),
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w700,
@@ -77,7 +79,7 @@ class HistoryErrorState extends StatelessWidget {
             // Details
             Text(
               errorMessage.contains("ServerException")
-                  ? "We encountered a server error. Please check your internet connection and try again."
+                  ? "server_exception".tr()
                   : errorMessage,
               style: const TextStyle(
                 fontSize: 14,
@@ -92,7 +94,7 @@ class HistoryErrorState extends StatelessWidget {
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(99),
-                 color: ColorConstants.buttonColor,
+                  color: ColorConstants.buttonColor,
                   boxShadow: [
                     BoxShadow(
                       color: ColorConstants.buttonColor.withValues(alpha: 0.3),
@@ -103,9 +105,12 @@ class HistoryErrorState extends StatelessWidget {
                 ),
                 child: ElevatedButton.icon(
                   onPressed: onRetry,
-                  icon: const Icon(Icons.refresh_rounded, color: ColorConstants.white),
-                  label: const Text(
-                    "Try Again",
+                  icon: const Icon(
+                    Icons.refresh_rounded,
+                    color: ColorConstants.white,
+                  ),
+                  label: Text(
+                    "try_again".tr(),
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w600,

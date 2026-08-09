@@ -1,24 +1,45 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:personal_fitness_tracker/features/auth/domain/repositories/auth_repository.dart';
 import 'package:personal_fitness_tracker/features/auth/domain/entities/user_entities.dart';
+import 'package:personal_fitness_tracker/features/auth/domain/usecases/forgot_password_use_case.dart';
+import 'package:personal_fitness_tracker/features/auth/domain/usecases/get_current_user_use_case.dart';
+import 'package:personal_fitness_tracker/features/auth/domain/usecases/login_use_case.dart';
+import 'package:personal_fitness_tracker/features/auth/domain/usecases/logout_use_case.dart';
+import 'package:personal_fitness_tracker/features/auth/domain/usecases/sign_up_use_case.dart';
+import 'package:personal_fitness_tracker/features/auth/domain/usecases/watch_auth_state_use_case.dart';
 import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_event.dart';
 import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  final AuthRepository _authRepository;
+  final GetCurrentUserUseCase _getCurrentUser;
+  final LoginUseCase _login;
+  final SignUpUseCase _signUp;
+  final ForgotPasswordUseCase _forgotPassword;
+  final LogoutUseCase _logout;
+  final WatchAuthStateUseCase _watchAuthState;
   late final StreamSubscription<UserEntity?> _authStateSubscription;
 
-  AuthBloc({required AuthRepository authRepository})
-    : _authRepository = authRepository,
-      super(const AuthUnknownState()) {
-    _authStateSubscription = _authRepository.watchAuthState().listen((user) {
+  AuthBloc({
+    required GetCurrentUserUseCase getCurrentUser,
+    required LoginUseCase login,
+    required SignUpUseCase signUp,
+    required ForgotPasswordUseCase forgotPassword,
+    required LogoutUseCase logout,
+    required WatchAuthStateUseCase watchAuthState,
+  })  : _getCurrentUser = getCurrentUser,
+        _login = login,
+        _signUp = signUp,
+        _forgotPassword = forgotPassword,
+        _logout = logout,
+        _watchAuthState = watchAuthState,
+        super(const AuthUnknownState()) {
+    _authStateSubscription = _watchAuthState().listen((user) {
       add(AuthSessionChanged(user: user));
     });
 
     on<AuthSessionRestoreRequested>((event, emit) {
-      final user = _authRepository.currentUser;
+      final user = _getCurrentUser();
       if (user != null) {
         emit(AuthLoginState(user: user));
       } else {
@@ -53,10 +74,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthSignUpEvent>((event, emit) async {
       emit(const AuthLoadingState());
       try {
-        final user = await _authRepository.signUp(
-          username: event.username,
-          email: event.email,
-          password: event.password,
+        final user = await _signUp(
+          SignUpUseCaseParams(
+            username: event.username,
+            email: event.email,
+            password: event.password,
+          ),
         );
 
         emit(AuthSignUpState(user: user));
@@ -69,7 +92,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthLoginEvent>((event, emit) async {
       emit(const AuthLoadingState());
       try {
-        final user = await _authRepository.login(
+        final user = await _login(
           email: event.email,
           password: event.password,
         );
@@ -83,7 +106,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthSignOutEvent>((event, emit) async {
       emit(const AuthLoadingState());
       try {
-        await _authRepository.logout();
+        await _logout();
         emit(const AuthSignOutState());
       } catch (e) {
         emit(AuthErrorState(message: e.toString()));
@@ -94,7 +117,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthForgotPasswordEvent>((event, emit) async {
       emit(const AuthLoadingState());
       try {
-        await _authRepository.forgotPassword(email: event.email);
+        await _forgotPassword(email: event.email);
         emit(const AuthForgotPasswordSuccessState());
       } catch (e) {
         emit(AuthErrorState(message: e.toString()));

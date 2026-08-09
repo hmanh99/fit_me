@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -56,8 +57,8 @@ class _WorkoutSessionScreenState extends State<WorkoutSessionScreen> {
       listener: (context, state) {
         if (state.status == WorkoutStatus.finished) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Workout saved successfully! Great job!'),
+            SnackBar(
+              content: Text('session_saved_success_message'.tr()),
               backgroundColor: ColorConstants.snackBarSuccessColor,
             ),
           );
@@ -128,7 +129,7 @@ class _WorkoutSessionScreenState extends State<WorkoutSessionScreen> {
       title: Text(
         state.plan.planName.isNotEmpty
             ? state.plan.planName
-            : 'Workout Session',
+            : 'session_default_session_title'.tr(),
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
         style: TextStyle(

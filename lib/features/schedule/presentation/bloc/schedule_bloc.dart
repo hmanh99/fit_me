@@ -2,16 +2,34 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:personal_fitness_tracker/features/schedule/domain/entities/workout_schedule_entity.dart';
-import 'package:personal_fitness_tracker/features/schedule/domain/repositories/schedule_repository.dart';
+import 'package:personal_fitness_tracker/features/schedule/domain/usecases/add_schedule_use_case.dart';
+import 'package:personal_fitness_tracker/features/schedule/domain/usecases/delete_schedule_use_case.dart';
+import 'package:personal_fitness_tracker/features/schedule/domain/usecases/get_schedules_by_month_use_case.dart';
+import 'package:personal_fitness_tracker/features/schedule/domain/usecases/update_schedule_use_case.dart';
+import 'package:personal_fitness_tracker/features/schedule/domain/usecases/watch_schedules_use_case.dart';
 import 'package:personal_fitness_tracker/features/schedule/presentation/bloc/schedule_event.dart';
 import 'package:personal_fitness_tracker/features/schedule/presentation/bloc/schedule_state.dart';
 
 class ScheduleBloc extends Bloc<ScheduleEvent, ScheduleState> {
-  final ScheduleRepository scheduleRepository;
+  final GetSchedulesByMonthUseCase _getSchedulesByMonth;
+  final AddScheduleUseCase _addSchedule;
+  final UpdateScheduleUseCase _updateSchedule;
+  final DeleteScheduleUseCase _deleteSchedule;
+  final WatchSchedulesUseCase _watchSchedules;
   StreamSubscription<List<WorkoutScheduleEntity>>? _realtimeSub;
 
-  ScheduleBloc({required this.scheduleRepository})
-      : super(ScheduleState.initial()) {
+  ScheduleBloc({
+    required GetSchedulesByMonthUseCase getSchedulesByMonth,
+    required AddScheduleUseCase addSchedule,
+    required UpdateScheduleUseCase updateSchedule,
+    required DeleteScheduleUseCase deleteSchedule,
+    required WatchSchedulesUseCase watchSchedules,
+  })  : _getSchedulesByMonth = getSchedulesByMonth,
+        _addSchedule = addSchedule,
+        _updateSchedule = updateSchedule,
+        _deleteSchedule = deleteSchedule,
+        _watchSchedules = watchSchedules,
+        super(ScheduleState.initial()) {
     on<ScheduleLoadRequested>(_onLoadRequested);
     on<ScheduleDateSelected>(_onDateSelected);
     on<ScheduleAddRequested>(_onAddRequested);
@@ -32,10 +50,12 @@ class ScheduleBloc extends Bloc<ScheduleEvent, ScheduleState> {
     ));
 
     try {
-      final schedules = await scheduleRepository.getSchedulesByMonth(
-        userId: event.userId,
-        year: event.year,
-        month: event.month,
+      final schedules = await _getSchedulesByMonth(
+        GetSchedulesByMonthParams(
+          userId: event.userId,
+          year: event.year,
+          month: event.month,
+        ),
       );
 
       final marked = _buildMarkedDates(schedules);
@@ -80,7 +100,7 @@ class ScheduleBloc extends Bloc<ScheduleEvent, ScheduleState> {
   ) async {
     emit(state.copyWith(operationStatus: ScheduleOperationStatus.loading));
     try {
-      await scheduleRepository.addSchedule(event.schedule);
+      await _addSchedule(event.schedule);
 
       // Bug 2 fix: fetch the refreshed data first, then emit a single
       // atomic state that includes both the new list AND operationStatus
@@ -108,7 +128,7 @@ class ScheduleBloc extends Bloc<ScheduleEvent, ScheduleState> {
   ) async {
     emit(state.copyWith(operationStatus: ScheduleOperationStatus.loading));
     try {
-      await scheduleRepository.updateSchedule(event.schedule);
+      await _updateSchedule(event.schedule);
 
       // Bug 2 fix: single atomic emit with fresh data + success status.
       final refreshed = await _fetchCurrentMonthData();
@@ -134,7 +154,7 @@ class ScheduleBloc extends Bloc<ScheduleEvent, ScheduleState> {
   ) async {
     emit(state.copyWith(operationStatus: ScheduleOperationStatus.loading));
     try {
-      await scheduleRepository.deleteSchedule(event.scheduleId);
+      await _deleteSchedule(event.scheduleId);
 
       // Bug 2 fix: single atomic emit with fresh data + success status.
       final refreshed = await _fetchCurrentMonthData();
@@ -210,10 +230,12 @@ class ScheduleBloc extends Bloc<ScheduleEvent, ScheduleState> {
 
     // Bug 5 fix: always use state.focusedDate (kept in sync by
     // _onLoadRequested) as the authoritative month source for CUD refreshes.
-    final schedules = await scheduleRepository.getSchedulesByMonth(
-      userId: state.userId!,
-      year: state.focusedDate.year,
-      month: state.focusedDate.month,
+    final schedules = await _getSchedulesByMonth(
+      GetSchedulesByMonthParams(
+        userId: state.userId!,
+        year: state.focusedDate.year,
+        month: state.focusedDate.month,
+      ),
     );
 
     return (
@@ -254,7 +276,7 @@ class ScheduleBloc extends Bloc<ScheduleEvent, ScheduleState> {
   /// automatic data update
   void _startRealtimeSubscription(String userId) {
     _realtimeSub?.cancel();
-    _realtimeSub = scheduleRepository.watchSchedules(userId).listen(
+    _realtimeSub = _watchSchedules(userId).listen(
       (schedules) {
         add(ScheduleRealtimeUpdated(schedules: schedules));
       },

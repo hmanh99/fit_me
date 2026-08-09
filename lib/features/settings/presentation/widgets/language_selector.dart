@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/constants/app_languages.dart';
+import '../../../../core/l10n/app_languages.dart';
 
 class LanguageSelector extends StatelessWidget {
   final String currentLanguageCode;

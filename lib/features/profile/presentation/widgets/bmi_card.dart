@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
 
@@ -16,15 +17,15 @@ class BmiCard extends StatelessWidget {
 
   String get _feedbackText {
     if (bmi < 18.5) {
-      return "You are underweight. Consider checking your nutrition plan.";
+      return "bmi_feedback_underweight".tr();
     }
     if (bmi < 25) {
-      return "You have a normal body weight. Great job, keep it up!";
+      return "bmi_feedback_normal".tr();
     }
     if (bmi < 30) {
-      return "You are overweight. Try adding more cardio exercises.";
+      return "bmi_feedback_overweight".tr();
     }
-    return "You are obese. Consult a fitness professional for advice.";
+    return "bmi_feedback_obese".tr();
   }
 
   double get _indicatorPercent => ((bmi - 15) / 25).clamp(0.0, 1.0);
@@ -36,7 +37,7 @@ class BmiCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color:ColorConstants.white,
+        color: ColorConstants.white,
         borderRadius: BorderRadius.circular(24),
         border: Border.all(color: ColorConstants.borderLightColor),
         boxShadow: [
@@ -58,8 +59,8 @@ class BmiCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
-                'Body Mass Index (BMI)',
+              Text(
+                'bmi_title'.tr(),
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w700,

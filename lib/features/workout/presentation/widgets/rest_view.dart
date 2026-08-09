@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
@@ -22,8 +23,8 @@ class RestView extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text(
-            'REST TIME',
+          Text(
+            'rest_view_rest_time_title'.tr(),
             style: TextStyle(
               fontSize: 24,
               letterSpacing: 2,
@@ -51,14 +52,19 @@ class RestView extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    '${restRemaining}s',
+                    "rest_view_seconds_remaining".tr(
+                      namedArgs: {"seconds": restRemaining.toString()},
+                    ),
                     style: const TextStyle(
                       fontSize: 60,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   const SizedBox(height: 4),
-                  const Text('remaining', style: TextStyle(fontSize: 16)),
+                  Text(
+                    'rest_view_remaining'.tr(),
+                    style: const TextStyle(fontSize: 16),
+                  ),
                 ],
               ),
             ],
@@ -116,8 +122,8 @@ class RestView extends StatelessWidget {
                     ),
                   ),
 
-                  child: const Text(
-                    'SKIP REST',
+                  child: Text(
+                    'rest_view_skip_rest_button'.tr(),
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                   ),
                 ),
@@ -141,7 +147,7 @@ class RestView extends StatelessWidget {
                   ),
                 ],
                 border: Border.all(
-                  color: Colors.white.withValues(alpha: 0.4),
+                  color: ColorConstants.white.withValues(alpha: 0.4),
                   width: 1.5,
                 ),
                 borderRadius: BorderRadius.circular(24),
@@ -152,16 +158,16 @@ class RestView extends StatelessWidget {
                     width: 60,
                     height: 60,
                     decoration: BoxDecoration(
-                      color: Colors.white.withValues(alpha: 0.25),
+                      color: ColorConstants.white.withValues(alpha: 0.25),
                       shape: BoxShape.circle,
                       border: Border.all(
-                        color: Colors.white.withValues(alpha: 0.3),
+                        color: ColorConstants.white.withValues(alpha: 0.3),
                         width: 1,
                       ),
                     ),
                     child: const Icon(
                       Icons.fitness_center_rounded,
-                      color: Colors.white,
+                      color: ColorConstants.white,
                       size: 30,
                     ),
                   ),
@@ -170,10 +176,10 @@ class RestView extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          'COMING',
+                        Text(
+                          'rest_view_coming_up'.tr(),
                           style: TextStyle(
-                            color: Colors.white,
+                            color: ColorConstants.white,
                             fontSize: 13,
                             fontWeight: FontWeight.bold,
                             letterSpacing: 1.2,
@@ -181,18 +187,24 @@ class RestView extends StatelessWidget {
                         ),
                         const SizedBox(height: 4),
                         Text(
-                          nextEx.exercise?.name ?? 'Next Exercise',
+                          nextEx.exercise?.name ??
+                              'rest_view_next_exercise_fallback'.tr(),
                           style: const TextStyle(
                             fontSize: 24,
-                            color: Colors.white,
+                            color: ColorConstants.white,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         Text(
-                          '${nextEx.targetSets} sets × ${nextEx.targetRepsOrSeconds} reps',
+                          "rest_view_sets_reps_target".tr(
+                            namedArgs: {
+                              "sets": nextEx.targetSets.toString(),
+                              "reps": nextEx.targetRepsOrSeconds.toString(),
+                            },
+                          ),
                           style: const TextStyle(
                             fontSize: 13,
-                            color: Colors.white,
+                            color: ColorConstants.white,
                           ),
                         ),
                       ],

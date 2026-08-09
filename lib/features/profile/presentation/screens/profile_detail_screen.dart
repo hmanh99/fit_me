@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -35,7 +36,7 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
     return Scaffold(
       backgroundColor: ColorConstants.backgroundColor,
       appBar: ProfileAppBar(
-        title: "Personal Data",
+        title: "profile_personal_data_title".tr(),
         centerTitle: true,
         onBack: () => context.pop(),
       ),
@@ -77,10 +78,10 @@ class _ProfileBody extends StatelessWidget {
   final ProfileEntity profile;
 
   String _bmiCategory(double bmi) {
-    if (bmi < 18.5) return 'Underweight';
-    if (bmi < 25) return 'Normal';
-    if (bmi < 30) return 'Overweight';
-    return 'Obese';
+    if (bmi < 18.5) return 'bmi_underweight'.tr();
+    if (bmi < 25) return 'bmi_normal'.tr();
+    if (bmi < 30) return 'bmi_overweight'.tr();
+    return 'bmi_obese'.tr();
   }
 
   @override
@@ -101,7 +102,7 @@ class _ProfileBody extends StatelessWidget {
               Expanded(
                 child: StatCard(
                   icon: Icons.height_rounded,
-                  label: "Height",
+                  label: "height".tr(),
                   value: profile.height.toStringAsFixed(0),
                   unit: "cm",
                   color: ColorConstants.iconColor,
@@ -111,7 +112,7 @@ class _ProfileBody extends StatelessWidget {
               Expanded(
                 child: StatCard(
                   icon: Icons.fitness_center_rounded,
-                  label: "Weight",
+                  label: "weight".tr(),
                   value: profile.weight.toStringAsFixed(0),
                   unit: "kg",
                   color: ColorConstants.iconColor,
@@ -149,18 +150,18 @@ class _ProfileBody extends StatelessWidget {
                   pathParameters: {'profileId': profile.userId},
                 );
               },
-              child: const Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.edit_rounded,
                     color: ColorConstants.buttonTextColor,
                     size: 18,
                   ),
-                  SizedBox(width: 8),
+                  const SizedBox(width: 8),
                   Text(
-                    "Edit Profile",
-                    style: TextStyle(
+                    "profile_edit_profile_button".tr(),
+                    style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                       color: ColorConstants.buttonTextColor,

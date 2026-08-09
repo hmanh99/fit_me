@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
 
@@ -52,9 +53,9 @@ class DashboardEmptyRecommendations extends StatelessWidget {
 
             const SizedBox(height: 24),
 
-            const Text(
-              'No Exercises Found',
-              style: TextStyle(
+            Text(
+              'no_exercises_found'.tr(),
+              style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w700,
                 color: ColorConstants.textPrimaryColor,
@@ -64,10 +65,9 @@ class DashboardEmptyRecommendations extends StatelessWidget {
 
             const SizedBox(height: 10),
 
-            const Text(
-              'We couldn\'t find any exercises to recommend right now. '
-              'Tap Refresh to try again.',
-              style: TextStyle(
+            Text(
+              'no_exercises_message'.tr(),
+              style: const TextStyle(
                 fontSize: 14,
                 color: ColorConstants.textSecondaryColor,
                 height: 1.5,
@@ -92,9 +92,9 @@ class DashboardEmptyRecommendations extends StatelessWidget {
                 child: ElevatedButton.icon(
                   onPressed: onRefresh,
                   icon: const Icon(Icons.refresh_rounded, color: ColorConstants.buttonTextColor),
-                  label: const Text(
-                    'Refresh',
-                    style: TextStyle(
+                  label: Text(
+                    'refresh'.tr(),
+                    style: const TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
                       color: ColorConstants.buttonTextColor,

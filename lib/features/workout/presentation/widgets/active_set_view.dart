@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
@@ -25,12 +26,14 @@ class ActiveSetView extends StatelessWidget {
   Widget build(BuildContext context) {
     final currentEx = state.currentPlanExercise;
     if (currentEx == null) {
-      return const Center(child: Text("No exercise found in plan"));
+      return Center(child: Text("no_exercise_found".tr()));
     }
 
     final exerciseName =
         currentEx.exercise?.name ??
-        'Exercise ${state.currentExerciseIndex + 1}';
+        "active_set_view_exercise_fallback_name".tr(
+          namedArgs: {"index": (state.currentExerciseIndex + 1).toString()},
+        );
     final targetRepsSecs = currentEx.targetRepsOrSeconds;
 
     return SingleChildScrollView(
@@ -116,8 +119,8 @@ class ActiveSetView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Current Set',
+                Text(
+                  'active_set_view_current_set_title'.tr(),
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -128,7 +131,7 @@ class ActiveSetView extends StatelessWidget {
 
                 // Weight Input Row
                 StepperInput(
-                  label: 'Weight (kg)',
+                  label: 'weight'.tr(),
                   controller: weightController,
                   icon: Icons.fitness_center_rounded,
                   step: 2.5,
@@ -139,7 +142,7 @@ class ActiveSetView extends StatelessWidget {
 
                 // Reps Input Row
                 StepperInput(
-                  label: 'Reps/Secs',
+                  label: 'active_set_view_reps_input'.tr(),
                   controller: repsController,
                   icon: Icons.repeat_rounded,
                   step: 1.0,
@@ -195,8 +198,8 @@ class ActiveSetView extends StatelessWidget {
                       const SizedBox(width: 8),
                       Text(
                         state.isLastSetOfCurrentExercise && state.isLastExercise
-                            ? 'COMPLETE WORKOUT'
-                            : 'COMPLETE SET',
+                            ? 'active_set_view_complete_workout_button'.tr()
+                            : 'active_set_view_complete_set_button'.tr(),
                         style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -229,7 +232,7 @@ class ActiveSetView extends StatelessWidget {
                     ),
                   ),
                   child: Text(
-                    'Skip Exercise',
+                    'active_set_view_skip_exercise_button'.tr(),
                     style: TextStyle(
                       color: ColorConstants.greyShade700,
                       fontWeight: FontWeight.w600,
@@ -253,7 +256,7 @@ class ActiveSetView extends StatelessWidget {
                     ),
                   ),
                   child: Text(
-                    'Finish Early',
+                    'active_set_view_finish_early_button'.tr(),
                     style: TextStyle(
                       color: ColorConstants.red,
                       fontWeight: FontWeight.w600,
@@ -290,16 +293,21 @@ class ActiveSetView extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
-                'Sets Progress',
-                style: TextStyle(
+              Text(
+                'active_set_view_sets_progress_title'.tr(),
+                style: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
                   color: ColorConstants.primaryColor,
                 ),
               ),
               Text(
-                '${loggedSets.length} / ${currentEx.targetSets} completed',
+                "active_set_view_sets_progress_count".tr(
+                  namedArgs: {
+                    "completed": loggedSets.length.toString(),
+                    "target": currentEx.targetSets.toString(),
+                  },
+                ),
                 style: TextStyle(
                   fontSize: 12,
                   color: ColorConstants.greyShade600,
@@ -365,7 +373,9 @@ class ActiveSetView extends StatelessWidget {
                     ),
                     const SizedBox(width: 12),
                     Text(
-                      'Set $setNum',
+                      'active_set_view_set'.tr(
+                        namedArgs: {"number": setNum.toString()},
+                      ),
                       style: TextStyle(
                         fontWeight: isCurrent
                             ? FontWeight.bold
@@ -379,8 +389,17 @@ class ActiveSetView extends StatelessWidget {
                     if (isCompleted)
                       Text(
                         completed.isSkipped
-                            ? 'Skipped'
-                            : '${completed.repsCompleted} reps ${completed.weightUsed != null && completed.weightUsed! > 0 ? "${completed.weightUsed} kg" : ""}',
+                            ? 'skipped'
+                            : 'active_set_view_reps_completed_with_weight'.tr(
+                                namedArgs: {
+                                  "reps": completed.repsCompleted.toString(),
+                                  "weight":
+                                      completed.weightUsed != null &&
+                                          completed.weightUsed! > 0
+                                      ? completed.weightUsed!.toStringAsFixed(1)
+                                      : "0",
+                                },
+                              ),
                         style: TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.w600,
@@ -390,9 +409,9 @@ class ActiveSetView extends StatelessWidget {
                         ),
                       )
                     else if (isCurrent)
-                      const Text(
-                        'Active',
-                        style: TextStyle(
+                      Text(
+                        'active'.tr(),
+                        style: const TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
                           color: ColorConstants.blue,
@@ -400,7 +419,11 @@ class ActiveSetView extends StatelessWidget {
                       )
                     else
                       Text(
-                        'Target: ${currentEx.targetRepsOrSeconds} reps',
+                        'active_set_view_target_reps'.tr(
+                          namedArgs: {
+                            "target": currentEx.targetRepsOrSeconds.toString(),
+                          },
+                        ),
                         style: TextStyle(
                           fontSize: 12,
                           color: ColorConstants.greyShade900,

@@ -2,15 +2,40 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:personal_fitness_tracker/features/profile/domain/entities/profile_entity.dart';
-import 'package:personal_fitness_tracker/features/profile/domain/repositories/profile_repository.dart';
+import 'package:personal_fitness_tracker/features/profile/domain/usecases/get_current_profile_use_case.dart';
+import 'package:personal_fitness_tracker/features/profile/domain/usecases/logout_profile_use_case.dart';
+import 'package:personal_fitness_tracker/features/profile/domain/usecases/update_profile_avatar_use_case.dart';
+import 'package:personal_fitness_tracker/features/profile/domain/usecases/update_profile_height_use_case.dart';
+import 'package:personal_fitness_tracker/features/profile/domain/usecases/update_profile_use_case.dart';
+import 'package:personal_fitness_tracker/features/profile/domain/usecases/update_profile_username_use_case.dart';
+import 'package:personal_fitness_tracker/features/profile/domain/usecases/update_profile_weight_use_case.dart';
 import 'package:personal_fitness_tracker/features/profile/presentation/bloc/profile_event.dart';
 import 'package:personal_fitness_tracker/features/profile/presentation/bloc/profile_state.dart';
 
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
-  final ProfileRepositories _profileRepositories;
+  final GetCurrentProfileUseCase _getCurrentProfile;
+  final UpdateProfileUsernameUseCase _updateUsername;
+  final UpdateProfileHeightUseCase _updateHeight;
+  final UpdateProfileWeightUseCase _updateWeight;
+  final UpdateProfileAvatarUseCase _updateAvatar;
+  final UpdateProfileUseCase _updateProfile;
+  final LogoutProfileUseCase _logoutProfile;
 
-  ProfileBloc({required ProfileRepositories repositories})
-      : _profileRepositories = repositories,
+  ProfileBloc({
+    required GetCurrentProfileUseCase getCurrentProfile,
+    required UpdateProfileUsernameUseCase updateUsername,
+    required UpdateProfileHeightUseCase updateHeight,
+    required UpdateProfileWeightUseCase updateWeight,
+    required UpdateProfileAvatarUseCase updateAvatar,
+    required UpdateProfileUseCase updateProfile,
+    required LogoutProfileUseCase logoutProfile,
+  })  : _getCurrentProfile = getCurrentProfile,
+        _updateUsername = updateUsername,
+        _updateHeight = updateHeight,
+        _updateWeight = updateWeight,
+        _updateAvatar = updateAvatar,
+        _updateProfile = updateProfile,
+        _logoutProfile = logoutProfile,
         super(ProfileInitial()) {
     on<ProfileFetched>(_onProfileFetched);
     on<ProfileUsernameUpdated>(_onUsernameUpdated);
@@ -37,9 +62,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     if (s is ProfileLoaded && s.profile.userId == event.userId) {
       try {
         emit(ProfileLoading());
-        final profile = await _profileRepositories.getCurrentProfile(
-          userId: event.userId,
-        );
+        final profile = await _getCurrentProfile(userId: event.userId);
         emit(ProfileLoaded(profile: profile));
       } catch (e) {
         emit(ProfileError(message: e.toString()));
@@ -49,9 +72,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     }
 
     try {
-      final profile = await _profileRepositories.getCurrentProfile(
-        userId: event.userId,
-      );
+      final profile = await _getCurrentProfile(userId: event.userId);
       emit(ProfileLoaded(profile: profile));
     } catch (e) {
       emit(ProfileError(message: e.toString()));
@@ -74,17 +95,23 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
     emit(ProfileUpdating(profile: updated));
     try {
-      final hasUsernameChanged = event.username != null && event.username != current.username;
-      final hasHeightChanged = event.height != null && (event.height! - current.height).abs() > 0.01;
-      final hasWeightChanged = event.weight != null && (event.weight! - current.weight).abs() > 0.01;
-      final hasAvatarChanged = event.avatar != null && event.avatar != current.avatar;
+      final hasUsernameChanged =
+          event.username != null && event.username != current.username;
+      final hasHeightChanged = event.height != null &&
+          (event.height! - current.height).abs() > 0.01;
+      final hasWeightChanged = event.weight != null &&
+          (event.weight! - current.weight).abs() > 0.01;
+      final hasAvatarChanged =
+          event.avatar != null && event.avatar != current.avatar;
 
-      await _profileRepositories.updateProfile(
-        profile: updated,
-        updateUsername: hasUsernameChanged,
-        updateHeight: hasHeightChanged,
-        updateWeight: hasWeightChanged,
-        updateAvatar: hasAvatarChanged,
+      await _updateProfile(
+        UpdateProfileUseCaseParams(
+          profile: updated,
+          updateUsername: hasUsernameChanged,
+          updateHeight: hasHeightChanged,
+          updateWeight: hasWeightChanged,
+          updateAvatar: hasAvatarChanged,
+        ),
       );
       emit(ProfileLoaded(profile: updated));
     } catch (e) {
@@ -103,7 +130,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     final updated = current.copyWith(username: event.username);
     emit(ProfileUpdating(profile: updated));
     try {
-      await _profileRepositories.updateUsername(profile: updated);
+      await _updateUsername(profile: updated);
       emit(ProfileLoaded(profile: updated));
     } catch (e) {
       emit(ProfileError(message: e.toString()));
@@ -121,7 +148,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     final updated = current.copyWith(height: event.height);
     emit(ProfileUpdating(profile: updated));
     try {
-      await _profileRepositories.updateHeight(profile: updated);
+      await _updateHeight(profile: updated);
       emit(ProfileLoaded(profile: updated));
     } catch (e) {
       emit(ProfileError(message: e.toString()));
@@ -139,7 +166,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     final updated = current.copyWith(weight: event.weight);
     emit(ProfileUpdating(profile: updated));
     try {
-      await _profileRepositories.updateWeight(profile: updated);
+      await _updateWeight(profile: updated);
       emit(ProfileLoaded(profile: updated));
     } catch (e) {
       emit(ProfileError(message: e.toString()));
@@ -157,7 +184,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     final updated = current.copyWith(avatar: event.avatar);
     emit(ProfileUpdating(profile: updated));
     try {
-      await _profileRepositories.updateAvatar(profile: updated);
+      await _updateAvatar(profile: updated);
       emit(ProfileLoaded(profile: updated));
     } catch (e) {
       emit(ProfileError(message: e.toString()));
@@ -171,7 +198,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   ) async {
     emit(ProfileLoading());
     try {
-      await _profileRepositories.logoutProfile();
+      await _logoutProfile();
       emit(const ProfileLogoutSuccess());
       emit(ProfileInitial());
     } catch (e) {

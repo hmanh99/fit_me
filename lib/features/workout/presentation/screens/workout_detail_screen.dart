@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -31,7 +32,7 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
   @override
   void initState() {
     super.initState();
-    _planName = widget.planName ?? "Workout Plan";
+    _planName = widget.planName ?? "workout_plan".tr();
     context.read<WorkoutBloc>().add(
       WorkoutFetchPlanDetailsStarted(planId: widget.workoutId),
     );
@@ -87,14 +88,14 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     _buildHeaderCard(plan),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
                         horizontal: 20,
                         vertical: 8,
                       ),
                       child: Text(
-                        "Exercises List",
-                        style: TextStyle(
+                        "workout_detail_screen_exercises_list_title".tr(),
+                        style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                           color: ColorConstants.textPrimaryColor,
@@ -186,8 +187,8 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
                       color: ColorConstants.buttonTextColor,
                       size: 26,
                     ),
-                    label: const Text(
-                      'Start Workout',
+                    label: Text(
+                      'start_workout_button'.tr(),
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -265,13 +266,13 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
             children: [
               _buildStatChip(
                 icon: Icons.fitness_center_rounded,
-                label: "${plan.exerciseCount} Exercises",
+                label: "exercises_count".tr(namedArgs: {"count" : plan.exerciseCount.toString()}),
                 color: ColorConstants.iconColor,
               ),
               const SizedBox(width: 12),
               _buildStatChip(
                 icon: Icons.repeat_rounded,
-                label: "$totalSets Total Sets",
+                label: "total_sets".tr(namedArgs: {"count" : totalSets.toString()}),
                 color: ColorConstants.iconColor,
               ),
             ],

@@ -5,13 +5,15 @@ import 'package:personal_fitness_tracker/core/services/auth_services.dart';
 import 'package:personal_fitness_tracker/features/workout/domain/entities/set_session_entity.dart';
 import 'package:personal_fitness_tracker/features/workout/domain/entities/workout_plan_entity.dart';
 import 'package:personal_fitness_tracker/features/workout/domain/entities/workout_session_entity.dart';
-import 'package:personal_fitness_tracker/features/workout/domain/repositories/workout_repository.dart';
+import 'package:personal_fitness_tracker/features/workout/domain/usecases/create_set_session_use_case.dart';
+import 'package:personal_fitness_tracker/features/workout/domain/usecases/create_workout_session_use_case.dart';
 import 'package:personal_fitness_tracker/features/workout/presentation/bloc/workout_session_event.dart';
 import 'package:personal_fitness_tracker/features/workout/presentation/bloc/workout_session_state.dart';
 
 class WorkoutSessionBloc
     extends Bloc<WorkoutSessionEvent, WorkoutSessionState> {
-  final WorkoutRepository _repository;
+  final CreateWorkoutSessionUseCase _createWorkoutSession;
+  final CreateSetSessionUseCase _createSetSession;
   Timer? _elapsedTimer;
   Timer? _restTimer;
   WorkoutStatus _statusBeforePause = WorkoutStatus.running;
@@ -25,8 +27,11 @@ class WorkoutSessionBloc
     );
   }
 
-  WorkoutSessionBloc({required WorkoutRepository repository})
-      : _repository = repository,
+  WorkoutSessionBloc({
+    required CreateWorkoutSessionUseCase createWorkoutSession,
+    required CreateSetSessionUseCase createSetSession,
+  })  : _createWorkoutSession = createWorkoutSession,
+        _createSetSession = createSetSession,
         super(
           WorkoutSessionState(
             plan: _emptyPlan(),
@@ -341,7 +346,7 @@ class WorkoutSessionBloc
         completedAt: now,
       );
 
-      final createdSessionId = await _repository.createWorkoutSession(session);
+      final createdSessionId = await _createWorkoutSession(session);
 
       // Save session sets
       for (final set in state.completedSets) {
@@ -355,7 +360,7 @@ class WorkoutSessionBloc
             weight: set.weightUsed,
             isCompleted: true,
           );
-          await _repository.createSetSession(setSession);
+          await _createSetSession(setSession);
         }
       }
 

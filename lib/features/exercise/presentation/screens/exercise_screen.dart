@@ -40,7 +40,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
         onBack: () {
           context.pop();
         },
-        title: 'exercise'.tr(),
+        title: 'exercises'.tr(),
       ),
       body: BlocBuilder<ExerciseBloc, ExerciseState>(
         builder: (context, state) {

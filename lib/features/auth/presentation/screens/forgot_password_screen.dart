@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -50,10 +51,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         if (state is AuthForgotPasswordSuccessState) {
           _email.clear();
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text(
-                'Password reset email sent! Please check your inbox.',
-              ),
+            SnackBar(
+              content: Text('reset_email_sent'.tr()),
               backgroundColor: ColorConstants.snackBarSuccessColor,
             ),
           );
@@ -87,12 +86,12 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               onPressed: isLoading
                   ? null
                   : () {
-                      if (context.canPop()) {
-                        context.pop();
-                      } else {
-                        context.go(AppRoutePaths.login);
-                      }
-                    },
+                if (context.canPop()) {
+                  context.pop();
+                } else {
+                  context.go(AppRoutePaths.login);
+                }
+              },
             ),
           ),
           body: SafeArea(
@@ -119,16 +118,15 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   ),
 
                   const SizedBox(height: 24),
-                  const Text(
-                    'Forgot Password?',
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  Text(
+                    'forgot_password_title'.tr(),
+                    style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 8),
-                  const Text(
-                    r"Don't worry! Enter your email and"
-                    "\n we'll send you a reset link.",
+                  Text(
+                    'forgot_password_subtitle'.tr(),
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 13,
                       color: ColorConstants.textSecondaryColor,
                       height: 1.5,
@@ -143,19 +141,19 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         TextFormField(
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return "You must enter your email";
+                              return 'email_required'.tr();
                             }
                             if (!RegExp(
                               r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
                             ).hasMatch(value)) {
-                              return "Enter a valid email";
+                              return 'email_invalid'.tr();
                             }
                             return null;
                           },
                           controller: _email,
                           enabled: !isLoading,
                           decoration: InputDecoration(
-                            hintText: "Email",
+                            hintText: 'email_hint'.tr(),
                             prefixIcon: const Icon(Icons.email),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
@@ -178,14 +176,14 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                           onPressed: isLoading ? null : _onSendPressed,
                           child: isLoading
                               ? SizedBox(
-                                  height: 25,
-                                  width: 25,
-                                  child: CircularProgressIndicator(
-                                    strokeWidth: 2.5,
-                                    color: ColorConstants.buttonTextColor,
-                                  ),
-                                )
-                              : const Text("Send Reset Link"),
+                            height: 25,
+                            width: 25,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2.5,
+                              color: ColorConstants.buttonTextColor,
+                            ),
+                          )
+                              : Text('send_reset_link'.tr()),
                         ),
                       ],
                     ),
@@ -193,19 +191,19 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
                   const SizedBox(height: 32),
                   Row(
-                    children:  [
-                      Expanded(child: Divider()),
+                    children: [
+                      const Expanded(child: Divider()),
                       Padding(
-                        padding: EdgeInsets.all(12),
+                        padding: const EdgeInsets.all(12),
                         child: Text(
-                          'Or',
-                          style: TextStyle(
+                          'or_divider'.tr(),
+                          style: const TextStyle(
                             color: ColorConstants.textSecondaryColor,
                             fontSize: 13,
                           ),
                         ),
                       ),
-                      Expanded(child: Divider()),
+                      const Expanded(child: Divider()),
                     ],
                   ),
 
@@ -216,16 +214,16 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         : () => context.go(AppRoutePaths.login),
                     child: RichText(
                       text: TextSpan(
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 13,
                           color: ColorConstants.textPrimaryColor,
                           fontWeight: FontWeight.bold,
                         ),
                         children: [
-                          TextSpan(text: "Remember your password? "),
+                          TextSpan(text: 'remember_password_prompt'.tr()),
                           TextSpan(
-                            text: "Login",
-                            style: TextStyle(
+                            text: 'login_button'.tr(),
+                            style: const TextStyle(
                               color: ColorConstants.textHighlightColor,
                             ),
                           ),

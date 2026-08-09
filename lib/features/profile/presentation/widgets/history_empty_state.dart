@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
 
 class HistoryEmptyState extends StatelessWidget {
   final VoidCallback? onRefresh;
+
   const HistoryEmptyState({super.key, this.onRefresh});
 
   @override
@@ -51,8 +53,8 @@ class HistoryEmptyState extends StatelessWidget {
             ),
             const SizedBox(height: 32),
             // Text Content
-            const Text(
-              "No Sessions Available",
+            Text(
+              "history_empty_title".tr(),
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w700,
@@ -61,8 +63,8 @@ class HistoryEmptyState extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 12),
-            const Text(
-              "We couldn't find any workout sessions. Try checking back later or tap Refresh to reload.",
+            Text(
+              "history_empty_description".tr(),
               style: TextStyle(
                 fontSize: 14,
                 color: ColorConstants.grey,
@@ -87,9 +89,12 @@ class HistoryEmptyState extends StatelessWidget {
                 ),
                 child: ElevatedButton.icon(
                   onPressed: onRefresh,
-                  icon: const Icon(Icons.refresh_rounded, color: ColorConstants.white),
-                  label: const Text(
-                    "Refresh",
+                  icon: const Icon(
+                    Icons.refresh_rounded,
+                    color: ColorConstants.white,
+                  ),
+                  label: Text(
+                    "refresh".tr(),
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w600,

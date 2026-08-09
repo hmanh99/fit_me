@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
 
@@ -59,37 +60,37 @@ class _RecommendationCardState extends State<RecommendationCard> {
                 ),
                 child: _hasImage
                     ? ClipRRect(
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(24),
-                          topRight: Radius.circular(24),
-                        ),
-                        child: Image.network(
-                          fit: BoxFit.fill,
-                          widget.exercise['url'].toString(),
-                        ),
-                      )
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(24),
+                    topRight: Radius.circular(24),
+                  ),
+                  child: Image.network(
+                    fit: BoxFit.fill,
+                    widget.exercise['url'].toString(),
+                  ),
+                )
                     : Center(
-                        child: Container(
-                          width: 60,
-                          height: 60,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: ColorConstants.primaryColor,
-                            boxShadow: [
-                              BoxShadow(
-                                color: ColorConstants.primaryColor.withValues(alpha: 0.3),
-                                blurRadius: 12,
-                                offset: const Offset(0, 4),
-                              ),
-                            ],
-                          ),
-                          child: const Icon(
-                            Icons.fitness_center_rounded,
-                            color: ColorConstants.buttonTextColor,
-                            size: 30,
-                          ),
+                  child: Container(
+                    width: 60,
+                    height: 60,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: ColorConstants.primaryColor,
+                      boxShadow: [
+                        BoxShadow(
+                          color: ColorConstants.primaryColor.withValues(alpha: 0.3),
+                          blurRadius: 12,
+                          offset: const Offset(0, 4),
                         ),
-                      ),
+                      ],
+                    ),
+                    child: const Icon(
+                      Icons.fitness_center_rounded,
+                      color: ColorConstants.buttonTextColor,
+                      size: 30,
+                    ),
+                  ),
+                ),
               ),
               Expanded(
                 child: Padding(
@@ -150,7 +151,7 @@ class _RecommendationCardState extends State<RecommendationCard> {
                           ),
                           const SizedBox(width: 4),
                           Text(
-                            "${((widget.exercise['equipment'] as List).length).toString()} equipments",
+                            'equipment_count'.plural((widget.exercise['equipment'] as List).length,),
                             style: const TextStyle(fontSize: 13, color: ColorConstants.textPrimaryColor),
                           ),
                         ],

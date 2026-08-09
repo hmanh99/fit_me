@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
+
 class DashboardRecommendationsError extends StatelessWidget {
   final String errorMessage;
   final VoidCallback? onRetry;
@@ -61,9 +63,9 @@ class DashboardRecommendationsError extends StatelessWidget {
             ),
             const SizedBox(height: 24),
             // Title
-            const Text(
-              "Something Went Wrong",
-              style: TextStyle(
+            Text(
+              'something_went_wrong'.tr(),
+              style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w700,
                 color: ColorConstants.textPrimaryColor,
@@ -74,7 +76,7 @@ class DashboardRecommendationsError extends StatelessWidget {
             // Details error
             Text(
               errorMessage.contains("ServerException")
-                  ? "We encountered a server error. Please check your internet connection and try again."
+                  ? 'server_error_message'.tr()
                   : errorMessage,
               style: const TextStyle(
                 fontSize: 14,
@@ -101,9 +103,9 @@ class DashboardRecommendationsError extends StatelessWidget {
                 child: ElevatedButton.icon(
                   onPressed: onRetry,
                   icon: const Icon(Icons.refresh_rounded, color: ColorConstants.buttonTextColor),
-                  label: const Text(
-                    "Try Again",
-                    style: TextStyle(
+                  label: Text(
+                    'try_again'.tr(),
+                    style: const TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
                       color: ColorConstants.buttonTextColor,

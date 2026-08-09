@@ -1,16 +1,17 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:personal_fitness_tracker/features/profile/domain/entities/activity_history_entity.dart';
-import 'package:personal_fitness_tracker/features/profile/domain/repositories/activity_history_repository.dart';
+import 'package:personal_fitness_tracker/features/profile/domain/usecases/get_activity_histories_use_case.dart';
 import 'package:personal_fitness_tracker/features/profile/presentation/bloc/activity_history_event.dart';
 import 'package:personal_fitness_tracker/features/profile/presentation/bloc/activity_history_state.dart';
 
 class ActivityHistoryBloc
     extends Bloc<ActivityHistoryEvent, ActivityHistoryState> {
-  final ActivityHistoryRepository repository;
+  final GetActivityHistoriesUseCase _getActivityHistories;
 
-  ActivityHistoryBloc({required this.repository})
-      : super(ActivityHistoryInitial()) {
+  ActivityHistoryBloc({required GetActivityHistoriesUseCase getActivityHistories})
+      : _getActivityHistories = getActivityHistories,
+        super(ActivityHistoryInitial()) {
     on<FetchActivityHistory>(_onFetchActivityHistory);
   }
 
@@ -27,7 +28,7 @@ class ActivityHistoryBloc
     Emitter<ActivityHistoryState> emit,
   ) async {
     try {
-      final histories = await repository.getActivityHistories(userId: userId);
+      final histories = await _getActivityHistories(userId: userId);
 
       if (histories.isEmpty) {
         emit(ActivityHistoryEmpty());

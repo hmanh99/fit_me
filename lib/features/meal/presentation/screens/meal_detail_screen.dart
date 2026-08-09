@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -225,9 +226,9 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          "Ingredients Needed",
-          style: TextStyle(
+        Text(
+          "ingredients_needed".tr(),
+          style: const TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
             color:ColorConstants.textPrimaryColor,
@@ -235,9 +236,9 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
         ),
         const SizedBox(height: 12),
         if (meal.ingredients.isEmpty)
-          const Text(
-            "No ingredients listed.",
-            style: TextStyle(
+          Text(
+            "no_ingredients_listed".tr(),
+            style: const TextStyle(
               color: ColorConstants.textSecondaryColor,
               fontSize: 14,
             ),

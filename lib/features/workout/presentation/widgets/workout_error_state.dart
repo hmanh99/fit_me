@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
 
@@ -64,8 +65,8 @@ class WorkoutErrorState extends StatelessWidget {
             ),
             const SizedBox(height: 32),
             // Title
-            const Text(
-              "Something Went Wrong",
+            Text(
+              "something_went_wrong".tr(),
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w700,
@@ -77,7 +78,7 @@ class WorkoutErrorState extends StatelessWidget {
             // Details
             Text(
               errorMessage.contains("ServerException")
-                  ? "We encountered a server error. Please check your internet connection and try again."
+                  ? "server_exception".tr()
                   : errorMessage,
               style: const TextStyle(
                 fontSize: 14,
@@ -104,8 +105,8 @@ class WorkoutErrorState extends StatelessWidget {
                 child: ElevatedButton.icon(
                   onPressed: onRetry,
                   icon: const Icon(Icons.refresh_rounded, color: ColorConstants.buttonTextColor),
-                  label: const Text(
-                    "Try Again",
+                  label: Text(
+                    "try_again".tr(),
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w600,

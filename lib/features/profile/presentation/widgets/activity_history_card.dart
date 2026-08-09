@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
@@ -130,7 +131,7 @@ class ActivityHistoryCard extends StatelessWidget {
                     ),
                     const SizedBox(width: 4),
                     Text(
-                      'Complete',
+                      'activity_complete_status'.tr(),
                       style: TextStyle(
                         fontSize: 12,
                         color: ColorConstants.green,

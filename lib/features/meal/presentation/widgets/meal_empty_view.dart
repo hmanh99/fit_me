@@ -54,7 +54,7 @@ class MealEmptyView extends StatelessWidget {
             const SizedBox(height: 24),
             // Text Content
             Text(
-              "No Meals Found",
+              "no_meals_found".tr(),
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w700,

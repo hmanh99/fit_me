@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
@@ -41,8 +42,8 @@ class PausedOverlay extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 16),
-              const Text(
-                'Workout Paused',
+              Text(
+                'workout_paused_overlay_title'.tr(),
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
@@ -51,7 +52,9 @@ class PausedOverlay extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Text(
-                'Elapsed time: ${formatDuration(state.elapsedSeconds)}',
+                "paused_overlay_elapsed_time".tr(
+                  namedArgs: {"duration": formatDuration(state.elapsedSeconds)},
+                ),
                 style: TextStyle(
                   color: ColorConstants.greyShade600,
                   fontSize: 14,
@@ -74,8 +77,8 @@ class PausedOverlay extends StatelessWidget {
                       borderRadius: BorderRadius.circular(16),
                     ),
                   ),
-                  child: const Text(
-                    'RESUME WORKOUT',
+                  child: Text(
+                    'paused_overlay_resume_button'.tr(),
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: ColorConstants.white,
@@ -100,7 +103,7 @@ class PausedOverlay extends StatelessWidget {
                     ),
                   ),
                   child: Text(
-                    'Finish Early',
+                    "paused_overlay_finish_early_button".tr(),
                     style: TextStyle(color: ColorConstants.greyShade800),
                   ),
                 ),

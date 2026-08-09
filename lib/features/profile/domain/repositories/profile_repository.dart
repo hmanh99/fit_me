@@ -1,6 +1,6 @@
 import 'package:personal_fitness_tracker/features/profile/domain/entities/profile_entity.dart';
 
-abstract class ProfileRepositories {
+abstract class ProfileRepository {
   Future<ProfileEntity> getCurrentProfile({required String userId});
 
   Future<void> updateUsername({required ProfileEntity profile});

@@ -1,3 +1,5 @@
+import 'package:easy_localization/easy_localization.dart';
+
 enum MealType {
   breakfast,
   lunch,
@@ -33,11 +35,11 @@ enum MealType {
   String get label {
     switch (this) {
       case MealType.breakfast:
-        return 'Breakfast';
+        return 'breakfast'.tr();
       case MealType.lunch:
-        return 'Lunch';
+        return 'lunch'.tr();
       case MealType.dinner:
-        return 'Dinner';
+        return 'dinner'.tr();
     }
   }
 }

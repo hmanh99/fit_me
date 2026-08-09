@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -35,12 +36,12 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
           color: ColorConstants.appBarForegroundColor,
           onPressed: () => context.pop(),
         ),
-        title: const Text(
-          "Workout Plans",
+        title: Text(
+          "workout_plans".tr(),
           style: TextStyle(
             color: ColorConstants.appBarForegroundColor,
             fontWeight: FontWeight.bold,
-            fontSize: 22,
+            fontSize: 24,
             letterSpacing: 0.5,
           ),
         ),

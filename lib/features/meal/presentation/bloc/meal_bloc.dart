@@ -1,15 +1,22 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:personal_fitness_tracker/core/error/exceptions.dart';
-import 'package:personal_fitness_tracker/features/meal/domain/repositories/meal_repository.dart';
+import 'package:personal_fitness_tracker/features/meal/domain/usecases/get_meal_by_id_use_case.dart';
+import 'package:personal_fitness_tracker/features/meal/domain/usecases/get_meals_use_case.dart';
 import 'package:personal_fitness_tracker/features/meal/presentation/bloc/meal_event.dart';
 import 'package:personal_fitness_tracker/features/meal/presentation/bloc/meal_state.dart';
 
 class MealBloc extends Bloc<MealEvent, MealState> {
-  final MealRepository mealRepository;
+  final GetMealsUseCase _getMeals;
+  final GetMealByIdUseCase _getMealById;
 
   int _listFetchGeneration = 0;
 
-  MealBloc({required this.mealRepository}) : super(MealInitial()) {
+  MealBloc({
+    required GetMealsUseCase getMeals,
+    required GetMealByIdUseCase getMealById,
+  })  : _getMeals = getMeals,
+        _getMealById = getMealById,
+        super(MealInitial()) {
     on<MealFetchStarted>(_onMealFetchStarted);
     on<MealFetchByIdStarted>(_onMealFetchByIdStarted);
   }
@@ -22,7 +29,7 @@ class MealBloc extends Bloc<MealEvent, MealState> {
     emit(MealLoading());
 
     try {
-      final meals = await mealRepository.getMeals();
+      final meals = await _getMeals();
       if (generation != _listFetchGeneration) return;
 
       if (meals.isEmpty) {
@@ -38,13 +45,14 @@ class MealBloc extends Bloc<MealEvent, MealState> {
       emit(MealError(message: e.toString()));
     }
   }
+
   Future<void> _onMealFetchByIdStarted(
     MealFetchByIdStarted event,
     Emitter<MealState> emit,
   ) async {
     emit(MealLoading());
     try {
-      final meal = await mealRepository.getMealById(event.mealId);
+      final meal = await _getMealById(event.mealId);
       emit(MealDetailSuccess(meal: meal));
     } on ServerException catch (e) {
       emit(MealError(message: e.message));

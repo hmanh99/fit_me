@@ -3,7 +3,7 @@ import 'package:personal_fitness_tracker/features/profile/data/models/profile_mo
 import 'package:personal_fitness_tracker/features/profile/domain/entities/profile_entity.dart';
 import 'package:personal_fitness_tracker/features/profile/domain/repositories/profile_repository.dart';
 
-class ProfileRepositoriesImpl implements ProfileRepositories {
+class ProfileRepositoriesImpl implements ProfileRepository {
   final ProfileRemoteDatasource remoteDatasource;
 
   const ProfileRepositoriesImpl({required this.remoteDatasource});

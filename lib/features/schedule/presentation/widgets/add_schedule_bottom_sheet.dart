@@ -404,7 +404,7 @@ class _AddScheduleBottomSheetState extends State<AddScheduleBottomSheet> {
     if (planName.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: const Text('Please select or enter a plan name'),
+          content:  Text("please_select_plan_name".tr()),
           behavior: SnackBarBehavior.floating,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -88,7 +89,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     const DashboardHeader(),
                     const SizedBox(height: 24),
 
-                    const _SectionLabel(label: 'Quick Actions'),
+                    _SectionLabel(label: 'quick_actions'.tr()),
                     const SizedBox(height: 12),
                     GridView.count(
                       crossAxisCount: 2,
@@ -100,22 +101,22 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       children: [
                         QuickActionButton(
                           icon: Icons.fitness_center_rounded,
-                          label: r'Workout Plans',
+                          label: 'workout_plans'.tr(),
                           onTap: () => context.push(AppRoutePaths.appWorkout),
                         ),
                         QuickActionButton(
                           icon: Icons.sports_gymnastics_outlined,
-                          label: 'Exercises\nLibrary',
+                          label: 'exercises_library'.tr(),
                           onTap: () => context.push(AppRoutePaths.appExercise),
                         ),
                         QuickActionButton(
                           icon: Icons.calendar_month_rounded,
-                          label: 'My\nSchedule',
+                          label: 'my_schedule'.tr(),
                           onTap: () => context.go(AppRoutePaths.appSchedule),
                         ),
                         QuickActionButton(
                           icon: Icons.restaurant_rounded,
-                          label: 'Meal Idea',
+                          label: 'meal_idea'.tr(),
                           onTap: () => context.go(AppRoutePaths.appMeal),
                         ),
                       ],
@@ -124,21 +125,21 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const _SectionLabel(label: 'Recommendations'),
+                        _SectionLabel(label: 'recommendations'.tr()),
                         GestureDetector(
                           onTap: () => context.push(AppRoutePaths.appExercise),
-                          child: const Row(
+                          child: Row(
                             children: [
                               Text(
-                                'See All',
-                                style: TextStyle(
+                                'see_all'.tr(),
+                                style: const TextStyle(
                                   color: ColorConstants.textHighlightColor,
                                   fontSize: 13,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              SizedBox(width: 4),
-                              Icon(
+                              const SizedBox(width: 4),
+                              const Icon(
                                 Icons.arrow_forward_ios_rounded,
                                 color: ColorConstants.textHighlightColor,
                                 size: 13,
