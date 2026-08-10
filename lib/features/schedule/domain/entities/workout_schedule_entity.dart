@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:personal_fitness_tracker/features/schedule/domain/entities/schedule_status.dart';
+import 'package:fit_me/features/schedule/domain/entities/schedule_status.dart';
 
 /// Domain entity representing a single scheduled workout.
 class WorkoutScheduleEntity extends Equatable {

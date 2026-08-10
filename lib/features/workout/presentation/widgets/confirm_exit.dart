@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
-import 'package:personal_fitness_tracker/core/router/route_names.dart';
+import 'package:fit_me/core/constants/color_constants.dart';
+import 'package:fit_me/core/router/route_names.dart';
 
 void showExitConfirmationDialog(BuildContext context) {
   showDialog(

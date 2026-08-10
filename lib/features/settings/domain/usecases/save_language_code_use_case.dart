@@ -1,4 +1,4 @@
-import 'package:personal_fitness_tracker/features/settings/domain/repositories/settings_repository.dart';
+import 'package:fit_me/features/settings/domain/repositories/settings_repository.dart';
 
 class SaveLanguageCodeUseCase {
   final SettingsRepository repository;

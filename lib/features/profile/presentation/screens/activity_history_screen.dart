@@ -2,14 +2,14 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:personal_fitness_tracker/core/services/auth_services.dart';
-import 'package:personal_fitness_tracker/features/profile/presentation/bloc/activity_history_bloc.dart';
-import 'package:personal_fitness_tracker/features/profile/presentation/bloc/activity_history_event.dart';
-import 'package:personal_fitness_tracker/features/profile/presentation/bloc/activity_history_state.dart';
-import 'package:personal_fitness_tracker/features/profile/presentation/widgets/activity_history_card.dart';
-import 'package:personal_fitness_tracker/features/profile/presentation/widgets/history_empty_state.dart';
-import 'package:personal_fitness_tracker/features/profile/presentation/widgets/profile_app_bar.dart';
-import 'package:personal_fitness_tracker/features/profile/presentation/widgets/profile_skeletons.dart';
+import 'package:fit_me/core/services/auth_services.dart';
+import 'package:fit_me/features/profile/presentation/bloc/activity_history_bloc.dart';
+import 'package:fit_me/features/profile/presentation/bloc/activity_history_event.dart';
+import 'package:fit_me/features/profile/presentation/bloc/activity_history_state.dart';
+import 'package:fit_me/features/profile/presentation/widgets/activity_history_card.dart';
+import 'package:fit_me/features/profile/presentation/widgets/history_empty_state.dart';
+import 'package:fit_me/features/profile/presentation/widgets/profile_app_bar.dart';
+import 'package:fit_me/features/profile/presentation/widgets/profile_skeletons.dart';
 
 import '../../../../core/constants/color_constants.dart';
 

@@ -1,8 +1,8 @@
-import 'package:personal_fitness_tracker/core/error/exceptions.dart';
-import 'package:personal_fitness_tracker/core/services/auth_services.dart';
-import 'package:personal_fitness_tracker/features/auth/domain/entities/user_entities.dart';
-import 'package:personal_fitness_tracker/features/auth/domain/repositories/auth_repository.dart';
-import 'package:personal_fitness_tracker/features/auth/data/models/user_model.dart';
+import 'package:fit_me/core/error/exceptions.dart';
+import 'package:fit_me/core/services/auth_services.dart';
+import 'package:fit_me/features/auth/domain/entities/user_entities.dart';
+import 'package:fit_me/features/auth/domain/repositories/auth_repository.dart';
+import 'package:fit_me/features/auth/data/models/user_model.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final AuthServices _authService;

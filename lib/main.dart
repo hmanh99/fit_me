@@ -2,21 +2,21 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:personal_fitness_tracker/core/di/injection_container.dart'
+import 'package:fit_me/core/di/injection_container.dart'
     as di;
-import 'package:personal_fitness_tracker/core/router/app_router.dart';
-import 'package:personal_fitness_tracker/core/theme/app_theme.dart';
-import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_bloc.dart';
-import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_state.dart';
-import 'package:personal_fitness_tracker/features/dashboard/presentation/bloc/dashboard_bloc.dart';
-import 'package:personal_fitness_tracker/features/exercise/presentation/bloc/exercise_bloc.dart';
-import 'package:personal_fitness_tracker/features/meal/presentation/bloc/meal_bloc.dart';
-import 'package:personal_fitness_tracker/features/profile/presentation/bloc/profile_bloc.dart';
-import 'package:personal_fitness_tracker/features/schedule/presentation/bloc/schedule_bloc.dart';
-import 'package:personal_fitness_tracker/features/settings/presentation/bloc/settings_bloc.dart';
-import 'package:personal_fitness_tracker/features/settings/presentation/bloc/settings_event.dart';
-import 'package:personal_fitness_tracker/features/settings/presentation/bloc/settings_state.dart';
-import 'package:personal_fitness_tracker/features/workout/presentation/bloc/workout_bloc.dart';
+import 'package:fit_me/core/router/app_router.dart';
+import 'package:fit_me/core/theme/app_theme.dart';
+import 'package:fit_me/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:fit_me/features/auth/presentation/bloc/auth_state.dart';
+import 'package:fit_me/features/dashboard/presentation/bloc/dashboard_bloc.dart';
+import 'package:fit_me/features/exercise/presentation/bloc/exercise_bloc.dart';
+import 'package:fit_me/features/meal/presentation/bloc/meal_bloc.dart';
+import 'package:fit_me/features/profile/presentation/bloc/profile_bloc.dart';
+import 'package:fit_me/features/schedule/presentation/bloc/schedule_bloc.dart';
+import 'package:fit_me/features/settings/presentation/bloc/settings_bloc.dart';
+import 'package:fit_me/features/settings/presentation/bloc/settings_event.dart';
+import 'package:fit_me/features/settings/presentation/bloc/settings_state.dart';
+import 'package:fit_me/features/workout/presentation/bloc/workout_bloc.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

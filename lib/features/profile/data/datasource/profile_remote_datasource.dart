@@ -1,6 +1,6 @@
-import 'package:personal_fitness_tracker/core/error/exceptions.dart';
-import 'package:personal_fitness_tracker/core/services/auth_services.dart';
-import 'package:personal_fitness_tracker/features/profile/data/models/profile_model.dart';
+import 'package:fit_me/core/error/exceptions.dart';
+import 'package:fit_me/core/services/auth_services.dart';
+import 'package:fit_me/features/profile/data/models/profile_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class ProfileRemoteDatasource {

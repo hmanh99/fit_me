@@ -2,12 +2,12 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
-import 'package:personal_fitness_tracker/core/router/route_names.dart';
-import 'package:personal_fitness_tracker/core/router/route_paths.dart';
-import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_bloc.dart';
-import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_event.dart';
-import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_state.dart';
+import 'package:fit_me/core/constants/color_constants.dart';
+import 'package:fit_me/core/router/route_names.dart';
+import 'package:fit_me/core/router/route_paths.dart';
+import 'package:fit_me/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:fit_me/features/auth/presentation/bloc/auth_event.dart';
+import 'package:fit_me/features/auth/presentation/bloc/auth_state.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key, this.returnTo = 'app/home'});
@@ -108,7 +108,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           keyboardType: TextInputType.emailAddress,
                         ),
 
-                        const SizedBox(height: 16),
+                        const SizedBox(height: 20),
                         TextFormField(
                           validator: (value) {
                             if (value == null || value.isEmpty) {
@@ -164,7 +164,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
 
-                        const SizedBox(height: 140),
+                        const SizedBox(height: 144),
 
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(

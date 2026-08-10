@@ -1,5 +1,5 @@
-import 'package:personal_fitness_tracker/core/router/route_paths.dart';
-import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_state.dart';
+import 'package:fit_me/core/router/route_paths.dart';
+import 'package:fit_me/features/auth/presentation/bloc/auth_state.dart';
 
 /// Guard / redirect base on [AuthState] and current [URL].
 

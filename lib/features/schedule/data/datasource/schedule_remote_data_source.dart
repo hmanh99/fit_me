@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:personal_fitness_tracker/core/error/exceptions.dart';
-import 'package:personal_fitness_tracker/features/schedule/data/model/workout_schedule_model.dart';
+import 'package:fit_me/core/error/exceptions.dart';
+import 'package:fit_me/features/schedule/data/model/workout_schedule_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 /// Abstract interface for schedule remote operations.

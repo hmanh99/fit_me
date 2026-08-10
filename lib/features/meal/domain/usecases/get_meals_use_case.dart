@@ -1,5 +1,5 @@
-import 'package:personal_fitness_tracker/features/meal/domain/entities/meal_entity.dart';
-import 'package:personal_fitness_tracker/features/meal/domain/repositories/meal_repository.dart';
+import 'package:fit_me/features/meal/domain/entities/meal_entity.dart';
+import 'package:fit_me/features/meal/domain/repositories/meal_repository.dart';
 
 class GetMealsUseCase {
   final MealRepository repository;

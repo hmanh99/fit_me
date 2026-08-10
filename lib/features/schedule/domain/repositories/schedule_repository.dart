@@ -1,4 +1,4 @@
-import 'package:personal_fitness_tracker/features/schedule/domain/entities/workout_schedule_entity.dart';
+import 'package:fit_me/features/schedule/domain/entities/workout_schedule_entity.dart';
 
 /// Abstract contract for schedule data operations.
 /// Implemented by [ScheduleRepositoryImpl] in the data layer.

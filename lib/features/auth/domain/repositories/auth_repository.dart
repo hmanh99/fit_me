@@ -1,4 +1,4 @@
-import 'package:personal_fitness_tracker/features/auth/domain/entities/user_entities.dart';
+import 'package:fit_me/features/auth/domain/entities/user_entities.dart';
 
 abstract class AuthRepository {
   /// User hiện tại (Firebase session), hoặc `null` nếu chưa đăng nhập.

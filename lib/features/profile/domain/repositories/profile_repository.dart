@@ -1,4 +1,4 @@
-import 'package:personal_fitness_tracker/features/profile/domain/entities/profile_entity.dart';
+import 'package:fit_me/features/profile/domain/entities/profile_entity.dart';
 
 abstract class ProfileRepository {
   Future<ProfileEntity> getCurrentProfile({required String userId});

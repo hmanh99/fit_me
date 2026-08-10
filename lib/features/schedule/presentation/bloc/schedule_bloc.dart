@@ -1,14 +1,14 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:personal_fitness_tracker/features/schedule/domain/entities/workout_schedule_entity.dart';
-import 'package:personal_fitness_tracker/features/schedule/domain/usecases/add_schedule_use_case.dart';
-import 'package:personal_fitness_tracker/features/schedule/domain/usecases/delete_schedule_use_case.dart';
-import 'package:personal_fitness_tracker/features/schedule/domain/usecases/get_schedules_by_month_use_case.dart';
-import 'package:personal_fitness_tracker/features/schedule/domain/usecases/update_schedule_use_case.dart';
-import 'package:personal_fitness_tracker/features/schedule/domain/usecases/watch_schedules_use_case.dart';
-import 'package:personal_fitness_tracker/features/schedule/presentation/bloc/schedule_event.dart';
-import 'package:personal_fitness_tracker/features/schedule/presentation/bloc/schedule_state.dart';
+import 'package:fit_me/features/schedule/domain/entities/workout_schedule_entity.dart';
+import 'package:fit_me/features/schedule/domain/usecases/add_schedule_use_case.dart';
+import 'package:fit_me/features/schedule/domain/usecases/delete_schedule_use_case.dart';
+import 'package:fit_me/features/schedule/domain/usecases/get_schedules_by_month_use_case.dart';
+import 'package:fit_me/features/schedule/domain/usecases/update_schedule_use_case.dart';
+import 'package:fit_me/features/schedule/domain/usecases/watch_schedules_use_case.dart';
+import 'package:fit_me/features/schedule/presentation/bloc/schedule_event.dart';
+import 'package:fit_me/features/schedule/presentation/bloc/schedule_state.dart';
 
 class ScheduleBloc extends Bloc<ScheduleEvent, ScheduleState> {
   final GetSchedulesByMonthUseCase _getSchedulesByMonth;

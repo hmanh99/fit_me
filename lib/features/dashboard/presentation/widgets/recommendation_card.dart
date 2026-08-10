@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
+import 'package:fit_me/core/constants/color_constants.dart';
 
 class RecommendationCard extends StatefulWidget {
   final VoidCallback onTap;

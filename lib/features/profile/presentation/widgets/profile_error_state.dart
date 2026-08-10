@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
-import 'package:personal_fitness_tracker/features/profile/presentation/bloc/profile_state.dart';
+import 'package:fit_me/core/constants/color_constants.dart';
+import 'package:fit_me/features/profile/presentation/bloc/profile_state.dart';
 
 class ProfileErrorState extends StatelessWidget {
   const ProfileErrorState({super.key, required this.state, this.onTap});

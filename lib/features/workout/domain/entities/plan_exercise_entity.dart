@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:personal_fitness_tracker/features/exercise/domain/entities/exercise_entity.dart';
+import 'package:fit_me/features/exercise/domain/entities/exercise_entity.dart';
 
 /// planExerciseId help define order of specific exercise inside a specific plan.
 class PlanExerciseEntity extends Equatable {

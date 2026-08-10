@@ -1,5 +1,5 @@
-import 'package:personal_fitness_tracker/core/error/exceptions.dart';
-import 'package:personal_fitness_tracker/features/meal/data/models/meal_model.dart';
+import 'package:fit_me/core/error/exceptions.dart';
+import 'package:fit_me/features/meal/data/models/meal_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class MealRemoteDatasource {

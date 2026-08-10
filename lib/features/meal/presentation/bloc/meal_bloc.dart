@@ -1,9 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:personal_fitness_tracker/core/error/exceptions.dart';
-import 'package:personal_fitness_tracker/features/meal/domain/usecases/get_meal_by_id_use_case.dart';
-import 'package:personal_fitness_tracker/features/meal/domain/usecases/get_meals_use_case.dart';
-import 'package:personal_fitness_tracker/features/meal/presentation/bloc/meal_event.dart';
-import 'package:personal_fitness_tracker/features/meal/presentation/bloc/meal_state.dart';
+import 'package:fit_me/core/error/exceptions.dart';
+import 'package:fit_me/features/meal/domain/usecases/get_meal_by_id_use_case.dart';
+import 'package:fit_me/features/meal/domain/usecases/get_meals_use_case.dart';
+import 'package:fit_me/features/meal/presentation/bloc/meal_event.dart';
+import 'package:fit_me/features/meal/presentation/bloc/meal_state.dart';
 
 class MealBloc extends Bloc<MealEvent, MealState> {
   final GetMealsUseCase _getMeals;

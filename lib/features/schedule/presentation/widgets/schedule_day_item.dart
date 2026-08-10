@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
-import 'package:personal_fitness_tracker/features/schedule/domain/entities/schedule_status.dart';
-import 'package:personal_fitness_tracker/features/schedule/domain/entities/workout_schedule_entity.dart';
+import 'package:fit_me/core/constants/color_constants.dart';
+import 'package:fit_me/features/schedule/domain/entities/schedule_status.dart';
+import 'package:fit_me/features/schedule/domain/entities/workout_schedule_entity.dart';
 
 /// A card that displays a single schedule entry for the selected day.
 class ScheduleDayItem extends StatelessWidget {

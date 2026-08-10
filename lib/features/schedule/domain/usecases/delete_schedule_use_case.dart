@@ -1,4 +1,4 @@
-import 'package:personal_fitness_tracker/features/schedule/domain/repositories/schedule_repository.dart';
+import 'package:fit_me/features/schedule/domain/repositories/schedule_repository.dart';
 
 class DeleteScheduleUseCase {
   final ScheduleRepository repository;

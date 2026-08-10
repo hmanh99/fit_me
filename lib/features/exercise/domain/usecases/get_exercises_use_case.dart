@@ -1,5 +1,5 @@
-import 'package:personal_fitness_tracker/features/exercise/domain/entities/exercise_entity.dart';
-import 'package:personal_fitness_tracker/features/exercise/domain/repositories/exercise_repository.dart';
+import 'package:fit_me/features/exercise/domain/entities/exercise_entity.dart';
+import 'package:fit_me/features/exercise/domain/repositories/exercise_repository.dart';
 
 class GetExercisesUseCase {
   final ExerciseRepository repository;

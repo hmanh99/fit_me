@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:personal_fitness_tracker/features/settings/domain/usecases/get_settings_use_case.dart';
-import 'package:personal_fitness_tracker/features/settings/domain/usecases/save_language_code_use_case.dart';
+import 'package:fit_me/features/settings/domain/usecases/get_settings_use_case.dart';
+import 'package:fit_me/features/settings/domain/usecases/save_language_code_use_case.dart';
 import 'settings_event.dart';
 import 'settings_state.dart';
 

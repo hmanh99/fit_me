@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:personal_fitness_tracker/features/profile/domain/entities/profile_entity.dart';
+import 'package:fit_me/features/profile/domain/entities/profile_entity.dart';
 
 abstract class ProfileState extends Equatable {
   const ProfileState();

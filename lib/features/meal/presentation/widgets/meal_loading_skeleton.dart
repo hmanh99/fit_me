@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:personal_fitness_tracker/shared/widgets/skeletons.dart';
+import 'package:fit_me/shared/widgets/skeletons.dart';
 
 class MealLoadingSkeleton extends StatelessWidget {
   const MealLoadingSkeleton({super.key,this.isDetail = false});

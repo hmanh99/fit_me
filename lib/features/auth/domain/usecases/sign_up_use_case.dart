@@ -1,5 +1,5 @@
-import 'package:personal_fitness_tracker/features/auth/domain/entities/user_entities.dart';
-import 'package:personal_fitness_tracker/features/auth/domain/repositories/auth_repository.dart';
+import 'package:fit_me/features/auth/domain/entities/user_entities.dart';
+import 'package:fit_me/features/auth/domain/repositories/auth_repository.dart';
 
 class SignUpUseCaseParams {
   final String username;

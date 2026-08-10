@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
-import 'package:personal_fitness_tracker/features/exercise/domain/entities/exercise_entity.dart';
+import 'package:fit_me/core/constants/color_constants.dart';
+import 'package:fit_me/features/exercise/domain/entities/exercise_entity.dart';
 
 class ExerciseListCard extends StatefulWidget {
   final ExerciseEntity exercise;

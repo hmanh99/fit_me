@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
-import 'package:personal_fitness_tracker/features/profile/domain/entities/activity_history_entity.dart';
+import 'package:fit_me/core/constants/color_constants.dart';
+import 'package:fit_me/features/profile/domain/entities/activity_history_entity.dart';
 
 class ActivityHistoryCard extends StatelessWidget {
   final ActivityHistoryEntity history;

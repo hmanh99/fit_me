@@ -1,14 +1,14 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:personal_fitness_tracker/core/services/auth_services.dart';
-import 'package:personal_fitness_tracker/features/workout/domain/entities/set_session_entity.dart';
-import 'package:personal_fitness_tracker/features/workout/domain/entities/workout_plan_entity.dart';
-import 'package:personal_fitness_tracker/features/workout/domain/entities/workout_session_entity.dart';
-import 'package:personal_fitness_tracker/features/workout/domain/usecases/create_set_session_use_case.dart';
-import 'package:personal_fitness_tracker/features/workout/domain/usecases/create_workout_session_use_case.dart';
-import 'package:personal_fitness_tracker/features/workout/presentation/bloc/workout_session_event.dart';
-import 'package:personal_fitness_tracker/features/workout/presentation/bloc/workout_session_state.dart';
+import 'package:fit_me/core/services/auth_services.dart';
+import 'package:fit_me/features/workout/domain/entities/set_session_entity.dart';
+import 'package:fit_me/features/workout/domain/entities/workout_plan_entity.dart';
+import 'package:fit_me/features/workout/domain/entities/workout_session_entity.dart';
+import 'package:fit_me/features/workout/domain/usecases/create_set_session_use_case.dart';
+import 'package:fit_me/features/workout/domain/usecases/create_workout_session_use_case.dart';
+import 'package:fit_me/features/workout/presentation/bloc/workout_session_event.dart';
+import 'package:fit_me/features/workout/presentation/bloc/workout_session_state.dart';
 
 class WorkoutSessionBloc
     extends Bloc<WorkoutSessionEvent, WorkoutSessionState> {

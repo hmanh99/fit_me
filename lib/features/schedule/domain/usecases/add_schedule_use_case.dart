@@ -1,5 +1,5 @@
-import 'package:personal_fitness_tracker/features/schedule/domain/entities/workout_schedule_entity.dart';
-import 'package:personal_fitness_tracker/features/schedule/domain/repositories/schedule_repository.dart';
+import 'package:fit_me/features/schedule/domain/entities/workout_schedule_entity.dart';
+import 'package:fit_me/features/schedule/domain/repositories/schedule_repository.dart';
 
 class AddScheduleUseCase {
   final ScheduleRepository repository;

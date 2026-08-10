@@ -1,6 +1,6 @@
-import 'package:personal_fitness_tracker/core/error/exceptions.dart';
-import 'package:personal_fitness_tracker/features/workout/data/models/set_session_entity.dart';
-import 'package:personal_fitness_tracker/features/workout/data/models/workout_plan_model.dart';
+import 'package:fit_me/core/error/exceptions.dart';
+import 'package:fit_me/features/workout/data/models/set_session_entity.dart';
+import 'package:fit_me/features/workout/data/models/workout_plan_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../models/workout_session_model.dart';

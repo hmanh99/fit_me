@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:personal_fitness_tracker/features/profile/domain/entities/profile_entity.dart';
-import 'package:personal_fitness_tracker/features/profile/presentation/bloc/profile_bloc.dart';
-import 'package:personal_fitness_tracker/features/profile/presentation/bloc/profile_event.dart';
-import 'package:personal_fitness_tracker/features/profile/presentation/bloc/profile_state.dart';
-import 'package:personal_fitness_tracker/features/profile/presentation/widgets/profile_app_bar.dart';
-import 'package:personal_fitness_tracker/features/profile/presentation/widgets/profile_skeletons.dart';
+import 'package:fit_me/features/profile/domain/entities/profile_entity.dart';
+import 'package:fit_me/features/profile/presentation/bloc/profile_bloc.dart';
+import 'package:fit_me/features/profile/presentation/bloc/profile_event.dart';
+import 'package:fit_me/features/profile/presentation/bloc/profile_state.dart';
+import 'package:fit_me/features/profile/presentation/widgets/profile_app_bar.dart';
+import 'package:fit_me/features/profile/presentation/widgets/profile_skeletons.dart';
 
 import '../../../../core/constants/color_constants.dart';
 

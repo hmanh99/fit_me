@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:personal_fitness_tracker/features/meal/domain/entities/meal_type.dart';
+import 'package:fit_me/features/meal/domain/entities/meal_type.dart';
 
 class MealEntity extends Equatable {
   final int mealId;

@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:personal_fitness_tracker/features/workout/domain/entities/workout_plan_entity.dart';
+import 'package:fit_me/features/workout/domain/entities/workout_plan_entity.dart';
 
 abstract class WorkoutState extends Equatable {
   const WorkoutState();

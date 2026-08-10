@@ -2,17 +2,17 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
-import 'package:personal_fitness_tracker/core/router/route_names.dart';
-import 'package:personal_fitness_tracker/features/exercise/domain/entities/exercise_entity.dart';
-import 'package:personal_fitness_tracker/features/exercise/presentation/bloc/exercise_bloc.dart';
-import 'package:personal_fitness_tracker/features/exercise/presentation/bloc/exercise_event.dart';
-import 'package:personal_fitness_tracker/features/exercise/presentation/bloc/exercise_state.dart';
-import 'package:personal_fitness_tracker/features/exercise/presentation/widgets/exercise_app_bar.dart';
-import 'package:personal_fitness_tracker/features/exercise/presentation/widgets/exercise_card.dart';
-import 'package:personal_fitness_tracker/features/exercise/presentation/widgets/exercise_empty_state.dart';
-import 'package:personal_fitness_tracker/features/exercise/presentation/widgets/exercise_error_state.dart';
-import 'package:personal_fitness_tracker/features/exercise/presentation/widgets/exercise_loading_skeleton.dart';
+import 'package:fit_me/core/constants/color_constants.dart';
+import 'package:fit_me/core/router/route_names.dart';
+import 'package:fit_me/features/exercise/domain/entities/exercise_entity.dart';
+import 'package:fit_me/features/exercise/presentation/bloc/exercise_bloc.dart';
+import 'package:fit_me/features/exercise/presentation/bloc/exercise_event.dart';
+import 'package:fit_me/features/exercise/presentation/bloc/exercise_state.dart';
+import 'package:fit_me/features/exercise/presentation/widgets/exercise_app_bar.dart';
+import 'package:fit_me/features/exercise/presentation/widgets/exercise_card.dart';
+import 'package:fit_me/features/exercise/presentation/widgets/exercise_empty_state.dart';
+import 'package:fit_me/features/exercise/presentation/widgets/exercise_error_state.dart';
+import 'package:fit_me/features/exercise/presentation/widgets/exercise_loading_skeleton.dart';
 
 class ExerciseScreen extends StatefulWidget {
   const ExerciseScreen({super.key});

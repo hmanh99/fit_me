@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
-import 'package:personal_fitness_tracker/features/exercise/presentation/widgets/exercise_tag_chip.dart';
+import 'package:fit_me/core/constants/color_constants.dart';
+import 'package:fit_me/features/exercise/presentation/widgets/exercise_tag_chip.dart';
 
 class ExerciseInfoSection extends StatelessWidget {
   final String title;

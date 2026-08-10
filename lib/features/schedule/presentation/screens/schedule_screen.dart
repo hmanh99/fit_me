@@ -1,17 +1,17 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
-import 'package:personal_fitness_tracker/core/services/auth_services.dart';
-import 'package:personal_fitness_tracker/features/schedule/domain/entities/workout_schedule_entity.dart';
-import 'package:personal_fitness_tracker/features/schedule/presentation/bloc/schedule_bloc.dart';
-import 'package:personal_fitness_tracker/features/schedule/presentation/bloc/schedule_event.dart';
-import 'package:personal_fitness_tracker/features/schedule/presentation/bloc/schedule_state.dart';
-import 'package:personal_fitness_tracker/features/schedule/presentation/widgets/add_schedule_bottom_sheet.dart';
-import 'package:personal_fitness_tracker/features/schedule/presentation/widgets/calendar_header.dart';
-import 'package:personal_fitness_tracker/features/schedule/presentation/widgets/schedule_day_item.dart';
-import 'package:personal_fitness_tracker/features/schedule/presentation/widgets/schedule_loading_skeleton.dart';
-import 'package:personal_fitness_tracker/features/schedule/presentation/widgets/workout_marker.dart';
+import 'package:fit_me/core/constants/color_constants.dart';
+import 'package:fit_me/core/services/auth_services.dart';
+import 'package:fit_me/features/schedule/domain/entities/workout_schedule_entity.dart';
+import 'package:fit_me/features/schedule/presentation/bloc/schedule_bloc.dart';
+import 'package:fit_me/features/schedule/presentation/bloc/schedule_event.dart';
+import 'package:fit_me/features/schedule/presentation/bloc/schedule_state.dart';
+import 'package:fit_me/features/schedule/presentation/widgets/add_schedule_bottom_sheet.dart';
+import 'package:fit_me/features/schedule/presentation/widgets/calendar_header.dart';
+import 'package:fit_me/features/schedule/presentation/widgets/schedule_day_item.dart';
+import 'package:fit_me/features/schedule/presentation/widgets/schedule_loading_skeleton.dart';
+import 'package:fit_me/features/schedule/presentation/widgets/workout_marker.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class ScheduleScreen extends StatefulWidget {

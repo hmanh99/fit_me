@@ -2,15 +2,15 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
-import 'package:personal_fitness_tracker/core/router/route_names.dart';
-import 'package:personal_fitness_tracker/features/workout/domain/entities/workout_plan_entity.dart';
-import 'package:personal_fitness_tracker/features/workout/presentation/bloc/workout_bloc.dart';
-import 'package:personal_fitness_tracker/features/workout/presentation/bloc/workout_event.dart';
-import 'package:personal_fitness_tracker/features/workout/presentation/bloc/workout_state.dart';
-import 'package:personal_fitness_tracker/features/workout/presentation/widgets/workout_error_state.dart';
-import 'package:personal_fitness_tracker/features/workout/presentation/widgets/workout_exercise_card.dart';
-import 'package:personal_fitness_tracker/features/workout/presentation/widgets/workout_loading_skeleton.dart';
+import 'package:fit_me/core/constants/color_constants.dart';
+import 'package:fit_me/core/router/route_names.dart';
+import 'package:fit_me/features/workout/domain/entities/workout_plan_entity.dart';
+import 'package:fit_me/features/workout/presentation/bloc/workout_bloc.dart';
+import 'package:fit_me/features/workout/presentation/bloc/workout_event.dart';
+import 'package:fit_me/features/workout/presentation/bloc/workout_state.dart';
+import 'package:fit_me/features/workout/presentation/widgets/workout_error_state.dart';
+import 'package:fit_me/features/workout/presentation/widgets/workout_exercise_card.dart';
+import 'package:fit_me/features/workout/presentation/widgets/workout_loading_skeleton.dart';
 
 class WorkoutDetailScreen extends StatefulWidget {
   final int workoutId;

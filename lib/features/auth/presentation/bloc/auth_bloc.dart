@@ -1,15 +1,15 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:personal_fitness_tracker/features/auth/domain/entities/user_entities.dart';
-import 'package:personal_fitness_tracker/features/auth/domain/usecases/forgot_password_use_case.dart';
-import 'package:personal_fitness_tracker/features/auth/domain/usecases/get_current_user_use_case.dart';
-import 'package:personal_fitness_tracker/features/auth/domain/usecases/login_use_case.dart';
-import 'package:personal_fitness_tracker/features/auth/domain/usecases/logout_use_case.dart';
-import 'package:personal_fitness_tracker/features/auth/domain/usecases/sign_up_use_case.dart';
-import 'package:personal_fitness_tracker/features/auth/domain/usecases/watch_auth_state_use_case.dart';
-import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_event.dart';
-import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_state.dart';
+import 'package:fit_me/features/auth/domain/entities/user_entities.dart';
+import 'package:fit_me/features/auth/domain/usecases/forgot_password_use_case.dart';
+import 'package:fit_me/features/auth/domain/usecases/get_current_user_use_case.dart';
+import 'package:fit_me/features/auth/domain/usecases/login_use_case.dart';
+import 'package:fit_me/features/auth/domain/usecases/logout_use_case.dart';
+import 'package:fit_me/features/auth/domain/usecases/sign_up_use_case.dart';
+import 'package:fit_me/features/auth/domain/usecases/watch_auth_state_use_case.dart';
+import 'package:fit_me/features/auth/presentation/bloc/auth_event.dart';
+import 'package:fit_me/features/auth/presentation/bloc/auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final GetCurrentUserUseCase _getCurrentUser;

@@ -1,4 +1,4 @@
-import 'package:personal_fitness_tracker/features/profile/domain/repositories/profile_repository.dart';
+import 'package:fit_me/features/profile/domain/repositories/profile_repository.dart';
 
 class LogoutProfileUseCase {
   final ProfileRepository repository;

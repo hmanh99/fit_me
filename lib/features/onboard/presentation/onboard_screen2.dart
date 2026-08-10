@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
-import 'package:personal_fitness_tracker/core/router/route_paths.dart';
+import 'package:fit_me/core/constants/color_constants.dart';
+import 'package:fit_me/core/router/route_paths.dart';
 
 class OnboardScreen2 extends StatefulWidget {
   const OnboardScreen2({super.key});

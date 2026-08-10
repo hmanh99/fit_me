@@ -2,16 +2,16 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
-import 'package:personal_fitness_tracker/features/exercise/presentation/bloc/exercise_bloc.dart';
-import 'package:personal_fitness_tracker/features/exercise/presentation/bloc/exercise_event.dart';
-import 'package:personal_fitness_tracker/features/exercise/presentation/bloc/exercise_state.dart';
-import 'package:personal_fitness_tracker/features/exercise/presentation/widgets/exercise_detail_header.dart';
-import 'package:personal_fitness_tracker/features/exercise/presentation/widgets/exercise_error_state.dart';
-import 'package:personal_fitness_tracker/features/exercise/presentation/widgets/exercise_app_bar.dart';
-import 'package:personal_fitness_tracker/features/exercise/presentation/widgets/exercise_info_section.dart';
-import 'package:personal_fitness_tracker/features/exercise/presentation/widgets/exercise_instruction_list.dart';
-import 'package:personal_fitness_tracker/features/exercise/presentation/widgets/exercise_loading_skeleton.dart';
+import 'package:fit_me/core/constants/color_constants.dart';
+import 'package:fit_me/features/exercise/presentation/bloc/exercise_bloc.dart';
+import 'package:fit_me/features/exercise/presentation/bloc/exercise_event.dart';
+import 'package:fit_me/features/exercise/presentation/bloc/exercise_state.dart';
+import 'package:fit_me/features/exercise/presentation/widgets/exercise_detail_header.dart';
+import 'package:fit_me/features/exercise/presentation/widgets/exercise_error_state.dart';
+import 'package:fit_me/features/exercise/presentation/widgets/exercise_app_bar.dart';
+import 'package:fit_me/features/exercise/presentation/widgets/exercise_info_section.dart';
+import 'package:fit_me/features/exercise/presentation/widgets/exercise_instruction_list.dart';
+import 'package:fit_me/features/exercise/presentation/widgets/exercise_loading_skeleton.dart';
 
 class ExerciseDetailScreen extends StatefulWidget {
   final int exerciseId;

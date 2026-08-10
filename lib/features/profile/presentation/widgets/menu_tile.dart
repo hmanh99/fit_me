@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
-import 'package:personal_fitness_tracker/features/profile/presentation/widgets/menu_row.dart';
+import 'package:fit_me/core/constants/color_constants.dart';
+import 'package:fit_me/features/profile/presentation/widgets/menu_row.dart';
 
 class MenuTile extends StatelessWidget {
   const MenuTile({

@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
-import 'package:personal_fitness_tracker/features/exercise/domain/entities/exercise_entity.dart';
-import 'package:personal_fitness_tracker/features/workout/domain/entities/plan_exercise_entity.dart';
+import 'package:fit_me/core/constants/color_constants.dart';
+import 'package:fit_me/features/exercise/domain/entities/exercise_entity.dart';
+import 'package:fit_me/features/workout/domain/entities/plan_exercise_entity.dart';
 
 class WorkoutExerciseCard extends StatefulWidget {
   final PlanExerciseEntity planExercise;

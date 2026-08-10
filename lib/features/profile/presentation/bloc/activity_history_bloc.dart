@@ -1,9 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:personal_fitness_tracker/features/profile/domain/entities/activity_history_entity.dart';
-import 'package:personal_fitness_tracker/features/profile/domain/usecases/get_activity_histories_use_case.dart';
-import 'package:personal_fitness_tracker/features/profile/presentation/bloc/activity_history_event.dart';
-import 'package:personal_fitness_tracker/features/profile/presentation/bloc/activity_history_state.dart';
+import 'package:fit_me/features/profile/domain/entities/activity_history_entity.dart';
+import 'package:fit_me/features/profile/domain/usecases/get_activity_histories_use_case.dart';
+import 'package:fit_me/features/profile/presentation/bloc/activity_history_event.dart';
+import 'package:fit_me/features/profile/presentation/bloc/activity_history_state.dart';
 
 class ActivityHistoryBloc
     extends Bloc<ActivityHistoryEvent, ActivityHistoryState> {

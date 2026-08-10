@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
+import 'package:fit_me/core/constants/color_constants.dart';
 
 /// Custom header for the calendar showing month/year with navigation arrows.
 class CalendarHeader extends StatelessWidget {

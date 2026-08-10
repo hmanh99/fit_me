@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:personal_fitness_tracker/features/meal/domain/entities/meal_entity.dart';
+import 'package:fit_me/features/meal/domain/entities/meal_entity.dart';
 
 abstract class MealState extends Equatable {
   const MealState();

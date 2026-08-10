@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
+import 'package:fit_me/core/constants/color_constants.dart';
 
 class ShimmerLoading extends StatelessWidget {
   final Widget child;

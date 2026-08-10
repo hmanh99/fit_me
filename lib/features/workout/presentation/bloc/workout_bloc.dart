@@ -1,8 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:personal_fitness_tracker/features/workout/domain/usecases/get_workout_plan_details_use_case.dart';
-import 'package:personal_fitness_tracker/features/workout/domain/usecases/get_workout_plans_use_case.dart';
-import 'package:personal_fitness_tracker/features/workout/presentation/bloc/workout_event.dart';
-import 'package:personal_fitness_tracker/features/workout/presentation/bloc/workout_state.dart';
+import 'package:fit_me/features/workout/domain/usecases/get_workout_plan_details_use_case.dart';
+import 'package:fit_me/features/workout/domain/usecases/get_workout_plans_use_case.dart';
+import 'package:fit_me/features/workout/presentation/bloc/workout_event.dart';
+import 'package:fit_me/features/workout/presentation/bloc/workout_state.dart';
 
 class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
   final GetWorkoutPlansUseCase _getWorkoutPlans;

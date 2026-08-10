@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
-import 'package:personal_fitness_tracker/features/settings/presentation/widgets/language_selector.dart';
+import 'package:fit_me/core/constants/color_constants.dart';
+import 'package:fit_me/features/settings/presentation/widgets/language_selector.dart';
 
 import '../bloc/settings_bloc.dart';
 import '../bloc/settings_event.dart';

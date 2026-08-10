@@ -1,4 +1,4 @@
-import 'package:personal_fitness_tracker/core/error/exceptions.dart';
+import 'package:fit_me/core/error/exceptions.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class ExerciseServices {

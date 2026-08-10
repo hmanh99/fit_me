@@ -1,6 +1,6 @@
-import 'package:personal_fitness_tracker/features/meal/data/datasources/meal_remote_datasource.dart';
-import 'package:personal_fitness_tracker/features/meal/domain/entities/meal_entity.dart';
-import 'package:personal_fitness_tracker/features/meal/domain/repositories/meal_repository.dart';
+import 'package:fit_me/features/meal/data/datasources/meal_remote_datasource.dart';
+import 'package:fit_me/features/meal/domain/entities/meal_entity.dart';
+import 'package:fit_me/features/meal/domain/repositories/meal_repository.dart';
 
 class MealRepositoryImpl implements MealRepository {
   final MealRemoteDatasource remoteDatasource;

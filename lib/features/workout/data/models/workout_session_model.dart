@@ -1,4 +1,4 @@
-import 'package:personal_fitness_tracker/features/workout/domain/entities/workout_session_entity.dart';
+import 'package:fit_me/features/workout/domain/entities/workout_session_entity.dart';
 
 class WorkoutSessionModel extends WorkoutSessionEntity {
   const WorkoutSessionModel({

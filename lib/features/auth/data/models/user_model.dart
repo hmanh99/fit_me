@@ -1,5 +1,5 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:personal_fitness_tracker/features/auth/domain/entities/user_entities.dart';
+import 'package:fit_me/features/auth/domain/entities/user_entities.dart';
 
 class UserModel extends UserEntity {
   const UserModel({

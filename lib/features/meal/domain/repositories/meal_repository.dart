@@ -1,4 +1,4 @@
-import 'package:personal_fitness_tracker/features/meal/domain/entities/meal_entity.dart';
+import 'package:fit_me/features/meal/domain/entities/meal_entity.dart';
 
 abstract class MealRepository {
   Future<List<MealEntity>> getMeals();

@@ -1,6 +1,6 @@
-import 'package:personal_fitness_tracker/features/exercise/data/datasource/exercise_remote_data_source.dart';
-import 'package:personal_fitness_tracker/features/exercise/domain/entities/exercise_entity.dart';
-import 'package:personal_fitness_tracker/features/exercise/domain/repositories/exercise_repository.dart';
+import 'package:fit_me/features/exercise/data/datasource/exercise_remote_data_source.dart';
+import 'package:fit_me/features/exercise/domain/entities/exercise_entity.dart';
+import 'package:fit_me/features/exercise/domain/repositories/exercise_repository.dart';
 
 class ExerciseRepositoryImpl implements ExerciseRepository {
   final ExerciseRemoteDataSource remoteDataSource;

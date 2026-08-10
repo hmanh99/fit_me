@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:personal_fitness_tracker/features/schedule/domain/entities/workout_schedule_entity.dart';
+import 'package:fit_me/features/schedule/domain/entities/workout_schedule_entity.dart';
 
 /// Loading status for the main data fetch.
 enum ScheduleStateStatus { initial, loading, loaded, error }

@@ -1,5 +1,5 @@
-import 'package:personal_fitness_tracker/features/exercise/data/models/exercise_model.dart';
-import 'package:personal_fitness_tracker/features/workout/domain/entities/plan_exercise_entity.dart';
+import 'package:fit_me/features/exercise/data/models/exercise_model.dart';
+import 'package:fit_me/features/workout/domain/entities/plan_exercise_entity.dart';
 
 class PlanExerciseModel extends PlanExerciseEntity {
   const PlanExerciseModel({

@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:personal_fitness_tracker/features/auth/domain/entities/user_entities.dart';
+import 'package:fit_me/features/auth/domain/entities/user_entities.dart';
 
 abstract class AuthEvent extends Equatable {
   const AuthEvent();

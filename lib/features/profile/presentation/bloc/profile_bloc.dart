@@ -1,16 +1,16 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:personal_fitness_tracker/features/profile/domain/entities/profile_entity.dart';
-import 'package:personal_fitness_tracker/features/profile/domain/usecases/get_current_profile_use_case.dart';
-import 'package:personal_fitness_tracker/features/profile/domain/usecases/logout_profile_use_case.dart';
-import 'package:personal_fitness_tracker/features/profile/domain/usecases/update_profile_avatar_use_case.dart';
-import 'package:personal_fitness_tracker/features/profile/domain/usecases/update_profile_height_use_case.dart';
-import 'package:personal_fitness_tracker/features/profile/domain/usecases/update_profile_use_case.dart';
-import 'package:personal_fitness_tracker/features/profile/domain/usecases/update_profile_username_use_case.dart';
-import 'package:personal_fitness_tracker/features/profile/domain/usecases/update_profile_weight_use_case.dart';
-import 'package:personal_fitness_tracker/features/profile/presentation/bloc/profile_event.dart';
-import 'package:personal_fitness_tracker/features/profile/presentation/bloc/profile_state.dart';
+import 'package:fit_me/features/profile/domain/entities/profile_entity.dart';
+import 'package:fit_me/features/profile/domain/usecases/get_current_profile_use_case.dart';
+import 'package:fit_me/features/profile/domain/usecases/logout_profile_use_case.dart';
+import 'package:fit_me/features/profile/domain/usecases/update_profile_avatar_use_case.dart';
+import 'package:fit_me/features/profile/domain/usecases/update_profile_height_use_case.dart';
+import 'package:fit_me/features/profile/domain/usecases/update_profile_use_case.dart';
+import 'package:fit_me/features/profile/domain/usecases/update_profile_username_use_case.dart';
+import 'package:fit_me/features/profile/domain/usecases/update_profile_weight_use_case.dart';
+import 'package:fit_me/features/profile/presentation/bloc/profile_event.dart';
+import 'package:fit_me/features/profile/presentation/bloc/profile_state.dart';
 
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   final GetCurrentProfileUseCase _getCurrentProfile;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
+import 'package:fit_me/core/constants/color_constants.dart';
 
 class StepperInput extends StatelessWidget {
   final String label;

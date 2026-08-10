@@ -1,6 +1,6 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:personal_fitness_tracker/core/error/exceptions.dart';
-import 'package:personal_fitness_tracker/features/exercise/data/models/exercise_model.dart';
+import 'package:fit_me/core/error/exceptions.dart';
+import 'package:fit_me/features/exercise/data/models/exercise_model.dart';
 
 abstract class ExerciseRemoteDataSource {
   Future<List<ExerciseModel>> getExercises();

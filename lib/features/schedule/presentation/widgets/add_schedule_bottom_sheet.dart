@@ -1,16 +1,16 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
-import 'package:personal_fitness_tracker/core/services/auth_services.dart';
-import 'package:personal_fitness_tracker/features/schedule/domain/entities/schedule_status.dart';
-import 'package:personal_fitness_tracker/features/schedule/domain/entities/workout_schedule_entity.dart';
-import 'package:personal_fitness_tracker/features/schedule/presentation/bloc/schedule_bloc.dart';
-import 'package:personal_fitness_tracker/features/schedule/presentation/bloc/schedule_event.dart';
-import 'package:personal_fitness_tracker/features/workout/domain/entities/workout_plan_entity.dart';
-import 'package:personal_fitness_tracker/features/workout/presentation/bloc/workout_bloc.dart';
-import 'package:personal_fitness_tracker/features/workout/presentation/bloc/workout_event.dart';
-import 'package:personal_fitness_tracker/features/workout/presentation/bloc/workout_state.dart';
+import 'package:fit_me/core/constants/color_constants.dart';
+import 'package:fit_me/core/services/auth_services.dart';
+import 'package:fit_me/features/schedule/domain/entities/schedule_status.dart';
+import 'package:fit_me/features/schedule/domain/entities/workout_schedule_entity.dart';
+import 'package:fit_me/features/schedule/presentation/bloc/schedule_bloc.dart';
+import 'package:fit_me/features/schedule/presentation/bloc/schedule_event.dart';
+import 'package:fit_me/features/workout/domain/entities/workout_plan_entity.dart';
+import 'package:fit_me/features/workout/presentation/bloc/workout_bloc.dart';
+import 'package:fit_me/features/workout/presentation/bloc/workout_event.dart';
+import 'package:fit_me/features/workout/presentation/bloc/workout_state.dart';
 
 class AddScheduleBottomSheet extends StatefulWidget {
   final WorkoutScheduleEntity? existingSchedule;

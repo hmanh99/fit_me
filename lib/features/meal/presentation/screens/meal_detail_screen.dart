@@ -2,17 +2,17 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:personal_fitness_tracker/core/constants/color_constants.dart';
-import 'package:personal_fitness_tracker/features/meal/domain/entities/meal_entity.dart';
-import 'package:personal_fitness_tracker/features/meal/domain/entities/meal_type.dart';
-import 'package:personal_fitness_tracker/features/meal/presentation/bloc/meal_bloc.dart';
-import 'package:personal_fitness_tracker/features/meal/presentation/bloc/meal_event.dart';
-import 'package:personal_fitness_tracker/features/meal/presentation/bloc/meal_state.dart';
-import 'package:personal_fitness_tracker/features/meal/presentation/widgets/meal_app_bar.dart';
-import 'package:personal_fitness_tracker/features/meal/presentation/widgets/meal_empty_view.dart';
-import 'package:personal_fitness_tracker/features/meal/presentation/widgets/meal_error_view.dart';
-import 'package:personal_fitness_tracker/features/meal/presentation/widgets/meal_item.dart';
-import 'package:personal_fitness_tracker/features/meal/presentation/widgets/meal_loading_skeleton.dart';
+import 'package:fit_me/core/constants/color_constants.dart';
+import 'package:fit_me/features/meal/domain/entities/meal_entity.dart';
+import 'package:fit_me/features/meal/domain/entities/meal_type.dart';
+import 'package:fit_me/features/meal/presentation/bloc/meal_bloc.dart';
+import 'package:fit_me/features/meal/presentation/bloc/meal_event.dart';
+import 'package:fit_me/features/meal/presentation/bloc/meal_state.dart';
+import 'package:fit_me/features/meal/presentation/widgets/meal_app_bar.dart';
+import 'package:fit_me/features/meal/presentation/widgets/meal_empty_view.dart';
+import 'package:fit_me/features/meal/presentation/widgets/meal_error_view.dart';
+import 'package:fit_me/features/meal/presentation/widgets/meal_item.dart';
+import 'package:fit_me/features/meal/presentation/widgets/meal_loading_skeleton.dart';
 
 class MealDetailScreen extends StatefulWidget {
   const MealDetailScreen({super.key, required this.mealId});

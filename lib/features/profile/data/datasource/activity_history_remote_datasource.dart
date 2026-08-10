@@ -1,4 +1,4 @@
-import 'package:personal_fitness_tracker/features/profile/data/models/activity_history_model.dart';
+import 'package:fit_me/features/profile/data/models/activity_history_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../../core/error/exceptions.dart';
