@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:personal_fitness_tracker/core/di/injection_container.dart'
-as di;
+    as di;
 import 'package:personal_fitness_tracker/core/router/app_router.dart';
 import 'package:personal_fitness_tracker/core/theme/app_theme.dart';
 import 'package:personal_fitness_tracker/features/auth/presentation/bloc/auth_bloc.dart';
@@ -17,16 +17,10 @@ import 'package:personal_fitness_tracker/features/settings/presentation/bloc/set
 import 'package:personal_fitness_tracker/features/settings/presentation/bloc/settings_event.dart';
 import 'package:personal_fitness_tracker/features/settings/presentation/bloc/settings_state.dart';
 import 'package:personal_fitness_tracker/features/workout/presentation/bloc/workout_bloc.dart';
-import 'package:supabase_flutter/supabase_flutter.dart' hide AuthState;
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
-
-  await Supabase.initialize(
-    url: 'https://rrwpymefmyqnxeeithst.supabase.co',
-    anonKey: 'sb_publishable_mK5OJp-IdJ3q1r1xR9-78w_rb6v1ELz',
-  );
 
   await di.init();
 
@@ -55,44 +49,62 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    EasyLocalization.of(context)?.locale;
     return MultiBlocProvider(
       providers: [
         BlocProvider<SettingsBloc>(
-          create: (_) => di.serviceLocator<SettingsBloc>()..add(const SettingsLoadRequested()),
+          create: (_) =>
+              di.serviceLocator<SettingsBloc>()
+                ..add(const SettingsLoadRequested()),
         ),
         BlocProvider<AuthBloc>.value(value: _authBloc),
-        BlocProvider<WorkoutBloc>(create: (_) => di.serviceLocator<WorkoutBloc>()),
-        BlocProvider<ExerciseBloc>(create: (_) => di.serviceLocator<ExerciseBloc>()),
-        BlocProvider<ScheduleBloc>(create: (_) => di.serviceLocator<ScheduleBloc>()),
+        BlocProvider<WorkoutBloc>(
+          create: (_) => di.serviceLocator<WorkoutBloc>(),
+        ),
+        BlocProvider<ExerciseBloc>(
+          create: (_) => di.serviceLocator<ExerciseBloc>(),
+        ),
+        BlocProvider<ScheduleBloc>(
+          create: (_) => di.serviceLocator<ScheduleBloc>(),
+        ),
         BlocProvider<MealBloc>(create: (_) => di.serviceLocator<MealBloc>()),
-        BlocProvider<ProfileBloc>(create: (_) => di.serviceLocator<ProfileBloc>()),
-        BlocProvider<DashboardBloc>(create: (_) => di.serviceLocator<DashboardBloc>()),
+        BlocProvider<ProfileBloc>(
+          create: (_) => di.serviceLocator<ProfileBloc>(),
+        ),
+        BlocProvider<DashboardBloc>(
+          create: (_) => di.serviceLocator<DashboardBloc>(),
+        ),
       ],
-      child: BlocBuilder<SettingsBloc, SettingsState>(
-        builder: (context, settingsState) {
-          return BlocBuilder<AuthBloc, AuthState>(
-            buildWhen: (prev, next) =>
-            prev is AuthUnknownState || next is AuthUnknownState,
-            builder: (context, authState) {
-              return MaterialApp.router(
-                title: 'Personal Fitness Tracker',
-                localizationsDelegates: context.localizationDelegates,
-                supportedLocales: context.supportedLocales,
-                locale: context.locale,
-                theme: AppTheme.light,
-                debugShowCheckedModeBanner: false,
-                routerConfig: _router,
-                builder: (context, child) {
-                  if (authState is AuthUnknownState) {
-                    return const CircularProgressIndicator();
-                  }
-                  return child ?? const CircularProgressIndicator();
-                },
-              );
-            },
-          );
+      child: BlocListener<SettingsBloc, SettingsState>(
+        listenWhen: (prev, next) =>
+            prev.settings.languageCode != next.settings.languageCode,
+        listener: (context, state) {
+          context.setLocale(Locale(state.settings.languageCode));
         },
+        child: BlocBuilder<SettingsBloc, SettingsState>(
+          builder: (context, settingsState) {
+            return BlocBuilder<AuthBloc, AuthState>(
+              buildWhen: (prev, next) =>
+                  prev is AuthUnknownState || next is AuthUnknownState,
+              builder: (context, authState) {
+                return MaterialApp.router(
+                  title: 'FitMe',
+                  localizationsDelegates: context.localizationDelegates,
+                  supportedLocales: context.supportedLocales,
+                  locale: context.locale,
+                  theme: AppTheme.light,
+                  debugShowCheckedModeBanner: false,
+                  routerConfig: _router,
+                  builder: (context, child) {
+                    if (authState is AuthUnknownState) {
+                      return const CircularProgressIndicator();
+                    }
+                    return child ?? const CircularProgressIndicator();
+                  },
+                );
+              },
+            );
+          },
+        ),
       ),
     );
   }

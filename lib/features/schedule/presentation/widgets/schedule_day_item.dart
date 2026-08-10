@@ -54,15 +54,12 @@ class ScheduleDayItem extends StatelessWidget {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    // Status colored left accent bar
-                    Container(width: 5, color: statusInfo.color),
-                    const SizedBox(width: 14),
-
+                    const SizedBox(width: 24),
                     // Main Card Content
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
-                          vertical: 14,
+                          vertical: 16,
                           horizontal: 2,
                         ),
                         child: Column(
@@ -78,12 +75,12 @@ class ScheduleDayItem extends StatelessWidget {
                                   ),
                                   decoration: BoxDecoration(
                                     color: statusInfo.color.withValues(
-                                      alpha: 0.08,
+                                      alpha: 0.1,
                                     ),
                                     borderRadius: BorderRadius.circular(8),
                                     border: Border.all(
                                       color: statusInfo.color.withValues(
-                                        alpha: 0.18,
+                                        alpha: 0.2,
                                       ),
                                       width: 1,
                                     ),
@@ -94,7 +91,7 @@ class ScheduleDayItem extends StatelessWidget {
                                         ?.copyWith(
                                           color: statusInfo.color,
                                           fontWeight: FontWeight.w800,
-                                          fontSize: 9,
+                                          fontSize: 10,
                                           letterSpacing: 0.5,
                                         ),
                                   ),
@@ -103,7 +100,7 @@ class ScheduleDayItem extends StatelessWidget {
                                 // Date
                                 Icon(
                                   Icons.calendar_today_rounded,
-                                  size: 11,
+                                  size: 12,
                                   color: theme.colorScheme.onSurfaceVariant
                                       .withValues(alpha: 0.6),
                                 ),
@@ -115,7 +112,7 @@ class ScheduleDayItem extends StatelessWidget {
                                   style: theme.textTheme.bodySmall?.copyWith(
                                     color: theme.colorScheme.onSurfaceVariant
                                         .withValues(alpha: 0.7),
-                                    fontSize: 11,
+                                    fontSize: 12,
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
@@ -129,7 +126,7 @@ class ScheduleDayItem extends StatelessWidget {
                               style: theme.textTheme.bodyLarge?.copyWith(
                                 fontWeight: FontWeight.w700,
                                 color: theme.colorScheme.onSurface,
-                                fontSize: 16,
+                                fontSize: 20,
                               ),
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
@@ -138,7 +135,7 @@ class ScheduleDayItem extends StatelessWidget {
                             // Optional Note Box
                             if (schedule.note != null &&
                                 schedule.note!.trim().isNotEmpty) ...[
-                              const SizedBox(height: 10),
+                              const SizedBox(height: 8),
                               Container(
                                 padding: const EdgeInsets.symmetric(
                                   horizontal: 10,

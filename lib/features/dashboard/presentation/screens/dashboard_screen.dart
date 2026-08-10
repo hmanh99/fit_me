@@ -22,6 +22,8 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
+  Locale? _currentLocale;
+
   @override
   void initState() {
     super.initState();
@@ -39,6 +41,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
+    context.locale;
     return Scaffold(
       backgroundColor: ColorConstants.backgroundColor,
       body: BlocBuilder<DashboardBloc, DashboardState>(
@@ -154,7 +157,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       height: 300,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        itemCount: 5,
+                        itemCount: (exercises.length % 10).clamp(2, 5),
                         itemBuilder: (context, index) {
                           final exercise = exercises[index];
                           return RecommendationCard(

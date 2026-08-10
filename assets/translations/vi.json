@@ -188,5 +188,8 @@
   "workout_empty_state_message": "Không tìm thấy kế hoạch tập luyện nào. Vui lòng quay lại sau hoặc nhấn Tải lại.",
   "workout_exercise_card_sets_reps_badge": "{sets} x {reps}",
   "no_ingredients_listed" : "Không có nguyên liệu nào trong danh sách.",
-  "ingredients_needed" : "Nguyên liệu"
+  "ingredients_needed" : "Nguyên liệu",
+  "upcoming": "Sắp diễn ra",
+  "in_progress": "Đang thực hiện",
+  "done": "Hoàn thành"
 }

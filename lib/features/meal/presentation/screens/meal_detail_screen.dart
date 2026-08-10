@@ -79,8 +79,8 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          _buildImageBanner(meal, badgeColor, 220),
-          const SizedBox(height: 20),
+          _buildImageBanner(meal, badgeColor, 250),
+          const SizedBox(height: 16),
           _buildHeaderSection(meal, badgeColor),
           const SizedBox(height: 16),
           _buildNutritionCard(meal, badgeColor),
@@ -101,7 +101,7 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
-              color: ColorConstants.black.withValues(alpha: 0.04),
+              color: ColorConstants.black.withValues(alpha: 0.1),
               blurRadius: 12,
               offset: const Offset(0, 4),
             ),
@@ -134,6 +134,17 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+
+        Text(
+          meal.name,
+          style: const TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            color: ColorConstants.textPrimaryColor,
+            letterSpacing: -0.2,
+          ),
+        ),
+        const SizedBox(height: 8),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
           decoration: BoxDecoration(
@@ -147,16 +158,6 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
               fontWeight: FontWeight.bold,
               color: badgeColor,
             ),
-          ),
-        ),
-        const SizedBox(height: 10),
-        Text(
-          meal.name,
-          style: const TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            color: ColorConstants.textPrimaryColor,
-            letterSpacing: -0.2,
           ),
         ),
       ],

@@ -187,7 +187,8 @@
   "workout_empty_state_title": "No Workouts Available",
   "workout_empty_state_message": "We couldn't find any workout plans. Try checking back later or tap Refresh to reload.",
   "workout_exercise_card_sets_reps_badge": "{sets} x {reps}",
-  "no_ingredients_listed" : "No ingredients listed.",
-  "ingredients_needed" : "Ingredients Needed"
-
+  "no_ingredients_listed": "No ingredients listed.",
+  "ingredients_needed": "Ingredients Needed", "upcoming": "Sắp diễn ra",
+  "in_progress": "Đang thực hiện",
+  "done": "Hoàn thành"
 }

@@ -1,3 +1,5 @@
+import 'package:easy_localization/easy_localization.dart';
+
 /// Status of a workout schedule entry.
 ///
 /// Maps directly to the Supabase `schedule_status` enum:
@@ -37,11 +39,11 @@ enum ScheduleStatus {
   String get label {
     switch (this) {
       case ScheduleStatus.upcoming:
-        return 'Upcoming';
+        return 'upcoming'.tr();
       case ScheduleStatus.inProgress:
-        return 'In Progress';
+        return 'in_progress'.tr();
       case ScheduleStatus.done:
-        return 'Done';
+        return 'done'.tr();
     }
   }
 }

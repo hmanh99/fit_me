@@ -65,12 +65,12 @@ class _WorkoutExerciseCardState extends State<WorkoutExerciseCard> {
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           decoration: BoxDecoration(
-            color: ColorConstants.backgroundColor,
+            color: ColorConstants.white,
             borderRadius: BorderRadius.circular(24),
             boxShadow: [
               BoxShadow(
-                color: ColorConstants.black.withValues(alpha: 0.04),
-                blurRadius: 10,
+                color: ColorConstants.black.withValues(alpha: 0.1),
+                blurRadius: 8,
                 offset: const Offset(0, 4),
               ),
             ],

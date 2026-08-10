@@ -22,7 +22,7 @@ class MealLoadingSkeleton extends StatelessWidget {
             children: [
               const AppSkeleton(
                 width: double.infinity,
-                height: 220,
+                height: 250,
                 borderRadius: BorderRadius.all(Radius.circular(16)),
               ),
               const SizedBox(height: 24),

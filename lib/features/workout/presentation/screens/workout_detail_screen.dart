@@ -94,7 +94,7 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
                         vertical: 8,
                       ),
                       child: Text(
-                        "workout_detail_screen_exercises_list_title".tr(),
+                        "exercises_list_title".tr(),
                         style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -227,12 +227,12 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
       margin: const EdgeInsets.all(16),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: ColorConstants.backgroundColor,
+        color: ColorConstants.white,
         borderRadius: BorderRadius.circular(24),
         boxShadow: [
           BoxShadow(
-            color: ColorConstants.black.withValues(alpha: 0.03),
-            blurRadius: 10,
+            color: ColorConstants.black.withValues(alpha: 0.1),
+            blurRadius: 8,
             offset: const Offset(0, 4),
           ),
         ],
@@ -266,13 +266,17 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
             children: [
               _buildStatChip(
                 icon: Icons.fitness_center_rounded,
-                label: "exercises_count".tr(namedArgs: {"count" : plan.exerciseCount.toString()}),
+                label: "exercises_count".tr(
+                  namedArgs: {"count": plan.exerciseCount.toString()},
+                ),
                 color: ColorConstants.iconColor,
               ),
               const SizedBox(width: 12),
               _buildStatChip(
                 icon: Icons.repeat_rounded,
-                label: "total_sets".tr(namedArgs: {"count" : totalSets.toString()}),
+                label: "total_sets".tr(
+                  namedArgs: {"count": totalSets.toString()},
+                ),
                 color: ColorConstants.iconColor,
               ),
             ],
