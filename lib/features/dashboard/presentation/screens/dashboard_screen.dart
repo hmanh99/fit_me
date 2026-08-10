@@ -22,8 +22,6 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
-  Locale? _currentLocale;
-
   @override
   void initState() {
     super.initState();

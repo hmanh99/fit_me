@@ -42,8 +42,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  // AuthBloc is a singleton in the DI container, so the router (which
-  // depends on it for auth-based redirects) is built once here.
+  // AuthBloc is a singleton in the DI container, so the router
+  // depends on it for auth-based redirects is built once here.
   late final AuthBloc _authBloc = di.serviceLocator<AuthBloc>();
   late final GoRouter _router = createAppRouter(_authBloc);
 
