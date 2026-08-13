@@ -25,6 +25,18 @@ class WorkoutSessionModel extends WorkoutSessionEntity {
     );
   }
 
+  WorkoutSessionEntity toEntity() {
+    return WorkoutSessionEntity(
+      workoutSessionId: workoutSessionId,
+      userId: userId,
+      planId: planId,
+      planName: planName,
+      dateTracked: dateTracked,
+      startedAt: startedAt,
+      completedAt: completedAt,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     return {
       'workout_session_id': workoutSessionId,
@@ -47,6 +59,7 @@ class WorkoutSessionModel extends WorkoutSessionEntity {
       'completed_at': completedAt?.toUtc().toIso8601String(),
     };
   }
+
   Map<String, dynamic> toUpdateJson() {
     return {
       'user_id': userId,

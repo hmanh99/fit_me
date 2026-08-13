@@ -1,10 +1,14 @@
-import 'package:fit_me/features/settings/domain/entities/app_settings.dart';
+import 'package:fit_me/core/error/failure.dart';
+import 'package:fit_me/core/usecase/usecase.dart';
+import 'package:fit_me/features/settings/domain/entities/settings_entity.dart';
 import 'package:fit_me/features/settings/domain/repositories/settings_repository.dart';
+import 'package:fpdart/fpdart.dart';
 
-class GetSettingsUseCase {
+class GetSettingsUseCase implements UseCase<void, NoParams>{
   final SettingsRepository repository;
 
   const GetSettingsUseCase(this.repository);
 
-  Future<AppSettings> call() => repository.getSettings();
+  @override
+  Future<Either<Failure, SettingsEntity>> call(NoParams params) => repository.getSettings();
 }

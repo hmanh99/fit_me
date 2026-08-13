@@ -1,31 +1,26 @@
+import 'package:fit_me/core/error/failure.dart';
 import 'package:fit_me/features/schedule/domain/entities/workout_schedule_entity.dart';
+import 'package:fpdart/fpdart.dart';
 
-/// Abstract contract for schedule data operations.
-/// Implemented by [ScheduleRepositoryImpl] in the data layer.
 abstract class ScheduleRepository {
-  /// Fetches all schedules for a user within a given month.
-  Future<List<WorkoutScheduleEntity>> getSchedulesByMonth({
+  Future<Either<Failure, List<WorkoutScheduleEntity>>> getSchedulesByMonth({
     required String userId,
     required int year,
     required int month,
   });
 
-  /// Fetches schedules for a specific date.
-  Future<List<WorkoutScheduleEntity>> getSchedulesByDate({
+  Future<Either<Failure, List<WorkoutScheduleEntity>>> getSchedulesByDate({
     required String userId,
     required DateTime date,
   });
 
-  /// Creates a new workout schedule entry.
-  Future<void> addSchedule(WorkoutScheduleEntity schedule);
+  Future<Either<Failure, void>> addSchedule({required WorkoutScheduleEntity schedule});
 
-  /// Updates an existing workout schedule.
-  Future<void> updateSchedule(WorkoutScheduleEntity schedule);
+  Future<Either<Failure, void>> updateSchedule({required WorkoutScheduleEntity schedule});
 
-  /// Deletes a schedule by its ID.
-  Future<void> deleteSchedule(int scheduleId);
+  Future<Either<Failure, void>> deleteSchedule({required int scheduleId});
 
-  /// Returns a stream that emits whenever workout_schedules changes
-  /// for the given user (via Supabase Realtime).
-  Stream<List<WorkoutScheduleEntity>> watchSchedules(String userId);
+  Stream<Either<Failure, List<WorkoutScheduleEntity>>> watchSchedules({
+    required String userId,
+  });
 }

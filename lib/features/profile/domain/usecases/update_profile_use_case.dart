@@ -1,34 +1,27 @@
+import 'package:fit_me/core/usecase/usecase.dart';
 import 'package:fit_me/features/profile/domain/entities/profile_entity.dart';
 import 'package:fit_me/features/profile/domain/repositories/profile_repository.dart';
+import 'package:fpdart/fpdart.dart';
 
-class UpdateProfileUseCaseParams {
+import '../../../../core/error/failure.dart';
+
+class UpdateProfileParams {
   final ProfileEntity profile;
-  final bool updateUsername;
-  final bool updateHeight;
-  final bool updateWeight;
-  final bool updateAvatar;
 
-  const UpdateProfileUseCaseParams({
+  const UpdateProfileParams({
     required this.profile,
-    required this.updateUsername,
-    required this.updateHeight,
-    required this.updateWeight,
-    required this.updateAvatar,
   });
 }
 
-class UpdateProfileUseCase {
+class UpdateProfileUseCase implements UseCase<void, UpdateProfileParams> {
   final ProfileRepository repository;
 
   const UpdateProfileUseCase(this.repository);
 
-  Future<void> call(UpdateProfileUseCaseParams params) {
-    return repository.updateProfile(
+  @override
+  Future<Either<Failure, void>> call(UpdateProfileParams params) async {
+    return await repository.updateProfile(
       profile: params.profile,
-      updateUsername: params.updateUsername,
-      updateHeight: params.updateHeight,
-      updateWeight: params.updateWeight,
-      updateAvatar: params.updateAvatar,
     );
   }
 }

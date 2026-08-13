@@ -1,3 +1,5 @@
+import 'package:fit_me/core/services/auth_services.dart';
+import 'package:fit_me/features/auth/data/datasources/auth_remote_datasource.dart';
 import 'package:get_it/get_it.dart';
 import 'package:fit_me/core/config/app_config.dart';
 import 'package:fit_me/core/services/exercise_services.dart';
@@ -29,11 +31,7 @@ import 'package:fit_me/features/profile/data/repositories/profile_repository_imp
 import 'package:fit_me/features/profile/domain/repositories/profile_repository.dart';
 import 'package:fit_me/features/profile/domain/usecases/get_current_profile_use_case.dart';
 import 'package:fit_me/features/profile/domain/usecases/logout_profile_use_case.dart';
-import 'package:fit_me/features/profile/domain/usecases/update_profile_avatar_use_case.dart';
-import 'package:fit_me/features/profile/domain/usecases/update_profile_height_use_case.dart';
 import 'package:fit_me/features/profile/domain/usecases/update_profile_use_case.dart';
-import 'package:fit_me/features/profile/domain/usecases/update_profile_username_use_case.dart';
-import 'package:fit_me/features/profile/domain/usecases/update_profile_weight_use_case.dart';
 import 'package:fit_me/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:fit_me/features/schedule/data/datasource/schedule_remote_data_source.dart';
 import 'package:fit_me/features/schedule/data/repositories/schedule_repository_impl.dart';
@@ -65,7 +63,7 @@ final serviceLocator = GetIt.instance;
 Future<void> init() async {
   await Supabase.initialize(
     url: AppConfig.supabaseUrl,
-    anonKey: AppConfig.supabaseAnonKey,
+    publishableKey: AppConfig.supabaseAnonKey,
   );
   serviceLocator.registerLazySingleton<SupabaseClient>(
         () => Supabase.instance.client,
@@ -74,11 +72,16 @@ Future<void> init() async {
   serviceLocator.registerLazySingleton<ExerciseServices>(
         () => ExerciseServices(),
   );
+  serviceLocator.registerLazySingleton<AuthServices>(() => AuthServices(),);
 
   // Auth
 
   serviceLocator.registerLazySingleton<AuthRepository>(
-        () => AuthRepositoryImpl(),
+        () => AuthRepositoryImpl(remoteDatasource: serviceLocator()),
+  );
+
+  serviceLocator.registerLazySingleton<AuthRemoteDatasource >(
+        () => AuthRemoteDataSourceImpl(serviceLocator()),
   );
 
   serviceLocator.registerLazySingleton(
@@ -214,18 +217,6 @@ Future<void> init() async {
         () => GetCurrentProfileUseCase(serviceLocator()),
   );
   serviceLocator.registerLazySingleton(
-        () => UpdateProfileUsernameUseCase(serviceLocator()),
-  );
-  serviceLocator.registerLazySingleton(
-        () => UpdateProfileHeightUseCase(serviceLocator()),
-  );
-  serviceLocator.registerLazySingleton(
-        () => UpdateProfileWeightUseCase(serviceLocator()),
-  );
-  serviceLocator.registerLazySingleton(
-        () => UpdateProfileAvatarUseCase(serviceLocator()),
-  );
-  serviceLocator.registerLazySingleton(
         () => UpdateProfileUseCase(serviceLocator()),
   );
   serviceLocator.registerLazySingleton(
@@ -235,10 +226,6 @@ Future<void> init() async {
   serviceLocator.registerFactory<ProfileBloc>(
         () => ProfileBloc(
       getCurrentProfile: serviceLocator(),
-      updateUsername: serviceLocator(),
-      updateHeight: serviceLocator(),
-      updateWeight: serviceLocator(),
-      updateAvatar: serviceLocator(),
       updateProfile: serviceLocator(),
       logoutProfile: serviceLocator(),
     ),

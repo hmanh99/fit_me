@@ -4,7 +4,6 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class MealRemoteDatasource {
   Future<List<MealModel>> getMeals();
-
   Future<MealModel> getMealById(int id);
 }
 

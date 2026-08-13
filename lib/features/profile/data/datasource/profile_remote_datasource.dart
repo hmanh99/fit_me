@@ -6,21 +6,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 abstract class ProfileRemoteDatasource {
   Future<ProfileModel> getCurrentProfile({required String userId});
 
-  Future<void> updateUsername({required ProfileModel model});
-
-  Future<void> updateHeight({required ProfileModel model});
-
-  Future<void> updateWeight({required ProfileModel model});
-
-  Future<void> updateAvatar({required ProfileModel model});
-
-  Future<void> updateProfile({
-    required ProfileModel model,
-    required bool updateUsername,
-    required bool updateHeight,
-    required bool updateWeight,
-    required bool updateAvatar,
-  });
+  Future<void> updateProfile({required ProfileModel model});
 
   Future<void> logoutProfile();
 }
@@ -49,70 +35,13 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDatasource {
   }
 
   @override
-  Future<void> updateAvatar({required ProfileModel model}) async {
-    try {
-      await supabaseClient
-          .from(_profileTable)
-          .update({'avatar': model.avatar})
-          .eq("user_id", model.userId);
-    } catch (e) {
-      throw ServerException(message: e.toString());
-    }
-  }
-
-  @override
-  Future<void> updateHeight({required ProfileModel model}) async {
-    try {
-      await supabaseClient
-          .from(_profileTable)
-          .update({'height': model.height})
-          .eq("user_id", model.userId);
-    } catch (e) {
-      throw ServerException(message: e.toString());
-    }
-  }
-
-  @override
-  Future<void> updateUsername({required ProfileModel model}) async {
-    try {
-      await supabaseClient
-          .from(_profileTable)
-          .update({'username': model.username})
-          .eq("user_id", model.userId);
-      await supabaseClient.auth.updateUser(
-        UserAttributes(data: {'username': model.username}),
-      );
-    } catch (e) {
-      throw ServerException(message: e.toString());
-    }
-  }
-
-  @override
-  Future<void> updateWeight({required ProfileModel model}) async {
-    try {
-      await supabaseClient
-          .from(_profileTable)
-          .update({'weight': model.weight})
-          .eq("user_id", model.userId);
-    } catch (e) {
-      throw ServerException(message: e.toString());
-    }
-  }
-
-  @override
-  Future<void> updateProfile({
-    required ProfileModel model,
-    required bool updateUsername,
-    required bool updateHeight,
-    required bool updateWeight,
-    required bool updateAvatar,
-  }) async {
+  Future<void> updateProfile({required ProfileModel model}) async {
     try {
       final updates = <String, dynamic>{};
-      if (updateUsername) updates['username'] = model.username;
-      if (updateHeight) updates['height'] = model.height;
-      if (updateWeight) updates['weight'] = model.weight;
-      if (updateAvatar) updates['avatar'] = model.avatar;
+      updates['username'] = model.username;
+      updates['height'] = model.height;
+      updates['weight'] = model.weight;
+      updates['avatar'] = model.avatar;
 
       if (updates.isNotEmpty) {
         await supabaseClient
@@ -121,7 +50,7 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDatasource {
             .eq("user_id", model.userId);
       }
 
-      if (updateUsername) {
+      if (model.username.isNotEmpty) {
         await supabaseClient.auth.updateUser(
           UserAttributes(data: {'username': model.username}),
         );

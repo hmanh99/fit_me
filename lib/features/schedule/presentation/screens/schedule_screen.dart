@@ -1,6 +1,4 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fit_me/core/constants/color_constants.dart';
 import 'package:fit_me/core/services/auth_services.dart';
 import 'package:fit_me/features/schedule/domain/entities/workout_schedule_entity.dart';
@@ -12,6 +10,8 @@ import 'package:fit_me/features/schedule/presentation/widgets/calendar_header.da
 import 'package:fit_me/features/schedule/presentation/widgets/schedule_day_item.dart';
 import 'package:fit_me/features/schedule/presentation/widgets/schedule_loading_skeleton.dart';
 import 'package:fit_me/features/schedule/presentation/widgets/workout_marker.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class ScheduleScreen extends StatefulWidget {
@@ -95,7 +95,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                 Text(
+                Text(
                   'schedule'.tr(),
                   style: TextStyle(
                     color: ColorConstants.white,
@@ -151,7 +151,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
             toolbarHeight: 64,
             flexibleSpace: Container(
               decoration: const BoxDecoration(
-                color: ColorConstants.buttonColor
+                color: ColorConstants.buttonColor,
               ),
             ),
           ),
@@ -198,7 +198,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
         // Calendar Grid Card
         SliverToBoxAdapter(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
+            padding: EdgeInsets.symmetric(horizontal: 16),
             child: Container(
               decoration: BoxDecoration(
                 color: theme.colorScheme.surface,
@@ -274,7 +274,9 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                     shape: BoxShape.circle,
                     boxShadow: [
                       BoxShadow(
-                        color: ColorConstants.buttonColor.withValues(alpha: 0.35),
+                        color: ColorConstants.buttonColor.withValues(
+                          alpha: 0.35,
+                        ),
                         blurRadius: 8,
                         offset: const Offset(0, 3),
                       ),
@@ -462,7 +464,9 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                     shape: BoxShape.circle,
                     boxShadow: [
                       BoxShadow(
-                        color: ColorConstants.buttonColor.withValues(alpha: 0.3),
+                        color: ColorConstants.buttonColor.withValues(
+                          alpha: 0.3,
+                        ),
                         blurRadius: 12,
                         offset: const Offset(0, 4),
                       ),
@@ -527,7 +531,9 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                     shape: BoxShape.circle,
                     boxShadow: [
                       BoxShadow(
-                        color: ColorConstants.redShade400.withValues(alpha: 0.3),
+                        color: ColorConstants.redShade400.withValues(
+                          alpha: 0.3,
+                        ),
                         blurRadius: 8,
                         offset: const Offset(0, 3),
                       ),
@@ -551,8 +557,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
             ),
             const SizedBox(height: 8),
             Text(
-              state.errorMessage ??
-                  'server_exception'.tr(),
+              state.errorMessage ?? 'server_exception'.tr(),
               style: theme.textTheme.bodyMedium?.copyWith(
                 color: theme.colorScheme.onSurfaceVariant.withValues(
                   alpha: 0.7,
@@ -582,7 +587,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
   Widget _buildFloatingActionButton() {
     return Padding(
       padding: EdgeInsets.only(
-        bottom: 24 + MediaQuery.of(context).padding.bottom,
+        bottom: MediaQuery.of(context).padding.bottom,
       ),
       child: Container(
         decoration: BoxDecoration(
@@ -594,7 +599,11 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
               AddScheduleBottomSheet.show(context, initialDate: _selectedDay),
           backgroundColor: ColorConstants.transparent,
           elevation: 0,
-          child: const Icon(Icons.add_rounded, color: ColorConstants.white, size: 28),
+          child: const Icon(
+            Icons.add_rounded,
+            color: ColorConstants.white,
+            size: 28,
+          ),
         ),
       ),
     );

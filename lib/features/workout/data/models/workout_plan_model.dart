@@ -1,5 +1,5 @@
-import 'package:fit_me/features/workout/domain/entities/workout_plan_entity.dart';
 import 'package:fit_me/features/workout/data/models/plan_exercise_model.dart';
+import 'package:fit_me/features/workout/domain/entities/workout_plan_entity.dart';
 
 class WorkoutPlanModel extends WorkoutPlanEntity {
   const WorkoutPlanModel({
@@ -25,6 +25,17 @@ class WorkoutPlanModel extends WorkoutPlanEntity {
       description: json['description'] as String?,
       createdAt: DateTime.parse(json['created_at'] as String),
       planExercises: exercises,
+    );
+  }
+
+  WorkoutPlanEntity toEntity() {
+    return WorkoutPlanEntity(
+      userId: userId,
+      planId: planId,
+      planName: planName,
+      createdAt: createdAt,
+      description: description,
+      planExercises: planExercises,
     );
   }
 

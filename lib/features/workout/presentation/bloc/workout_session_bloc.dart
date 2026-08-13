@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fit_me/core/error/failure.dart';
 import 'package:fit_me/core/services/auth_services.dart';
 import 'package:fit_me/features/workout/domain/entities/set_session_entity.dart';
 import 'package:fit_me/features/workout/domain/entities/workout_plan_entity.dart';
@@ -9,6 +9,7 @@ import 'package:fit_me/features/workout/domain/usecases/create_set_session_use_c
 import 'package:fit_me/features/workout/domain/usecases/create_workout_session_use_case.dart';
 import 'package:fit_me/features/workout/presentation/bloc/workout_session_event.dart';
 import 'package:fit_me/features/workout/presentation/bloc/workout_session_state.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class WorkoutSessionBloc
     extends Bloc<WorkoutSessionEvent, WorkoutSessionState> {
@@ -30,13 +31,9 @@ class WorkoutSessionBloc
   WorkoutSessionBloc({
     required CreateWorkoutSessionUseCase createWorkoutSession,
     required CreateSetSessionUseCase createSetSession,
-  })  : _createWorkoutSession = createWorkoutSession,
-        _createSetSession = createSetSession,
-        super(
-          WorkoutSessionState(
-            plan: _emptyPlan(),
-          ),
-        ) {
+  }) : _createWorkoutSession = createWorkoutSession,
+       _createSetSession = createSetSession,
+       super(WorkoutSessionState(plan: _emptyPlan())) {
     on<StartWorkoutPlan>(_onStartWorkoutPlan);
     on<WorkoutSessionCreated>(_onWorkoutSessionCreated);
     on<CompleteCurrentSet>(_onCompleteCurrentSet);
@@ -94,14 +91,16 @@ class WorkoutSessionBloc
     Emitter<WorkoutSessionState> emit,
   ) {
     _cancelTimers();
-    emit(WorkoutSessionState(
-      plan: event.plan,
-      status: WorkoutStatus.running,
-      currentExerciseIndex: 0,
-      currentSetNumber: 1,
-      elapsedSeconds: 0,
-      completedSets: const [],
-    ));
+    emit(
+      WorkoutSessionState(
+        plan: event.plan,
+        status: WorkoutStatus.running,
+        currentExerciseIndex: 0,
+        currentSetNumber: 1,
+        elapsedSeconds: 0,
+        completedSets: const [],
+      ),
+    );
     _startElapsedTimer();
   }
 
@@ -121,19 +120,21 @@ class WorkoutSessionBloc
 
     final newCompletedSet = CompletedSetData(
       exerciseId: currentEx.exerciseId,
-      exerciseName: currentEx.exercise?.name ?? 'Exercise ${state.currentExerciseIndex + 1}',
+      exerciseName:
+          currentEx.exercise?.name ??
+          'Exercise ${state.currentExerciseIndex + 1}',
       setNumber: state.currentSetNumber,
       repsCompleted: event.repsCompleted,
       weightUsed: event.weightUsed,
       isSkipped: false,
     );
 
-    final updatedCompletedSets = List<CompletedSetData>.from(state.completedSets)
-      ..add(newCompletedSet);
+    final updatedCompletedSets = List<CompletedSetData>.from(
+      state.completedSets,
+    )..add(newCompletedSet);
 
     final totalSets = state.totalSetsCompleted + 1;
     final totalReps = state.totalRepsCompleted + event.repsCompleted;
-
 
     final restSeconds = 60; // Standard 60 seconds rest
 
@@ -141,13 +142,15 @@ class WorkoutSessionBloc
     final isLastExercise = state.isLastExercise;
 
     if (restSeconds > 0) {
-      emit(state.copyWith(
-        status: WorkoutStatus.resting,
-        totalSetsCompleted: totalSets,
-        totalRepsCompleted: totalReps,
-        completedSets: updatedCompletedSets,
-        restSecondsRemaining: restSeconds,
-      ));
+      emit(
+        state.copyWith(
+          status: WorkoutStatus.resting,
+          totalSetsCompleted: totalSets,
+          totalRepsCompleted: totalReps,
+          completedSets: updatedCompletedSets,
+          restSecondsRemaining: restSeconds,
+        ),
+      );
       _startRestTimer(restSeconds);
     } else {
       _advanceToNextStep(
@@ -181,10 +184,7 @@ class WorkoutSessionBloc
     );
   }
 
-  void _onAddRestTime(
-    AddRestTime event,
-    Emitter<WorkoutSessionState> emit,
-  ) {
+  void _onAddRestTime(AddRestTime event, Emitter<WorkoutSessionState> emit) {
     if (state.status != WorkoutStatus.resting) return;
     final current = state.restSecondsRemaining ?? 0;
     final newTime = current + event.seconds;
@@ -220,34 +220,40 @@ class WorkoutSessionBloc
     if (isLastSet && isLastExercise) {
       _restTimer?.cancel();
       _restTimer = null;
-      emit(state.copyWith(
-        status: WorkoutStatus.summary,
-        totalSetsCompleted: totalSets,
-        totalRepsCompleted: totalReps,
-        completedSets: completedSets,
-        clearRestTimer: true,
-      ));
+      emit(
+        state.copyWith(
+          status: WorkoutStatus.summary,
+          totalSetsCompleted: totalSets,
+          totalRepsCompleted: totalReps,
+          completedSets: completedSets,
+          clearRestTimer: true,
+        ),
+      );
     } else if (isLastSet) {
       // Advance to Next Exercise, Set 1
-      emit(state.copyWith(
-        status: WorkoutStatus.running,
-        currentExerciseIndex: state.currentExerciseIndex + 1,
-        currentSetNumber: 1,
-        totalSetsCompleted: totalSets,
-        totalRepsCompleted: totalReps,
-        completedSets: completedSets,
-        clearRestTimer: true,
-      ));
+      emit(
+        state.copyWith(
+          status: WorkoutStatus.running,
+          currentExerciseIndex: state.currentExerciseIndex + 1,
+          currentSetNumber: 1,
+          totalSetsCompleted: totalSets,
+          totalRepsCompleted: totalReps,
+          completedSets: completedSets,
+          clearRestTimer: true,
+        ),
+      );
     } else {
       // Advance to Next Set of Current Exercise
-      emit(state.copyWith(
-        status: WorkoutStatus.running,
-        currentSetNumber: state.currentSetNumber + 1,
-        totalSetsCompleted: totalSets,
-        totalRepsCompleted: totalReps,
-        completedSets: completedSets,
-        clearRestTimer: true,
-      ));
+      emit(
+        state.copyWith(
+          status: WorkoutStatus.running,
+          currentSetNumber: state.currentSetNumber + 1,
+          totalSetsCompleted: totalSets,
+          totalRepsCompleted: totalReps,
+          completedSets: completedSets,
+          clearRestTimer: true,
+        ),
+      );
     }
   }
 
@@ -259,34 +265,44 @@ class WorkoutSessionBloc
     _restTimer = null;
 
     final currentEx = state.currentPlanExercise;
-    final updatedCompletedSets = List<CompletedSetData>.from(state.completedSets);
+    final updatedCompletedSets = List<CompletedSetData>.from(
+      state.completedSets,
+    );
     if (currentEx != null) {
       for (int s = state.currentSetNumber; s <= currentEx.targetSets; s++) {
-        updatedCompletedSets.add(CompletedSetData(
-          exerciseId: currentEx.exerciseId,
-          exerciseName: currentEx.exercise?.name ?? 'Exercise ${state.currentExerciseIndex + 1}',
-          setNumber: s,
-          repsCompleted: 0,
-          weightUsed: 0,
-          isSkipped: true,
-        ));
+        updatedCompletedSets.add(
+          CompletedSetData(
+            exerciseId: currentEx.exerciseId,
+            exerciseName:
+                currentEx.exercise?.name ??
+                'Exercise ${state.currentExerciseIndex + 1}',
+            setNumber: s,
+            repsCompleted: 0,
+            weightUsed: 0,
+            isSkipped: true,
+          ),
+        );
       }
     }
 
     if (state.isLastExercise) {
-      emit(state.copyWith(
-        status: WorkoutStatus.summary,
-        completedSets: updatedCompletedSets,
-        clearRestTimer: true,
-      ));
+      emit(
+        state.copyWith(
+          status: WorkoutStatus.summary,
+          completedSets: updatedCompletedSets,
+          clearRestTimer: true,
+        ),
+      );
     } else {
-      emit(state.copyWith(
-        status: WorkoutStatus.running,
-        currentExerciseIndex: state.currentExerciseIndex + 1,
-        currentSetNumber: 1,
-        completedSets: updatedCompletedSets,
-        clearRestTimer: true,
-      ));
+      emit(
+        state.copyWith(
+          status: WorkoutStatus.running,
+          currentExerciseIndex: state.currentExerciseIndex + 1,
+          currentSetNumber: 1,
+          completedSets: updatedCompletedSets,
+          clearRestTimer: true,
+        ),
+      );
     }
   }
 
@@ -321,17 +337,13 @@ class WorkoutSessionBloc
     Emitter<WorkoutSessionState> emit,
   ) {
     _cancelTimers();
-    emit(state.copyWith(
-      status: WorkoutStatus.summary,
-      clearRestTimer: true,
-    ));
+    emit(state.copyWith(status: WorkoutStatus.summary, clearRestTimer: true));
   }
 
   Future<void> _onSaveAndFinishWorkout(
     SaveAndFinishWorkout event,
     Emitter<WorkoutSessionState> emit,
   ) async {
-
     final authService = AuthServices();
     try {
       final now = DateTime.now();
@@ -340,19 +352,28 @@ class WorkoutSessionBloc
       final session = WorkoutSessionEntity(
         userId: state.plan.userId ?? authService.user!.id,
         planId: state.plan.planId,
-        planName: state.plan.planName.isNotEmpty ? state.plan.planName : 'Workout Session',
+        planName: state.plan.planName.isNotEmpty
+            ? state.plan.planName
+            : 'Workout Session',
         dateTracked: now,
         startedAt: startTime,
         completedAt: now,
       );
 
-      final createdSessionId = await _createWorkoutSession(session);
+      late final int createdSessionId;
+      final result = await _createWorkoutSession(
+        CreateWorkoutSessionParams(workoutSession: session),
+      );
+      result.fold((failure) {
+        Failure(failure.message);
+      }, (sessionId) => createdSessionId = sessionId);
 
       // Save session sets
       for (final set in state.completedSets) {
         if (!set.isSkipped) {
           final setSession = SetSessionEntity(
-            setSessionId: '${createdSessionId}_${set.exerciseId}_${set.setNumber}',
+            setSessionId:
+                '${createdSessionId}_${set.exerciseId}_${set.setNumber}',
             workoutSessionId: createdSessionId,
             exerciseId: set.exerciseId,
             setNumber: set.setNumber,
@@ -360,15 +381,17 @@ class WorkoutSessionBloc
             weight: set.weightUsed,
             isCompleted: true,
           );
-          await _createSetSession(setSession);
+          await _createSetSession(SetSessionParams(setSession: setSession));
         }
       }
 
       _cancelTimers();
-      emit(state.copyWith(
-        status: WorkoutStatus.finished,
-        sessionId: createdSessionId,
-      ));
+      emit(
+        state.copyWith(
+          status: WorkoutStatus.finished,
+          sessionId: createdSessionId,
+        ),
+      );
     } catch (e) {
       _cancelTimers();
       emit(state.copyWith(status: WorkoutStatus.finished));
@@ -389,4 +412,3 @@ class WorkoutSessionBloc
     emit(state.copyWith(restSecondsRemaining: event.remaining));
   }
 }
-

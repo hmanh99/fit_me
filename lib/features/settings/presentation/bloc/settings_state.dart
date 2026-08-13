@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
-import '../../domain/entities/app_settings.dart';
+import '../../domain/entities/settings_entity.dart';
 
 class SettingsState extends Equatable {
-  final AppSettings settings;
+  final SettingsEntity settings;
   final bool isLoading;
 
   const SettingsState({
@@ -12,7 +12,7 @@ class SettingsState extends Equatable {
 
   factory SettingsState.initial() {
     return const SettingsState(
-      settings: AppSettings(
+      settings: SettingsEntity(
         languageCode: 'en',
       ),
       isLoading: true,
@@ -20,7 +20,7 @@ class SettingsState extends Equatable {
   }
 
   SettingsState copyWith({
-    AppSettings? settings,
+    SettingsEntity? settings,
     bool? isLoading,
   }) {
     return SettingsState(

@@ -24,8 +24,7 @@ class AddScheduleBottomSheet extends StatefulWidget {
   });
 
   /// Show the bottom sheet from anywhere.
-  static Future<void> show(
-    BuildContext context, {
+  static Future<void> show(BuildContext context, {
     WorkoutScheduleEntity? existingSchedule,
     DateTime? initialDate,
   }) {
@@ -33,13 +32,14 @@ class AddScheduleBottomSheet extends StatefulWidget {
       context: context,
       isScrollControlled: true,
       backgroundColor: ColorConstants.transparent,
-      builder: (_) => BlocProvider.value(
-        value: context.read<ScheduleBloc>(),
-        child: AddScheduleBottomSheet(
-          existingSchedule: existingSchedule,
-          initialDate: initialDate,
-        ),
-      ),
+      builder: (_) =>
+          BlocProvider.value(
+            value: context.read<ScheduleBloc>(),
+            child: AddScheduleBottomSheet(
+              existingSchedule: existingSchedule,
+              initialDate: initialDate,
+            ),
+          ),
     );
   }
 
@@ -90,7 +90,10 @@ class _AddScheduleBottomSheetState extends State<AddScheduleBottomSheet> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final bottomInset = MediaQuery.of(context).viewInsets.bottom;
+    final bottomInset = MediaQuery
+        .of(context)
+        .viewInsets
+        .bottom;
 
     return Container(
       margin: EdgeInsets.only(bottom: bottomInset),
@@ -110,7 +113,10 @@ class _AddScheduleBottomSheetState extends State<AddScheduleBottomSheet> {
           left: 24,
           right: 24,
           top: 16,
-          bottom: 24 + MediaQuery.of(context).padding.bottom,
+          bottom: 24 + MediaQuery
+              .of(context)
+              .padding
+              .bottom,
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -159,6 +165,14 @@ class _AddScheduleBottomSheetState extends State<AddScheduleBottomSheet> {
                 List<WorkoutPlanEntity> plans = [];
                 if (workoutState is WorkoutPlansLoaded) {
                   plans = workoutState.workoutPlans;
+                  if (_selectedPlan == null && widget.existingSchedule != null) {
+                    for (final p in plans) {
+                      if (p.planId == widget.existingSchedule!.planId) {
+                        _selectedPlan = p;
+                        break;
+                      }
+                    }
+                  }
                 }
 
                 return Column(
@@ -169,7 +183,7 @@ class _AddScheduleBottomSheetState extends State<AddScheduleBottomSheet> {
                         initialValue: _selectedPlan,
                         decoration: InputDecoration(
                           hintText: 'select_a_workout_plan'.tr(),
-                          prefixIcon: Icon(
+                          prefixIcon: const Icon(
                             Icons.fitness_center_rounded,
                             size: 20,
                           ),
@@ -193,6 +207,17 @@ class _AddScheduleBottomSheetState extends State<AddScheduleBottomSheet> {
                             }
                           });
                         },
+                      )
+                    else
+                      TextField(
+                        controller: _planNameController,
+                        decoration: InputDecoration(
+                          hintText: 'select_a_workout_plan'.tr(),
+                          prefixIcon: const Icon(
+                            Icons.fitness_center_rounded,
+                            size: 20,
+                          ),
+                        ),
                       ),
                   ],
                 );
@@ -260,7 +285,9 @@ class _AddScheduleBottomSheetState extends State<AddScheduleBottomSheet> {
                       right: s != ScheduleStatus.values.last ? 10 : 0,
                     ),
                     child: GestureDetector(
-                      onTap: () => setState(() => _selectedStatus = s),
+                      onTap: () {
+                        setState(() => _selectedStatus = s,);
+                      },
                       child: AnimatedContainer(
                         duration: const Duration(milliseconds: 250),
                         curve: Curves.easeInOut,
@@ -274,18 +301,18 @@ class _AddScheduleBottomSheetState extends State<AddScheduleBottomSheet> {
                             color: isSelected
                                 ? color
                                 : theme.colorScheme.outlineVariant.withValues(
-                                    alpha: 0.3,
-                                  ),
+                              alpha: 0.3,
+                            ),
                             width: isSelected ? 2 : 1,
                           ),
                           boxShadow: isSelected
                               ? [
-                                  BoxShadow(
-                                    color: color.withValues(alpha: 0.12),
-                                    blurRadius: 10,
-                                    offset: const Offset(0, 4),
-                                  ),
-                                ]
+                            BoxShadow(
+                              color: color.withValues(alpha: 0.12),
+                              blurRadius: 10,
+                              offset: const Offset(0, 4),
+                            ),
+                          ]
                               : null,
                         ),
                         child: Column(
@@ -305,7 +332,7 @@ class _AddScheduleBottomSheetState extends State<AddScheduleBottomSheet> {
                                 color: isSelected
                                     ? color
                                     : theme.colorScheme.onSurfaceVariant
-                                          .withValues(alpha: 0.7),
+                                    .withValues(alpha: 0.7),
                               ),
                             ),
                             const SizedBox(height: 6),
@@ -380,9 +407,12 @@ class _AddScheduleBottomSheetState extends State<AddScheduleBottomSheet> {
       builder: (context, child) {
         return Theme(
           data: Theme.of(context).copyWith(
-            colorScheme: Theme.of(
+            colorScheme: Theme
+                .of(
               context,
-            ).colorScheme.copyWith(primary: ColorConstants.primaryColor),
+            )
+                .colorScheme
+                .copyWith(primary: ColorConstants.primaryColor),
           ),
           child: child!,
         );
@@ -404,7 +434,7 @@ class _AddScheduleBottomSheetState extends State<AddScheduleBottomSheet> {
     if (planName.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content:  Text("please_select_plan_name".tr()),
+          content: Text("please_select_plan_name".tr()),
           behavior: SnackBarBehavior.floating,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
@@ -419,13 +449,18 @@ class _AddScheduleBottomSheetState extends State<AddScheduleBottomSheet> {
 
     setState(() => _isSaving = true);
 
+    final planId =
+        _selectedPlan?.planId ?? widget.existingSchedule?.planId ?? 0;
+
     final schedule = WorkoutScheduleEntity(
       scheduleId: widget.existingSchedule?.scheduleId ?? 0,
       userId: userId,
-      planId: _selectedPlan?.planId,
+      planId: planId,
       planName: planName,
       scheduleDate: _selectedDate,
-      note: _noteController.text.trim().isEmpty
+      note: _noteController.text
+          .trim()
+          .isEmpty
           ? null
           : _noteController.text.trim(),
       status: _selectedStatus,
@@ -485,14 +520,15 @@ class _GradientButtonState extends State<_GradientButton>
   void initState() {
     super.initState();
     _animController =
-        AnimationController(
-          vsync: this,
-          duration: const Duration(milliseconds: 100),
-          lowerBound: 0.0,
-          upperBound: 0.05,
-        )..addListener(() {
-          setState(() {});
-        });
+    AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 100),
+      lowerBound: 0.0,
+      upperBound: 0.05,
+    )
+      ..addListener(() {
+        setState(() {});
+      });
   }
 
   @override

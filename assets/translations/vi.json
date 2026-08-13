@@ -150,7 +150,7 @@
   "skipped": "Đã bỏ qua",
   "active_set_view_reps_completed_with_weight": "{reps} lần {weight} kg",
   "active": "Đang tập",
-  "active_set_view_target_reps": "Mục tiêu: {target} lần",
+  "active_set_view_target_reps": "Mục tiêu: {target}",
   "app_bar_title": "Tóm tắt buổi tập",
   "congratulations_title": "Xin chúc mừng!",
   "completed_plan_message": "Bạn đã hoàn thành {planName}",

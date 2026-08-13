@@ -150,7 +150,7 @@
   "skipped": "Skipped",
   "active_set_view_reps_completed_with_weight": "{reps} reps {weight} kg",
   "active": "Active",
-  "active_set_view_target_reps": "Target: {target} reps",
+  "active_set_view_target_reps": "Target: {target}",
   "app_bar_title": "Workout Summary",
   "congratulations_title": "Congratulations!",
   "completed_plan_message": "You completed {planName}",
@@ -188,7 +188,8 @@
   "workout_empty_state_message": "We couldn't find any workout plans. Try checking back later or tap Refresh to reload.",
   "workout_exercise_card_sets_reps_badge": "{sets} x {reps}",
   "no_ingredients_listed": "No ingredients listed.",
-  "ingredients_needed": "Ingredients Needed", "upcoming": "Sắp diễn ra",
-  "in_progress": "Đang thực hiện",
-  "done": "Hoàn thành"
+  "ingredients_needed": "Ingredients Needed",
+  "upcoming": "Upcoming",
+  "in_progress": "In progress",
+  "done": "Done"
 }

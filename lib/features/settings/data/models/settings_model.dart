@@ -1,6 +1,6 @@
-import '../../domain/entities/app_settings.dart';
+import '../../domain/entities/settings_entity.dart';
 
-class SettingsModel extends AppSettings {
+class SettingsModel extends SettingsEntity {
   const SettingsModel({
     required super.languageCode,
   });
@@ -19,14 +19,14 @@ class SettingsModel extends AppSettings {
     };
   }
 
-  factory SettingsModel.fromEntity(AppSettings settings) {
+  factory SettingsModel.fromEntity(SettingsEntity settings) {
     return SettingsModel(
       languageCode: settings.languageCode,
     );
   }
 
-  AppSettings toEntity() {
-    return AppSettings(
+  SettingsEntity toEntity() {
+    return SettingsEntity(
       languageCode: languageCode,
     );
   }

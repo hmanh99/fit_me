@@ -38,6 +38,18 @@ class ActivityHistoryModel extends ActivityHistoryEntity {
     };
   }
 
+  ActivityHistoryEntity toEntity() {
+    return ActivityHistoryEntity(
+      workoutSessionId: workoutSessionId,
+      userId: userId,
+      planId: planId,
+      planName: planName,
+      dateTracked: dateTracked,
+      startedAt: startedAt,
+      completedAt: completedAt,
+    );
+  }
+
   factory ActivityHistoryModel.fromEntity(ActivityHistoryEntity entity) {
     return ActivityHistoryModel(
       workoutSessionId: entity.workoutSessionId,

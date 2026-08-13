@@ -1,7 +1,8 @@
+
+
 import 'package:easy_localization/easy_localization.dart';
 
 /// Status of a workout schedule entry.
-///
 /// Maps directly to the Supabase `schedule_status` enum:
 /// `upcoming` | `in_progress` | `done`.
 enum ScheduleStatus {

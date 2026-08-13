@@ -1,88 +1,92 @@
 import 'package:fit_me/core/error/exceptions.dart';
-import 'package:fit_me/core/services/auth_services.dart';
+import 'package:fit_me/features/auth/data/datasources/auth_remote_datasource.dart';
 import 'package:fit_me/features/auth/domain/entities/user_entities.dart';
 import 'package:fit_me/features/auth/domain/repositories/auth_repository.dart';
-import 'package:fit_me/features/auth/data/models/user_model.dart';
+import 'package:fpdart/fpdart.dart';
+
+import '../../../../core/error/failure.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
-  final AuthServices _authService;
+  final AuthRemoteDatasource remoteDatasource;
 
-  AuthRepositoryImpl({AuthServices? authService})
-      : _authService = authService ?? AuthServices();
+  AuthRepositoryImpl({required this.remoteDatasource});
 
   @override
-  UserEntity? get currentUser {
-    final user = _authService.user;
-    if (user == null) return null;
-    return UserModel.fromJson(user);
+  Future<Either<Failure, UserEntity?>> currentUser() async {
+    final user = remoteDatasource.currentUser;
+    if (user == null) {
+      return Left(Failure());
+    }
+    return Right(user.toEntity());
   }
 
   @override
-  Future<UserEntity> signUp({
+  Future<Either<Failure, UserEntity>> signUp({
     required String username,
     required String email,
     required String password,
   }) async {
     try {
-      final user = await _authService.signUp(
+      final response = await remoteDatasource.signUp(
+        username: username,
         email: email,
         password: password,
-        username: username,
       );
-      return UserModel.fromJson(user, username: username);
-    } on CustomAuthException {
-      rethrow;
+      return Right(response.toEntity());
+    } on ServerException catch (e) {
+      return Left(Failure(e.message));
     } catch (e) {
-      throw CustomAuthException(message: 'An unexpected error occurred during sign-up.');
+      return Left(Failure(e.toString()));
     }
   }
 
   @override
-  Future<UserEntity> login({
+  Future<Either<Failure, UserEntity>> login({
     required String email,
     required String password,
   }) async {
     try {
-      final user = await _authService.signIn(email: email, password: password);
-      return UserModel.fromJson(user);
-    } on CustomAuthException {
-      rethrow;
+      final response = await remoteDatasource.login(
+        email: email,
+        password: password,
+      );
+      return Right(response.toEntity());
+    } on ServerException catch (e) {
+      return Left(Failure(e.message));
     } catch (e) {
-      throw CustomAuthException(message: 'An unexpected error occurred during login.');
+      return Left(Failure(e.toString()));
     }
   }
 
   @override
-  Stream<UserEntity?> watchAuthState() {
-    return _authService.authStateChanges.map((user) {
-      if (user == null) return null;
-      return UserModel.fromJson(user);
+  Future<Either<Failure, void>> logout() async {
+    try {
+      return Right(await remoteDatasource.logout());
+    } on ServerException catch (e) {
+      return Left(Failure(e.message));
+    } catch (e) {
+      return Left(Failure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> forgotPassword({required String email}) async {
+    try {
+      return Right(await remoteDatasource.forgotPassword(email: email));
+    } on ServerException catch (e) {
+      return Left(Failure(e.message));
+    } catch (e) {
+      return Left(Failure(e.toString()));
+    }
+  }
+
+  @override
+  Stream<Either<Failure, UserEntity?>>  watchAuthState() {
+    return remoteDatasource.watchAuthState().map((user) {
+      if(user == null){
+        return Left(Failure());
+      }
+      return Right(user.toEntity());
     });
   }
-
-  @override
-  Future<void> logout() async {
-    try {
-      await _authService.signOut();
-    } on CustomAuthException {
-      rethrow;
-    } catch (e) {
-      throw CustomAuthException(message: 'An unexpected error occurred during sign-out.');
-    }
-  }
-
-  @override
-  Future<void> forgotPassword({required String email}) async {
-    try {
-      await _authService.forgotPassword(email: email);
-    } on CustomAuthException {
-      rethrow;
-    } catch (e) {
-      throw CustomAuthException(
-          message: 'An unexpected error occurred while sending reset email.');
-    }
-  }
-
-  // @override
-  // Future<UserEntity> googleLogin() async {}
 }

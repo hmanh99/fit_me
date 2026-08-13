@@ -1,3 +1,5 @@
+import 'package:fit_me/core/error/exceptions.dart';
+import 'package:fit_me/core/error/failure.dart';
 import 'package:fit_me/features/workout/data/datasource/workout_remote_data_source.dart';
 import 'package:fit_me/features/workout/data/models/set_session_entity.dart';
 import 'package:fit_me/features/workout/data/models/workout_session_model.dart';
@@ -5,6 +7,7 @@ import 'package:fit_me/features/workout/domain/entities/set_session_entity.dart'
 import 'package:fit_me/features/workout/domain/entities/workout_plan_entity.dart';
 import 'package:fit_me/features/workout/domain/entities/workout_session_entity.dart';
 import 'package:fit_me/features/workout/domain/repositories/workout_repository.dart';
+import 'package:fpdart/fpdart.dart';
 
 class WorkoutRepositoryImpl implements WorkoutRepository {
   final WorkoutRemoteDataSource remoteDataSource;
@@ -12,73 +15,110 @@ class WorkoutRepositoryImpl implements WorkoutRepository {
   WorkoutRepositoryImpl({required this.remoteDataSource});
 
   @override
-  Future<List<WorkoutPlanEntity>> getWorkoutPlans(String? userId) async {
+  Future<Either<Failure, List<WorkoutPlanEntity>>> getWorkoutPlans(
+    String? userId,
+  ) async {
     try {
-      return await remoteDataSource.getWorkoutPlans(userId);
+      final response = await remoteDataSource.getWorkoutPlans(userId);
+      return Right(response.map((e) => e.toEntity(),).toList());
+    } on ServerException catch (e) {
+    return Left(Failure(e.message));
     } catch (e) {
-      rethrow;
+    return Left(Failure(e.toString()));
     }
   }
 
   @override
-  Future<WorkoutPlanEntity> getWorkoutPlanDetails(int planId) async {
+  Future<Either<Failure, WorkoutPlanEntity>> getWorkoutPlanDetails(int planId) async {
     try {
-      return await remoteDataSource.getWorkoutPlanDetails(planId);
+      final response = await remoteDataSource.getWorkoutPlanDetails(planId);
+      return Right(response.toEntity());
+    } on ServerException catch (e) {
+      return Left(Failure(e.message));
     } catch (e) {
-      rethrow;
+      return Left(Failure(e.toString()));
     }
   }
 
   @override
-  Future<int> createWorkoutSession(WorkoutSessionEntity session) async {
+  Future<Either<Failure, void>> createSetSession(
+    SetSessionEntity setSession,
+  ) async {
     try {
-      return await remoteDataSource.createWorkoutSession(
-        WorkoutSessionModel.fromEntity(session),
+      return Right(
+        await remoteDataSource.createSetSession(
+          SetSessionModel.fromEntity(setSession),
+        ),
       );
+    } on ServerException catch (e) {
+      return Left(Failure(e.message));
     } catch (e) {
-      rethrow;
+      return Left(Failure(e.toString()));
     }
   }
 
   @override
-  Future<void> updateWorkoutSession(WorkoutSessionEntity session) async {
+  Future<Either<Failure, int>> createWorkoutSession(
+    WorkoutSessionEntity session,
+  ) async {
     try {
-      return await remoteDataSource.updateWorkoutSession(
-        WorkoutSessionModel.fromEntity(session),
+      return Right(
+        await remoteDataSource.createWorkoutSession(
+          WorkoutSessionModel.fromEntity(session),
+        ),
       );
+    } on ServerException catch (e) {
+      return Left(Failure(e.message));
     } catch (e) {
-      rethrow;
+      return Left(Failure(e.toString()));
     }
   }
 
   @override
-  Future<List<WorkoutSessionEntity>> getWorkoutSessions(String userId) async {
+  Future<Either<Failure, List<WorkoutSessionEntity>>> getWorkoutSessions(
+    String userId,
+  ) async {
     try {
-      return await remoteDataSource.getWorkoutSessions(userId);
+      final response = await remoteDataSource.getWorkoutSessions(userId);
+      return Right(response.map((e) => e.toEntity()).toList());
+    } on ServerException catch (e) {
+      return Left(Failure(e.message));
     } catch (e) {
-      rethrow;
+      return Left(Failure(e.toString()));
     }
   }
 
   @override
-  Future<void> createSetSession(SetSessionEntity setSession) async {
+  Future<Either<Failure, void>> updateSetSession(
+    SetSessionEntity setSession,
+  ) async {
     try {
-      await remoteDataSource.createSetSession(
-        SetSessionModel.fromEntity(setSession),
+      return Right(
+        await remoteDataSource.updateSetSession(
+          SetSessionModel.fromEntity(setSession),
+        ),
       );
+    } on ServerException catch (e) {
+      return Left(Failure(e.message));
     } catch (e) {
-      rethrow;
+      return Left(Failure(e.toString()));
     }
   }
 
   @override
-  Future<void> updateSetSession(SetSessionEntity setSession) async {
+  Future<Either<Failure, void>> updateWorkoutSession(
+    WorkoutSessionEntity session,
+  ) async {
     try {
-      await remoteDataSource.updateSetSession(
-        SetSessionModel.fromEntity(setSession),
+      return Right(
+        await remoteDataSource.updateWorkoutSession(
+          WorkoutSessionModel.fromEntity(session),
+        ),
       );
+    } on ServerException catch (e) {
+      return Left(Failure(e.message));
     } catch (e) {
-      rethrow;
+      return Left(Failure(e.toString()));
     }
   }
 }

@@ -120,10 +120,6 @@ class ScheduleRemoteDataSourceImpl implements ScheduleRemoteDataSource {
   @override
   Stream<List<WorkoutScheduleModel>> watchSchedules(String userId) {
     final controller = StreamController<List<WorkoutScheduleModel>>.broadcast();
-
-    // Bug 3 fix: include a timestamp in the channel name so that a new
-    // subscription never conflicts with a still-live previous channel when
-    // the user navigates away and back rapidly.
     final channelName =
         'schedule_${userId}_${DateTime.now().millisecondsSinceEpoch}';
     final channel = supabaseClient.channel(channelName);
@@ -167,8 +163,6 @@ class ScheduleRemoteDataSourceImpl implements ScheduleRemoteDataSource {
         )
         .subscribe();
 
-    // Bug 3 fix: await removeChannel so the Supabase channel is fully
-    // unsubscribed before any new channel with a fresh name is created.
     controller.onCancel = () async {
       await supabaseClient.removeChannel(channel);
       if (!controller.isClosed) controller.close();

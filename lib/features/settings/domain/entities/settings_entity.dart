@@ -1,17 +1,17 @@
 import 'package:equatable/equatable.dart';
 
 
-class AppSettings extends Equatable {
+class SettingsEntity extends Equatable {
   final String languageCode;
 
-  const AppSettings({
+  const SettingsEntity({
     required this.languageCode,
   });
 
-  AppSettings copyWith({
+  SettingsEntity copyWith({
     String? languageCode,
   }) {
-    return AppSettings(
+    return SettingsEntity(
       languageCode: languageCode ?? this.languageCode,
     );
   }

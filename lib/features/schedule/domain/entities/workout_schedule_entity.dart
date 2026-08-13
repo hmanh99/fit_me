@@ -5,7 +5,7 @@ import 'package:fit_me/features/schedule/domain/entities/schedule_status.dart';
 class WorkoutScheduleEntity extends Equatable {
   final int scheduleId;
   final String userId;
-  final int? planId;
+  final int planId;
   final String planName;
   final DateTime scheduleDate;
   final String? note;
@@ -19,7 +19,7 @@ class WorkoutScheduleEntity extends Equatable {
     required this.scheduleDate,
     required this.status,
     required this.createdAt,
-    this.planId,
+    required this.planId,
     this.note,
   });
 

@@ -1,18 +1,13 @@
+import 'package:fit_me/core/error/failure.dart';
 import 'package:fit_me/features/profile/domain/entities/profile_entity.dart';
+import 'package:fpdart/fpdart.dart';
 
 abstract class ProfileRepository {
-  Future<ProfileEntity> getCurrentProfile({required String userId});
-
-  Future<void> updateUsername({required ProfileEntity profile});
-  Future<void> updateHeight({required ProfileEntity profile});
-  Future<void> updateWeight({required ProfileEntity profile});
-  Future<void> updateAvatar({required ProfileEntity profile});
-  Future<void> updateProfile({
-    required ProfileEntity profile,
-    required bool updateUsername,
-    required bool updateHeight,
-    required bool updateWeight,
-    required bool updateAvatar,
+  Future<Either<Failure, ProfileEntity>> getCurrentProfile({
+    required String userId,
   });
-  Future<void> logoutProfile();
+
+  Future<Either<Failure, void>> updateProfile({required ProfileEntity profile});
+
+  Future<Either<Failure, void>> logoutProfile();
 }

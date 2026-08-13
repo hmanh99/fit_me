@@ -27,6 +27,19 @@ class ExerciseModel extends ExerciseEntity {
     );
   }
 
+  ExerciseEntity toEntity() {
+    return ExerciseEntity(
+      exerciseId: exerciseId,
+      name: name,
+      muscleGroups: muscleGroups,
+      difficulty: difficulty,
+      instructions: instructions,
+      url: url,
+      calories: calories,
+      equipments: equipments,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     return {
       'exercise_id': exerciseId,

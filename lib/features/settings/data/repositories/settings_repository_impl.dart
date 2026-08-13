@@ -1,4 +1,8 @@
-import '../../domain/entities/app_settings.dart';
+import 'package:fit_me/core/error/exceptions.dart';
+import 'package:fit_me/core/error/failure.dart';
+import 'package:fpdart/fpdart.dart';
+
+import '../../domain/entities/settings_entity.dart';
 import '../../domain/repositories/settings_repository.dart';
 import '../datasources/settings_local_datasource.dart';
 import '../models/settings_model.dart';
@@ -9,18 +13,30 @@ class SettingsRepositoryImpl implements SettingsRepository {
   SettingsRepositoryImpl({required this.localDataSource});
 
   @override
-  Future<AppSettings> getSettings() async {
-    final languageCode = await localDataSource.getLanguageCode();
+  Future<Either<Failure, SettingsEntity>> getSettings() async {
+    try {
+      final languageCode = await localDataSource.getLanguageCode();
 
-    final model = SettingsModel(
-      languageCode: languageCode ?? 'en',
-    );
+      final model = SettingsModel(
+        languageCode: languageCode ?? 'en',
+      );
 
-    return model.toEntity();
+      return Right(model.toEntity());
+    } on ServerException catch (e) {
+      return Left(Failure(e.message));
+    } catch (e) {
+      return Left(Failure(e.toString()));
+    }
   }
 
   @override
-  Future<void> saveLanguageCode(String code) async {
-    await localDataSource.saveLanguageCode(code);
+  Future<Either<Failure, void>> saveLanguageCode(String code) async {
+    try {
+      return Right(await localDataSource.saveLanguageCode(code));
+    } on ServerException catch (e) {
+      return Left(Failure(e.message));
+    } catch (e) {
+      return Left(Failure(e.toString()));
+    }
   }
 }

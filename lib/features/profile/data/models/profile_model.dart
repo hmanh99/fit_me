@@ -29,6 +29,16 @@ class ProfileModel extends ProfileEntity {
     };
   }
 
+  ProfileEntity toEntity() {
+    return ProfileEntity(
+      userId: userId,
+      username: username,
+      height: height,
+      weight: weight,
+      avatar: avatar,
+    );
+  }
+
   factory ProfileModel.fromEntity(ProfileEntity entity) {
     return ProfileModel(
       userId: entity.userId,

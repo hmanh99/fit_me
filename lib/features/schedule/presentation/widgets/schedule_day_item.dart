@@ -1,10 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/material.dart';
 import 'package:fit_me/core/constants/color_constants.dart';
 import 'package:fit_me/features/schedule/domain/entities/schedule_status.dart';
 import 'package:fit_me/features/schedule/domain/entities/workout_schedule_entity.dart';
+import 'package:flutter/material.dart';
 
-/// A card that displays a single schedule entry for the selected day.
+// displays a single schedule entry for the selected day.
 class ScheduleDayItem extends StatelessWidget {
   final WorkoutScheduleEntity schedule;
   final VoidCallback? onEdit;
@@ -42,9 +42,7 @@ class ScheduleDayItem extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(18),
               border: Border.all(
-                color: theme.colorScheme.outlineVariant.withValues(
-                  alpha: 0.3,
-                ),
+                color: theme.colorScheme.outlineVariant.withValues(alpha: 0.3),
                 width: 1,
               ),
             ),
@@ -87,13 +85,12 @@ class ScheduleDayItem extends StatelessWidget {
                                   ),
                                   child: Text(
                                     schedule.status.label.toUpperCase(),
-                                    style: theme.textTheme.labelSmall
-                                        ?.copyWith(
-                                          color: statusInfo.color,
-                                          fontWeight: FontWeight.w800,
-                                          fontSize: 10,
-                                          letterSpacing: 0.5,
-                                        ),
+                                    style: theme.textTheme.labelSmall?.copyWith(
+                                      color: statusInfo.color,
+                                      fontWeight: FontWeight.w800,
+                                      fontSize: 10,
+                                      letterSpacing: 0.5,
+                                    ),
                                   ),
                                 ),
                                 const SizedBox(width: 8),
@@ -142,8 +139,9 @@ class ScheduleDayItem extends StatelessWidget {
                                   vertical: 8,
                                 ),
                                 decoration: BoxDecoration(
-                                  color: theme.colorScheme.onSurface
-                                      .withValues(alpha: 0.03),
+                                  color: theme.colorScheme.onSurface.withValues(
+                                    alpha: 0.03,
+                                  ),
                                   borderRadius: BorderRadius.circular(10),
                                   border: Border.all(
                                     color: theme.colorScheme.outlineVariant
@@ -152,8 +150,7 @@ class ScheduleDayItem extends StatelessWidget {
                                   ),
                                 ),
                                 child: Row(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Padding(
                                       padding: const EdgeInsets.only(top: 2),
@@ -211,7 +208,9 @@ class ScheduleDayItem extends StatelessWidget {
                               borderRadius: BorderRadius.circular(14),
                             ),
                             elevation: 4,
-                            shadowColor: ColorConstants.black.withValues(alpha: 0.15),
+                            shadowColor: ColorConstants.black.withValues(
+                              alpha: 0.15,
+                            ),
                             onSelected: (value) {
                               if (value == 'edit') onEdit?.call();
                               if (value == 'delete') onDelete?.call();
@@ -239,7 +238,9 @@ class ScheduleDayItem extends StatelessWidget {
                                     SizedBox(width: 10),
                                     Text(
                                       'delete'.tr(),
-                                      style: TextStyle(color: ColorConstants.deleteActionColor),
+                                      style: TextStyle(
+                                        color: ColorConstants.deleteActionColor,
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -257,9 +258,7 @@ class ScheduleDayItem extends StatelessWidget {
                               width: 34,
                               height: 34,
                               decoration: BoxDecoration(
-                                color: statusInfo.color.withValues(
-                                  alpha: 0.1,
-                                ),
+                                color: statusInfo.color.withValues(alpha: 0.1),
                                 shape: BoxShape.circle,
                                 border: Border.all(
                                   color: statusInfo.color.withValues(

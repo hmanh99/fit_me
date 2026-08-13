@@ -1,7 +1,6 @@
 import 'package:fit_me/features/schedule/domain/entities/schedule_status.dart';
 import 'package:fit_me/features/schedule/domain/entities/workout_schedule_entity.dart';
 
-
 class WorkoutScheduleModel extends WorkoutScheduleEntity {
   const WorkoutScheduleModel({
     required super.scheduleId,
@@ -10,7 +9,7 @@ class WorkoutScheduleModel extends WorkoutScheduleEntity {
     required super.scheduleDate,
     required super.status,
     required super.createdAt,
-    super.planId,
+    required super.planId,
     super.note,
   });
 
@@ -18,7 +17,7 @@ class WorkoutScheduleModel extends WorkoutScheduleEntity {
     return WorkoutScheduleModel(
       scheduleId: json['schedule_id'] as int,
       userId: json['user_id'] as String,
-      planId: json['plan_id'] as int?,
+      planId: json['plan_id'] as int,
       planName: json['plan_name'] as String,
       scheduleDate: DateTime.parse(json['schedule_date'] as String),
       note: json['note'] as String?,
@@ -46,6 +45,19 @@ class WorkoutScheduleModel extends WorkoutScheduleEntity {
       'note': note,
       'status': status.toDbString(),
     };
+  }
+
+  WorkoutScheduleEntity toEntity() {
+    return WorkoutScheduleEntity(
+      planId: planId,
+      note: note,
+      scheduleId: scheduleId,
+      userId: userId,
+      planName: planName,
+      scheduleDate: scheduleDate,
+      status: status,
+      createdAt: createdAt,
+    );
   }
 
   factory WorkoutScheduleModel.fromEntity(WorkoutScheduleEntity entity) {

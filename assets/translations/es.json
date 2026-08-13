@@ -150,7 +150,7 @@
   "skipped": "Omitido",
   "active_set_view_reps_completed_with_weight": "{reps} reps {weight} kg",
   "active": "Activo",
-  "active_set_view_target_reps": "Objetivo: {target} reps",
+  "active_set_view_target_reps": "Objetivo: {target}",
   "app_bar_title": "Resumen del Entrenamiento",
   "congratulations_title": "¡Felicidades!",
   "completed_plan_message": "Completaste {planName}",

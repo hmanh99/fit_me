@@ -21,6 +21,16 @@ class MealModel extends MealEntity {
       url: entity.url,
     );
   }
+  MealEntity toEntity() {
+    return MealEntity(
+      mealId: mealId,
+      name: name,
+      calories: calories,
+      ingredients: ingredients,
+      mealType: mealType,
+      url: url,
+    );
+  }
 
   factory MealModel.fromJson(Map<String, dynamic> json) {
     return MealModel(

@@ -9,31 +9,28 @@ class ActivityHistoryBloc
     extends Bloc<ActivityHistoryEvent, ActivityHistoryState> {
   final GetActivityHistoriesUseCase _getActivityHistories;
 
-  ActivityHistoryBloc({required GetActivityHistoriesUseCase getActivityHistories})
+  ActivityHistoryBloc(
+      {required GetActivityHistoriesUseCase getActivityHistories})
       : _getActivityHistories = getActivityHistories,
         super(ActivityHistoryInitial()) {
     on<FetchActivityHistory>(_onFetchActivityHistory);
   }
 
-  Future<void> _onFetchActivityHistory(
-    FetchActivityHistory event,
-    Emitter<ActivityHistoryState> emit,
-  ) async {
+  Future<void> _onFetchActivityHistory(FetchActivityHistory event,
+      Emitter<ActivityHistoryState> emit,) async {
     emit(ActivityHistoryLoading());
     await _loadData(event.userId, emit);
   }
 
-  Future<void> _loadData(
-    String userId,
-    Emitter<ActivityHistoryState> emit,
-  ) async {
+  Future<void> _loadData(String userId,
+      Emitter<ActivityHistoryState> emit,) async {
     try {
-      final histories = await _getActivityHistories(userId: userId);
+      final result = await _getActivityHistories(
+          ActiveHistoryParams(userId: userId));
 
-      if (histories.isEmpty) {
-        emit(ActivityHistoryEmpty());
-        return;
-      }
+      late final activityHistory;
+
+      result.fold((failure) => emit(ActivityHistoryError(message: failure.message)), (histories) =>  activityHistory = histories,);
 
       // Group histories by date (Today, Yesterday, DD/MM/YYYY)
       final Map<String, List<ActivityHistoryEntity>> grouped = {};
@@ -41,7 +38,7 @@ class ActivityHistoryBloc
       final today = DateTime(now.year, now.month, now.day);
       final yesterday = today.subtract(const Duration(days: 1));
 
-      for (final item in histories) {
+      for (final item in activityHistory) {
         final itemDate = DateTime(
           item.startedAt.year,
           item.startedAt.month,
@@ -64,7 +61,7 @@ class ActivityHistoryBloc
       }
 
       emit(ActivityHistoryLoaded(
-        histories: histories,
+        histories: activityHistory,
         groupedHistories: grouped,
       ));
     } catch (e) {

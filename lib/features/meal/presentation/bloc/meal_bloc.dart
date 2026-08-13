@@ -1,9 +1,10 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fit_me/core/error/exceptions.dart';
+import 'package:fit_me/core/usecase/usecase.dart';
 import 'package:fit_me/features/meal/domain/usecases/get_meal_by_id_use_case.dart';
 import 'package:fit_me/features/meal/domain/usecases/get_meals_use_case.dart';
 import 'package:fit_me/features/meal/presentation/bloc/meal_event.dart';
 import 'package:fit_me/features/meal/presentation/bloc/meal_state.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MealBloc extends Bloc<MealEvent, MealState> {
   final GetMealsUseCase _getMeals;
@@ -14,9 +15,9 @@ class MealBloc extends Bloc<MealEvent, MealState> {
   MealBloc({
     required GetMealsUseCase getMeals,
     required GetMealByIdUseCase getMealById,
-  })  : _getMeals = getMeals,
-        _getMealById = getMealById,
-        super(MealInitial()) {
+  }) : _getMeals = getMeals,
+       _getMealById = getMealById,
+       super(MealInitial()) {
     on<MealFetchStarted>(_onMealFetchStarted);
     on<MealFetchByIdStarted>(_onMealFetchByIdStarted);
   }
@@ -29,14 +30,13 @@ class MealBloc extends Bloc<MealEvent, MealState> {
     emit(MealLoading());
 
     try {
-      final meals = await _getMeals();
+      final result = await _getMeals(NoParams());
       if (generation != _listFetchGeneration) return;
 
-      if (meals.isEmpty) {
-        emit(MealEmpty());
-      } else {
-        emit(MealSuccess(meals: meals));
-      }
+      result.fold(
+        (failure) => emit(MealError(message: failure.message)),
+        (meals) => emit(MealSuccess(meals: meals)),
+      );
     } on ServerException catch (e) {
       if (generation != _listFetchGeneration) return;
       emit(MealError(message: e.message));
@@ -52,8 +52,11 @@ class MealBloc extends Bloc<MealEvent, MealState> {
   ) async {
     emit(MealLoading());
     try {
-      final meal = await _getMealById(event.mealId);
-      emit(MealDetailSuccess(meal: meal));
+      final result = await _getMealById(MealParams(id: event.mealId));
+      result.fold(
+            (failure) => emit(MealError(message: failure.message)),
+            (meal) => emit(MealDetailSuccess(meal: meal)),
+      );
     } on ServerException catch (e) {
       emit(MealError(message: e.message));
     } catch (e) {
