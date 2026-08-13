@@ -36,13 +36,6 @@ class _RecommendationCardState extends State<RecommendationCard> {
           decoration: BoxDecoration(
             color: ColorConstants.white,
             borderRadius: BorderRadius.circular(24),
-            boxShadow: [
-              BoxShadow(
-                color: ColorConstants.black.withValues(alpha: 0.1),
-                blurRadius: 4,
-                offset: const Offset(0, 4),
-              ),
-            ],
             border: Border.all(color: ColorConstants.borderLightColor, width: 1),
           ),
           child: Column(
