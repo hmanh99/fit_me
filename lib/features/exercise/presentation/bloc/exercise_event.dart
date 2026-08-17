@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:fit_me/features/exercise/domain/entities/muscle_group.dart';
 
 abstract class ExerciseEvent extends Equatable {
   const ExerciseEvent();
@@ -18,4 +19,13 @@ class ExerciseFetchByIdStarted extends ExerciseEvent {
 
   @override
   List<Object?> get props => [exerciseId];
+}
+
+class ExerciseFilterByMuscleGroup extends ExerciseEvent {
+  final MuscleGroup? muscleGroup;
+
+  const ExerciseFilterByMuscleGroup({this.muscleGroup});
+
+  @override
+  List<Object?> get props => [muscleGroup];
 }

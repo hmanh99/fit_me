@@ -90,6 +90,14 @@ class ColorConstants {
   static const mealLunchColor = Color(0xFFC58BF2);
   static const mealDinnerColor = Color(0xFFFF9B70);
 
+  // Muscle Groups
+  static const muscleGroupChestColor = Color(0xFF5B8DEF);
+  static const muscleGroupBackColor = Color(0xFF4CAF82);
+  static const muscleGroupShouldersColor = Color(0xFFFF9B52);
+  static const muscleGroupArmsColor = Color(0xFFC58BF2);
+  static const muscleGroupLegsColor = Color(0xFFEF5350);
+  static const muscleGroupCoreColor = Color(0xFFFFB74D);
+
   // Calories Badge 
   static const caloriesIconColor = Colors.orangeAccent;
   static const caloriesTextColor = Color(0xFFE65100);

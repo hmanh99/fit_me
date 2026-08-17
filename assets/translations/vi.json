@@ -191,5 +191,12 @@
   "ingredients_needed" : "Nguyên liệu",
   "upcoming": "Sắp diễn ra",
   "in_progress": "Đang thực hiện",
-  "done": "Hoàn thành"
+  "done": "Hoàn thành",
+  "chest": "Ngực",
+  "back": "Lưng",
+  "shoulders": "Vai",
+  "arms": "Tay",
+  "legs": "Chân",
+  "core": "Core",
+  "no_exercises_for_muscle_group": "Không tìm thấy bài tập nào cho nhóm cơ này."
 }
