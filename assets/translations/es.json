@@ -191,5 +191,12 @@
   "ingredients_needed": "Ingredientes Necesarios",
   "upcoming": "Próximo",
   "in_progress": "En progreso",
-  "done": "Completado"
+  "done": "Completado",
+  "chest": "Pecho",
+  "back": "Espalda",
+  "shoulders": "Hombros",
+  "arms": "Brazos",
+  "legs": "Piernas",
+  "core": "Core",
+  "no_exercises_for_muscle_group": "No se encontraron ejercicios para este grupo muscular."
 }
