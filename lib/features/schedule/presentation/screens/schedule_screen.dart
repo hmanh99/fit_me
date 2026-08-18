@@ -358,7 +358,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                     ),
                   ),
                   child: Text(
-                    DateFormat('EEEE, MMMM dd').format(_selectedDay),
+                    DateFormat('EEEE, MMMM dd').format(_selectedDay).toUpperCase(),
                     style: TextStyle(
                       color: theme.colorScheme.primary,
                       fontSize: 12,

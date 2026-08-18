@@ -47,7 +47,7 @@ class CalendarHeader extends StatelessWidget {
               );
             },
             child: Text(
-              monthYear,
+              monthYear.toUpperCase(),
               key: ValueKey(monthYear),
               style: theme.textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.w800,
