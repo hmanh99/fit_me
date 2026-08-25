@@ -30,10 +30,7 @@ class ActiveSetView extends StatelessWidget {
     }
 
     final exerciseName =
-        currentEx.exercise?.name ??
-        "active_set_view_exercise_fallback_name".tr(
-          namedArgs: {"index": (state.currentExerciseIndex + 1).toString()},
-        );
+        currentEx.exerciseName ;
     final targetRepsSecs = currentEx.targetRepsOrSeconds;
 
     return SingleChildScrollView(
@@ -66,35 +63,6 @@ class ActiveSetView extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                     color: ColorConstants.primaryColor,
                   ),
-                ),
-                const SizedBox(height: 8),
-                Row(
-                  children: [
-                    if (currentEx.exercise?.muscleGroups != null)
-                      ...currentEx.exercise!.muscleGroups.map(
-                        (muscleGroups) => Container(
-                          margin: const EdgeInsets.only(right: 8),
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 8,
-                            vertical: 6,
-                          ),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            border: Border.all(
-                              color: ColorConstants.greyShade300,
-                            ),
-                          ),
-                          child: Text(
-                            muscleGroups,
-                            style: TextStyle(
-                              fontSize: 10,
-                              color: ColorConstants.primaryColor,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
-                      ),
-                  ],
                 ),
               ],
             ),

@@ -1,4 +1,5 @@
-import 'package:easy_localization/easy_localization.dart';
+﻿import 'package:easy_localization/easy_localization.dart';
+import 'package:fit_me/core/services/auth_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -23,11 +24,17 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
   @override
   void initState() {
     super.initState();
-    context.read<WorkoutBloc>().add(const WorkoutFetchPlansStarted());
+    _fetchPlans();
+  }
+
+  void _fetchPlans() {
+    final userId = AuthServices().user!.id;
+    context.read<WorkoutBloc>().add(WorkoutFetchPlansStarted(userId: userId));
   }
 
   @override
   Widget build(BuildContext context) {
+    context.setLocale(context.locale);
     return Scaffold(
       backgroundColor: ColorConstants.backgroundColor,
       appBar: AppBar(
@@ -37,8 +44,8 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
           onPressed: () => context.pop(),
         ),
         title: Text(
-          "workout_plans".tr(),
-          style: TextStyle(
+          'workout_plans'.tr(),
+          style: const TextStyle(
             color: ColorConstants.appBarForegroundColor,
             fontWeight: FontWeight.bold,
             fontSize: 24,
@@ -49,43 +56,57 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
         toolbarHeight: 64,
         elevation: 0,
         backgroundColor: ColorConstants.appBarBackgroundColor,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.add_circle_outline_rounded, size: 28),
+            color: ColorConstants.appBarForegroundColor,
+            tooltip: 'create_plan_btn'.tr(),
+            onPressed: () => context.pushNamed(AppRouteNames.appCreatePlan),
+          ),
+        ],
       ),
-      body: BlocBuilder<WorkoutBloc, WorkoutState>(
+      floatingActionButton: FloatingActionButton.extended(
+        heroTag: 'create_workout_plan_fab',
+        onPressed: () => context.pushNamed(AppRouteNames.appCreatePlan),
+        backgroundColor: ColorConstants.buttonColor,
+        foregroundColor: ColorConstants.buttonTextColor,
+        icon: const Icon(Icons.add_rounded),
+        label: Text(
+          'create_plan_btn'.tr(),
+          style: const TextStyle(fontWeight: FontWeight.bold),
+        ),
+      ),
+      body: BlocConsumer<WorkoutBloc, WorkoutState>(
+        listener: (context, state) {
+          if (state is WorkoutPlanActionSuccess) {
+            _fetchPlans();
+          }
+        },
         builder: (context, state) {
           if (state is WorkoutLoading) {
             return const WorkoutLoadingSkeleton(isDetailPage: false);
           } else if (state is WorkoutError) {
             return WorkoutErrorState(
               errorMessage: state.message,
-              onRetry: () {
-                context.read<WorkoutBloc>().add(
-                  const WorkoutFetchPlansStarted(),
-                );
-              },
+              onRetry: _fetchPlans,
             );
           } else if (state is WorkoutEmpty) {
             return WorkoutEmptyState(
-              onRefresh: () {
-                context.read<WorkoutBloc>().add(
-                  const WorkoutFetchPlansStarted(),
-                );
-              },
+              onRefresh: _fetchPlans,
             );
           } else if (state is WorkoutPlansLoaded) {
             final plans = state.workoutPlans;
             return RefreshIndicator(
-              onRefresh: () async {
-                context.read<WorkoutBloc>().add(
-                  const WorkoutFetchPlansStarted(),
-                );
-              },
+              onRefresh: () async => _fetchPlans(),
               color: ColorConstants.buttonColor,
               child: ListView.builder(
-                padding: EdgeInsets.only(top: 12, bottom: MediaQuery.of(context).padding.bottom),
+                padding: EdgeInsets.only(
+                  top: 12,
+                  bottom: MediaQuery.of(context).padding.bottom + 80,
+                ),
                 itemCount: plans.length,
                 itemBuilder: (context, index) {
                   final plan = plans[index];
-                  // slide & fade animation
                   return TweenAnimationBuilder<double>(
                     key: ValueKey(plan.planId),
                     tween: Tween(begin: 0.0, end: 1.0),

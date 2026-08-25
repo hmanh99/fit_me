@@ -1,3 +1,4 @@
+﻿import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:fit_me/core/constants/color_constants.dart';
 import 'package:fit_me/features/workout/domain/entities/workout_plan_entity.dart';
@@ -17,6 +18,8 @@ class _WorkoutPlanCardState extends State<WorkoutPlanCard> {
 
   @override
   Widget build(BuildContext context) {
+    final isCustom = !widget.plan.isDefaultPlan;
+
     return GestureDetector(
       onTapDown: (_) => setState(() => _isPressed = true),
       onTapUp: (_) => setState(() => _isPressed = false),
@@ -28,18 +31,21 @@ class _WorkoutPlanCardState extends State<WorkoutPlanCard> {
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           decoration: BoxDecoration(
-            color: ColorConstants.primaryColor.withValues(alpha: 0.6),
+            color: isCustom
+                ? ColorConstants.blue.withValues(alpha: 0.75)
+                : ColorConstants.primaryColor.withValues(alpha: 0.6),
             borderRadius: BorderRadius.circular(24),
             boxShadow: [
               BoxShadow(
-                color: ColorConstants.primaryColor.withValues(alpha: 0.3),
+                color: (isCustom ? ColorConstants.blue : ColorConstants.primaryColor)
+                    .withValues(alpha: 0.3),
                 blurRadius: 8,
                 offset: const Offset(0, 8),
               ),
             ],
             border: Border.all(
-              color: ColorConstants.white.withValues(alpha: 0.4),
-              width: 1,
+              color: ColorConstants.white.withValues(alpha: isCustom ? 0.6 : 0.4),
+              width: isCustom ? 1.5 : 1,
             ),
           ),
           child: Stack(
@@ -53,15 +59,15 @@ class _WorkoutPlanCardState extends State<WorkoutPlanCard> {
                       width: 60,
                       height: 60,
                       decoration: BoxDecoration(
-                        color: ColorConstants.blue.withValues(alpha: 0.25),
+                        color: ColorConstants.white.withValues(alpha: 0.2),
                         shape: BoxShape.circle,
                         border: Border.all(
-                          color: ColorConstants.blue.withValues(alpha: 0.3),
+                          color: ColorConstants.white.withValues(alpha: 0.3),
                           width: 1,
                         ),
                       ),
-                      child: const Icon(
-                        Icons.fitness_center_rounded,
+                      child: Icon(
+                        isCustom ? Icons.person_rounded : Icons.fitness_center_rounded,
                         color: ColorConstants.white,
                         size: 30,
                       ),
@@ -72,6 +78,25 @@ class _WorkoutPlanCardState extends State<WorkoutPlanCard> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          if (isCustom) ...[
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                              margin: const EdgeInsets.only(bottom: 4),
+                              decoration: BoxDecoration(
+                                color: ColorConstants.white.withValues(alpha: 0.25),
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              child: Text(
+                                'my_custom_plan_badge'.tr(),
+                                style: const TextStyle(
+                                  color: ColorConstants.white,
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.bold,
+                                  letterSpacing: 0.4,
+                                ),
+                              ),
+                            ),
+                          ],
                           // Plan Name
                           Text(
                             widget.plan.planName,

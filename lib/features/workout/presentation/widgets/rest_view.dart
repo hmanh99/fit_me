@@ -187,8 +187,7 @@ class RestView extends StatelessWidget {
                         ),
                         const SizedBox(height: 4),
                         Text(
-                          nextEx.exercise?.name ??
-                              'rest_view_next_exercise_fallback'.tr(),
+                          nextEx.exerciseName,
                           style: const TextStyle(
                             fontSize: 24,
                             color: ColorConstants.white,

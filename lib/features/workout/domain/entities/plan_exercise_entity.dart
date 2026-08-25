@@ -1,16 +1,15 @@
 import 'package:equatable/equatable.dart';
-import 'package:fit_me/features/exercise/domain/entities/exercise_entity.dart';
 
 /// planExerciseId help define order of specific exercise inside a specific plan.
 class PlanExerciseEntity extends Equatable {
   final int planExerciseId;
   final int planId;
   final int exerciseId;
+  final String exerciseName;
   final int orderInWorkout;
   final int targetSets;
   final int targetRepsOrSeconds;
-
-  final ExerciseEntity? exercise;
+  final List<String> musclesGroup;
 
   const PlanExerciseEntity({
     required this.planExerciseId,
@@ -19,7 +18,8 @@ class PlanExerciseEntity extends Equatable {
     required this.orderInWorkout,
     required this.targetSets,
     required this.targetRepsOrSeconds,
-    this.exercise,
+    required this.exerciseName,
+    required this.musclesGroup,
   });
 
   int get expectedVolume => targetSets * targetRepsOrSeconds;
@@ -31,7 +31,8 @@ class PlanExerciseEntity extends Equatable {
     int? orderInWorkout,
     int? targetSets,
     int? targetRepsOrSeconds,
-    ExerciseEntity? exercise,
+    String? exerciseName,
+    List<String>? musclesGroup,
   }) {
     return PlanExerciseEntity(
       planExerciseId: planExerciseId ?? this.planExerciseId,
@@ -40,7 +41,8 @@ class PlanExerciseEntity extends Equatable {
       orderInWorkout: orderInWorkout ?? this.orderInWorkout,
       targetSets: targetSets ?? this.targetSets,
       targetRepsOrSeconds: targetRepsOrSeconds ?? this.targetRepsOrSeconds,
-      exercise: exercise ?? this.exercise,
+      exerciseName: exerciseName ?? this.exerciseName,
+      musclesGroup: musclesGroup ?? this.musclesGroup,
     );
   }
 
@@ -52,11 +54,12 @@ class PlanExerciseEntity extends Equatable {
     orderInWorkout,
     targetSets,
     targetRepsOrSeconds,
-    exercise,
+    exerciseName,
+    musclesGroup,
   ];
 
   @override
   String toString() =>
       'PlanExerciseEntity(planExerciseId: $planExerciseId, exerciseId: $exerciseId, '
-      'order: $orderInWorkout, sets: $targetSets, repsOrSecs: $targetRepsOrSeconds)';
+      'order: $orderInWorkout, sets: $targetSets, repsOrSecs: $targetRepsOrSeconds, musclesGroup: $musclesGroup)';
 }

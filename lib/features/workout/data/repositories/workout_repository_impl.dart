@@ -1,7 +1,8 @@
-import 'package:fit_me/core/error/exceptions.dart';
+﻿import 'package:fit_me/core/error/exceptions.dart';
 import 'package:fit_me/core/error/failure.dart';
 import 'package:fit_me/features/workout/data/datasource/workout_remote_data_source.dart';
 import 'package:fit_me/features/workout/data/models/set_session_entity.dart';
+import 'package:fit_me/features/workout/data/models/workout_plan_model.dart';
 import 'package:fit_me/features/workout/data/models/workout_session_model.dart';
 import 'package:fit_me/features/workout/domain/entities/set_session_entity.dart';
 import 'package:fit_me/features/workout/domain/entities/workout_plan_entity.dart';
@@ -20,11 +21,11 @@ class WorkoutRepositoryImpl implements WorkoutRepository {
   ) async {
     try {
       final response = await remoteDataSource.getWorkoutPlans(userId);
-      return Right(response.map((e) => e.toEntity(),).toList());
+      return Right(response.map((e) => e.toEntity()).toList());
     } on ServerException catch (e) {
-    return Left(Failure(e.message));
+      return Left(Failure(e.message));
     } catch (e) {
-    return Left(Failure(e.toString()));
+      return Left(Failure(e.toString()));
     }
   }
 
@@ -33,6 +34,48 @@ class WorkoutRepositoryImpl implements WorkoutRepository {
     try {
       final response = await remoteDataSource.getWorkoutPlanDetails(planId);
       return Right(response.toEntity());
+    } on ServerException catch (e) {
+      return Left(Failure(e.message));
+    } catch (e) {
+      return Left(Failure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, WorkoutPlanEntity>> createWorkoutPlan(
+    WorkoutPlanEntity plan,
+  ) async {
+    try {
+      final model = WorkoutPlanModel.fromEntity(plan);
+      final response = await remoteDataSource.createWorkoutPlan(model);
+      return Right(response.toEntity());
+    } on ServerException catch (e) {
+      return Left(Failure(e.message));
+    } catch (e) {
+      return Left(Failure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, WorkoutPlanEntity>> updateWorkoutPlan(
+    WorkoutPlanEntity plan,
+  ) async {
+    try {
+      final model = WorkoutPlanModel.fromEntity(plan);
+      final response = await remoteDataSource.updateWorkoutPlan(model);
+      return Right(response.toEntity());
+    } on ServerException catch (e) {
+      return Left(Failure(e.message));
+    } catch (e) {
+      return Left(Failure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> deleteWorkoutPlan(int planId) async {
+    try {
+      await remoteDataSource.deleteWorkoutPlan(planId);
+      return const Right(null);
     } on ServerException catch (e) {
       return Left(Failure(e.message));
     } catch (e) {

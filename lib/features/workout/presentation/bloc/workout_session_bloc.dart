@@ -120,9 +120,7 @@ class WorkoutSessionBloc
 
     final newCompletedSet = CompletedSetData(
       exerciseId: currentEx.exerciseId,
-      exerciseName:
-          currentEx.exercise?.name ??
-          'Exercise ${state.currentExerciseIndex + 1}',
+      exerciseName: 'Exercise ${state.currentExerciseIndex + 1}',
       setNumber: state.currentSetNumber,
       repsCompleted: event.repsCompleted,
       weightUsed: event.weightUsed,
@@ -273,9 +271,7 @@ class WorkoutSessionBloc
         updatedCompletedSets.add(
           CompletedSetData(
             exerciseId: currentEx.exerciseId,
-            exerciseName:
-                currentEx.exercise?.name ??
-                'Exercise ${state.currentExerciseIndex + 1}',
+            exerciseName: 'Exercise ${state.currentExerciseIndex + 1}',
             setNumber: s,
             repsCompleted: 0,
             weightUsed: 0,

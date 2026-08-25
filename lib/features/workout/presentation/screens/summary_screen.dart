@@ -18,6 +18,7 @@ class SummaryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.setLocale(context.locale);
     return Scaffold(
       backgroundColor: ColorConstants.backgroundColor,
       appBar: AppBar(
@@ -117,7 +118,7 @@ class SummaryScreen extends StatelessWidget {
                     label: 'sets_completed'.tr(),
                     value: "sets_completed_value".tr(
                       namedArgs: {
-                        "completed": state.completedSets.toString(),
+                        "completed": state.completedSets.length.toString(),
                         "total": state.totalSetsInPlan.toString(),
                       },
                     ),

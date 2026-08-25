@@ -1,8 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/material.dart';
 import 'package:fit_me/core/constants/color_constants.dart';
-import 'package:fit_me/features/exercise/domain/entities/exercise_entity.dart';
 import 'package:fit_me/features/workout/domain/entities/plan_exercise_entity.dart';
+import 'package:flutter/material.dart';
 
 class WorkoutExerciseCard extends StatefulWidget {
   final PlanExerciseEntity planExercise;
@@ -23,36 +22,11 @@ class _WorkoutExerciseCardState extends State<WorkoutExerciseCard> {
 
   @override
   Widget build(BuildContext context) {
-    final exercise = widget.planExercise.exercise;
-    final exerciseName = exercise?.name ?? "exercise".tr();
+    final exercise = widget.planExercise;
+    final exerciseName = exercise.exerciseName;
     final targetSets = widget.planExercise.targetSets;
     final targetRepsOrSeconds = widget.planExercise.targetRepsOrSeconds;
     final order = widget.planExercise.orderInWorkout;
-
-    // Difficulty colors
-    Color diffBgColor = ColorConstants.difficultyBeginnerBgColor;
-    Color diffTextColor = ColorConstants.difficultyBeginnerTextColor;
-    String diffLabel = "beginner".tr();
-
-    if (exercise != null) {
-      switch (exercise.difficulty) {
-        case DifficultyLevel.beginner:
-          diffBgColor = ColorConstants.difficultyBeginnerBgColor;
-          diffTextColor = ColorConstants.difficultyBeginnerTextColor;
-          diffLabel = "beginner".tr();
-          break;
-        case DifficultyLevel.intermediate:
-          diffBgColor = ColorConstants.difficultyIntermediateBgColor;
-          diffTextColor = ColorConstants.difficultyIntermediateTextColor;
-          diffLabel = "intermediate".tr();
-          break;
-        case DifficultyLevel.advanced:
-          diffBgColor = ColorConstants.difficultyAdvancedBgColor;
-          diffTextColor = ColorConstants.difficultyAdvancedTextColor;
-          diffLabel = "advanced".tr();
-          break;
-      }
-    }
 
     return GestureDetector(
       onTapDown: (_) => setState(() => _isPressed = true),
@@ -108,54 +82,6 @@ class _WorkoutExerciseCardState extends State<WorkoutExerciseCard> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Difficulty and Muscle Group tags
-                      Row(
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 8,
-                              vertical: 2,
-                            ),
-                            decoration: BoxDecoration(
-                              color: diffBgColor,
-                              borderRadius: BorderRadius.circular(6),
-                            ),
-                            child: Text(
-                              diffLabel,
-                              style: TextStyle(
-                                color: diffTextColor,
-                                fontSize: 10,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                          ),
-                          if (exercise != null &&
-                              exercise.muscleGroups.isNotEmpty) ...[
-                            const SizedBox(width: 6),
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 8,
-                                vertical: 2,
-                              ),
-                              decoration: BoxDecoration(
-                                color: ColorConstants.primaryColor.withValues(
-                                  alpha: 0.08,
-                                ),
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: Text(
-                                exercise.muscleGroups.first,
-                                style: const TextStyle(
-                                  color: ColorConstants.primaryColor,
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ],
-                      ),
-                      const SizedBox(height: 6),
                       // Exercise name
                       Text(
                         exerciseName,
@@ -191,10 +117,12 @@ class _WorkoutExerciseCardState extends State<WorkoutExerciseCard> {
                                 ),
                                 const SizedBox(width: 4),
                                 Text(
-                                  "workout_exercise_card_sets_reps_badge".tr(namedArgs: {
-                                    "sets" : targetSets.toString(),
-                                    "reps" : targetRepsOrSeconds.toString(),
-                                  }),
+                                  "workout_exercise_card_sets_reps_badge".tr(
+                                    namedArgs: {
+                                      "sets": targetSets.toString(),
+                                      "reps": targetRepsOrSeconds.toString(),
+                                    },
+                                  ),
                                   style: const TextStyle(
                                     color: ColorConstants.primaryColor,
                                     fontSize: 11,
@@ -204,40 +132,6 @@ class _WorkoutExerciseCardState extends State<WorkoutExerciseCard> {
                               ],
                             ),
                           ),
-                          // Calories badge
-                          if (exercise?.calories != null) ...[
-                            const SizedBox(width: 8),
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 8,
-                                vertical: 4,
-                              ),
-                              decoration: BoxDecoration(
-                                color: ColorConstants.caloriesIconColor
-                                    .withValues(alpha: 0.2),
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  const Icon(
-                                    Icons.local_fire_department_rounded,
-                                    size: 13,
-                                    color: ColorConstants.caloriesIconColor,
-                                  ),
-                                  const SizedBox(width: 4),
-                                  Text(
-                                    "${exercise!.calories} kcal",
-                                    style: const TextStyle(
-                                      color: ColorConstants.caloriesTextColor,
-                                      fontSize: 11,
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
                         ],
                       ),
                     ],
@@ -248,7 +142,7 @@ class _WorkoutExerciseCardState extends State<WorkoutExerciseCard> {
                 const SizedBox(
                   width: 32,
                   height: 32,
-                  child: const Icon(
+                  child: Icon(
                     Icons.chevron_right_rounded,
                     color: ColorConstants.greyShade400,
                     size: 20,

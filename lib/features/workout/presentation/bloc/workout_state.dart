@@ -1,4 +1,4 @@
-import 'package:equatable/equatable.dart';
+﻿import 'package:equatable/equatable.dart';
 import 'package:fit_me/features/workout/domain/entities/workout_plan_entity.dart';
 
 abstract class WorkoutState extends Equatable {
@@ -39,4 +39,19 @@ class WorkoutError extends WorkoutState {
 
   @override
   List<Object?> get props => [message];
+}
+
+class WorkoutPlanActionInProgress extends WorkoutState {}
+
+class WorkoutPlanActionSuccess extends WorkoutState {
+  final String message;
+  final WorkoutPlanEntity? plan;
+
+  const WorkoutPlanActionSuccess({
+    required this.message,
+    this.plan,
+  });
+
+  @override
+  List<Object?> get props => [message, plan];
 }

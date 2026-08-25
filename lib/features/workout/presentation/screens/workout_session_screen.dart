@@ -53,6 +53,7 @@ class _WorkoutSessionScreenState extends State<WorkoutSessionScreen> {
 
   @override
   Widget build(BuildContext context) {
+    context.setLocale(context.locale);
     return BlocConsumer<WorkoutSessionBloc, WorkoutSessionState>(
       listener: (context, state) {
         if (state.status == WorkoutStatus.finished) {
