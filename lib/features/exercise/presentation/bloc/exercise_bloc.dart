@@ -28,7 +28,7 @@ class ExerciseBloc extends Bloc<ExerciseEvent, ExerciseState> {
   List<ExerciseEntity> _applyFilter(List<ExerciseEntity> exercises) {
     if (_activeFilter == null) return exercises;
     return exercises.where((exercise) {
-      return exercise.muscleGroups.any((group) {
+      return exercise.musclesGroup.any((group) {
         return MuscleGroup.fromString(group) == _activeFilter;
       });
     }).toList();

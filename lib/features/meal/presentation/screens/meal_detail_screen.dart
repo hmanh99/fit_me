@@ -32,6 +32,7 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    context.setLocale(context.locale);
     return Scaffold(
       backgroundColor: ColorConstants.backgroundColor,
       appBar: MealAppBar(title: "Meal Detail", onBack: () => context.pop()),

@@ -1,4 +1,4 @@
-/// Tên route cho [GoRoute.name], `context.pushNamed`, `context.goNamed`.
+﻿/// Tên route cho [GoRoute.name], context.pushNamed, context.goNamed.
 abstract final class AppRouteNames {
   AppRouteNames._();
 
@@ -16,6 +16,8 @@ abstract final class AppRouteNames {
   static const appWorkouts = 'app-workout';
   static const appWorkoutDetail = 'app-workout-detail';
   static const appWorkoutSession = 'app-workout-session';
+  static const appCreatePlan = 'app-create-plan';
+  static const appEditPlan = 'app-edit-plan';
 
   static const appExercise = 'app-exercise';
   static const appWorkoutExerciseDetail = 'app-workout-exercise-detail';

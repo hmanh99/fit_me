@@ -64,7 +64,6 @@ class _AddScheduleBottomSheetState extends State<AddScheduleBottomSheet> {
   @override
   void initState() {
     super.initState();
-
     if (_isEditing) {
       final s = widget.existingSchedule!;
       _selectedDate = s.scheduleDate;
@@ -89,6 +88,7 @@ class _AddScheduleBottomSheetState extends State<AddScheduleBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
+    context.setLocale(context.locale);
     final theme = Theme.of(context);
     final bottomInset = MediaQuery
         .of(context)

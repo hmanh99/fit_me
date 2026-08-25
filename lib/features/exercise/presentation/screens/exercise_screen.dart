@@ -48,6 +48,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
 
   @override
   Widget build(BuildContext context) {
+    context.setLocale(context.locale);
     return Scaffold(
       backgroundColor: ColorConstants.backgroundColor,
       appBar: ExerciseAppBar(

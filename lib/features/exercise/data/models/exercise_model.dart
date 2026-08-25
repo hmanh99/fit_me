@@ -4,8 +4,7 @@ class ExerciseModel extends ExerciseEntity {
   const ExerciseModel({
     required super.exerciseId,
     required super.name,
-    required super.muscleGroups,
-    required super.difficulty,
+    required super.musclesGroup,
     super.equipments,
     required super.instructions,
     super.url,
@@ -16,8 +15,7 @@ class ExerciseModel extends ExerciseEntity {
     return ExerciseModel(
       exerciseId: json['exercise_id'] as int,
       name: json['name'] as String,
-      muscleGroups: List<String>.from(json['muscle_group'] ?? []),
-      difficulty: DifficultyLevel.fromString(json['difficulty'] as String?),
+      musclesGroup: List<String>.from(json['muscles_group'] ?? []),
       equipments: json['equipment'] != null
           ? List<String>.from(json['equipment'])
           : null,
@@ -31,8 +29,7 @@ class ExerciseModel extends ExerciseEntity {
     return ExerciseEntity(
       exerciseId: exerciseId,
       name: name,
-      muscleGroups: muscleGroups,
-      difficulty: difficulty,
+      musclesGroup: musclesGroup,
       instructions: instructions,
       url: url,
       calories: calories,
@@ -44,8 +41,7 @@ class ExerciseModel extends ExerciseEntity {
     return {
       'exercise_id': exerciseId,
       'name': name,
-      'muscle_group': muscleGroups,
-      'difficulty': difficulty.toDbValue(),
+      'muscles_group': musclesGroup,
       'equipment': equipments,
       'instructions': instructions,
       'url': url,
@@ -57,8 +53,7 @@ class ExerciseModel extends ExerciseEntity {
   ExerciseEntity copyWith({
     int? exerciseId,
     String? name,
-    List<String>? muscleGroups,
-    DifficultyLevel? difficulty,
+    List<String>? musclesGroup,
     List<String>? equipments,
     List<String>? instructions,
     String? url,
@@ -68,8 +63,7 @@ class ExerciseModel extends ExerciseEntity {
     return super.copyWith(
       exerciseId: exerciseId,
       name: name,
-      muscleGroups: muscleGroups,
-      difficulty: difficulty,
+      musclesGroup: musclesGroup,
       equipments: equipments,
       instructions: instructions,
       url: url,

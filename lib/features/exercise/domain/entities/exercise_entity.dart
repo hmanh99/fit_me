@@ -1,34 +1,10 @@
 import 'package:equatable/equatable.dart';
 
-enum DifficultyLevel {
-  beginner,
-  intermediate,
-  advanced;
-
-  static DifficultyLevel fromString(String? value) {
-    switch (value?.toLowerCase()) {
-      case 'beginner':
-        return DifficultyLevel.beginner;
-      case 'intermediate':
-        return DifficultyLevel.intermediate;
-      case 'advanced':
-        return DifficultyLevel.advanced;
-      default:
-        return DifficultyLevel.beginner;
-    }
-  }
-
-  String? toDbValue() {
-    return name; // beginner,intermediate,advanced
-  }
-}
-
 class ExerciseEntity extends Equatable {
   final int exerciseId;
   final String name;
-  final List<String> muscleGroups;
-  final DifficultyLevel difficulty;
-  final List<String>?  equipments;
+  final List<String> musclesGroup;
+  final List<String>? equipments;
   final List<String> instructions;
   final String? url;
   final int? calories;
@@ -36,8 +12,7 @@ class ExerciseEntity extends Equatable {
   const ExerciseEntity({
     required this.exerciseId,
     required this.name,
-    required this.muscleGroups,
-    required this.difficulty,
+    required this.musclesGroup,
     this.equipments,
     required this.instructions,
     this.url,
@@ -49,8 +24,7 @@ class ExerciseEntity extends Equatable {
   ExerciseEntity copyWith({
     int? exerciseId,
     String? name,
-    List<String>? muscleGroups,
-    DifficultyLevel? difficulty,
+    List<String>? musclesGroup,
     List<String>? equipments,
     List<String>? instructions,
     String? url,
@@ -59,8 +33,7 @@ class ExerciseEntity extends Equatable {
     return ExerciseEntity(
       exerciseId: exerciseId ?? this.exerciseId,
       name: name ?? this.name,
-      muscleGroups: muscleGroups ?? this.muscleGroups,
-      difficulty: difficulty ?? this.difficulty,
+      musclesGroup: musclesGroup ?? this.musclesGroup,
       equipments: equipments ?? this.equipments,
       instructions: instructions ?? this.instructions,
       url: url ?? this.url,
@@ -72,8 +45,7 @@ class ExerciseEntity extends Equatable {
   List<Object?> get props => [
     exerciseId,
     name,
-    muscleGroups,
-    difficulty,
+    musclesGroup,
     equipments,
     instructions,
     url,
@@ -82,6 +54,5 @@ class ExerciseEntity extends Equatable {
 
   @override
   String toString() =>
-      'ExerciseEntity(id: $exerciseId, name: $name, muscleGroup: $muscleGroups, '
-      'difficulty: $difficulty, calories: $calories)';
+      'ExerciseEntity(id: $exerciseId, name: $name, muscleGroup: $musclesGroup, calories: $calories)';
 }

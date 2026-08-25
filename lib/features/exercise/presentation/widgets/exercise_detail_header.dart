@@ -1,8 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/material.dart';
 import 'package:fit_me/core/constants/color_constants.dart';
 import 'package:fit_me/features/exercise/domain/entities/exercise_entity.dart';
-import 'package:fit_me/features/exercise/presentation/widgets/exercise_difficulty_badge.dart';
+import 'package:flutter/material.dart';
 
 class ExerciseDetailHeader extends StatelessWidget {
   final ExerciseEntity exercise;
@@ -45,8 +44,6 @@ class ExerciseDetailHeader extends StatelessWidget {
                         height: 1.2,
                       ),
                     ),
-                    const SizedBox(height: 12),
-                    ExerciseDifficultyBadge(difficulty: exercise.difficulty),
                   ],
                 ),
               ),
@@ -72,11 +69,12 @@ class ExerciseDetailHeader extends StatelessWidget {
                     : 'bodyweight'.tr(),
                 color: ColorConstants.iconColor,
               ),
-              if (exercise.muscleGroups.isNotEmpty)
+              if (exercise.musclesGroup.isNotEmpty)
                 _MetaChip(
                   icon: Icons.accessibility_new_rounded,
-                  label:
-                      'muscle_group_count'.plural(exercise.muscleGroups.length),
+                  label: 'muscle_group_count'.plural(
+                    exercise.musclesGroup.length,
+                  ),
                   color: ColorConstants.iconColor,
                 ),
             ],

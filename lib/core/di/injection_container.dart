@@ -1,4 +1,4 @@
-import 'package:fit_me/core/services/auth_services.dart';
+﻿import 'package:fit_me/core/services/auth_services.dart';
 import 'package:fit_me/features/auth/data/datasources/auth_remote_datasource.dart';
 import 'package:get_it/get_it.dart';
 import 'package:fit_me/core/config/app_config.dart';
@@ -49,8 +49,11 @@ import 'package:fit_me/features/settings/presentation/bloc/settings_bloc.dart';
 import 'package:fit_me/features/workout/data/datasource/workout_remote_data_source.dart';
 import 'package:fit_me/features/workout/data/repositories/workout_repository_impl.dart';
 import 'package:fit_me/features/workout/domain/repositories/workout_repository.dart';
+import 'package:fit_me/features/workout/domain/usecases/create_workout_plan_use_case.dart';
+import 'package:fit_me/features/workout/domain/usecases/delete_workout_plan_use_case.dart';
 import 'package:fit_me/features/workout/domain/usecases/get_workout_plan_details_use_case.dart';
 import 'package:fit_me/features/workout/domain/usecases/get_workout_plans_use_case.dart';
+import 'package:fit_me/features/workout/domain/usecases/update_workout_plan_use_case.dart';
 import 'package:fit_me/features/workout/presentation/bloc/workout_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -72,7 +75,7 @@ Future<void> init() async {
   serviceLocator.registerLazySingleton<ExerciseServices>(
         () => ExerciseServices(),
   );
-  serviceLocator.registerLazySingleton<AuthServices>(() => AuthServices(),);
+  serviceLocator.registerLazySingleton<AuthServices>(() => AuthServices());
 
   // Auth
 
@@ -80,7 +83,7 @@ Future<void> init() async {
         () => AuthRepositoryImpl(remoteDatasource: serviceLocator()),
   );
 
-  serviceLocator.registerLazySingleton<AuthRemoteDatasource >(
+  serviceLocator.registerLazySingleton<AuthRemoteDatasource>(
         () => AuthRemoteDataSourceImpl(serviceLocator()),
   );
 
@@ -124,11 +127,23 @@ Future<void> init() async {
   serviceLocator.registerLazySingleton(
         () => GetWorkoutPlanDetailsUseCase(serviceLocator()),
   );
+  serviceLocator.registerLazySingleton(
+        () => CreateWorkoutPlanUseCase(serviceLocator()),
+  );
+  serviceLocator.registerLazySingleton(
+        () => UpdateWorkoutPlanUseCase(serviceLocator()),
+  );
+  serviceLocator.registerLazySingleton(
+        () => DeleteWorkoutPlanUseCase(serviceLocator()),
+  );
 
   serviceLocator.registerFactory<WorkoutBloc>(
         () => WorkoutBloc(
       getWorkoutPlans: serviceLocator(),
       getWorkoutPlanDetails: serviceLocator(),
+      createWorkoutPlan: serviceLocator(),
+      updateWorkoutPlan: serviceLocator(),
+      deleteWorkoutPlan: serviceLocator(),
     ),
   );
 

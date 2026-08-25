@@ -10,6 +10,7 @@ class DashboardHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.setLocale(context.locale);
     final user = AuthServices();
     final username =
         user.user?.userMetadata?['username'] ?? 'default_username'.tr();

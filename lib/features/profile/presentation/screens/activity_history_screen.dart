@@ -22,7 +22,7 @@ class ActivityHistoryScreen extends StatefulWidget {
 
 class _ActivityHistoryScreenState extends State<ActivityHistoryScreen> {
   late final String _userId;
-
+  List items = [];
   @override
   void initState() {
     super.initState();
@@ -58,7 +58,7 @@ class _ActivityHistoryScreenState extends State<ActivityHistoryScreen> {
             );
           }
 
-          if (state is ActivityHistoryEmpty) {
+          if (state is ActivityHistoryEmpty && items.isEmpty) {
             return RefreshIndicator(
               onRefresh: () async {
                 context.read<ActivityHistoryBloc>().add(
@@ -96,7 +96,7 @@ class _ActivityHistoryScreenState extends State<ActivityHistoryScreen> {
                 itemCount: headers.length,
                 itemBuilder: (context, index) {
                   final header = headers[index];
-                  final items = grouped[header] ?? [];
+                  items = grouped[header] ?? [];
 
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

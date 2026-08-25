@@ -130,7 +130,7 @@ class _RecommendationCardState extends State<RecommendationCard> {
                           ),
                           const SizedBox(width: 4),
                           Text(
-                            (widget.exercise['muscle_group'] as List).first,
+                            (widget.exercise['muscles_group'] as List).first,
                             style: const TextStyle(fontSize: 13, color: ColorConstants.textPrimaryColor),
                           ),
                         ],

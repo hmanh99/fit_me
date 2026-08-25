@@ -1,12 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:fit_me/core/constants/color_constants.dart';
 import 'package:fit_me/core/router/route_paths.dart';
 import 'package:fit_me/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:fit_me/features/auth/presentation/bloc/auth_event.dart';
 import 'package:fit_me/features/auth/presentation/bloc/auth_state.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key, this.initialEmail});
@@ -19,11 +19,12 @@ class ForgotPasswordScreen extends StatefulWidget {
 
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _email = TextEditingController();
+  late final TextEditingController _email;
 
   @override
   void initState() {
     super.initState();
+    _email = TextEditingController();
     final initial = widget.initialEmail;
     if (initial != null && initial.isNotEmpty) {
       _email.text = initial;
@@ -46,6 +47,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
+    context.setLocale(context.locale);
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is AuthForgotPasswordSuccessState) {
@@ -86,12 +88,12 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               onPressed: isLoading
                   ? null
                   : () {
-                if (context.canPop()) {
-                  context.pop();
-                } else {
-                  context.go(AppRoutePaths.login);
-                }
-              },
+                      if (context.canPop()) {
+                        context.pop();
+                      } else {
+                        context.go(AppRoutePaths.login);
+                      }
+                    },
             ),
           ),
           body: SafeArea(
@@ -120,7 +122,10 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   const SizedBox(height: 24),
                   Text(
                     'forgot_password_title'.tr(),
-                    style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   const SizedBox(height: 8),
                   Text(
@@ -176,13 +181,13 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                           onPressed: isLoading ? null : _onSendPressed,
                           child: isLoading
                               ? SizedBox(
-                            height: 25,
-                            width: 25,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2.5,
-                              color: ColorConstants.buttonTextColor,
-                            ),
-                          )
+                                  height: 25,
+                                  width: 25,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2.5,
+                                    color: ColorConstants.buttonTextColor,
+                                  ),
+                                )
                               : Text('send_reset_link'.tr()),
                         ),
                       ],

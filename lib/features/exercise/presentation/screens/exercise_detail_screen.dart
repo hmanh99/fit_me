@@ -39,6 +39,7 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    context.setLocale(context.locale);
     return Scaffold(
       backgroundColor: ColorConstants.backgroundColor,
       appBar: ExerciseAppBar(
@@ -92,7 +93,7 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
                       ExerciseInfoSection(
                         title: 'muscle_group'.tr(),
                         icon: Icons.accessibility_new_rounded,
-                        items: exercise.muscleGroups,
+                        items: exercise.musclesGroup,
                         chipAccentColor: ColorConstants.primaryColor,
                       ),
                       if (exercise.requiresEquipment) ...[

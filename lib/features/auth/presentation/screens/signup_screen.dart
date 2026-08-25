@@ -23,9 +23,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   final _formKey = GlobalKey<FormState>();
 
-  final TextEditingController _username = TextEditingController();
-  final TextEditingController _email = TextEditingController();
-  final TextEditingController _password = TextEditingController();
+  late final TextEditingController _username;
+  late final TextEditingController _email;
+  late final TextEditingController _password;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _username = TextEditingController();
+    _email = TextEditingController();
+    _password = TextEditingController();
+  }
 
   @override
   void dispose() {
@@ -37,6 +46,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
+    context.setLocale(context.locale);
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is AuthSignUpState) {

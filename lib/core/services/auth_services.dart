@@ -79,6 +79,4 @@ class AuthServices {
       throw CustomAuthException(message: e.toString());
     }
   }
-
-  // Future<User?> signInWithGoogle() async {}
 }

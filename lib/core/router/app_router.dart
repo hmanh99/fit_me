@@ -1,7 +1,6 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
+﻿import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:fit_me/core/di/injection_container.dart'
-    as di;
+import 'package:fit_me/core/di/injection_container.dart' as di;
 import 'package:fit_me/core/router/auth_redirect.dart';
 import 'package:fit_me/core/router/go_router_refresh_stream.dart';
 import 'package:fit_me/core/router/route_names.dart';
@@ -33,20 +32,18 @@ import 'package:fit_me/features/profile/presentation/screens/profile_screen.dart
 import 'package:fit_me/features/schedule/presentation/screens/schedule_screen.dart';
 import 'package:fit_me/features/settings/presentation/screens/settings_screen.dart';
 import 'package:fit_me/features/workout/domain/entities/workout_plan_entity.dart';
+import 'package:fit_me/features/workout/domain/repositories/workout_repository.dart';
 import 'package:fit_me/features/workout/domain/usecases/create_set_session_use_case.dart';
 import 'package:fit_me/features/workout/domain/usecases/create_workout_session_use_case.dart';
-import 'package:fit_me/features/workout/domain/usecases/get_workout_plan_details_use_case.dart';
-import 'package:fit_me/features/workout/domain/usecases/get_workout_plans_use_case.dart';
 import 'package:fit_me/features/workout/presentation/bloc/workout_bloc.dart';
 import 'package:fit_me/features/workout/presentation/bloc/workout_session_bloc.dart';
 import 'package:fit_me/features/workout/presentation/bloc/workout_session_event.dart';
+import 'package:fit_me/features/workout/presentation/screens/create_edit_plan_screen.dart';
 import 'package:fit_me/features/workout/presentation/screens/workout_detail_screen.dart';
 import 'package:fit_me/features/workout/presentation/screens/workout_screen.dart';
 import 'package:fit_me/features/workout/presentation/screens/workout_session_screen.dart';
 import 'package:fit_me/shared/widgets/main_shell.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
-import '../../features/workout/domain/repositories/workout_repository.dart';
 
 GoRouter createAppRouter(AuthBloc authBloc) {
   return GoRouter(
@@ -76,7 +73,7 @@ GoRouter createAppRouter(AuthBloc authBloc) {
         builder: (context, state) => const OnboardScreen2(),
       ),
 
-      ///
+      /// auth
       GoRoute(
         path: AppRoutePaths.login,
         name: AppRouteNames.login,
@@ -117,18 +114,33 @@ GoRouter createAppRouter(AuthBloc authBloc) {
                     path: 'workout',
                     name: AppRouteNames.appWorkouts,
                     builder: (context, state) {
-                      final repo = di.serviceLocator<WorkoutRepository>();
                       return BlocProvider<WorkoutBloc>(
-                        create: (context) => WorkoutBloc(
-                          getWorkoutPlans: GetWorkoutPlansUseCase(repo),
-                          getWorkoutPlanDetails: GetWorkoutPlanDetailsUseCase(
-                            repo,
-                          ),
-                        ),
+                        create: (context) => di.serviceLocator<WorkoutBloc>(),
                         child: const WorkoutScreen(),
                       );
                     },
                     routes: [
+                      GoRoute(
+                        path: 'create-plan',
+                        name: AppRouteNames.appCreatePlan,
+                        builder: (context, state) {
+                          return BlocProvider<WorkoutBloc>(
+                            create: (context) => di.serviceLocator<WorkoutBloc>(),
+                            child: const CreateEditPlanScreen(),
+                          );
+                        },
+                      ),
+                      GoRoute(
+                        path: 'edit-plan',
+                        name: AppRouteNames.appEditPlan,
+                        builder: (context, state) {
+                          final plan = state.extra as WorkoutPlanEntity?;
+                          return BlocProvider<WorkoutBloc>(
+                            create: (context) => di.serviceLocator<WorkoutBloc>(),
+                            child: CreateEditPlanScreen(initialPlan: plan),
+                          );
+                        },
+                      ),
                       GoRoute(
                         path: ':workoutId',
                         name: AppRouteNames.appWorkoutDetail,
@@ -136,9 +148,12 @@ GoRouter createAppRouter(AuthBloc authBloc) {
                           final workoutId = state.pathParameters['workoutId']!;
                           final String? planName =
                               state.uri.queryParameters['planName'];
-                          return WorkoutDetailScreen(
-                            workoutId: int.parse(workoutId),
-                            planName: planName ?? 'Workout Plan',
+                          return BlocProvider<WorkoutBloc>(
+                            create: (context) => di.serviceLocator<WorkoutBloc>(),
+                            child: WorkoutDetailScreen(
+                              workoutId: int.parse(workoutId),
+                              planName: planName ?? 'Workout Plan',
+                            ),
                           );
                         },
                         routes: [

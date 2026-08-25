@@ -1,13 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:fit_me/core/constants/color_constants.dart';
 import 'package:fit_me/core/router/route_names.dart';
 import 'package:fit_me/core/router/route_paths.dart';
 import 'package:fit_me/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:fit_me/features/auth/presentation/bloc/auth_event.dart';
 import 'package:fit_me/features/auth/presentation/bloc/auth_state.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key, this.returnTo = 'app/home'});
@@ -23,14 +23,23 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _obscurePassword = true;
 
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _email = TextEditingController();
-  final TextEditingController _password = TextEditingController();
+  late final TextEditingController _email;
+
+  late final TextEditingController _password;
 
   @override
   void dispose() {
     _email.dispose();
     _password.dispose();
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _email = TextEditingController();
+    _password = TextEditingController();
   }
 
   void _onLoginPressed() {
@@ -43,6 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    context.setLocale(context.locale);
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is AuthLoginState) {
@@ -71,12 +81,18 @@ class _LoginScreenState extends State<LoginScreen> {
                   const SizedBox(height: 24),
                   Text(
                     'hey_there'.tr(),
-                    style: const TextStyle(fontSize: 16, color: ColorConstants.textSecondaryColor),
+                    style: const TextStyle(
+                      fontSize: 16,
+                      color: ColorConstants.textSecondaryColor,
+                    ),
                   ),
                   const SizedBox(height: 4),
                   Text(
                     'welcome_back'.tr(),
-                    style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
 
                   Form(
@@ -146,12 +162,12 @@ class _LoginScreenState extends State<LoginScreen> {
                           onTap: isLoading
                               ? null
                               : () => context.pushNamed(
-                            AppRouteNames.forgotPassword,
-                            queryParameters: {
-                              if (_email.text.trim().isNotEmpty)
-                                'email': _email.text.trim(),
-                            },
-                          ),
+                                  AppRouteNames.forgotPassword,
+                                  queryParameters: {
+                                    if (_email.text.trim().isNotEmpty)
+                                      'email': _email.text.trim(),
+                                  },
+                                ),
                           child: Text(
                             'forgot_password_link'.tr(),
                             style: const TextStyle(
@@ -178,13 +194,13 @@ class _LoginScreenState extends State<LoginScreen> {
                           onPressed: isLoading ? null : _onLoginPressed,
                           child: isLoading
                               ? const SizedBox(
-                            height: 22,
-                            width: 22,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2.5,
-                              color: ColorConstants.buttonTextColor,
-                            ),
-                          )
+                                  height: 22,
+                                  width: 22,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2.5,
+                                    color: ColorConstants.buttonTextColor,
+                                  ),
+                                )
                               : Text('login_button'.tr()),
                         ),
                       ],
@@ -199,7 +215,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         padding: const EdgeInsets.all(12),
                         child: Text(
                           'or_divider'.tr(),
-                          style: const TextStyle(color: ColorConstants.textSecondaryColor, fontSize: 13),
+                          style: const TextStyle(
+                            color: ColorConstants.textSecondaryColor,
+                            fontSize: 13,
+                          ),
                         ),
                       ),
                       const Expanded(child: Divider()),
@@ -222,7 +241,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           TextSpan(text: 'no_account_prompt'.tr()),
                           TextSpan(
                             text: 'sign_up_button'.tr(),
-                            style: const TextStyle(color: ColorConstants.textHighlightColor),
+                            style: const TextStyle(
+                              color: ColorConstants.textHighlightColor,
+                            ),
                           ),
                         ],
                       ),
