@@ -231,5 +231,13 @@
   "delete_plan_confirm_title": "Xóa kế hoạch",
   "delete_plan_confirm_msg": "Bạn có chắc muốn xóa \"{name}\"? Hành động này không thể hoàn tác.",
   "exercise_label": "Bài tập #{id}",
-  "retry": "Thử lại"
+  "retry": "Thử lại",
+  "take_photo": "Chụp ảnh",
+  "choose_from_gallery": "Chọn từ thư viện",
+  "remove_photo": "Xóa ảnh đại diện",
+  "avatar_updated_success": "Đã cập nhật ảnh đại diện!",
+  "avatar_deleted_success": "Đã xóa ảnh đại diện!",
+  "change_avatar": "Đổi ảnh đại diện",
+  "camera": "Máy ảnh",
+  "gallery": "Thư viện"
 }

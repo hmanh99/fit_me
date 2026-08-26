@@ -39,3 +39,29 @@ class ProfileLogoutEvent extends ProfileEvent {
   @override
   List<Object?> get props => [];
 }
+
+class ProfileAvatarUploadRequested extends ProfileEvent {
+  final String userId;
+  final String filePath;
+
+  const ProfileAvatarUploadRequested({
+    required this.userId,
+    required this.filePath,
+  });
+
+  @override
+  List<Object?> get props => [userId, filePath];
+}
+
+class ProfileAvatarDeleteRequested extends ProfileEvent {
+  final String userId;
+  final String? currentAvatarUrl;
+
+  const ProfileAvatarDeleteRequested({
+    required this.userId,
+    this.currentAvatarUrl,
+  });
+
+  @override
+  List<Object?> get props => [userId, currentAvatarUrl];
+}

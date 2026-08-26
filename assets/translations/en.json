@@ -231,5 +231,13 @@
   "delete_plan_confirm_title": "Delete Plan",
   "delete_plan_confirm_msg": "Are you sure you want to delete \"{name}\"? This action cannot be undone.",
   "exercise_label": "Exercise #{id}",
-  "retry": "Retry"
+  "retry": "Retry",
+  "take_photo": "Take Photo",
+  "choose_from_gallery": "Choose from Gallery",
+  "remove_photo": "Remove Photo",
+  "avatar_updated_success": "Avatar updated successfully!",
+  "avatar_deleted_success": "Avatar removed successfully!",
+  "change_avatar": "Change Avatar",
+  "camera": "Camera",
+  "gallery": "Gallery"
 }

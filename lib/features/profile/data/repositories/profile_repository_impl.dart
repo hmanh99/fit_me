@@ -52,4 +52,40 @@ class ProfileRepositoriesImpl implements ProfileRepository {
       return Left(Failure(e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, String>> uploadAvatar({
+    required String userId,
+    required String filePath,
+  }) async {
+    try {
+      final url = await remoteDatasource.uploadAvatar(
+        userId: userId,
+        filePath: filePath,
+      );
+      return Right(url);
+    } on ServerException catch (e) {
+      return Left(Failure(e.message));
+    } catch (e) {
+      return Left(Failure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> deleteAvatar({
+    required String userId,
+    String? currentAvatarUrl,
+  }) async {
+    try {
+      await remoteDatasource.deleteAvatar(
+        userId: userId,
+        currentAvatarUrl: currentAvatarUrl,
+      );
+      return const Right(null);
+    } on ServerException catch (e) {
+      return Left(Failure(e.message));
+    } catch (e) {
+      return Left(Failure(e.toString()));
+    }
+  }
 }

@@ -24,6 +24,16 @@ class ProfileUpdating extends ProfileState {
   List<Object?> get props => [profile];
 }
 
+class ProfileAvatarUploading extends ProfileState {
+  @override
+  final ProfileEntity profile;
+
+  const ProfileAvatarUploading({required this.profile});
+
+  @override
+  List<Object?> get props => [profile];
+}
+
 class ProfileLoaded extends ProfileState {
   @override
   final ProfileEntity profile;

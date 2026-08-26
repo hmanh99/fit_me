@@ -42,7 +42,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
       backgroundColor: ColorConstants.backgroundColor,
       body: BlocConsumer<ProfileBloc, ProfileState>(
         listener: (context, state) {
-          print(state);
           if (state is ProfileLoading) {
             const ProfileScreenSkeleton();
           }

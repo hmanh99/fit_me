@@ -1,4 +1,4 @@
-﻿import 'package:fit_me/core/services/auth_services.dart';
+import 'package:fit_me/core/services/auth_services.dart';
 import 'package:fit_me/features/auth/data/datasources/auth_remote_datasource.dart';
 import 'package:get_it/get_it.dart';
 import 'package:fit_me/core/config/app_config.dart';
@@ -29,9 +29,11 @@ import 'package:fit_me/features/meal/presentation/bloc/meal_bloc.dart';
 import 'package:fit_me/features/profile/data/datasource/profile_remote_datasource.dart';
 import 'package:fit_me/features/profile/data/repositories/profile_repository_impl.dart';
 import 'package:fit_me/features/profile/domain/repositories/profile_repository.dart';
+import 'package:fit_me/features/profile/domain/usecases/delete_avatar_use_case.dart';
 import 'package:fit_me/features/profile/domain/usecases/get_current_profile_use_case.dart';
 import 'package:fit_me/features/profile/domain/usecases/logout_profile_use_case.dart';
 import 'package:fit_me/features/profile/domain/usecases/update_profile_use_case.dart';
+import 'package:fit_me/features/profile/domain/usecases/upload_avatar_use_case.dart';
 import 'package:fit_me/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:fit_me/features/schedule/data/datasource/schedule_remote_data_source.dart';
 import 'package:fit_me/features/schedule/data/repositories/schedule_repository_impl.dart';
@@ -235,6 +237,12 @@ Future<void> init() async {
         () => UpdateProfileUseCase(serviceLocator()),
   );
   serviceLocator.registerLazySingleton(
+        () => UploadAvatarUseCase(serviceLocator()),
+  );
+  serviceLocator.registerLazySingleton(
+        () => DeleteAvatarUseCase(serviceLocator()),
+  );
+  serviceLocator.registerLazySingleton(
         () => LogoutProfileUseCase(serviceLocator()),
   );
 
@@ -243,6 +251,8 @@ Future<void> init() async {
       getCurrentProfile: serviceLocator(),
       updateProfile: serviceLocator(),
       logoutProfile: serviceLocator(),
+      uploadAvatar: serviceLocator(),
+      deleteAvatar: serviceLocator(),
     ),
   );
 

@@ -19,26 +19,51 @@ class ProfileHeader extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Container(
-            padding: const EdgeInsets.all(2),
-            decoration: const BoxDecoration(
-              color: ColorConstants.white,
-              shape: BoxShape.circle,
-            ),
-            child: CircleAvatar(
-              radius: 50,
-              backgroundColor: ColorConstants.greyShade300,
-              backgroundImage:
-                  profile.avatar != null && profile.avatar!.isNotEmpty
-                  ? NetworkImage(profile.avatar!)
-                  : null,
-              child: profile.avatar == null || profile.avatar!.isEmpty
-                  ? Icon(
-                      Icons.person_rounded,
-                      size: 50,
-                      color: ColorConstants.white,
-                    )
-                  : null,
+        Container(
+        width: 100,
+        height: 100,
+        padding: const EdgeInsets.all(3),
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          border: Border.all(
+            color: ColorConstants.primaryColor,
+            width: 2.0,
+          ),
+        ),
+            child: Container(
+              width: 100,
+              height: 100,
+              decoration: const BoxDecoration(
+                color: ColorConstants.white,
+                shape: BoxShape.circle,
+              ),
+              child: ClipOval(
+                child: profile.avatar != null && profile.avatar!.isNotEmpty
+                    ? Image.network(
+                        profile.avatar!,
+                        width: 100,
+                        height: 100,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) => Container(
+                          color: ColorConstants.greyShade300,
+                          alignment: Alignment.center,
+                          child: const Icon(
+                            Icons.person_rounded,
+                            size: 50,
+                            color: ColorConstants.white,
+                          ),
+                        ),
+                      )
+                    : Container(
+                        color: ColorConstants.greyShade300,
+                        alignment: Alignment.center,
+                        child: const Icon(
+                          Icons.person_rounded,
+                          size: 50,
+                          color: ColorConstants.white,
+                        ),
+                      ),
+              ),
             ),
           ),
           const SizedBox(width: 20),

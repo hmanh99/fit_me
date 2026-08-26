@@ -9,5 +9,15 @@ abstract class ProfileRepository {
 
   Future<Either<Failure, void>> updateProfile({required ProfileEntity profile});
 
+  Future<Either<Failure, String>> uploadAvatar({
+    required String userId,
+    required String filePath,
+  });
+
+  Future<Either<Failure, void>> deleteAvatar({
+    required String userId,
+    String? currentAvatarUrl,
+  });
+
   Future<Either<Failure, void>> logoutProfile();
 }

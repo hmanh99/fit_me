@@ -231,5 +231,13 @@
   "delete_plan_confirm_title": "Eliminar plan",
   "delete_plan_confirm_msg": "¿Estás seguro de eliminar \"{name}\"? Esta acción no se puede deshacer.",
   "exercise_label": "Ejercicio #{id}",
-  "retry": "Reintentar"
+  "retry": "Reintentar",
+  "take_photo": "Tomar foto",
+  "choose_from_gallery": "Elegir de la galería",
+  "remove_photo": "Eliminar foto",
+  "avatar_updated_success": "¡Foto de perfil actualizada con éxito!",
+  "avatar_deleted_success": "¡Foto de perfil eliminada con éxito!",
+  "change_avatar": "Cambiar foto",
+  "camera": "Cámara",
+  "gallery": "Galería"
 }
