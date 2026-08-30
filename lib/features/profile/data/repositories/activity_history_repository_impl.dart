@@ -26,4 +26,22 @@ class ActivityHistoryRepositoryImpl implements ActivityHistoryRepository {
       return Left(Failure(e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, Map<DateTime, int>>> getActivityHeatmap({
+    required String userId,
+    int days = 365,
+  }) async {
+    try {
+      final response = await remoteDatasource.getActivityHeatmapCounts(
+        userId: userId,
+        days: days,
+      );
+      return Right(response);
+    } on ServerException catch (e) {
+      return Left(Failure(e.message));
+    } catch (e) {
+      return Left(Failure(e.toString()));
+    }
+  }
 }

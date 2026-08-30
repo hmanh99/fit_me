@@ -239,5 +239,14 @@
   "avatar_deleted_success": "Avatar removed successfully!",
   "change_avatar": "Change Avatar",
   "camera": "Camera",
-  "gallery": "Gallery"
+  "gallery": "Gallery",
+  "heatmap_overview_title": "Activity Overview",
+  "heatmap_less": "Less",
+  "heatmap_more": "More",
+  "heatmap_activities": "activities",
+  "heatmap_no_activity": "No activity",
+  "days": "days",
+  "30_days": "30 Days",
+  "60_days": "60 Days",
+  "90_days": "90 Days"
 }

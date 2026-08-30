@@ -15,14 +15,32 @@ class ActivityHistoryLoading extends ActivityHistoryState {}
 class ActivityHistoryLoaded extends ActivityHistoryState {
   final List<ActivityHistoryEntity> histories;
   final Map<String, List<ActivityHistoryEntity>> groupedHistories;
+  final Map<DateTime, int> heatmapCounts;
+  final int heatmapDays;
 
   const ActivityHistoryLoaded({
     required this.histories,
     required this.groupedHistories,
+    this.heatmapCounts = const {},
+    this.heatmapDays = 365,
   });
 
+  ActivityHistoryLoaded copyWith({
+    List<ActivityHistoryEntity>? histories,
+    Map<String, List<ActivityHistoryEntity>>? groupedHistories,
+    Map<DateTime, int>? heatmapCounts,
+    int? heatmapDays,
+  }) {
+    return ActivityHistoryLoaded(
+      histories: histories ?? this.histories,
+      groupedHistories: groupedHistories ?? this.groupedHistories,
+      heatmapCounts: heatmapCounts ?? this.heatmapCounts,
+      heatmapDays: heatmapDays ?? this.heatmapDays,
+    );
+  }
+
   @override
-  List<Object?> get props => [histories, groupedHistories];
+  List<Object?> get props => [histories, groupedHistories, heatmapCounts, heatmapDays];
 }
 
 class ActivityHistoryEmpty extends ActivityHistoryState {}

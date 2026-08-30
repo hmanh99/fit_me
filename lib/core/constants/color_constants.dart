@@ -119,10 +119,17 @@ class ColorConstants {
     Colors.redAccent,
   ];
 
+  // Heat map colors
+  static const List<Color> heatMapColor = [
+    Color(0xFFDDFFCF),
+    Color(0xFF93F990),
+    Color(0xFF21F34B),
+    Color(0xFF006813),
+  ];
+
   static const gradientBegin = Alignment.topLeft;
   static const gradientEnd = Alignment.bottomRight;
 
-  // Specific Colors / Shadows / Accents 
   static const bmiUnderweightColor = Color(0xFF6FCFED);
   static const bmiNormalColor = Color(0xFF4CAF82);
   static const bmiOverweightColor = Color(0xFFFF8C42);

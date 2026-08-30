@@ -3,7 +3,7 @@ import 'package:fit_me/features/auth/domain/entities/user_entities.dart';
 import 'package:fpdart/fpdart.dart';
 
 abstract class AuthRepository {
-  Future<Either<Failure, UserEntity?>> currentUser();
+  Future<Either<Failure, UserEntity?>> getCurrentUser();
 
   // Sign in with email and password.
   Future<Either<Failure,UserEntity>> login({

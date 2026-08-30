@@ -41,23 +41,7 @@ class ScheduleRepositoryImpl implements ScheduleRepository {
     }
   }
 
-  @override
-  Future<Either<Failure, List<WorkoutScheduleEntity>>> getSchedulesByDate({
-    required String userId,
-    required DateTime date,
-  }) async {
-    try {
-      final response = await remoteDataSource.getSchedulesByDate(
-        userId: userId,
-        date: date,
-      );
-      return Right(response.map((e) => e.toEntity()).toList());
-    } on ServerException catch (e) {
-      return Left(Failure(e.message));
-    } catch (e) {
-      return Left(Failure(e.toString()));
-    }
-  }
+
 
   @override
   Future<Either<Failure, List<WorkoutScheduleEntity>>> getSchedulesByMonth({

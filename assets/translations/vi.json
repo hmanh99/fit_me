@@ -239,5 +239,14 @@
   "avatar_deleted_success": "Đã xóa ảnh đại diện!",
   "change_avatar": "Đổi ảnh đại diện",
   "camera": "Máy ảnh",
-  "gallery": "Thư viện"
+  "gallery": "Thư viện",
+  "heatmap_overview_title": "Tổng quan hoạt động",
+  "heatmap_less": "Ít hơn",
+  "heatmap_more": "Nhiều hơn",
+  "heatmap_activities": "hoạt động",
+  "heatmap_no_activity": "Không có hoạt động",
+  "days": "ngày",
+  "30_days": "30 Ngày",
+  "60_days": "60 Ngày",
+  "90_days": "90 Ngày"
 }

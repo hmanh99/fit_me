@@ -239,5 +239,14 @@
   "avatar_deleted_success": "¡Foto de perfil eliminada con éxito!",
   "change_avatar": "Cambiar foto",
   "camera": "Cámara",
-  "gallery": "Galería"
+  "gallery": "Galería",
+  "heatmap_overview_title": "Resumen de Actividad",
+  "heatmap_less": "Menos",
+  "heatmap_more": "Más",
+  "heatmap_activities": "actividades",
+  "heatmap_no_activity": "Sin actividad",
+  "days": "días",
+  "30_days": "30 Días",
+  "60_days": "60 Días",
+  "90_days": "90 Días"
 }

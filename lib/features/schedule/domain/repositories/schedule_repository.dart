@@ -9,14 +9,13 @@ abstract class ScheduleRepository {
     required int month,
   });
 
-  Future<Either<Failure, List<WorkoutScheduleEntity>>> getSchedulesByDate({
-    required String userId,
-    required DateTime date,
+  Future<Either<Failure, void>> addSchedule({
+    required WorkoutScheduleEntity schedule,
   });
 
-  Future<Either<Failure, void>> addSchedule({required WorkoutScheduleEntity schedule});
-
-  Future<Either<Failure, void>> updateSchedule({required WorkoutScheduleEntity schedule});
+  Future<Either<Failure, void>> updateSchedule({
+    required WorkoutScheduleEntity schedule,
+  });
 
   Future<Either<Failure, void>> deleteSchedule({required int scheduleId});
 

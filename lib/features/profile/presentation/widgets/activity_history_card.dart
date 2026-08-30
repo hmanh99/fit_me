@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:fit_me/core/constants/color_constants.dart';
 import 'package:fit_me/features/profile/domain/entities/activity_history_entity.dart';
 
@@ -37,7 +36,7 @@ class ActivityHistoryCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: ColorConstants.black.withValues(alpha: 0.04),
+            color: ColorConstants.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),

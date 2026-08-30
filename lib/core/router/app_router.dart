@@ -1,4 +1,4 @@
-﻿import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:fit_me/core/di/injection_container.dart' as di;
 import 'package:fit_me/core/router/auth_redirect.dart';
@@ -23,6 +23,7 @@ import 'package:fit_me/features/onboard/presentation/onboard_screen2.dart';
 import 'package:fit_me/features/onboard/presentation/welcome_screen.dart';
 import 'package:fit_me/features/profile/data/datasource/activity_history_remote_datasource.dart';
 import 'package:fit_me/features/profile/data/repositories/activity_history_repository_impl.dart';
+import 'package:fit_me/features/profile/domain/usecases/get_activity_heatmap_use_case.dart';
 import 'package:fit_me/features/profile/domain/usecases/get_activity_histories_use_case.dart';
 import 'package:fit_me/features/profile/presentation/bloc/activity_history_bloc.dart';
 import 'package:fit_me/features/profile/presentation/screens/activity_history_screen.dart';
@@ -309,6 +310,9 @@ GoRouter createAppRouter(AuthBloc authBloc) {
                       return BlocProvider<ActivityHistoryBloc>(
                         create: (context) => ActivityHistoryBloc(
                           getActivityHistories: GetActivityHistoriesUseCase(
+                            repo,
+                          ),
+                          getActivityHeatmap: GetActivityHeatmapUseCase(
                             repo,
                           ),
                         ),

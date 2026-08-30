@@ -1,4 +1,4 @@
-﻿import 'package:fit_me/core/error/exceptions.dart';
+import 'package:fit_me/core/error/exceptions.dart';
 import 'package:fit_me/core/error/failure.dart';
 import 'package:fit_me/features/workout/data/datasource/workout_remote_data_source.dart';
 import 'package:fit_me/features/workout/data/models/set_session_entity.dart';
@@ -107,54 +107,6 @@ class WorkoutRepositoryImpl implements WorkoutRepository {
     try {
       return Right(
         await remoteDataSource.createWorkoutSession(
-          WorkoutSessionModel.fromEntity(session),
-        ),
-      );
-    } on ServerException catch (e) {
-      return Left(Failure(e.message));
-    } catch (e) {
-      return Left(Failure(e.toString()));
-    }
-  }
-
-  @override
-  Future<Either<Failure, List<WorkoutSessionEntity>>> getWorkoutSessions(
-    String userId,
-  ) async {
-    try {
-      final response = await remoteDataSource.getWorkoutSessions(userId);
-      return Right(response.map((e) => e.toEntity()).toList());
-    } on ServerException catch (e) {
-      return Left(Failure(e.message));
-    } catch (e) {
-      return Left(Failure(e.toString()));
-    }
-  }
-
-  @override
-  Future<Either<Failure, void>> updateSetSession(
-    SetSessionEntity setSession,
-  ) async {
-    try {
-      return Right(
-        await remoteDataSource.updateSetSession(
-          SetSessionModel.fromEntity(setSession),
-        ),
-      );
-    } on ServerException catch (e) {
-      return Left(Failure(e.message));
-    } catch (e) {
-      return Left(Failure(e.toString()));
-    }
-  }
-
-  @override
-  Future<Either<Failure, void>> updateWorkoutSession(
-    WorkoutSessionEntity session,
-  ) async {
-    try {
-      return Right(
-        await remoteDataSource.updateWorkoutSession(
           WorkoutSessionModel.fromEntity(session),
         ),
       );

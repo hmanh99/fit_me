@@ -4,7 +4,7 @@ import 'package:fit_me/features/settings/domain/entities/settings_entity.dart';
 import 'package:fit_me/features/settings/domain/repositories/settings_repository.dart';
 import 'package:fpdart/fpdart.dart';
 
-class GetSettingsUseCase implements UseCase<void, NoParams>{
+class GetSettingsUseCase implements UseCase<SettingsEntity, NoParams>{
   final SettingsRepository repository;
 
   const GetSettingsUseCase(this.repository);

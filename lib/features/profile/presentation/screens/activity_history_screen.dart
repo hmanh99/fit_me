@@ -6,6 +6,7 @@ import 'package:fit_me/core/services/auth_services.dart';
 import 'package:fit_me/features/profile/presentation/bloc/activity_history_bloc.dart';
 import 'package:fit_me/features/profile/presentation/bloc/activity_history_event.dart';
 import 'package:fit_me/features/profile/presentation/bloc/activity_history_state.dart';
+import 'package:fit_me/features/profile/presentation/widgets/activity_heatmap_card.dart';
 import 'package:fit_me/features/profile/presentation/widgets/activity_history_card.dart';
 import 'package:fit_me/features/profile/presentation/widgets/history_empty_state.dart';
 import 'package:fit_me/features/profile/presentation/widgets/profile_app_bar.dart';
@@ -22,7 +23,7 @@ class ActivityHistoryScreen extends StatefulWidget {
 
 class _ActivityHistoryScreenState extends State<ActivityHistoryScreen> {
   late final String _userId;
-  List items = [];
+
   @override
   void initState() {
     super.initState();
@@ -45,7 +46,7 @@ class _ActivityHistoryScreenState extends State<ActivityHistoryScreen> {
         builder: (context, state) {
           if (state is ActivityHistoryLoading ||
               state is ActivityHistoryInitial) {
-            return ProfileActivityHistoryScreenSkeletons();
+            return const ProfileActivityHistoryScreenSkeletons();
           }
 
           if (state is ActivityHistoryError) {
@@ -58,7 +59,7 @@ class _ActivityHistoryScreenState extends State<ActivityHistoryScreen> {
             );
           }
 
-          if (state is ActivityHistoryEmpty && items.isEmpty) {
+          if (state is ActivityHistoryEmpty) {
             return RefreshIndicator(
               onRefresh: () async {
                 context.read<ActivityHistoryBloc>().add(
@@ -67,15 +68,27 @@ class _ActivityHistoryScreenState extends State<ActivityHistoryScreen> {
               },
               child: SingleChildScrollView(
                 physics: const AlwaysScrollableScrollPhysics(),
-                child: SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.75,
-                  child: HistoryEmptyState(
-                    onRefresh: () {
-                      context.read<ActivityHistoryBloc>().add(
-                        FetchActivityHistory(userId: _userId),
-                      );
-                    },
-                  ),
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  children: [
+                    ActivityHeatmapCard(
+                      heatmapCounts: const {},
+                      selectedDays: 365,
+                      onRangeChanged: (days) {
+                        context.read<ActivityHistoryBloc>().add(
+                          FetchActivityHeatmap(userId: _userId, days: days),
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 32),
+                    HistoryEmptyState(
+                      onRefresh: () {
+                        context.read<ActivityHistoryBloc>().add(
+                          FetchActivityHistory(userId: _userId),
+                        );
+                      },
+                    ),
+                  ],
                 ),
               ),
             );
@@ -88,37 +101,59 @@ class _ActivityHistoryScreenState extends State<ActivityHistoryScreen> {
             return RefreshIndicator(
               onRefresh: () async {
                 context.read<ActivityHistoryBloc>().add(
-                  FetchActivityHistory(userId: _userId),
+                  FetchActivityHistory(
+                    userId: _userId,
+                    heatmapDays: state.heatmapDays,
+                  ),
                 );
               },
-              child: ListView.builder(
-                padding: const EdgeInsets.all(20),
-                itemCount: headers.length,
-                itemBuilder: (context, index) {
-                  final header = headers[index];
-                  items = grouped[header] ?? [];
+              child: Padding(
+                padding: EdgeInsetsGeometry.all(20),
+                child: ListView.builder(
+                  itemCount: headers.length + 1,
+                  itemBuilder: (context, index) {
+                    if (index == 0) {
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 20),
+                        child: ActivityHeatmapCard(
+                          heatmapCounts: state.heatmapCounts,
+                          selectedDays: state.heatmapDays,
+                          onRangeChanged: (days) {
+                            context.read<ActivityHistoryBloc>().add(
+                              FetchActivityHeatmap(userId: _userId, days: days),
+                            );
+                          },
+                        ),
+                      );
+                    }
 
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Date Group Header
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 4, left: 4),
-                        child: Text(
-                          header,
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: ColorConstants.textPrimaryColor,
+                    final headerIndex = index - 1;
+                    final header = headers[headerIndex];
+                    final items = grouped[header] ?? [];
+
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Date Group Header
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 8, left: 4),
+                          child: Text(
+                            header,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: ColorConstants.textPrimaryColor,
+                            ),
                           ),
                         ),
-                      ),
-                      ...items.map(
-                            (item) => ActivityHistoryCard(history: item),
-                      ),
-                    ],
-                  );
-                },
+                        ...items.map(
+                          (item) => ActivityHistoryCard(history: item),
+                        ),
+                        const SizedBox(height: 12),
+                      ],
+                    );
+                  },
+                ),
               ),
             );
           }
