@@ -44,6 +44,7 @@ import 'package:fit_me/features/workout/presentation/screens/workout_detail_scre
 import 'package:fit_me/features/workout/presentation/screens/workout_screen.dart';
 import 'package:fit_me/features/workout/presentation/screens/workout_session_screen.dart';
 import 'package:fit_me/shared/widgets/main_shell.dart';
+import 'package:fit_me/shared/widgets/invalid_route_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 GoRouter createAppRouter(AuthBloc authBloc) {
@@ -135,7 +136,10 @@ GoRouter createAppRouter(AuthBloc authBloc) {
                         path: 'edit-plan',
                         name: AppRouteNames.appEditPlan,
                         builder: (context, state) {
-                          final plan = state.extra as WorkoutPlanEntity?;
+                          final plan = state.extra;
+                          if (plan is! WorkoutPlanEntity) {
+                            return const InvalidRouteScreen();
+                          }
                           return BlocProvider<WorkoutBloc>(
                             create: (context) => di.serviceLocator<WorkoutBloc>(),
                             child: CreateEditPlanScreen(initialPlan: plan),
@@ -146,13 +150,18 @@ GoRouter createAppRouter(AuthBloc authBloc) {
                         path: ':workoutId',
                         name: AppRouteNames.appWorkoutDetail,
                         builder: (context, state) {
-                          final workoutId = state.pathParameters['workoutId']!;
+                          final workoutId = int.tryParse(
+                            state.pathParameters['workoutId'] ?? '',
+                          );
+                          if (workoutId == null) {
+                            return const InvalidRouteScreen();
+                          }
                           final String? planName =
                               state.uri.queryParameters['planName'];
                           return BlocProvider<WorkoutBloc>(
                             create: (context) => di.serviceLocator<WorkoutBloc>(),
                             child: WorkoutDetailScreen(
-                              workoutId: int.parse(workoutId),
+                              workoutId: workoutId,
                               planName: planName ?? 'Workout Plan',
                             ),
                           );
@@ -162,8 +171,11 @@ GoRouter createAppRouter(AuthBloc authBloc) {
                             path: 'session',
                             name: AppRouteNames.appWorkoutSession,
                             builder: (context, state) {
-                              final workoutPlan =
-                                  state.extra as WorkoutPlanEntity?;
+                              final workoutPlan = state.extra;
+                              if (workoutPlan is! WorkoutPlanEntity ||
+                                  workoutPlan.planExercises.isEmpty) {
+                                return const InvalidRouteScreen();
+                              }
                               return BlocProvider<WorkoutSessionBloc>(
                                 create: (context) {
                                   final repo = di
@@ -175,11 +187,7 @@ GoRouter createAppRouter(AuthBloc authBloc) {
                                       repo,
                                     ),
                                   );
-                                  if (workoutPlan != null) {
-                                    bloc.add(
-                                      StartWorkoutPlan(plan: workoutPlan),
-                                    );
-                                  }
+                                  bloc.add(StartWorkoutPlan(plan: workoutPlan));
                                   return bloc;
                                 },
                                 child: const WorkoutSessionScreen(),
@@ -190,8 +198,12 @@ GoRouter createAppRouter(AuthBloc authBloc) {
                             path: 'exercises/:exerciseId',
                             name: AppRouteNames.appWorkoutExerciseDetail,
                             builder: (context, state) {
-                              final exerciseId =
-                                  state.pathParameters['exerciseId']!;
+                              final exerciseId = int.tryParse(
+                                state.pathParameters['exerciseId'] ?? '',
+                              );
+                              if (exerciseId == null) {
+                                return const InvalidRouteScreen();
+                              }
                               return BlocProvider<ExerciseBloc>(
                                 create: (context) {
                                   final repo = di
@@ -204,7 +216,7 @@ GoRouter createAppRouter(AuthBloc authBloc) {
                                   );
                                 },
                                 child: ExerciseDetailScreen(
-                                  exerciseId: int.parse(exerciseId),
+                                  exerciseId: exerciseId,
                                 ),
                               );
                             },
@@ -235,10 +247,14 @@ GoRouter createAppRouter(AuthBloc authBloc) {
                         path: ':exerciseId',
                         name: AppRouteNames.appExerciseDetail,
                         builder: (context, state) {
-                          final exerciseId =
-                              state.pathParameters['exerciseId']!;
+                          final exerciseId = int.tryParse(
+                            state.pathParameters['exerciseId'] ?? '',
+                          );
+                          if (exerciseId == null) {
+                            return const InvalidRouteScreen();
+                          }
                           return ExerciseDetailScreen(
-                            exerciseId: int.parse(exerciseId),
+                            exerciseId: exerciseId,
                           );
                         },
                       ),
@@ -273,8 +289,13 @@ GoRouter createAppRouter(AuthBloc authBloc) {
                     path: ':mealId',
                     name: AppRouteNames.appMealDetail,
                     builder: (context, state) {
-                      final mealId = state.pathParameters['mealId']!;
-                      return MealDetailScreen(mealId: int.parse(mealId));
+                      final mealId = int.tryParse(
+                        state.pathParameters['mealId'] ?? '',
+                      );
+                      if (mealId == null) {
+                        return const InvalidRouteScreen();
+                      }
+                      return MealDetailScreen(mealId: mealId);
                     },
                   ),
                 ],

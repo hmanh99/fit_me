@@ -102,15 +102,19 @@ class ScheduleDayItem extends StatelessWidget {
                                       .withValues(alpha: 0.6),
                                 ),
                                 const SizedBox(width: 4),
-                                Text(
-                                  DateFormat(
-                                    'MMMM dd, yyyy',
-                                  ).format(schedule.scheduleDate),
-                                  style: theme.textTheme.bodySmall?.copyWith(
-                                    color: theme.colorScheme.onSurfaceVariant
-                                        .withValues(alpha: 0.7),
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w500,
+                                Flexible(
+                                  child: Text(
+                                    DateFormat(
+                                      'MMMM dd, yyyy',
+                                    ).format(schedule.scheduleDate),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: theme.textTheme.bodySmall?.copyWith(
+                                      color: theme.colorScheme.onSurfaceVariant
+                                          .withValues(alpha: 0.7),
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w500,
+                                    ),
                                   ),
                                 ),
                               ],

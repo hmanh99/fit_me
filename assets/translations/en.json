@@ -230,7 +230,7 @@
   "my_custom_plan_badge": "Custom",
   "delete_plan_confirm_title": "Delete Plan",
   "delete_plan_confirm_msg": "Are you sure you want to delete \"{name}\"? This action cannot be undone.",
-  "exercise_label": "Exercise #{id}",
+  "exercise_label": "Exercise {id}",
   "retry": "Retry",
   "take_photo": "Take Photo",
   "choose_from_gallery": "Choose from Gallery",
@@ -246,7 +246,6 @@
   "heatmap_activities": "activities",
   "heatmap_no_activity": "No activity",
   "days": "days",
-  "30_days": "30 Days",
-  "60_days": "60 Days",
-  "90_days": "90 Days"
+  "not_authenticated" : "Not authenticated",
+  "workout_session" : "Workout Session"
 }

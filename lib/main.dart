@@ -96,9 +96,14 @@ class _MyAppState extends State<MyApp> {
                   routerConfig: _router,
                   builder: (context, child) {
                     if (authState is AuthUnknownState) {
-                      return const CircularProgressIndicator();
+                      return const Scaffold(
+                        body: Center(child: CircularProgressIndicator()),
+                      );
                     }
-                    return child ?? const CircularProgressIndicator();
+                    return child ??
+                        const Scaffold(
+                          body: Center(child: CircularProgressIndicator()),
+                        );
                   },
                 );
               },

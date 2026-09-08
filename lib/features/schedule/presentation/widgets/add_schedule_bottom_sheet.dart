@@ -254,13 +254,18 @@ class _AddScheduleBottomSheetState extends State<AddScheduleBottomSheet> {
                       color: theme.colorScheme.primary,
                     ),
                     const SizedBox(width: 12),
-                    Text(
-                      DateFormat('EEEE, MMMM dd, yyyy').format(_selectedDate),
-                      style: theme.textTheme.bodyLarge?.copyWith(
-                        fontWeight: FontWeight.w600,
+                    Expanded(
+                      child: Text(
+                        DateFormat(
+                          'EEEE, MMMM dd, yyyy',
+                        ).format(_selectedDate),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: theme.textTheme.bodyLarge?.copyWith(
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ),
-                    const Spacer(),
                     Icon(
                       Icons.arrow_drop_down_rounded,
                       color: theme.colorScheme.onSurfaceVariant,
@@ -418,6 +423,7 @@ class _AddScheduleBottomSheetState extends State<AddScheduleBottomSheet> {
         );
       },
     );
+    if (!mounted) return;
     if (picked != null) {
       setState(() => _selectedDate = picked);
     }

@@ -230,7 +230,7 @@
   "my_custom_plan_badge": "Personalizado",
   "delete_plan_confirm_title": "Eliminar plan",
   "delete_plan_confirm_msg": "¿Estás seguro de eliminar \"{name}\"? Esta acción no se puede deshacer.",
-  "exercise_label": "Ejercicio #{id}",
+  "exercise_label": "Ejercicio {id}",
   "retry": "Reintentar",
   "take_photo": "Tomar foto",
   "choose_from_gallery": "Elegir de la galería",
@@ -246,7 +246,6 @@
   "heatmap_activities": "actividades",
   "heatmap_no_activity": "Sin actividad",
   "days": "días",
-  "30_days": "30 Días",
-  "60_days": "60 Días",
-  "90_days": "90 Días"
+  "not_authenticated" : "Not authenticated",
+  "workout_session" : "Workout Session"
 }

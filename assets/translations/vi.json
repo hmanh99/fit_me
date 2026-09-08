@@ -230,7 +230,7 @@
   "my_custom_plan_badge": "Tự tạo",
   "delete_plan_confirm_title": "Xóa kế hoạch",
   "delete_plan_confirm_msg": "Bạn có chắc muốn xóa \"{name}\"? Hành động này không thể hoàn tác.",
-  "exercise_label": "Bài tập #{id}",
+  "exercise_label": "Bài tập {id}",
   "retry": "Thử lại",
   "take_photo": "Chụp ảnh",
   "choose_from_gallery": "Chọn từ thư viện",
@@ -246,7 +246,6 @@
   "heatmap_activities": "hoạt động",
   "heatmap_no_activity": "Không có hoạt động",
   "days": "ngày",
-  "30_days": "30 Ngày",
-  "60_days": "60 Ngày",
-  "90_days": "90 Ngày"
+  "not_authenticated" : "Chưa xác thực",
+  "workout_session" : "Buổi tập"
 }

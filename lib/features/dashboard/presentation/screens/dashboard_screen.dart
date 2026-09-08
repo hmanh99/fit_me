@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,8 +35,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   Future<void> _onRefresh() async {
-    _fetchExercises();
-    context.read<DashboardBloc>().add(DashboardExercisesFetched());
+    final bloc = context.read<DashboardBloc>();
+    final completed = bloc.stream.firstWhere(
+      (state) =>
+          state is DashboardExercisesFetchedSuccess ||
+          state is DashboardEmpty ||
+          state is DashboardError,
+    );
+    bloc.add(const DashboardExercisesFetched());
+    await completed;
   }
 
   @override
@@ -155,7 +164,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       height: 300,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        itemCount: (exercises.length % 10).clamp(2, 5),
+                        itemCount: math.min(exercises.length, 5),
                         itemBuilder: (context, index) {
                           final exercise = exercises[index];
                           return RecommendationCard(
