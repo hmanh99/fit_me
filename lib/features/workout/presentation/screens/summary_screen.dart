@@ -118,7 +118,7 @@ class SummaryScreen extends StatelessWidget {
                     label: 'sets_completed'.tr(),
                     value: "sets_completed_value".tr(
                       namedArgs: {
-                        "completed": state.completedSets.length.toString(),
+                        "completed": state.totalSetsCompleted.toString(),
                         "total": state.totalSetsInPlan.toString(),
                       },
                     ),
@@ -142,11 +142,13 @@ class SummaryScreen extends StatelessWidget {
                 width: double.infinity,
                 height: 54,
                 child: ElevatedButton(
-                  onPressed: () {
-                    context.read<WorkoutSessionBloc>().add(
-                      SaveAndFinishWorkout(),
-                    );
-                  },
+                  onPressed: state.isSaving
+                      ? null
+                      : () {
+                          context.read<WorkoutSessionBloc>().add(
+                            const SaveAndFinishWorkout(),
+                          );
+                        },
                   style: ElevatedButton.styleFrom(
                     elevation: 4,
                     shadowColor: ColorConstants.primaryColor.withValues(
@@ -164,14 +166,23 @@ class SummaryScreen extends StatelessWidget {
                     ),
                     child: Container(
                       alignment: Alignment.center,
-                      child: Text(
-                        'finish_and_save_button'.tr(),
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: ColorConstants.white,
-                        ),
-                      ),
+                      child: state.isSaving
+                          ? const SizedBox(
+                              width: 24,
+                              height: 24,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 2.5,
+                                color: ColorConstants.white,
+                              ),
+                            )
+                          : Text(
+                              'finish_and_save_button'.tr(),
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: ColorConstants.white,
+                              ),
+                            ),
                     ),
                   ),
                 ),

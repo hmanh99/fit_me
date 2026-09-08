@@ -83,6 +83,7 @@ class _CreateEditPlanScreenState extends State<CreateEditPlanScreen> {
       alreadySelectedIds: alreadySelected,
     );
 
+    if (!mounted) return;
     if (selected != null && selected.isNotEmpty) {
       setState(() {
         for (final ex in selected) {

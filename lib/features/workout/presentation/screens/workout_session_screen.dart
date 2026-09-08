@@ -64,6 +64,13 @@ class _WorkoutSessionScreenState extends State<WorkoutSessionScreen> {
             ),
           );
           context.goNamed(AppRouteNames.appWorkouts);
+        } else if (state.saveErrorMessage != null) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(state.saveErrorMessage!),
+              backgroundColor: ColorConstants.snackBarFailedColor,
+            ),
+          );
         }
       },
       builder: (context, state) {

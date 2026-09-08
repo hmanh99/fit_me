@@ -38,6 +38,8 @@ class WorkoutSessionState extends Equatable {
   final int totalSetsCompleted;
   final int totalRepsCompleted;
   final List<CompletedSetData> completedSets;
+  final bool isSaving;
+  final String? saveErrorMessage;
 
   const WorkoutSessionState({
     this.status = WorkoutStatus.initial,
@@ -50,6 +52,8 @@ class WorkoutSessionState extends Equatable {
     this.totalSetsCompleted = 0,
     this.totalRepsCompleted = 0,
     this.completedSets = const [],
+    this.isSaving = false,
+    this.saveErrorMessage,
   });
 
   // ── derived getters ──
@@ -113,6 +117,9 @@ class WorkoutSessionState extends Equatable {
     int? totalSetsCompleted,
     int? totalRepsCompleted,
     List<CompletedSetData>? completedSets,
+    bool? isSaving,
+    String? saveErrorMessage,
+    bool clearSaveError = false,
   }) {
     return WorkoutSessionState(
       status: status ?? this.status,
@@ -127,6 +134,10 @@ class WorkoutSessionState extends Equatable {
       totalSetsCompleted: totalSetsCompleted ?? this.totalSetsCompleted,
       totalRepsCompleted: totalRepsCompleted ?? this.totalRepsCompleted,
       completedSets: completedSets ?? this.completedSets,
+      isSaving: isSaving ?? this.isSaving,
+      saveErrorMessage: clearSaveError
+          ? null
+          : (saveErrorMessage ?? this.saveErrorMessage),
     );
   }
 
@@ -142,6 +153,8 @@ class WorkoutSessionState extends Equatable {
         totalSetsCompleted,
         totalRepsCompleted,
         completedSets,
+        isSaving,
+        saveErrorMessage,
       ];
 }
 

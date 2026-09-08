@@ -155,6 +155,7 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
                           AppRouteNames.appEditPlan,
                           extra: loadedPlan,
                         );
+                        if (!mounted) return;
                         _fetchDetails();
                       },
                     ),
@@ -323,6 +324,7 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
     );
 
     return Container(
+      width: double.infinity,
       margin: const EdgeInsets.all(16),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -361,7 +363,9 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
           ],
           const SizedBox(height: 16),
           // Statistics row
-          Row(
+          Wrap(
+            spacing: 12,
+            runSpacing: 8,
             children: [
               _buildStatChip(
                 icon: Icons.fitness_center_rounded,
@@ -370,7 +374,6 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
                 ),
                 color: ColorConstants.iconColor,
               ),
-              const SizedBox(width: 12),
               _buildStatChip(
                 icon: Icons.repeat_rounded,
                 label: 'total_sets'.tr(

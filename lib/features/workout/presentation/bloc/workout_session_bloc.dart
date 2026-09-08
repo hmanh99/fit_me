@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:fit_me/core/error/failure.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:fit_me/core/services/auth_services.dart';
 import 'package:fit_me/features/workout/domain/entities/set_session_entity.dart';
 import 'package:fit_me/features/workout/domain/entities/workout_plan_entity.dart';
@@ -115,12 +115,17 @@ class WorkoutSessionBloc
     CompleteCurrentSet event,
     Emitter<WorkoutSessionState> emit,
   ) {
+    if (state.status != WorkoutStatus.running) return;
     final currentEx = state.currentPlanExercise;
     if (currentEx == null) return;
 
     final newCompletedSet = CompletedSetData(
       exerciseId: currentEx.exerciseId,
-      exerciseName: 'Exercise ${state.currentExerciseIndex + 1}',
+      exerciseName: currentEx.exerciseName.isNotEmpty
+          ? currentEx.exerciseName
+          : 'exercise_label'.tr(
+              namedArgs: {"id": "$state.currentExerciseIndex + 1"},
+            ),
       setNumber: state.currentSetNumber,
       repsCompleted: event.repsCompleted,
       weightUsed: event.weightUsed,
@@ -166,6 +171,7 @@ class WorkoutSessionBloc
     SkipRestTimer event,
     Emitter<WorkoutSessionState> emit,
   ) {
+    if (state.status != WorkoutStatus.resting) return;
     _restTimer?.cancel();
     _restTimer = null;
 
@@ -186,6 +192,7 @@ class WorkoutSessionBloc
     if (state.status != WorkoutStatus.resting) return;
     final current = state.restSecondsRemaining ?? 0;
     final newTime = current + event.seconds;
+    emit(state.copyWith(restSecondsRemaining: newTime));
     _startRestTimer(newTime);
   }
 
@@ -218,6 +225,8 @@ class WorkoutSessionBloc
     if (isLastSet && isLastExercise) {
       _restTimer?.cancel();
       _restTimer = null;
+      _elapsedTimer?.cancel();
+      _elapsedTimer = null;
       emit(
         state.copyWith(
           status: WorkoutStatus.summary,
@@ -259,6 +268,7 @@ class WorkoutSessionBloc
     SkipCurrentExercise event,
     Emitter<WorkoutSessionState> emit,
   ) {
+    if (state.status != WorkoutStatus.running) return;
     _restTimer?.cancel();
     _restTimer = null;
 
@@ -271,7 +281,11 @@ class WorkoutSessionBloc
         updatedCompletedSets.add(
           CompletedSetData(
             exerciseId: currentEx.exerciseId,
-            exerciseName: 'Exercise ${state.currentExerciseIndex + 1}',
+            exerciseName: currentEx.exerciseName.isNotEmpty
+                ? currentEx.exerciseName
+                : 'exercise_label'.tr(
+                    namedArgs: {"id": "$state.currentExerciseIndex + 1"},
+                  ),
             setNumber: s,
             repsCompleted: 0,
             weightUsed: 0,
@@ -282,6 +296,8 @@ class WorkoutSessionBloc
     }
 
     if (state.isLastExercise) {
+      _elapsedTimer?.cancel();
+      _elapsedTimer = null;
       emit(
         state.copyWith(
           status: WorkoutStatus.summary,
@@ -332,6 +348,7 @@ class WorkoutSessionBloc
     FinishWorkoutEarly event,
     Emitter<WorkoutSessionState> emit,
   ) {
+    if (state.status != WorkoutStatus.running) return;
     _cancelTimers();
     emit(state.copyWith(status: WorkoutStatus.summary, clearRestTimer: true));
   }
@@ -340,29 +357,50 @@ class WorkoutSessionBloc
     SaveAndFinishWorkout event,
     Emitter<WorkoutSessionState> emit,
   ) async {
-    final authService = AuthServices();
+    if (state.status != WorkoutStatus.summary || state.isSaving) return;
+
+    emit(state.copyWith(isSaving: true, clearSaveError: true));
+
+    final userId = state.plan.userId ?? AuthServices().user?.id;
+    if (userId == null) {
+      emit(
+        state.copyWith(
+          isSaving: false,
+          saveErrorMessage: 'not_authenticated'.tr(),
+        ),
+      );
+      return;
+    }
+
     try {
       final now = DateTime.now();
       final startTime = now.subtract(Duration(seconds: state.elapsedSeconds));
 
       final session = WorkoutSessionEntity(
-        userId: state.plan.userId ?? authService.user!.id,
+        userId: userId,
         planId: state.plan.planId,
         planName: state.plan.planName.isNotEmpty
             ? state.plan.planName
-            : 'Workout Session',
+            : "workout_session".tr(),
         dateTracked: now,
         startedAt: startTime,
         completedAt: now,
       );
 
-      late final int createdSessionId;
       final result = await _createWorkoutSession(
         CreateWorkoutSessionParams(workoutSession: session),
       );
-      result.fold((failure) {
-        Failure(failure.message);
-      }, (sessionId) => createdSessionId = sessionId);
+      String? sessionSaveError;
+      final createdSessionId = result.fold<int?>((failure) {
+        sessionSaveError = failure.message;
+        return null;
+      }, (sessionId) => sessionId);
+      if (createdSessionId == null) {
+        emit(
+          state.copyWith(isSaving: false, saveErrorMessage: sessionSaveError),
+        );
+        return;
+      }
 
       // Save session sets
       for (final set in state.completedSets) {
@@ -377,7 +415,20 @@ class WorkoutSessionBloc
             weight: set.weightUsed,
             isCompleted: true,
           );
-          await _createSetSession(SetSessionParams(setSession: setSession));
+          final setResult = await _createSetSession(
+            SetSessionParams(setSession: setSession),
+          );
+          String? setSaveError;
+          setResult.fold<void>(
+            (failure) => setSaveError = failure.message,
+            (_) {},
+          );
+          if (setSaveError != null) {
+            emit(
+              state.copyWith(isSaving: false, saveErrorMessage: setSaveError),
+            );
+            return;
+          }
         }
       }
 
@@ -386,11 +437,16 @@ class WorkoutSessionBloc
         state.copyWith(
           status: WorkoutStatus.finished,
           sessionId: createdSessionId,
+          isSaving: false,
         ),
       );
     } catch (e) {
-      _cancelTimers();
-      emit(state.copyWith(status: WorkoutStatus.finished));
+      emit(
+        state.copyWith(
+          isSaving: false,
+          saveErrorMessage: 'Unable to save workout. Please try again.',
+        ),
+      );
     }
   }
 
