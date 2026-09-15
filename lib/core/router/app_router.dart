@@ -80,14 +80,22 @@ GoRouter createAppRouter(AuthBloc authBloc) {
         path: AppRoutePaths.login,
         name: AppRouteNames.login,
         builder: (context, state) {
-          return LoginScreen();
+          return LoginScreen(
+            returnTo: resolveAuthReturnLocation(
+              state.uri.queryParameters['from'],
+            ),
+          );
         },
       ),
       GoRoute(
         path: AppRoutePaths.signUp,
         name: AppRouteNames.signUp,
         builder: (context, state) {
-          return SignUpScreen();
+          return SignUpScreen(
+            returnTo: resolveAuthReturnLocation(
+              state.uri.queryParameters['from'],
+            ),
+          );
         },
       ),
       GoRoute(

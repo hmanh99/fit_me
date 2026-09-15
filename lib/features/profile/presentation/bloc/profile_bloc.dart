@@ -109,7 +109,14 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
           hasHeightChanged ||
           hasWeightChanged ||
           hasAvatarChanged) {
-        await _updateProfile(UpdateProfileParams(profile: updated));
+        final result = await _updateProfile(
+          UpdateProfileParams(profile: updated),
+        );
+        result.fold((failure) {
+          emit(ProfileError(message: failure.message));
+          emit(ProfileLoaded(profile: current));
+        }, (_) => emit(ProfileLoaded(profile: updated)));
+        return;
       }
       emit(ProfileLoaded(profile: updated));
     } catch (e) {
@@ -192,9 +199,14 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   ) async {
     emit(ProfileLoading());
     try {
-      await _logoutProfile(NoParams());
-      emit(const ProfileLogoutSuccess());
-      emit(ProfileInitial());
+      final result = await _logoutProfile(NoParams());
+      result.fold(
+        (failure) => emit(ProfileLogoutFailure(message: failure.message)),
+        (_) {
+          emit(const ProfileLogoutSuccess());
+          emit(ProfileInitial());
+        },
+      );
     } catch (e) {
       emit(ProfileLogoutFailure(message: e.toString()));
     }

@@ -3,6 +3,22 @@ import 'package:fit_me/features/auth/presentation/bloc/auth_state.dart';
 
 /// Guard / redirect base on [AuthState] and current [URL].
 
+String resolveAuthReturnLocation(String? rawLocation) {
+  if (rawLocation == null || rawLocation.isEmpty) {
+    return AppRoutePaths.appHome;
+  }
+
+  final uri = Uri.tryParse(rawLocation);
+  if (uri == null ||
+      uri.hasScheme ||
+      uri.hasAuthority ||
+      !AppRoutePaths.isAppShellPath(uri.path)) {
+    return AppRoutePaths.appHome;
+  }
+
+  return uri.toString();
+}
+
 String? resolveAuthRedirect({
   required AuthState authState,
   required String location,
@@ -27,17 +43,22 @@ String? resolveAuthRedirect({
   // Un_auth -> sign in
   if (!authenticated) {
     if (AppRoutePaths.isAppShellPath(path)) {
+      /// -> auth/[location]
       return Uri(
         path: AppRoutePaths.login,
         queryParameters: {'from': location},
-        /// -> auth/[location]
       ).toString();
     }
     return null;
   }
 
-  // auth -> dashboard.
-  if (authenticated && (isWelcome || isOnboarding || isLoggingIn)) {
+  // Preserve a protected deep link after authentication.
+  if (authenticated && isLoggingIn) {
+    return resolveAuthReturnLocation(uri.queryParameters['from']);
+  }
+
+  // Authenticated users do not need onboarding.
+  if (authenticated && (isWelcome || isOnboarding)) {
     return AppRoutePaths.appHome;
   }
 

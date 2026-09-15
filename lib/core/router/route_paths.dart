@@ -38,16 +38,19 @@ abstract final class AppRoutePaths {
 
   static bool isAuthPath(String location) {
     final path = Uri.parse(location).path;
-    return path.startsWith(auth);
+    return _isPathWithin(path, auth);
   }
 
   static bool isOnboardingPath(String location) {
     final path = Uri.parse(location).path;
-    return path.startsWith(onboarding);
+    return _isPathWithin(path, onboarding);
   }
 
   static bool isAppShellPath(String location) {
     final path = Uri.parse(location).path;
-    return path.startsWith(app);
+    return _isPathWithin(path, app);
   }
+
+  static bool _isPathWithin(String path, String root) =>
+      path == root || path.startsWith('$root/');
 }

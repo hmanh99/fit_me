@@ -56,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is AuthLoginState) {
-          context.go(AppRoutePaths.appHome);
+          context.go(widget.returnTo);
         }
         if (state is AuthErrorState) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -229,7 +229,15 @@ class _LoginScreenState extends State<LoginScreen> {
                   GestureDetector(
                     onTap: isLoading
                         ? null
-                        : () => context.go(AppRoutePaths.signUp),
+                        : () => context.go(
+                            Uri(
+                              path: AppRoutePaths.signUp,
+                              queryParameters:
+                                  widget.returnTo == AppRoutePaths.appHome
+                                  ? null
+                                  : {'from': widget.returnTo},
+                            ).toString(),
+                          ),
                     child: RichText(
                       text: TextSpan(
                         style: const TextStyle(

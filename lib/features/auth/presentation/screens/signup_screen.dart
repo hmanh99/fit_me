@@ -11,7 +11,7 @@ import 'package:fit_me/features/auth/presentation/bloc/auth_state.dart';
 class SignUpScreen extends StatefulWidget {
   final String returnTo;
 
-  const SignUpScreen({super.key, this.returnTo = "app/home"});
+  const SignUpScreen({super.key, this.returnTo = AppRoutePaths.appHome});
 
   @override
   State<SignUpScreen> createState() => _SignUpScreenState();
@@ -50,7 +50,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is AuthSignUpState) {
-          context.go(AppRoutePaths.appHome);
+          context.go(widget.returnTo);
 
           _username.clear();
           _email.clear();
@@ -305,7 +305,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   GestureDetector(
                     onTap: isLoading
                         ? null
-                        : () => context.go(AppRoutePaths.login),
+                        : () => context.go(
+                            Uri(
+                              path: AppRoutePaths.login,
+                              queryParameters:
+                                  widget.returnTo == AppRoutePaths.appHome
+                                  ? null
+                                  : {'from': widget.returnTo},
+                            ).toString(),
+                          ),
                     child: RichText(
                       text: TextSpan(
                         style: const TextStyle(

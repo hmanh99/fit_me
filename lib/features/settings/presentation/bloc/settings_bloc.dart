@@ -1,4 +1,3 @@
-import 'package:fit_me/core/error/failure.dart';
 import 'package:fit_me/core/usecase/usecase.dart';
 import 'package:fit_me/features/settings/domain/usecases/get_settings_use_case.dart';
 import 'package:fit_me/features/settings/domain/usecases/save_language_code_use_case.dart';
@@ -28,7 +27,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     emit(state.copyWith(isLoading: true));
     final result = await _getSettings(NoParams());
     result.fold(
-      (failure) => Failure(failure.message),
+      (_) => emit(state.copyWith(isLoading: false)),
       (settings) => emit(state.copyWith(settings: settings, isLoading: false)),
     );
   }
@@ -37,10 +36,17 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     SettingsLanguageChanged event,
     Emitter<SettingsState> emit,
   ) async {
+    final previousSettings = state.settings;
     final updatedSettings = state.settings.copyWith(
       languageCode: event.languageCode,
     );
     emit(state.copyWith(settings: updatedSettings));
-    await _saveLanguageCode(LanguageCodeParams(code: event.languageCode));
+    final result = await _saveLanguageCode(
+      LanguageCodeParams(code: event.languageCode),
+    );
+    result.fold(
+      (_) => emit(state.copyWith(settings: previousSettings)),
+      (_) {},
+    );
   }
 }
